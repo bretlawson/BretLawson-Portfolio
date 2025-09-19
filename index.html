@@ -136,7 +136,130 @@
                 </div>
             </div>
         </section>
+            !-- ADD THIS SECTION TO YOUR index.html AFTER THE "Featured Analytics Projects" SECTION -->
 
+        <section class="section">
+            <h2>Sample Analysis</h2>
+            <p style="margin-bottom: 25px; color: #555; font-size: 1.1em; text-align: center;">Interactive deep-dive visualizations showcasing advanced analytical methodologies</p>
+            
+            <div class="analysis-grid">
+                <div class="analysis-card" onclick="openModal('payment-analysis')">
+                    <div class="analysis-thumbnail">
+                        <img src="thumbnails/payment-analysis-thumb.png" alt="Payment Method Disruption Analysis" loading="lazy">
+                        <div class="thumbnail-overlay">
+                            <div class="view-analysis">View Analysis</div>
+                        </div>
+                    </div>
+                    <div class="analysis-content">
+                        <h3>Payment Method Launch Impact</h3>
+                        <div class="analysis-meta">Causal Impact Analysis | BSTS Methodology | Market Share Analysis</div>
+                        <p class="scenario"><strong>Scenario:</strong> Analyzed the impact of launching a new payment option to determine incremental transaction growth vs. cannibalization across existing payment methods.</p>
+                        <p class="outcome"><strong>Key Finding:</strong> 99% cannibalization with minimal incrementality (-0.07%), revealing market share redistribution rather than genuine growth.</p>
+                        <div class="analysis-tags">
+                            <span class="tag">Causal Impact</span>
+                            <span class="tag">Python/R</span>
+                            <span class="tag">BSTS</span>
+                            <span class="tag">Data Viz</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Additional analysis cards can be added here -->
+                <div class="analysis-card coming-soon">
+                    <div class="analysis-thumbnail">
+                        <div class="coming-soon-content">
+                            <div class="coming-soon-icon">📊</div>
+                            <div class="coming-soon-text">Coming Soon</div>
+                        </div>
+                    </div>
+                    <div class="analysis-content">
+                        <h3>Customer Journey Attribution</h3>
+                        <div class="analysis-meta">Multi-Touch Attribution | Journey Analytics | ROI Optimization</div>
+                        <p class="scenario"><strong>Scenario:</strong> Advanced attribution modeling across omnichannel customer touchpoints to optimize marketing spend and improve ROAS.</p>
+                        <p class="outcome"><strong>Expected Outcome:</strong> Comprehensive attribution insights driving strategic budget reallocation and campaign optimization.</p>
+                    </div>
+                </div>
+                
+                <div class="analysis-card coming-soon">
+                    <div class="analysis-thumbnail">
+                        <div class="coming-soon-content">
+                            <div class="coming-soon-icon">🎯</div>
+                            <div class="coming-soon-text">Coming Soon</div>
+                        </div>
+                    </div>
+                    <div class="analysis-content">
+                        <h3>Revenue Forecasting Model</h3>
+                        <div class="analysis-meta">Predictive Analytics | Time Series | Machine Learning</div>
+                        <p class="scenario"><strong>Scenario:</strong> Enterprise-scale revenue forecasting system incorporating seasonality, promotional impacts, and market trends for accurate annual predictions.</p>
+                        <p class="outcome"><strong>Expected Outcome:</strong> Precise KPI forecasts enabling real-time strategic adjustments and optimal resource allocation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal Structure - ADD BEFORE CLOSING </body> TAG -->
+        <div id="analysisModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Analysis Visualization</h3>
+                    <span class="close" onclick="closeModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div id="modalAnalysis"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript - ADD BEFORE CLOSING </body> TAG -->
+        <script>
+        // Modal functionality
+        function openModal(analysisType) {
+            const modal = document.getElementById('analysisModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalAnalysis = document.getElementById('modalAnalysis');
+            
+            // Set content based on analysis type
+            if (analysisType === 'payment-analysis') {
+                modalTitle.textContent = 'Payment Method Launch Impact Analysis';
+                
+                // Create iframe to load the interactive visualization
+                modalAnalysis.innerHTML = `
+                    <div class="analysis-viewer">
+                        <iframe src="analysis/payment-disruption-analysis.html" 
+                                width="100%" 
+                                height="800px" 
+                                frameborder="0"
+                                style="border-radius: 10px;">
+                        </iframe>
+                    </div>
+                `;
+            }
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('analysisModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('analysisModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+        </script>
         <section class="section">
             <h2>Featured Analytics Projects</h2>
             
@@ -209,6 +332,8 @@
             </div>
         </section>
 
+
+        
         <section class="section">
             <h2>Professional Experience</h2>
             
