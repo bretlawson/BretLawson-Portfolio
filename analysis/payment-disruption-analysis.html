@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Method Launch Impact Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #7c3aed 50%, #1e293b 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, rgba(147, 51, 234, 0.2) 50%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            z-index: -1;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #06b6d4, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #d1d5db;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #06b6d4, #a855f7, #ec4899);
+            border-radius: 24px 24px 0 0;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .chart-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 5px;
+        }
+
+        .chart-subtitle {
+            font-size: 1rem;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(251, 146, 60, 0.2), rgba(239, 68, 68, 0.2));
+            border: 1px solid rgba(251, 146, 60, 0.4);
+            border-radius: 16px;
+            padding: 16px;
+            position: relative;
+            min-width: 120px;
+        }
+
+        .callout::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 12px;
+            height: 12px;
+            background: #f59e0b;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .callout-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fbbf24;
+            margin-bottom: 2px;
+        }
+
+        .callout-label {
+            font-size: 0.8rem;
+            color: #d1d5db;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chart-wrapper {
+            height: 350px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .chart-canvas {
+            border-radius: 12px;
+        }
+
+        .insights-banner {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .insight-item {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .insight-label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .insight-value {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .methodology { color: #06b6d4; }
+        .insight { color: #a855f7; }
+        .impact { color: #ec4899; }
+
+        .scorecard {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(236, 72, 153, 0.3));
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .scorecard.blue {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(6, 182, 212, 0.3));
+            border: 1px solid rgba(59, 130, 246, 0.4);
+        }
+
+        .scorecard-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #fca5a5;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .scorecard.blue .scorecard-label {
+            color: #93c5fd;
+        }
+
+        .scorecard-value {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: white;
+        }
+
+        .scorecard-unit {
+            font-size: 0.8rem;
+            color: #fca5a5;
+        }
+
+        .scorecard.blue .scorecard-unit {
+            color: #93c5fd;
+        }
+
+        .divider {
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, #475569, transparent);
+        }
+
+        .floating-arrow {
+            position: absolute;
+            top: 25%;
+            right: 20%;
+            width: 40px;
+            height: 40px;
+            background: #fbbf24;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: bounce 2s infinite;
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4);
+            z-index: 10;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .launch-marker {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 2.5rem; }
+            .subtitle { font-size: 1.1rem; }
+            .chart-container { padding: 20px; }
+            .chart-wrapper { height: 300px; }
+            .insights-banner { flex-direction: column; gap: 20px; }
+            .chart-header { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">PAYMENT DISRUPTION ANALYSIS</h1>
+            <p class="subtitle">When Innovation Meets Reality: A Data Story</p>
+        </div>
+
+        <!-- Market Share Chart -->
+        <div class="analysis-grid">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div>
+                        <h2 class="chart-title">Market Redistribution</h2>
+                        <p class="chart-subtitle">The great payment shuffle</p>
+                    </div>
+                    <div class="callout">
+                        <div class="callout-value">-870 bps</div>
+                        <div class="callout-label">Credit Card Loss</div>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="marketShareChart" class="chart-canvas"></canvas>
+                    <div class="floating-arrow">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Causal Impact Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div style="width: 100%; text-align: center;">
+                        <h2 class="chart-title" style="background: linear-gradient(135deg, #06b6d4, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                            THE TRUTH REVEALED
+                        </h2>
+                        <p class="chart-subtitle">Actual vs. Counterfactual Analysis</p>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="causalImpactChart" class="chart-canvas"></canvas>
+                    <div class="launch-marker">🚀 LAUNCH</div>
+                </div>
+
+                <!-- Insights Banner -->
+                <div class="insights-banner">
+                    <div class="insight-item">
+                        <div class="insight-label methodology">METHODOLOGY</div>
+                        <div class="insight-value">Bayesian Structural Time Series</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="insight-item">
+                        <div class="insight-label insight">INSIGHT</div>
+                        <div class="insight-value">Market share shift, not growth</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="insight-item">
+                        <div class="insight-label impact">IMPACT</div>
+                        <div class="insight-value">Strategy pivot required</div>
+                    </div>
+                    <div class="divider"></div>
+                    
+                    <div class="scorecard">
+                        <div class="scorecard-label">Cannibalization</div>
+                        <div class="scorecard-value">99<span class="scorecard-unit">%</span></div>
+                    </div>
+                    
+                    <div class="scorecard blue">
+                        <div class="scorecard-label">Incrementality</div>
+                        <div class="scorecard-value">-0.07<span class="scorecard-unit">%</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Market Share Data
+        const marketShareData = {
+            labels: ['Pre-4', 'Pre-3', 'Pre-2', 'Pre-1', 'W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7'],
+            datasets: [
+                {
+                    label: 'Credit Card',
+                    data: [75, 75, 74, 74, 68, 67, 67, 66, 65, 64, 66],
+                    backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Express',
+                    data: [15, 16, 16, 16, 12, 12, 14, 13, 14, 13, 12],
+                    backgroundColor: 'rgba(6, 182, 212, 0.8)',
+                    borderColor: 'rgba(6, 182, 212, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Lease',
+                    data: [6, 6, 7, 7, 6, 6, 5, 6, 5, 6, 7],
+                    backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                    borderColor: 'rgba(16, 185, 129, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'New Payment',
+                    data: [0, 0, 0, 0, 11, 12, 12, 13, 14, 14, 13],
+                    backgroundColor: 'rgba(245, 158, 11, 0.9)',
+                    borderColor: 'rgba(245, 158, 11, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Other',
+                    data: [4, 3, 3, 3, 3, 3, 2, 2, 2, 3, 2],
+                    backgroundColor: 'rgba(107, 114, 128, 0.8)',
+                    borderColor: 'rgba(107, 114, 128, 1)',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        // Causal Impact Data
+        const causalImpactData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+            datasets: [
+                {
+                    label: 'Actual',
+                    data: [650, 750, 580, 620, 710, 890, 920, 780, 850],
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    tension: 0.4,
+                    borderWidth: 4,
+                    pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 3,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                },
+                {
+                    label: 'Counterfactual',
+                    data: [680, 720, 600, 640, 720, 880, 930, 785, 845],
+                    borderColor: 'rgba(245, 158, 11, 1)',
+                    backgroundColor: 'rgba(245, 158, 11, 0.2)',
+                    tension: 0.4,
+                    borderWidth: 4,
+                    borderDash: [12, 8],
+                    pointBackgroundColor: 'rgba(245, 158, 11, 1)',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 3,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }
+            ]
+        };
+
+        // Market Share Chart
+        const ctx1 = document.getElementById('marketShareChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: marketShareData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#d1d5db',
+                            padding: 20,
+                            usePointStyle: true,
+                            font: { size: 12, weight: 'bold' }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        grid: { color: 'rgba(148, 163, 184, 0.2)' },
+                        ticks: { color: '#d1d5db', font: { weight: 'bold' } }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 100,
+                        grid: { color: 'rgba(148, 163, 184, 0.2)' },
+                        ticks: { color: '#d1d5db', font: { weight: 'bold' } }
+                    }
+                }
+            }
+        });
+
+        // Causal Impact Chart
+        const ctx2 = document.getElementById('causalImpactChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'line',
+            data: causalImpactData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#d1d5db',
+                            padding: 20,
+                            usePointStyle: true,
+                            font: { size: 12, weight: 'bold' }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(148, 163, 184, 0.2)' },
+                        ticks: { color: '#d1d5db', font: { size: 14, weight: 'bold' } }
+                    },
+                    y: {
+                        grid: { color: 'rgba(148, 163, 184, 0.2)' },
+                        ticks: { color: '#d1d5db', font: { size: 14, weight: 'bold' } }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
