@@ -168,6 +168,28 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="analysis-card" onclick="openModal('paid-search-analysis')">
+                        <div class="analysis-thumbnail">
+                            <img src="thumbnails/paid-search-analysis-thumb.png" alt="Google Ads Performance Analysis" loading="lazy">
+                            <div class="thumbnail-overlay">
+                                <div class="view-analysis">View Analysis</div>
+                            </div>
+                        </div>
+                        <div class="analysis-content">
+                            <h3>Paid Search Campaign Analysis</h3>
+                            <div class="analysis-meta">Google Ads Optimization | YoY Performance | Campaign Assessment</div>
+                            <p class="scenario"><strong>Scenario:</strong> Comprehensive year-over-year Google Ads performance analysis revealing systematic conversion rate declines across all campaign types despite maintained impression shares.</p>
+                            <p class="outcome"><strong>Key Finding:</strong> 39-59% conversion rate drops across Brand, Non-Brand, LIA, and PLA campaigns, indicating critical ad positioning and post-click optimization issues requiring immediate intervention.</p>
+                            <div class="analysis-tags">
+                                <span class="tag">Google Ads</span>
+                                <span class="tag">YoY Analysis</span>
+                                <span class="tag">Optimization</span>
+                                <span class="tag">Performance Assessment</span>
+                            </div>
+                        </div>
+                    </div>
+                
                 
                 <!-- Additional analysis cards -->
                 <div class="analysis-card" onclick="openModal('friction-analysis')">
@@ -266,6 +288,21 @@
                         </iframe>
                     </div>
                 `;
+
+                } else if (analysisType === 'paid-search-analysis') {
+                    modalTitle.textContent = 'Paid Search Campaign Analysis';
+                    
+                    modalAnalysis.innerHTML = `
+                        <div class="analysis-viewer">
+                            <iframe src="analysis/paid-search-analysis.html" 
+                                    width="100%" 
+                                    height="800px" 
+                                    frameborder="0"
+                                    style="border-radius: 10px;">
+                            </iframe>
+                        </div>
+                    `;
+
             } else if (analysisType === 'speed-analysis') {
                 modalTitle.textContent = 'Page Speed Performance Impact Analysis';
                 
@@ -280,6 +317,8 @@
                     </div>
                 `;
             }
+
+            
             
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
