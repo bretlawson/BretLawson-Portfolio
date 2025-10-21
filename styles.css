@@ -452,16 +452,17 @@ body {
     position: relative;
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(20px);
-    margin: 2% auto;
+    margin: 5vh auto; /* Changed from 2% to 5vh for consistent spacing */
     border-radius: 20px;
     width: 95%;
     max-width: 1400px;
-    height: 90vh;
+    max-height: 90vh; /* Changed from height to max-height */
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     flex-direction: column;
     animation: slideIn 0.3s ease;
+    overflow: hidden; /* Add this */
 }
 
 @keyframes slideIn {
@@ -519,8 +520,8 @@ body {
 
 .modal-body {
     flex: 1;
-    padding: 20px;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .analysis-viewer {
