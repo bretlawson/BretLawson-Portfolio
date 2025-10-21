@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM-Assisted SQL Query Optimization Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #7c3aed 50%, #1e293b 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, rgba(147, 51, 234, 0.2) 50%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            z-index: -1;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #06b6d4, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #d1d5db;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #06b6d4, #a855f7, #ec4899);
+            border-radius: 24px 24px 0 0;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .chart-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 5px;
+        }
+
+        .chart-subtitle {
+            font-size: 1rem;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 16px;
+            padding: 16px;
+            position: relative;
+            min-width: 120px;
+        }
+
+        .callout::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 12px;
+            height: 12px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .callout-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #10b981;
+            margin-bottom: 2px;
+        }
+
+        .callout-label {
+            font-size: 0.8rem;
+            color: #d1d5db;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chart-wrapper {
+            height: 400px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .chart-canvas {
+            border-radius: 12px;
+        }
+
+        .insights-banner {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .insight-item {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .insight-label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .insight-value {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .methodology { color: #06b6d4; }
+        .insight { color: #a855f7; }
+        .impact { color: #ec4899; }
+
+        .scorecard {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(6, 182, 212, 0.3));
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .scorecard.orange {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(251, 146, 60, 0.3));
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .scorecard.red {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.3));
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .scorecard-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #6ee7b7;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .scorecard.orange .scorecard-label {
+            color: #fcd34d;
+        }
+
+        .scorecard.red .scorecard-label {
+            color: #fca5a5;
+        }
+
+        .scorecard-value {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: white;
+        }
+
+        .scorecard-unit {
+            font-size: 0.8rem;
+            color: #6ee7b7;
+        }
+
+        .scorecard.orange .scorecard-unit {
+            color: #fcd34d;
+        }
+
+        .scorecard.red .scorecard-unit {
+            color: #fca5a5;
+        }
+
+        .divider {
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, #475569, transparent);
+        }
+
+        .floating-arrow {
+            position: absolute;
+            top: 15%;
+            right: 15%;
+            width: 50px;
+            height: 50px;
+            background: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: bounce 2s infinite;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            z-index: 10;
+            font-size: 1.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .data-table {
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            color: #06b6d4;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            color: #d1d5db;
+        }
+
+        .data-table tr:hover {
+            background: rgba(30, 41, 59, 0.3);
+        }
+
+        .complexity-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .complexity-high {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .complexity-medium {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .complexity-low {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .savings-positive {
+            color: #10b981;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 2.5rem; }
+            .subtitle { font-size: 1.1rem; }
+            .chart-container { padding: 20px; }
+            .chart-wrapper { height: 300px; }
+            .insights-banner { flex-direction: column; gap: 20px; }
+            .chart-header { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">LLM SQL OPTIMIZATION</h1>
+            <p class="subtitle">When AI Meets Analytics: Quantifying Development Velocity</p>
+        </div>
+
+        <!-- Development Time Comparison Chart -->
+        <div class="analysis-grid">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div>
+                        <h2 class="chart-title">Development Time: Manual vs AI-Assisted</h2>
+                        <p class="chart-subtitle">12 common attribution & analytics queries</p>
+                    </div>
+                    <div class="callout">
+                        <div class="callout-value">68%</div>
+                        <div class="callout-label">Average Time Saved</div>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="timeComparisonChart" class="chart-canvas"></canvas>
+                    <div class="floating-arrow">⚡</div>
+                </div>
+            </div>
+
+            <!-- Complexity Analysis Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div style="width: 100%; text-align: center;">
+                        <h2 class="chart-title" style="background: linear-gradient(135deg, #06b6d4, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                            THE COMPLEXITY ADVANTAGE
+                        </h2>
+                        <p class="chart-subtitle">LLMs excel at complex query generation</p>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="complexityChart" class="chart-canvas"></canvas>
+                </div>
+
+                <!-- Insights Banner -->
+                <div class="insights-banner">
+                    <div class="insight-item">
+                        <div class="insight-label methodology">APPROACH</div>
+                        <div class="insight-value">LangChain + OpenAI API</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="insight-item">
+                        <div class="insight-label insight">SWEET SPOT</div>
+                        <div class="insight-value">Multi-source joins & CTEs</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="insight-item">
+                        <div class="insight-label impact">IMPACT</div>
+                        <div class="insight-value">Weeks to days</div>
+                    </div>
+                    <div class="divider"></div>
+                    
+                    <div class="scorecard">
+                        <div class="scorecard-label">Avg Savings</div>
+                        <div class="scorecard-value">68<span class="scorecard-unit">%</span></div>
+                    </div>
+                    
+                    <div class="scorecard orange">
+                        <div class="scorecard-label">High Complexity</div>
+                        <div class="scorecard-value">76<span class="scorecard-unit">%</span></div>
+                    </div>
+
+                    <div class="scorecard red">
+                        <div class="scorecard-label">Validation</div>
+                        <div class="scorecard-value">100<span class="scorecard-unit">%</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scatter Plot -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div>
+                        <h2 class="chart-title">Complexity vs Time Savings</h2>
+                        <p class="chart-subtitle">Higher complexity = Higher LLM benefit</p>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="scatterChart" class="chart-canvas"></canvas>
+                </div>
+            </div>
+
+            <!-- Detailed Data Table -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div>
+                        <h2 class="chart-title">Query-Level Analysis</h2>
+                        <p class="chart-subtitle">Detailed breakdown by query type</p>
+                    </div>
+                </div>
+                
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Query Type</th>
+                                <th>Complexity</th>
+                                <th>Manual</th>
+                                <th>LLM</th>
+                                <th>Saved</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Multi-Source Attribution Join</td>
+                                <td><span class="complexity-badge complexity-high">High</span></td>
+                                <td>180 min</td>
+                                <td>40 min</td>
+                                <td>140 min</td>
+                                <td class="savings-positive">78%</td>
+                            </tr>
+                            <tr>
+                                <td>Customer Identity Resolution</td>
+                                <td><span class="complexity-badge complexity-high">High</span></td>
+                                <td>150 min</td>
+                                <td>35 min</td>
+                                <td>115 min</td>
+                                <td class="savings-positive">77%</td>
+                            </tr>
+                            <tr>
+                                <td>Cross-Channel Journey Mapping</td>
+                                <td><span class="complexity-badge complexity-high">High</span></td>
+                                <td>120 min</td>
+                                <td>32 min</td>
+                                <td>88 min</td>
+                                <td class="savings-positive">73%</td>
+                            </tr>
+                            <tr>
+                                <td>Time-Decay Attribution Model</td>
+                                <td><span class="complexity-badge complexity-medium">Medium</span></td>
+                                <td>90 min</td>
+                                <td>25 min</td>
+                                <td>65 min</td>
+                                <td class="savings-positive">72%</td>
+                            </tr>
+                            <tr>
+                                <td>Conversion Funnel Analysis</td>
+                                <td><span class="complexity-badge complexity-medium">Medium</span></td>
+                                <td>75 min</td>
+                                <td>22 min</td>
+                                <td>53 min</td>
+                                <td class="savings-positive">71%</td>
+                            </tr>
+                            <tr>
+                                <td>Campaign Performance Rollup</td>
+                                <td><span class="complexity-badge complexity-medium">Medium</span></td>
+                                <td>60 min</td>
+                                <td>20 min</td>
+                                <td>40 min</td>
+                                <td class="savings-positive">67%</td>
+                            </tr>
+                            <tr>
+                                <td>Revenue by Channel (7-day)</td>
+                                <td><span class="complexity-badge complexity-medium">Medium</span></td>
+                                <td>50 min</td>
+                                <td>18 min</td>
+                                <td>32 min</td>
+                                <td class="savings-positive">64%</td>
+                            </tr>
+                            <tr>
+                                <td>Product Category Performance</td>
+                                <td><span class="complexity-badge complexity-low">Low</span></td>
+                                <td>45 min</td>
+                                <td>20 min</td>
+                                <td>25 min</td>
+                                <td class="savings-positive">56%</td>
+                            </tr>
+                            <tr>
+                                <td>User Cohort Segmentation</td>
+                                <td><span class="complexity-badge complexity-low">Low</span></td>
+                                <td>40 min</td>
+                                <td>18 min</td>
+                                <td>22 min</td>
+                                <td class="savings-positive">55%</td>
+                            </tr>
+                            <tr>
+                                <td>Daily Traffic Summary</td>
+                                <td><span class="complexity-badge complexity-low">Low</span></td>
+                                <td>30 min</td>
+                                <td>15 min</td>
+                                <td>15 min</td>
+                                <td class="savings-positive">50%</td>
+                            </tr>
+                            <tr>
+                                <td>Top Pages by Sessions</td>
+                                <td><span class="complexity-badge complexity-low">Low</span></td>
+                                <td>25 min</td>
+                                <td>12 min</td>
+                                <td>13 min</td>
+                                <td class="savings-positive">52%</td>
+                            </tr>
+                            <tr>
+                                <td>Basic Revenue Aggregation</td>
+                                <td><span class="complexity-badge complexity-low">Low</span></td>
+                                <td>18 min</td>
+                                <td>14 min</td>
+                                <td>4 min</td>
+                                <td class="savings-positive">22%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chart 1: Development Time Comparison
+        const queryTypes = [
+            'Multi-Source Join',
+            'Identity Resolution',
+            'Journey Mapping',
+            'Time-Decay Model',
+            'Funnel Analysis',
+            'Campaign Rollup',
+            'Revenue by Channel',
+            'Category Perf',
+            'Cohort Segment',
+            'Traffic Summary',
+            'Top Pages',
+            'Revenue Agg'
+        ];
+
+        const manualTime = [180, 150, 120, 90, 75, 60, 50, 45, 40, 30, 25, 18];
+        const llmTime = [40, 35, 32, 25, 22, 20, 18, 20, 18, 15, 12, 14];
+
+        const ctx1 = document.getElementById('timeComparisonChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: queryTypes,
+                datasets: [
+                    {
+                        label: 'Manual Development',
+                        data: manualTime,
+                        backgroundColor: 'rgba(239, 68, 68, 0.8)',
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'LLM-Assisted',
+                        data: llmTime,
+                        backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                        borderColor: 'rgba(16, 185, 129, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#d1d5db',
+                            padding: 20,
+                            usePointStyle: true,
+                            font: { size: 12, weight: 'bold' }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(148, 163, 184, 0.2)' },
+                        ticks: { 
+                            color: '#d1d5db', 
+                            font: { weight: 'bold' },
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(148, 163, 184, 0.2)' },
+                        ticks: { 
+                            color: '#d1d5db', 
+                            font: { weight: 'bold' },
+                            callback: function(value) {
+                                return value + ' min';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Complexity Analysis
+        const ctx2 = document.getElementById('complexityChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['High Complexity', 'Medium Complexity', 'Low Complexity'],
+                datasets: [{
+                    label: 'Average Time Savings (%)',
+                    data: [76, 68.5, 47],
+                    backgroundColor: [
+                        'rgba(239, 68, 68, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(16, 185, 129, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(239, 68, 68, 1)',
+                        'rgba(245, 158, 11, 1)',
+                        'rgba(16, 185, 129, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(148, 163, 184, 0.2)' },
+                        ticks: { color: '#d1d5db', font: { size: 14, weight: 'bold' } }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 85,
+                        grid: { color: 'rgba(148, 163, 184, 0.2)' },
+                        ticks: { 
+                            color: '#d1d5db', 
+                            font: { size: 14, weight: 'bold' },
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart 3: Scatter Plot
+        const complexityScore = [9, 9, 8, 6, 6, 5, 5, 3, 3, 2, 2, 1];
+        const timeSavings = [78, 77, 73, 72, 71, 67, 64, 56, 55, 50, 52, 22];
+
+        const ctx3 = document.getElementById('scatterChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Query Performance',
+                    data: complexityScore.map((score, i) => ({
+                        x: score,
+                        y: timeSavings[i]
+                    })),
+                    backgroundColor: 'rgba(6, 182, 212, 0.8)',
+                    borderColor: 'rgba(6, 182, 212, 1)',
+                    pointRadius: 8,
+                    pointHoverRadius: 12
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Query Complexity Score (1-10)',
+                            color: '#d1d5db',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: { color: 'rgba(148, 163, 184, 0.2)' },
+                        ticks: { color: '#d1d5db', font: { weight: 'bold' } }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Time Savings (%)',
+                            color: '#d1d5db',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: { color: 'rgba(148, 163, 184, 0.2)' },
+                        ticks: { 
+                            color: '#d1d5db', 
+                            font: { weight: 'bold' },
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
