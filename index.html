@@ -25,6 +25,7 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://bretlawson.com/">
     
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://bretlawson.com/">
@@ -101,7 +102,7 @@
     </div>
       <div class="header-content">
     <h1>Bret Lawson</h1>
-    <div class="subtitle">Data Science & Business Intelligence Expert | Ecommerce Forecasting Specialist</div>
+    <div class="subtitle">Senior Analytics Leader | AI & LLM-Enhanced Data Strategy | Revenue Attribution Expert</div>
     <p>Proven leader in predictive ecommerce analytics, data science, and performance-driven digital marketing optimization. Specialist in transforming complex business intelligence into revenue-generating forecasts and data-driven campaign strategies that deliver measurable ROI across enterprise retail operations.</p>
     <div class="contact-info">
         <span onclick="window.location.href='mailto:bretalawson@gmail.com'" style="cursor: pointer;">📧 bretalawson@gmail.com</span>
@@ -110,6 +111,42 @@
     </div>
 </div>
         </header>
+
+
+         <!-- NEW TECHNICAL EXPERTISE SECTION -->
+        <section class="section">
+            <h2>Technical Expertise</h2>
+            <p style="margin-bottom: 25px; color: #555; font-size: 1.1em; text-align: center;">Modern analytics infrastructure and AI-enhanced development tools</p>
+            
+            <div class="value-props">
+                <div class="value-prop">
+                    <h3>🤖 AI & LLM Integration</h3>
+                    <p>“Building intelligent analytics workflows powered by generative AI and automation.”
+                        Python (LangChain, OpenAI API), LLM-Enhanced Analytics, GenAI Workflows</p>
+                </div>
+                
+                <div class="value-prop">
+                    <h3>💾 Data Engineering</h3>
+                    <p>“Designing scalable pipelines and query models across cloud and enterprise systems.”
+                        SQL, BigQuery, Google Cloud, Data Lakes, Advanced Excel</p>
+                </div>
+                
+                <div class="value-prop">
+                    <h3>📊 Analytics Platforms</h3>
+                    <p>“Translating data into decision-ready visuals and executive dashboards.”
+                        Tableau, Looker Studio, Power BI, R Shiny, Streamlit</p>
+                </div>
+                
+                <div class="value-prop">
+                    <h3>📈 BI & Visualization</h3>
+                    <p>“Unifying web, behavioral, and experimentation analytics across ecosystems.”
+                    Adobe Analytics (CJA), Google Analytics, ContentSquare, DataDog</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+
 
         <section class="section">
             <h2>Core Value Propositions</h2>
@@ -165,6 +202,27 @@
                             <span class="tag">Python/R</span>
                             <span class="tag">BSTS</span>
                             <span class="tag">Data Viz</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analysis-card" onclick="openModal('llm-sql-analysis')">
+                    <div class="analysis-thumbnail">
+                        <img src="thumbnails/llm-sql-optimization-thumb.png" alt="LLM-Assisted SQL Optimization" loading="lazy">
+                        <div class="thumbnail-overlay">
+                            <div class="view-analysis">View Analysis</div>
+                        </div>
+                    </div>
+                    <div class="analysis-content">
+                        <h3>LLM-Assisted SQL Query Optimization</h3>
+                        <div class="analysis-meta">BigQuery Development | AI-Enhanced Workflows | Time Efficiency Analysis</div>
+                        <p class="scenario"><strong>Scenario:</strong> Quantified development efficiency gains from integrating LLM tools (ChatGPT/Claude) into BigQuery SQL workflows for marketing attribution and analytics queries.</p>
+                        <p class="outcome"><strong>Key Finding:</strong> 68% average time savings across 12 query types, with complex multi-source joins showing highest benefit (78%), enabling attribution analysis cycles to compress from weeks to days.</p>
+                        <div class="analysis-tags">
+                            <span class="tag">LLM Integration</span>
+                            <span class="tag">SQL Optimization</span>
+                            <span class="tag">Development Efficiency</span>
+                            <span class="tag">Time Analysis</span>
                         </div>
                     </div>
                 </div>
@@ -275,6 +333,20 @@
                         </iframe>
                     </div>
                 `;
+            } else if (analysisType === 'llm-sql-analysis') {
+                modalTitle.textContent = 'LLM-Assisted SQL Query Optimization';
+                
+                modalAnalysis.innerHTML = `
+                    <div class="analysis-viewer">
+                        <iframe src="analysis/llm-sql-optimization.html" 
+                                width="100%" 
+                                height="800px" 
+                                frameborder="0"
+                                style="border-radius: 10px;">
+                        </iframe>
+                    </div>
+                `;
+            
             } else if (analysisType === 'friction-analysis') {
                 modalTitle.textContent = 'Site Friction Impact Assessment';
                 
@@ -348,6 +420,23 @@
 
         <section class="section">
             <h2>Featured Analytics Projects</h2>
+
+            <div class="project">
+                <h3>LLM-Accelerated Marketing Attribution System</h3>
+                <div class="project-meta">Multi-Touch Attribution | Identity Resolution | Cross-Channel Analytics</div>
+                <p>Streamlined marketing attribution development by integrating LLM tools into data engineering workflows, enabling faster cross-channel identity stitching and attribution model iteration. Reduced comprehensive attribution analysis cycles from weeks to days while maintaining analytical rigor.</p>
+                <div class="project-highlights">
+                    <h4>Technical Implementation & Business Impact:</h4>
+                    <p>Integrated ChatGPT and Claude with Python (LangChain, OpenAI API) to accelerate BigQuery query development for multi-source data integration. Built identity resolution logic stitching customer behavior across Adobe Analytics web sessions, Salesforce offline transactions, Google Ads interactions, and in-store purchases. Enabled rapid iteration on multi-touch attribution models through AI-assisted code generation with human validation protocols.</p>
+                    <div class="tech-stack"><strong>Tech Stack:</strong> Python (LangChain, OpenAI API), SQL, BigQuery, Adobe Analytics, Salesforce, Google Ads, ChatGPT/Claude Integration</div>
+                    <div class="metrics">
+                        <span class="metric">2-3 Weeks to 3-5 Days</span>
+                        <span class="metric">Cross-Channel Identity Stitching</span>
+                        <span class="metric">Faster Model Iteration</span>
+                        <span class="metric">Human-Validated Results</span>
+                    </div>
+                </div>
+            </div>
 
             <div class="project">
                 <h3>Enterprise Revenue Forecasting Engine</h3>
