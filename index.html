@@ -53,6 +53,27 @@
     <link rel="preload" href="styles.css" as="style">
     <link rel="stylesheet" href="styles.css" media="all">
     
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            'send_page_view': true,
+            'anonymize_ip': true
+        });
+    </script>
+
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "XXXXXXXXXX");
+    </script>
+
     <!-- Schema.org structured data -->
     <script type="application/ld+json">
     [
@@ -105,9 +126,9 @@
     <div class="subtitle">Senior Analytics Leader | AI & LLM-Enhanced Data Strategy | Revenue Attribution Expert</div>
     <p>I deliver the results of ten analysts—not by working harder, but by leveraging twenty years of pattern recognition with Python and AI. With two decades spent deep in ecommerce systems, website code, and marketing platforms, I can spot and solve data problems that others don't even notice. My experience helps me bypass dead ends, sidestep costly mistakes, and find answers quickly.</p>
     <div class="contact-info">
-        <span onclick="window.location.href='mailto:bretalawson@gmail.com'" style="cursor: pointer;">📧 bretalawson@gmail.com</span>
-        <span onclick="window.location.href='tel:+18324037762'" style="cursor: pointer;">📱 832.403.7762</span>
-        <span onclick="window.open('https://linkedin.com/in/bretlawson', '_blank')" style="cursor: pointer;">🔗 linkedin.com/in/bretlawson</span>
+        <span onclick="trackContactClick('email'); window.location.href='mailto:bretalawson@gmail.com'" style="cursor: pointer;">📧 bretalawson@gmail.com</span>
+        <span onclick="trackContactClick('phone'); window.location.href='tel:+18324037762'" style="cursor: pointer;">📱 832.403.7762</span>
+        <span onclick="trackContactClick('linkedin'); window.open('https://linkedin.com/in/bretlawson', '_blank')" style="cursor: pointer;">🔗 linkedin.com/in/bretlawson</span>
     </div>
 </div>
         </header>
@@ -320,12 +341,26 @@
 
         <!-- JavaScript - ADD BEFORE CLOSING </body> TAG -->
         <script>
+        // Helper function for GA4 tracking
+        function trackEvent(eventName, eventParams = {}) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, eventParams);
+            }
+        }
+
         // Modal functionality
         function openModal(analysisType) {
             const modal = document.getElementById('analysisModal');
             const modalTitle = document.getElementById('modalTitle');
             const modalAnalysis = document.getElementById('modalAnalysis');
-            
+
+            // Track modal open event
+            trackEvent('analysis_view', {
+                analysis_type: analysisType,
+                event_category: 'engagement',
+                event_label: analysisType
+            });
+
             // Set content based on analysis type
             if (analysisType === 'payment-analysis') {
                 modalTitle.textContent = 'Payment Method Launch Impact Analysis';
@@ -407,6 +442,11 @@
             const modal = document.getElementById('analysisModal');
             modal.style.display = 'none';
             document.body.style.overflow = 'auto'; // Restore scrolling
+
+            // Track modal close
+            trackEvent('modal_close', {
+                event_category: 'engagement'
+            });
         }
 
         // Close modal when clicking outside of it
@@ -422,6 +462,48 @@
             if (event.key === 'Escape') {
                 closeModal();
             }
+        });
+
+        // Track contact clicks
+        function trackContactClick(contactType) {
+            trackEvent('contact_click', {
+                contact_method: contactType,
+                event_category: 'engagement',
+                event_label: contactType
+            });
+        }
+
+        // Track analysis card hover (engagement indicator)
+        document.addEventListener('DOMContentLoaded', function() {
+            const analysisCards = document.querySelectorAll('.analysis-card');
+            analysisCards.forEach(card => {
+                let hoverTimeout;
+                card.addEventListener('mouseenter', function() {
+                    hoverTimeout = setTimeout(() => {
+                        const analysisTitle = card.querySelector('h3').textContent;
+                        trackEvent('analysis_card_hover', {
+                            analysis_name: analysisTitle,
+                            event_category: 'engagement'
+                        });
+                    }, 2000); // Track after 2 seconds of hover
+                });
+                card.addEventListener('mouseleave', function() {
+                    clearTimeout(hoverTimeout);
+                });
+            });
+
+            // Track scroll depth
+            let maxScroll = 0;
+            window.addEventListener('scroll', function() {
+                const scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+                if (scrollPercent > maxScroll && scrollPercent % 25 === 0) {
+                    maxScroll = scrollPercent;
+                    trackEvent('scroll_depth', {
+                        scroll_percentage: scrollPercent,
+                        event_category: 'engagement'
+                    });
+                }
+            });
         });
         </script>
 
