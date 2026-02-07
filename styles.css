@@ -274,7 +274,7 @@ body {
 }
 
 /* Sample Analysis Section */
-.analysis-grid {
+.section .analysis-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -538,7 +538,7 @@ body {
 
 /* Mobile Responsiveness */
 @media (max-width: 1024px) {
-    .analysis-grid {
+    .section .analysis-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 18px;
     }
@@ -628,7 +628,7 @@ body {
         margin-bottom: 20px;
     }
 
-    .analysis-grid {
+    .section .analysis-grid {
         grid-template-columns: 1fr;
         gap: 16px;
     }
@@ -852,14 +852,14 @@ body.analysis-page .subtitle {
 }
 
 /* Analysis Grid Layouts */
-.analysis-grid {
+body.analysis-page .analysis-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 30px;
     margin-bottom: 30px;
 }
 
-.analysis-grid.two-column {
+body.analysis-page .analysis-grid.two-column {
     grid-template-columns: 2fr 1fr;
 }
 
@@ -1365,7 +1365,7 @@ body.analysis-page .subtitle {
 
 /* Responsive Design for Analysis Pages */
 @media (max-width: 1024px) {
-    .analysis-grid.two-column {
+    body.analysis-page .analysis-grid.two-column {
         grid-template-columns: 1fr;
     }
 }
