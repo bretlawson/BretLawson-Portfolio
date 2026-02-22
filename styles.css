@@ -260,6 +260,16 @@ body {
     line-height: 1.6;
 }
 
+.experience-description ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.experience-description ul li {
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
 .recognition-section {
     margin-top: 24px;
 }
