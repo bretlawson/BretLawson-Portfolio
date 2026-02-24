@@ -180,10 +180,39 @@
         </section>
 
         <section class="section">
-            <h2>Sample Analysis</h2>
-            <p style="margin-bottom: 25px; color: #555; font-size: 1.1em; text-align: center;">Interactive deep-dive visualizations showcasing advanced analytical methodologies</p>
-            
+            <h2>Impactful Projects</h2>
+            <p style="margin-bottom: 25px; color: #555; font-size: 1.1em; text-align: center;">Interactive deep-dives showcasing analytical methodology, system design, and business impact</p>
+
             <div class="analysis-grid">
+                <div class="analysis-card" onclick="openModal('o2o-attribution')">
+                    <div class="analysis-thumbnail">
+                        <div class="o2o-thumb">
+                            <div class="o2o-thumb-flow">
+                                <span class="o2o-node">Digital</span>
+                                <span class="o2o-arrow">&rarr;</span>
+                                <span class="o2o-node">Identity</span>
+                                <span class="o2o-arrow">&rarr;</span>
+                                <span class="o2o-node">Store $</span>
+                            </div>
+                        </div>
+                        <div class="thumbnail-overlay">
+                            <div class="view-analysis">View Analysis</div>
+                        </div>
+                    </div>
+                    <div class="analysis-content">
+                        <h3>Online-to-Offline Attribution</h3>
+                        <div class="analysis-meta">Attribution Architecture | Identity Stitching | Revenue Impact</div>
+                        <p class="scenario"><strong>Scenario:</strong> Built an end-to-end attribution system connecting digital marketing interactions to physical store transactions at the individual customer level.</p>
+                        <p class="outcome"><strong>Key Finding:</strong> Enabled transaction-level marketing measurement, replacing platform-reported metrics with actual revenue contribution for budget allocation.</p>
+                        <div class="analysis-tags">
+                            <span class="tag">Attribution</span>
+                            <span class="tag">BigQuery</span>
+                            <span class="tag">dbt</span>
+                            <span class="tag">Identity Stitching</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="analysis-card" onclick="openModal('payment-analysis')">
                     <div class="analysis-thumbnail">
                         <img src="thumbnails/payment-analysis-thumb.png" alt="Payment Method Disruption Analysis" loading="lazy">
@@ -227,28 +256,26 @@
                 </div>
 
                 <div class="analysis-card" onclick="openModal('paid-search-analysis')">
-                        <div class="analysis-thumbnail">
-                            <img src="thumbnails/paid-search-analysis-thumb.png" alt="Google Ads Performance Analysis" loading="lazy">
-                            <div class="thumbnail-overlay">
-                                <div class="view-analysis">View Analysis</div>
-                            </div>
-                        </div>
-                        <div class="analysis-content">
-                            <h3>Paid Search Campaign Analysis</h3>
-                            <div class="analysis-meta">Google Ads Optimization | YoY Performance | Campaign Assessment</div>
-                            <p class="scenario"><strong>Scenario:</strong> Comprehensive year-over-year Google Ads performance analysis revealing systematic conversion rate declines across all campaign types despite maintained impression shares.</p>
-                            <p class="outcome"><strong>Key Finding:</strong> 39-59% conversion rate drops across Brand, Non-Brand, LIA, and PLA campaigns, indicating critical ad positioning and post-click optimization issues requiring immediate intervention.</p>
-                            <div class="analysis-tags">
-                                <span class="tag">Google Ads</span>
-                                <span class="tag">YoY Analysis</span>
-                                <span class="tag">Optimization</span>
-                                <span class="tag">Performance Assessment</span>
-                            </div>
+                    <div class="analysis-thumbnail">
+                        <img src="thumbnails/paid-search-analysis-thumb.png" alt="Google Ads Performance Analysis" loading="lazy">
+                        <div class="thumbnail-overlay">
+                            <div class="view-analysis">View Analysis</div>
                         </div>
                     </div>
-                
-                
-                <!-- Additional analysis cards -->
+                    <div class="analysis-content">
+                        <h3>Paid Search Campaign Analysis</h3>
+                        <div class="analysis-meta">Google Ads Optimization | YoY Performance | Campaign Assessment</div>
+                        <p class="scenario"><strong>Scenario:</strong> Comprehensive year-over-year Google Ads performance analysis revealing systematic conversion rate declines across all campaign types despite maintained impression shares.</p>
+                        <p class="outcome"><strong>Key Finding:</strong> 39-59% conversion rate drops across Brand, Non-Brand, LIA, and PLA campaigns, indicating critical ad positioning and post-click optimization issues requiring immediate intervention.</p>
+                        <div class="analysis-tags">
+                            <span class="tag">Google Ads</span>
+                            <span class="tag">YoY Analysis</span>
+                            <span class="tag">Optimization</span>
+                            <span class="tag">Performance Assessment</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="analysis-card" onclick="openModal('friction-analysis')">
                     <div class="analysis-thumbnail">
                         <img src="thumbnails/friction-analysis-thumb.png" alt="Site Friction Impact Analysis" loading="lazy">
@@ -269,7 +296,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="analysis-card" onclick="openModal('speed-analysis')">
                     <div class="analysis-thumbnail">
                         <img src="thumbnails/speed-analysis-thumb.png" alt="Page Speed Performance Analysis" loading="lazy">
@@ -287,30 +314,6 @@
                             <span class="tag">Performance</span>
                             <span class="tag">Mobile Priority</span>
                             <span class="tag">Revenue Impact</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="analysis-card" onclick="openModal('o2o-attribution')">
-                    <div class="analysis-thumbnail">
-                        <div class="coming-soon-content" style="background: linear-gradient(135deg, rgba(30, 60, 114, 0.3), rgba(6, 182, 212, 0.2));">
-                            <div class="coming-soon-icon" style="opacity: 1;">🔗</div>
-                            <div class="coming-soon-text" style="color: #94a3b8;">O2O Attribution</div>
-                        </div>
-                        <div class="thumbnail-overlay">
-                            <div class="view-analysis">View Analysis</div>
-                        </div>
-                    </div>
-                    <div class="analysis-content">
-                        <h3>Online-to-Offline Attribution</h3>
-                        <div class="analysis-meta">Attribution Architecture | Identity Stitching | Revenue Impact</div>
-                        <p class="scenario"><strong>Scenario:</strong> Built an end-to-end attribution system connecting digital marketing interactions to physical store transactions at the individual customer level.</p>
-                        <p class="outcome"><strong>Key Finding:</strong> Enabled transaction-level marketing measurement, replacing platform-reported metrics with actual revenue contribution for budget allocation.</p>
-                        <div class="analysis-tags">
-                            <span class="tag">Attribution</span>
-                            <span class="tag">BigQuery</span>
-                            <span class="tag">dbt</span>
-                            <span class="tag">Identity Stitching</span>
                         </div>
                     </div>
                 </div>

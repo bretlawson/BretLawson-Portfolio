@@ -1422,6 +1422,39 @@ body.analysis-page .analysis-grid.two-column {
     }
 }
 
+/* O2O Attribution Thumbnail */
+.o2o-thumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: linear-gradient(135deg, #0f172a, #1e3c72);
+    padding: 16px;
+}
+
+.o2o-thumb-flow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.o2o-node {
+    background: rgba(42, 82, 152, 0.5);
+    border: 1px solid rgba(6, 182, 212, 0.4);
+    color: #e2e8f0;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.7em;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.o2o-arrow {
+    color: #06b6d4;
+    font-size: 1em;
+    font-weight: 700;
+}
+
 /* ============================================
    O2O ATTRIBUTION / CASE STUDY PAGE STYLES
    ============================================ */
