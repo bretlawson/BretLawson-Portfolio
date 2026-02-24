@@ -290,10 +290,31 @@
                         </div>
                     </div>
                 </div>
-                
-       
-                
-                
+
+                <div class="analysis-card" onclick="openModal('o2o-attribution')">
+                    <div class="analysis-thumbnail">
+                        <div class="coming-soon-content" style="background: linear-gradient(135deg, rgba(30, 60, 114, 0.3), rgba(6, 182, 212, 0.2));">
+                            <div class="coming-soon-icon" style="opacity: 1;">🔗</div>
+                            <div class="coming-soon-text" style="color: #94a3b8;">O2O Attribution</div>
+                        </div>
+                        <div class="thumbnail-overlay">
+                            <div class="view-analysis">View Analysis</div>
+                        </div>
+                    </div>
+                    <div class="analysis-content">
+                        <h3>Online-to-Offline Attribution</h3>
+                        <div class="analysis-meta">Attribution Architecture | Identity Stitching | Revenue Impact</div>
+                        <p class="scenario"><strong>Scenario:</strong> Built an end-to-end attribution system connecting digital marketing interactions to physical store transactions at the individual customer level.</p>
+                        <p class="outcome"><strong>Key Finding:</strong> Enabled transaction-level marketing measurement, replacing platform-reported metrics with actual revenue contribution for budget allocation.</p>
+                        <div class="analysis-tags">
+                            <span class="tag">Attribution</span>
+                            <span class="tag">BigQuery</span>
+                            <span class="tag">dbt</span>
+                            <span class="tag">Identity Stitching</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -390,12 +411,25 @@
 
             } else if (analysisType === 'speed-analysis') {
                 modalTitle.textContent = 'Page Speed Performance Impact Analysis';
-                
+
                 modalAnalysis.innerHTML = `
                     <div class="analysis-viewer">
-                        <iframe src="analysis/page-speed-analysis.html" 
-                                width="100%" 
-                                height="800px" 
+                        <iframe src="analysis/page-speed-analysis.html"
+                                width="100%"
+                                height="800px"
+                                frameborder="0"
+                                style="border-radius: 10px;">
+                        </iframe>
+                    </div>
+                `;
+            } else if (analysisType === 'o2o-attribution') {
+                modalTitle.textContent = 'Online-to-Offline Attribution System';
+
+                modalAnalysis.innerHTML = `
+                    <div class="analysis-viewer">
+                        <iframe src="analysis/o2o-attribution.html"
+                                width="100%"
+                                height="800px"
                                 frameborder="0"
                                 style="border-radius: 10px;">
                         </iframe>

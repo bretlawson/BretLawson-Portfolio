@@ -1421,3 +1421,269 @@ body.analysis-page .analysis-grid.two-column {
         grid-template-columns: 1fr;
     }
 }
+
+/* ============================================
+   O2O ATTRIBUTION / CASE STUDY PAGE STYLES
+   ============================================ */
+
+/* Summary Banner */
+.summary-banner {
+    background: linear-gradient(135deg, rgba(30, 60, 114, 0.4), rgba(6, 182, 212, 0.2));
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    border-radius: 16px;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    font-size: 1.15rem;
+    color: #e2e8f0;
+    line-height: 1.6;
+    text-align: center;
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* Narrative Text Sections */
+.narrative-section p {
+    color: #cbd5e1;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.narrative-section p:last-child {
+    margin-bottom: 0;
+}
+
+/* Architecture Flow Diagram */
+.architecture-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+    gap: 0;
+}
+
+.flow-step {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(30, 60, 114, 0.4);
+    border-radius: 14px;
+    padding: 18px 28px;
+    width: 100%;
+    max-width: 480px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.flow-step:hover {
+    transform: scale(1.02);
+    border-color: rgba(42, 82, 152, 0.7);
+}
+
+.flow-step-final {
+    background: linear-gradient(135deg, rgba(30, 60, 114, 0.5), rgba(6, 182, 212, 0.2));
+    border-color: rgba(6, 182, 212, 0.4);
+}
+
+.flow-step-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(30, 60, 114, 0.3);
+    border-radius: 12px;
+}
+
+.flow-step-content {
+    flex: 1;
+}
+
+.flow-step-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 4px;
+}
+
+.flow-step-detail {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    line-height: 1.4;
+}
+
+.flow-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 36px;
+    position: relative;
+}
+
+.flow-arrow-line {
+    width: 2px;
+    height: 24px;
+    background: linear-gradient(to bottom, rgba(42, 82, 152, 0.6), rgba(6, 182, 212, 0.6));
+}
+
+.flow-arrow-head {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid rgba(6, 182, 212, 0.6);
+}
+
+/* Build Components List */
+.build-components {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.build-component {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    background: rgba(30, 60, 114, 0.15);
+    border: 1px solid rgba(30, 60, 114, 0.3);
+    border-radius: 10px;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+}
+
+.build-component-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+/* Impact List */
+.impact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.impact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 18px;
+    background: rgba(30, 60, 114, 0.15);
+    border: 1px solid rgba(30, 60, 114, 0.3);
+    border-radius: 10px;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.impact-bullet {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    background: linear-gradient(135deg, #2a5298, #06b6d4);
+    border-radius: 50%;
+    margin-top: 7px;
+}
+
+/* Technical Stack Grid */
+.tech-stack-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.tech-stack-card {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(30, 60, 114, 0.3);
+    border-radius: 14px;
+    padding: 22px;
+    text-align: center;
+}
+
+.tech-stack-header {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #2a5298;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(30, 60, 114, 0.3);
+}
+
+.tech-stack-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tech-stack-item {
+    background: rgba(30, 60, 114, 0.2);
+    border: 1px solid rgba(30, 60, 114, 0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #e2e8f0;
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+
+/* Role List */
+.role-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.role-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    background: rgba(30, 60, 114, 0.15);
+    border: 1px solid rgba(30, 60, 114, 0.3);
+    border-radius: 10px;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+}
+
+.role-number {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+/* Responsive: O2O / Case Study */
+@media (max-width: 768px) {
+    .tech-stack-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .flow-step {
+        padding: 14px 18px;
+    }
+
+    .flow-step-title {
+        font-size: 1rem;
+    }
+
+    .summary-banner {
+        font-size: 1rem;
+        padding: 16px 20px;
+    }
+}
