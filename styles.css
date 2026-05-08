@@ -717,6 +717,7 @@ body {
 }
 
 .sample-callout {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 55%, #06b6d4 130%);
     color: #fff;
     padding: 44px 24px 36px;
     text-align: center;
@@ -729,25 +730,15 @@ body {
     align-items: center;
 }
 
-/* Overlay variant: chart image as faded background, callout text on top */
-.sample-callout--overlay {
-    background-image: var(--sample-bg);
-    background-size: cover;
-    background-position: center;
-}
-
-.sample-callout--overlay::before {
+.sample-callout::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(30, 60, 114, 0.94) 0%, rgba(42, 82, 152, 0.92) 55%, rgba(6, 182, 212, 0.85) 130%);
-    transition: opacity 0.35s ease;
-    z-index: 0;
-}
-
-.sample-card:hover .sample-callout--overlay::before,
-.sample-card:focus-visible .sample-callout--overlay::before {
-    opacity: 0.55;
+    top: -60px;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent 70%);
+    pointer-events: none;
 }
 
 .sample-callout > * {
@@ -799,21 +790,29 @@ body {
 .sample-thumb {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    background: #fff;
     border-bottom: 1px solid rgba(30, 60, 114, 0.08);
 }
 
-.sample-thumb--strip {
-    height: 20px;
+.sample-thumb--mini {
+    height: 56px;
+    padding: 6px 10px;
+    background: #fafbfc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.sample-thumb--strip img {
-    object-position: center 35%;
+.sample-thumb--mini img {
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
-.sample-thumb--strip .sample-overlay span {
-    font-size: 0.7em;
-    padding: 2px 10px;
+.sample-card:hover .sample-thumb--mini img {
+    transform: scale(1.05);
 }
 
 .sample-thumb img {
