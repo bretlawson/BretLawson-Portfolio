@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="canonical" href="https://bretlawson.com/">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -31,12 +30,20 @@
     <meta property="og:url" content="https://bretlawson.com/">
     <meta property="og:title" content="Bret Lawson - Senior Analytics Leader | Full Data Stack">
     <meta property="og:description" content="Senior Analytics Leader specializing in AI-enhanced data strategy, LLM integration, and marketing attribution. Expert in Python, LangChain, BigQuery, and Adobe Analytics with proven multi-million dollar business impact.">
+    <meta property="og:image" content="https://bretlawson.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Bret Lawson - Senior Analytics Leader, 20 years across the full data stack">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Bret Lawson">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://bretlawson.com/">
     <meta property="twitter:title" content="Bret Lawson - Senior Analytics Leader | Full Data Stack">
     <meta property="twitter:description" content="Senior Analytics Leader specializing in AI-enhanced data strategy, LLM integration, and marketing attribution. Expert in Python, LangChain, BigQuery, and Adobe Analytics.">
+    <meta property="twitter:image" content="https://bretlawson.com/og-image.png">
+    <meta property="twitter:image:alt" content="Bret Lawson - Senior Analytics Leader, 20 years across the full data stack">
     
     <!-- Mobile optimization -->
     <meta name="theme-color" content="#1e3c72">
@@ -109,33 +116,49 @@
             "@type": "EducationalOrganization",
             "name": "Texas A&M University"
             },
-            "knowsAbout": ["Digital Analytics", "Ecommerce Forecasting", "Python", "SQL", "Adobe Analytics"]
+            "sameAs": [
+            "https://www.linkedin.com/in/bretlawson"
+            ],
+            "knowsAbout": ["Digital Analytics", "Ecommerce Forecasting", "Python", "SQL", "Adobe Analytics", "BigQuery", "Marketing Attribution", "LLM Integration"]
         }
     ]
     </script>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="headshot-container">
-                <img src="bret_lawson.jpg" alt="Bret-Lawson" class="headshot">
-    </div>
-      <div class="header-content">
-    <h1>Bret Lawson</h1>
-    <div class="subtitle">Senior Analytics Leader | 20 Years Across the Full Data Stack</div>
-    <div class="subtitle" style="font-size: 1em; margin-top: 5px; opacity: 0.85;">Analyst &middot; Data Scientist &middot; Data Engineer &middot; Data Architect</div>
-    <p>Senior Analytics Leader with 20 years across the full data stack, spanning Analyst, Data Scientist, Data Engineer, and Data Architect. Brings the software acumen to work alongside engineers as an equal and the business fluency to translate complex data into decisions that move revenue.</p>
-    <p style="margin-top: 10px;">Brings four disciplines to organizations that are building or maturing their data practice, able to architect the foundation, engineer the pipelines, run the analysis, and deliver the insight without needing a full team in place first. Leverages modern AI tools to move faster and documents everything so the organization keeps the knowledge long-term.</p>
-    <div class="contact-info">
-        <span onclick="trackContactClick('email'); window.location.href='mailto:bretalawson@gmail.com'" style="cursor: pointer;">📧 bretalawson@gmail.com</span>
-        <span onclick="trackContactClick('phone'); window.location.href='tel:+18324037762'" style="cursor: pointer;">📱 832.403.7762</span>
-        <span onclick="trackContactClick('linkedin'); window.open('https://linkedin.com/in/bretlawson', '_blank')" style="cursor: pointer;">🔗 linkedin.com/in/bretlawson</span>
-    </div>
-</div>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <nav class="site-nav" aria-label="Main">
+        <div class="site-nav-inner">
+            <a href="#top" class="site-nav-brand">Bret Lawson</a>
+            <ul class="site-nav-links">
+                <li><a href="#expertise">Expertise</a></li>
+                <li><a href="#projects">Case Studies</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="mailto:bretalawson@gmail.com" class="site-nav-cta">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main id="main" class="container" tabindex="-1">
+        <header class="header" id="top">
+                    <div class="headshot-container">
+                <img src="bret_lawson.jpg" alt="Bret Lawson headshot" class="headshot" width="160" height="160">
+            </div>
+            <div class="header-content">
+                <h1>Bret Lawson</h1>
+                <div class="subtitle">Senior Analytics Leader | 20 Years Across the Full Data Stack</div>
+                <div class="subtitle subtitle-roles">Analyst &middot; Data Scientist &middot; Data Engineer &middot; Data Architect</div>
+                <p>Software acumen to work alongside engineers as an equal, and business fluency to translate complex data into decisions that move revenue. Built for organizations standing up or maturing a data practice — able to architect the foundation, engineer the pipelines, run the analysis, and deliver the insight without a full team in place first.</p>
+                <div class="contact-info">
+                    <a href="mailto:bretalawson@gmail.com" data-contact="email">📧 bretalawson@gmail.com</a>
+                    <a href="tel:+18324037762" data-contact="phone">📱 832.403.7762</a>
+                    <a href="https://linkedin.com/in/bretlawson" target="_blank" rel="noopener" data-contact="linkedin">🔗 linkedin.com/in/bretlawson</a>
+                    <a href="BretLawson_Resume_02.24.26.docx" download data-contact="resume" class="contact-cta">📄 Download Resume</a>
+                </div>
+            </div>
         </header>
 
 
-        <section class="section">
+        <section class="section" id="technologies">
             <h2>Technologies</h2>
 
             <div class="tech-grid">
@@ -172,19 +195,54 @@
             </div>
         </section>
 
-        <section class="section">
+        <section class="section" id="expertise">
             <h2>Professional Expertise</h2>
-            <p style="margin-bottom: 0; color: #555; font-size: 1.05em; text-align: center; line-height: 1.8;">
-                Customer Journey Analytics &nbsp;|&nbsp; Business Intelligence &nbsp;|&nbsp; Marketing Attribution Modeling &nbsp;|&nbsp; Ecommerce Analytics &nbsp;|&nbsp; Revenue Forecasting &nbsp;|&nbsp; KPI Development &nbsp;|&nbsp; Site Performance Analytics &nbsp;|&nbsp; Online-to-Offline Attribution &nbsp;|&nbsp; Cross-Channel Data Integration &nbsp;|&nbsp; Competitive Intelligence &nbsp;|&nbsp; Predictive Analytics &nbsp;|&nbsp; A/B Testing & Experimentation &nbsp;|&nbsp; Data Modeling &nbsp;|&nbsp; Data Architecture &nbsp;|&nbsp; Data Engineering &nbsp;|&nbsp; Cloud Data Infrastructure &nbsp;|&nbsp; ETL/ELT Pipelines &nbsp;|&nbsp; dbt &nbsp;|&nbsp; Geospatial Analytics &nbsp;|&nbsp; Media Mix Modeling
-            </p>
+            <div class="expertise-grid">
+                <div class="expertise-cluster">
+                    <h3>Analytics &amp; Insight</h3>
+                    <ul>
+                        <li>Customer Journey Analytics</li>
+                        <li>Ecommerce Analytics</li>
+                        <li>Site Performance Analytics</li>
+                        <li>Geospatial Analytics</li>
+                        <li>Competitive Intelligence</li>
+                    </ul>
+                </div>
+                <div class="expertise-cluster">
+                    <h3>Measurement &amp; Modeling</h3>
+                    <ul>
+                        <li>Marketing Attribution Modeling</li>
+                        <li>Online-to-Offline Attribution</li>
+                        <li>Media Mix Modeling</li>
+                        <li>Revenue Forecasting</li>
+                        <li>Predictive Analytics</li>
+                        <li>A/B Testing &amp; Experimentation</li>
+                    </ul>
+                </div>
+                <div class="expertise-cluster">
+                    <h3>Data Engineering &amp; Architecture</h3>
+                    <ul>
+                        <li>Data Architecture &amp; Modeling</li>
+                        <li>Cloud Data Infrastructure</li>
+                        <li>ETL / ELT Pipelines (dbt)</li>
+                        <li>Cross-Channel Data Integration</li>
+                        <li>KPI Development</li>
+                        <li>Business Intelligence</li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
-        <section class="section">
-            <h2>Impactful Projects</h2>
-            <p style="margin-bottom: 25px; color: #555; font-size: 1.1em; text-align: center;">Interactive deep-dives showcasing analytical methodology, system design, and business impact</p>
+        <section class="section" id="projects">
+            <h2>Featured Case Studies</h2>
+            <p class="section-intro">Interactive deep-dives showcasing analytical methodology, system design, and business impact</p>
 
             <div class="analysis-grid">
-                <div class="analysis-card" onclick="openModal('o2o-attribution')">
+                <article class="analysis-card" role="button" tabindex="0"
+                         data-analysis-id="o2o-attribution"
+                         data-analysis-title="Online-to-Offline Attribution System"
+                         data-analysis-src="analysis/o2o-attribution.html"
+                         aria-label="Open case study: Online-to-Offline Attribution">
                     <div class="analysis-thumbnail">
                         <div class="o2o-thumb">
                             <div class="o2o-thumb-flow">
@@ -211,11 +269,15 @@
                             <span class="tag">Identity Stitching</span>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <div class="analysis-card" onclick="openModal('payment-analysis')">
+                <article class="analysis-card" role="button" tabindex="0"
+                         data-analysis-id="payment-analysis"
+                         data-analysis-title="Payment Method Launch Impact Analysis"
+                         data-analysis-src="analysis/payment-disruption-analysis.html"
+                         aria-label="Open case study: Payment Method Launch Impact">
                     <div class="analysis-thumbnail">
-                        <img src="thumbnails/payment-analysis-thumb.png" alt="Payment Method Disruption Analysis" loading="lazy">
+                        <img src="thumbnails/payment-analysis-thumb.png" alt="" loading="lazy">
                         <div class="thumbnail-overlay">
                             <div class="view-analysis">View Analysis</div>
                         </div>
@@ -232,11 +294,15 @@
                             <span class="tag">Data Viz</span>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <div class="analysis-card" onclick="openModal('llm-sql-analysis')">
+                <article class="analysis-card" role="button" tabindex="0"
+                         data-analysis-id="llm-sql-analysis"
+                         data-analysis-title="LLM-Assisted SQL Query Optimization"
+                         data-analysis-src="analysis/llm-sql-optimization.html"
+                         aria-label="Open case study: LLM-Assisted SQL Query Optimization">
                     <div class="analysis-thumbnail">
-                        <img src="thumbnails/llm-sql-optimization-thumb.png" alt="LLM-Assisted SQL Optimization" loading="lazy">
+                        <img src="thumbnails/llm-sql-optimization-thumb.png" alt="" loading="lazy">
                         <div class="thumbnail-overlay">
                             <div class="view-analysis">View Analysis</div>
                         </div>
@@ -253,11 +319,15 @@
                             <span class="tag">Time Analysis</span>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <div class="analysis-card" onclick="openModal('paid-search-analysis')">
+                <article class="analysis-card" role="button" tabindex="0"
+                         data-analysis-id="paid-search-analysis"
+                         data-analysis-title="Paid Search Campaign Analysis"
+                         data-analysis-src="analysis/paid-search-analysis.html"
+                         aria-label="Open case study: Paid Search Campaign Analysis">
                     <div class="analysis-thumbnail">
-                        <img src="thumbnails/paid-search-analysis-thumb.png" alt="Google Ads Performance Analysis" loading="lazy">
+                        <img src="thumbnails/paid-search-analysis-thumb.png" alt="" loading="lazy">
                         <div class="thumbnail-overlay">
                             <div class="view-analysis">View Analysis</div>
                         </div>
@@ -274,11 +344,15 @@
                             <span class="tag">Performance Assessment</span>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <div class="analysis-card" onclick="openModal('friction-analysis')">
+                <article class="analysis-card" role="button" tabindex="0"
+                         data-analysis-id="friction-analysis"
+                         data-analysis-title="Site Friction Impact Assessment"
+                         data-analysis-src="analysis/friction-impact-analysis.html"
+                         aria-label="Open case study: Site Friction Impact Assessment">
                     <div class="analysis-thumbnail">
-                        <img src="thumbnails/friction-analysis-thumb.png" alt="Site Friction Impact Analysis" loading="lazy">
+                        <img src="thumbnails/friction-analysis-thumb.png" alt="" loading="lazy">
                         <div class="thumbnail-overlay">
                             <div class="view-analysis">View Analysis</div>
                         </div>
@@ -295,11 +369,15 @@
                             <span class="tag">Prioritization</span>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <div class="analysis-card" onclick="openModal('speed-analysis')">
+                <article class="analysis-card" role="button" tabindex="0"
+                         data-analysis-id="speed-analysis"
+                         data-analysis-title="Page Speed Performance Impact Analysis"
+                         data-analysis-src="analysis/page-speed-analysis.html"
+                         aria-label="Open case study: Page Speed Performance Impact">
                     <div class="analysis-thumbnail">
-                        <img src="thumbnails/speed-analysis-thumb.png" alt="Page Speed Performance Analysis" loading="lazy">
+                        <img src="thumbnails/speed-analysis-thumb.png" alt="" loading="lazy">
                         <div class="thumbnail-overlay">
                             <div class="view-analysis">View Analysis</div>
                         </div>
@@ -316,17 +394,17 @@
                             <span class="tag">Revenue Impact</span>
                         </div>
                     </div>
-                </div>
+                </article>
 
             </div>
         </section>
 
-        <!-- Modal Structure - ADD BEFORE CLOSING </body> TAG -->
-        <div id="analysisModal" class="modal">
+        <!-- Modal Structure -->
+        <div id="analysisModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 id="modalTitle">Analysis Visualization</h3>
-                    <span class="close" onclick="closeModal()">&times;</span>
+                    <button type="button" class="close" id="modalCloseBtn" aria-label="Close case study">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div id="modalAnalysis"></div>
@@ -334,188 +412,134 @@
             </div>
         </div>
 
-        <!-- JavaScript - ADD BEFORE CLOSING </body> TAG -->
         <script>
-        // Helper function for GA4 tracking
-        function trackEvent(eventName, eventParams = {}) {
-            if (typeof gtag !== 'undefined') {
-                gtag('event', eventName, eventParams);
-            }
-        }
+        (function () {
+            'use strict';
 
-        // Modal functionality
-        function openModal(analysisType) {
             const modal = document.getElementById('analysisModal');
             const modalTitle = document.getElementById('modalTitle');
-            const modalAnalysis = document.getElementById('modalAnalysis');
+            const modalBody = document.getElementById('modalAnalysis');
+            const closeBtn = document.getElementById('modalCloseBtn');
+            let lastFocusedElement = null;
 
-            // Track modal open event
-            trackEvent('analysis_view', {
-                analysis_type: analysisType,
-                event_category: 'engagement',
-                event_label: analysisType
-            });
-
-            // Set content based on analysis type
-            if (analysisType === 'payment-analysis') {
-                modalTitle.textContent = 'Payment Method Launch Impact Analysis';
-                
-                modalAnalysis.innerHTML = `
-                    <div class="analysis-viewer">
-                        <iframe src="analysis/payment-disruption-analysis.html" 
-                                width="100%" 
-                                height="800px" 
-                                frameborder="0"
-                                style="border-radius: 10px;">
-                        </iframe>
-                    </div>
-                `;
-            } else if (analysisType === 'llm-sql-analysis') {
-                modalTitle.textContent = 'LLM-Assisted SQL Query Optimization';
-                
-                modalAnalysis.innerHTML = `
-                    <div class="analysis-viewer">
-                        <iframe src="analysis/llm-sql-optimization.html" 
-                                width="100%" 
-                                height="800px" 
-                                frameborder="0"
-                                style="border-radius: 10px;">
-                        </iframe>
-                    </div>
-                `;
-            
-            } else if (analysisType === 'friction-analysis') {
-                modalTitle.textContent = 'Site Friction Impact Assessment';
-                
-                modalAnalysis.innerHTML = `
-                    <div class="analysis-viewer">
-                        <iframe src="analysis/friction-impact-analysis.html" 
-                                width="100%" 
-                                height="800px" 
-                                frameborder="0"
-                                style="border-radius: 10px;">
-                        </iframe>
-                    </div>
-                `;
-
-                } else if (analysisType === 'paid-search-analysis') {
-                    modalTitle.textContent = 'Paid Search Campaign Analysis';
-                    
-                    modalAnalysis.innerHTML = `
-                        <div class="analysis-viewer">
-                            <iframe src="analysis/paid-search-analysis.html" 
-                                    width="100%" 
-                                    height="800px" 
-                                    frameborder="0"
-                                    style="border-radius: 10px;">
-                            </iframe>
-                        </div>
-                    `;
-
-            } else if (analysisType === 'speed-analysis') {
-                modalTitle.textContent = 'Page Speed Performance Impact Analysis';
-
-                modalAnalysis.innerHTML = `
-                    <div class="analysis-viewer">
-                        <iframe src="analysis/page-speed-analysis.html"
-                                width="100%"
-                                height="800px"
-                                frameborder="0"
-                                style="border-radius: 10px;">
-                        </iframe>
-                    </div>
-                `;
-            } else if (analysisType === 'o2o-attribution') {
-                modalTitle.textContent = 'Online-to-Offline Attribution System';
-
-                modalAnalysis.innerHTML = `
-                    <div class="analysis-viewer">
-                        <iframe src="analysis/o2o-attribution.html"
-                                width="100%"
-                                height="800px"
-                                frameborder="0"
-                                style="border-radius: 10px;">
-                        </iframe>
-                    </div>
-                `;
-            }
-
-            
-            
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('analysisModal');
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restore scrolling
-
-            // Track modal close
-            trackEvent('modal_close', {
-                event_category: 'engagement'
-            });
-        }
-
-        // Close modal when clicking outside of it
-        window.onclick = function(event) {
-            const modal = document.getElementById('analysisModal');
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeModal();
-            }
-        });
-
-        // Track contact clicks
-        function trackContactClick(contactType) {
-            trackEvent('contact_click', {
-                contact_method: contactType,
-                event_category: 'engagement',
-                event_label: contactType
-            });
-        }
-
-        // Track analysis card hover (engagement indicator)
-        document.addEventListener('DOMContentLoaded', function() {
-            const analysisCards = document.querySelectorAll('.analysis-card');
-            analysisCards.forEach(card => {
-                let hoverTimeout;
-                card.addEventListener('mouseenter', function() {
-                    hoverTimeout = setTimeout(() => {
-                        const analysisTitle = card.querySelector('h3').textContent;
-                        trackEvent('analysis_card_hover', {
-                            analysis_name: analysisTitle,
-                            event_category: 'engagement'
-                        });
-                    }, 2000); // Track after 2 seconds of hover
-                });
-                card.addEventListener('mouseleave', function() {
-                    clearTimeout(hoverTimeout);
-                });
-            });
-
-            // Track scroll depth
-            let maxScroll = 0;
-            window.addEventListener('scroll', function() {
-                const scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
-                if (scrollPercent > maxScroll && scrollPercent % 25 === 0) {
-                    maxScroll = scrollPercent;
-                    trackEvent('scroll_depth', {
-                        scroll_percentage: scrollPercent,
-                        event_category: 'engagement'
-                    });
+            function trackEvent(eventName, params = {}) {
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', eventName, params);
                 }
+            }
+
+            function openModal(card) {
+                const id = card.dataset.analysisId;
+                const title = card.dataset.analysisTitle;
+                const src = card.dataset.analysisSrc;
+                if (!src) return;
+
+                lastFocusedElement = document.activeElement;
+                modalTitle.textContent = title;
+                modalBody.innerHTML = `
+                    <div class="analysis-viewer">
+                        <iframe src="${src}" title="${title}" width="100%" height="800px" frameborder="0" loading="lazy"></iframe>
+                    </div>
+                `;
+                modal.style.display = 'block';
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                closeBtn.focus();
+
+                if (history.replaceState && id) {
+                    history.replaceState(null, '', '#' + id);
+                }
+
+                trackEvent('analysis_view', {
+                    analysis_type: id,
+                    event_category: 'engagement',
+                    event_label: id
+                });
+            }
+
+            function closeModal() {
+                modal.style.display = 'none';
+                modal.setAttribute('aria-hidden', 'true');
+                modalBody.innerHTML = '';
+                document.body.style.overflow = '';
+                if (lastFocusedElement) lastFocusedElement.focus();
+                if (history.replaceState && location.hash) {
+                    history.replaceState(null, '', location.pathname + location.search);
+                }
+                trackEvent('modal_close', { event_category: 'engagement' });
+            }
+
+            function findCardById(id) {
+                return document.querySelector(`.analysis-card[data-analysis-id="${id}"]`);
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('.analysis-card').forEach(card => {
+                    card.addEventListener('click', () => openModal(card));
+                    card.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            openModal(card);
+                        }
+                    });
+
+                    let hoverTimeout;
+                    card.addEventListener('mouseenter', () => {
+                        hoverTimeout = setTimeout(() => {
+                            const title = card.querySelector('h3')?.textContent;
+                            trackEvent('analysis_card_hover', {
+                                analysis_name: title,
+                                event_category: 'engagement'
+                            });
+                        }, 2000);
+                    });
+                    card.addEventListener('mouseleave', () => clearTimeout(hoverTimeout));
+                });
+
+                closeBtn.addEventListener('click', closeModal);
+
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal();
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && modal.style.display === 'block') closeModal();
+                });
+
+                document.querySelectorAll('[data-contact]').forEach(link => {
+                    link.addEventListener('click', () => {
+                        trackEvent('contact_click', {
+                            contact_method: link.dataset.contact,
+                            event_category: 'engagement',
+                            event_label: link.dataset.contact
+                        });
+                    });
+                });
+
+                if (location.hash) {
+                    const card = findCardById(location.hash.slice(1));
+                    if (card) openModal(card);
+                }
+
+                let maxScroll = 0;
+                window.addEventListener('scroll', () => {
+                    const pct = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+                    if (pct > maxScroll && pct % 25 === 0) {
+                        maxScroll = pct;
+                        trackEvent('scroll_depth', { scroll_percentage: pct, event_category: 'engagement' });
+                    }
+                });
             });
-        });
+
+            window.addEventListener('hashchange', () => {
+                const card = location.hash ? findCardById(location.hash.slice(1)) : null;
+                if (card) openModal(card);
+                else if (modal.style.display === 'block') closeModal();
+            });
+        })();
         </script>
 
-        <section class="section">
+        <section class="section" id="experience">
             <h2>Professional Experience</h2>
             
             <div class="experience-item">
@@ -547,7 +571,7 @@
                     <div class="experience-date">May 2016 – April 2020</div>
                 </div>
                 <div class="experience-description">
-                    <div style="font-size: 0.9em; color: #666; margin-bottom: 8px;">Director of Customer Engagement & Digital Analytics (Promoted April 2019)<br>Digital Analytics Manager (May 2016 – April 2019)</div>
+                    <div class="role-progression">Director of Customer Engagement &amp; Digital Analytics (Promoted April 2019)<br>Digital Analytics Manager (May 2016 – April 2019)</div>
                     Led omnichannel analytics strategy and data-driven media optimization for a retail chain with 800+ locations, implementing advanced attribution modeling to maximize marketing ROI across TV, digital display, and search campaigns.
                     <ul>
                         <li>Deployed enterprise DSP analytics framework using Adobe Advertising with advanced audience targeting and geospatial optimization, achieving 30%+ improvement in campaign efficiency through location-based performance analysis</li>
@@ -595,16 +619,15 @@
             </div>
         </section>
 
-        <section class="section">
-            <h2>Education & Certifications</h2>
+        <section class="section" id="education">
+            <h2>Education &amp; Certifications</h2>
 
             <div class="experience-item">
                 <div class="experience-header">
                     <div>
                         <div class="experience-title">Bachelor of Science, Life Sciences</div>
-                        <div class="experience-company">Texas A&M University</div>
+                        <div class="experience-company">Texas A&amp;M University &nbsp;|&nbsp; College Station, TX</div>
                     </div>
-                    <div class="experience-date">College Station, TX</div>
                 </div>
             </div>
 
@@ -632,6 +655,6 @@
                 </div>
             </div>
         </section>
-    </div>
+    </main>
 </body>
 </html>

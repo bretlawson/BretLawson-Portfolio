@@ -4,12 +4,126 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
     background: #f5f5f5;
     min-height: 100vh;
+}
+
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 8px;
+    background: #1e3c72;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    z-index: 1100;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 8px;
+    outline: 2px solid #06b6d4;
+    outline-offset: 2px;
+}
+
+.site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(30, 60, 114, 0.1);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.site-nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.site-nav-brand {
+    font-weight: 700;
+    font-size: 1.05em;
+    color: #1e3c72;
+    text-decoration: none;
+    letter-spacing: -0.3px;
+}
+
+.site-nav-links {
+    list-style: none;
+    display: flex;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.site-nav-links a {
+    color: #555;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.92em;
+    font-weight: 500;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.site-nav-links a:hover,
+.site-nav-links a:focus-visible {
+    background: rgba(30, 60, 114, 0.08);
+    color: #1e3c72;
+    outline: none;
+}
+
+.site-nav-links a:focus-visible {
+    box-shadow: 0 0 0 2px #06b6d4;
+}
+
+.site-nav-links a.site-nav-cta {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: #fff;
+}
+
+.site-nav-links a.site-nav-cta:hover {
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(30, 60, 114, 0.3);
+}
+
+@media (max-width: 640px) {
+    .site-nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 10px 16px;
+    }
+    .site-nav-links {
+        gap: 2px;
+        font-size: 0.85em;
+    }
+    .site-nav-links a {
+        padding: 6px 10px;
+    }
+    html {
+        scroll-padding-top: 110px;
+    }
 }
 
 .container {
@@ -80,25 +194,46 @@ body {
     line-height: 1.6;
 }
 
+.subtitle-roles {
+    font-size: 1em;
+    margin-top: 5px;
+    opacity: 0.85;
+}
+
 .contact-info {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px;
     font-size: 0.9em;
 }
 
-.contact-info span {
+.contact-info a {
     background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: white;
     padding: 6px 12px;
     border-radius: 20px;
     font-weight: 500;
     box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
 }
 
-.contact-info span:hover {
+.contact-info a:hover,
+.contact-info a:focus-visible {
     transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(30, 60, 114, 0.4);
+    outline: none;
+}
+
+.contact-info a:focus-visible {
+    outline: 2px solid #06b6d4;
+    outline-offset: 2px;
+}
+
+.contact-info a.contact-cta {
+    background: linear-gradient(135deg, #06b6d4, #2a5298);
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.35);
 }
 
 .section {
@@ -116,6 +251,66 @@ body {
     color: #1e3c72;
     font-weight: 600;
     text-align: center;
+}
+
+.section-intro {
+    margin-bottom: 25px;
+    color: #555;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+.expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 24px;
+}
+
+.expertise-cluster {
+    background: linear-gradient(135deg, rgba(30, 60, 114, 0.05), rgba(42, 82, 152, 0.05));
+    padding: 24px;
+    border-radius: 15px;
+    border: 1px solid rgba(30, 60, 114, 0.1);
+}
+
+.expertise-cluster h3 {
+    font-size: 1.05em;
+    margin-bottom: 12px;
+    color: #1e3c72;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.expertise-cluster ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.expertise-cluster li {
+    color: #555;
+    font-size: 0.95em;
+    padding: 4px 0;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(30, 60, 114, 0.08);
+}
+
+.expertise-cluster li:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 1024px) {
+    .expertise-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .expertise-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .tech-grid {
@@ -256,6 +451,12 @@ body {
     line-height: 1.6;
 }
 
+.role-progression {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 8px;
+}
+
 .experience-description ul {
     margin-top: 10px;
     padding-left: 20px;
@@ -298,9 +499,15 @@ body {
     max-width: 320px;
 }
 
-.analysis-card:hover {
+.analysis-card:hover,
+.analysis-card:focus-visible {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(30, 60, 114, 0.15);
+    outline: none;
+}
+
+.analysis-card:focus-visible {
+    box-shadow: 0 0 0 3px #06b6d4, 0 15px 30px rgba(30, 60, 114, 0.15);
 }
 
 .analysis-card.coming-soon {
@@ -508,7 +715,7 @@ body {
     font-weight: bold;
     color: #666;
     cursor: pointer;
-    transition: color 0.3s ease, transform 0.2s ease;
+    transition: color 0.3s ease, transform 0.2s ease, background 0.2s ease;
     width: 40px;
     height: 40px;
     display: flex;
@@ -516,12 +723,21 @@ body {
     justify-content: center;
     border-radius: 50%;
     background: rgba(30, 60, 114, 0.1);
+    border: none;
+    padding: 0;
+    line-height: 1;
 }
 
-.close:hover {
+.close:hover,
+.close:focus-visible {
     color: #1e3c72;
     transform: scale(1.1);
     background: rgba(30, 60, 114, 0.2);
+    outline: none;
+}
+
+.close:focus-visible {
+    box-shadow: 0 0 0 2px #06b6d4;
 }
 
 .modal-body {
@@ -605,10 +821,10 @@ body {
 
     .contact-info {
         justify-content: center;
-        gap: 12px;
+        gap: 10px;
     }
 
-    .contact-info span {
+    .contact-info a {
         padding: 5px 10px;
         font-size: 0.8em;
     }
@@ -714,7 +930,7 @@ body {
         height: 100px;
     }
 
-    .contact-info span {
+    .contact-info a {
         padding: 4px 8px;
         font-size: 0.75em;
     }
