@@ -716,19 +716,61 @@ body {
     box-shadow: 0 0 0 3px #06b6d4, 0 14px 30px rgba(30, 60, 114, 0.15);
 }
 
+.sample-callout {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 60%, #06b6d4 130%);
+    color: #fff;
+    padding: 26px 20px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.sample-callout::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.12), transparent 70%);
+    pointer-events: none;
+}
+
+.sample-callout-stat {
+    font-size: 2.7em;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -1.5px;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sample-callout-label {
+    font-size: 0.74em;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 8px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
 .sample-thumb {
     position: relative;
-    aspect-ratio: 16 / 10;
     overflow: hidden;
     background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
     border-bottom: 1px solid rgba(30, 60, 114, 0.08);
+}
+
+.sample-thumb--strip {
+    height: 80px;
 }
 
 .sample-thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top center;
+    object-position: center;
     transition: transform 0.3s ease;
 }
 
@@ -738,26 +780,23 @@ body {
 
 .sample-badge {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 12px;
+    right: 12px;
     padding: 4px 10px;
     border-radius: 12px;
-    font-size: 0.7em;
+    font-size: 0.65em;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.7px;
     z-index: 2;
     backdrop-filter: blur(8px);
 }
 
-.sample-badge--visual {
-    background: rgba(30, 60, 114, 0.85);
-    color: #fff;
-}
-
+.sample-badge--visual,
 .sample-badge--dashboard {
-    background: rgba(6, 182, 212, 0.85);
+    background: rgba(255, 255, 255, 0.18);
     color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .sample-overlay {
@@ -786,15 +825,16 @@ body {
 }
 
 .sample-content {
-    padding: 16px 18px 18px;
+    padding: 14px 18px;
+    text-align: center;
 }
 
 .sample-content h3 {
-    font-size: 1.05em;
+    font-size: 0.95em;
     font-weight: 600;
     color: #333;
-    margin-bottom: 6px;
     line-height: 1.3;
+    margin: 0;
 }
 
 .sample-content p {
