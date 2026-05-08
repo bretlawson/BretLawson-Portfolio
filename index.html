@@ -130,7 +130,8 @@
         <div class="site-nav-inner">
             <a href="#top" class="site-nav-brand">Bret Lawson</a>
             <ul class="site-nav-links">
-                <li><a href="#expertise">Expertise</a></li>
+                <li><a href="#samples">Samples</a></li>
+                <li><a href="#expertise">How I Help</a></li>
                 <li><a href="#projects">Case Studies</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#education">Education</a></li>
@@ -159,6 +160,36 @@
             </div>
         </header>
 
+
+        <section class="section" id="samples">
+            <h2>Sample Visuals &amp; Dashboards</h2>
+            <p class="section-intro">Examples of the visualizations and interactive dashboards I build &mdash; click any card to view full-size.</p>
+            <div class="samples-grid">
+
+                <article class="sample-card" role="button" tabindex="0"
+                         data-modal-type="image"
+                         data-modal-id="page-speed-impact"
+                         data-modal-title="Mobile Performance: Conversion Rate &amp; AOV by Landing Page TTFB"
+                         data-modal-src="samples/page-speed-impact.png"
+                         data-modal-caption="Focusing on the specific speed issues revealed in this visual increased revenue by $3.8M annually."
+                         aria-label="View visual: Mobile TTFB performance">
+                    <div class="sample-thumb">
+                        <img src="samples/page-speed-impact.png" alt="" loading="lazy">
+                        <span class="sample-badge sample-badge--visual">Visual</span>
+                        <div class="sample-overlay"><span>View Full-Size</span></div>
+                    </div>
+                    <div class="sample-content">
+                        <h3>Mobile TTFB &times; Conversion</h3>
+                        <p>Page-speed analysis that drove $3.8M in annual revenue.</p>
+                    </div>
+                </article>
+
+                <!-- Additional sample cards will be added here as content arrives.
+                     Pattern: copy the LCP card above, swap data-modal-* attributes,
+                     thumbnail src, badge class (visual / dashboard), title, caption. -->
+
+            </div>
+        </section>
 
         <section class="section" id="technologies">
             <h2>Technologies</h2>
@@ -435,19 +466,36 @@
                 }
             }
 
+            function escapeHtml(s) {
+                return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+            }
+
             function openModal(card) {
-                const id = card.dataset.analysisId;
-                const title = card.dataset.analysisTitle;
-                const src = card.dataset.analysisSrc;
+                const isImage = card.dataset.modalType === 'image';
+                const id = card.dataset.modalId || card.dataset.analysisId;
+                const title = card.dataset.modalTitle || card.dataset.analysisTitle;
+                const src = card.dataset.modalSrc || card.dataset.analysisSrc;
+                const caption = card.dataset.modalCaption;
                 if (!src) return;
 
                 lastFocusedElement = document.activeElement;
-                modalTitle.textContent = title;
-                modalBody.innerHTML = `
-                    <div class="analysis-viewer">
-                        <iframe src="${src}" title="${title}" width="100%" height="800px" frameborder="0" loading="lazy"></iframe>
-                    </div>
-                `;
+                modalTitle.innerHTML = escapeHtml(title);
+
+                if (isImage) {
+                    modalBody.innerHTML = `
+                        <div class="image-viewer">
+                            <img src="${escapeHtml(src)}" alt="${escapeHtml(title)}" />
+                            ${caption ? `<p class="image-caption">${escapeHtml(caption)}</p>` : ''}
+                        </div>
+                    `;
+                } else {
+                    modalBody.innerHTML = `
+                        <div class="analysis-viewer">
+                            <iframe src="${escapeHtml(src)}" title="${escapeHtml(title)}" width="100%" height="800px" frameborder="0" loading="lazy"></iframe>
+                        </div>
+                    `;
+                }
+
                 modal.style.display = 'block';
                 modal.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
@@ -477,11 +525,13 @@
             }
 
             function findCardById(id) {
-                return document.querySelector(`.analysis-card[data-analysis-id="${id}"]`);
+                return document.querySelector(
+                    `.analysis-card[data-analysis-id="${id}"], .sample-card[data-modal-id="${id}"]`
+                );
             }
 
             document.addEventListener('DOMContentLoaded', function () {
-                document.querySelectorAll('.analysis-card').forEach(card => {
+                document.querySelectorAll('.analysis-card, .sample-card:not(.sample-card--placeholder)').forEach(card => {
                     card.addEventListener('click', () => openModal(card));
                     card.addEventListener('keydown', (e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
