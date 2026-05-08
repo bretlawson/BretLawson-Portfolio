@@ -260,56 +260,73 @@ body {
     text-align: center;
 }
 
-.expertise-grid {
+.capability-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 22px;
     margin-top: 24px;
 }
 
-.expertise-cluster {
-    background: linear-gradient(135deg, rgba(30, 60, 114, 0.05), rgba(42, 82, 152, 0.05));
-    padding: 24px;
-    border-radius: 15px;
+.capability-card {
+    background: linear-gradient(135deg, rgba(30, 60, 114, 0.04), rgba(42, 82, 152, 0.04));
+    padding: 28px 26px;
+    border-radius: 16px;
     border: 1px solid rgba(30, 60, 114, 0.1);
+    border-left: 4px solid #1e3c72;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-left-color 0.2s ease;
 }
 
-.expertise-cluster h3 {
-    font-size: 1.05em;
-    margin-bottom: 12px;
+.capability-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(30, 60, 114, 0.12);
+    border-left-color: #06b6d4;
+}
+
+.capability-card h3 {
+    font-size: 1em;
+    font-weight: 700;
     color: #1e3c72;
-    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.6px;
+    line-height: 1.3;
+    margin-bottom: 14px;
 }
 
-.expertise-cluster ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.expertise-cluster li {
+.capability-card p {
     color: #555;
     font-size: 0.95em;
-    padding: 4px 0;
-    line-height: 1.5;
-    border-bottom: 1px solid rgba(30, 60, 114, 0.08);
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 18px;
 }
 
-.expertise-cluster li:last-child {
-    border-bottom: none;
+.capability-link {
+    color: #1e3c72;
+    font-weight: 600;
+    font-size: 0.9em;
+    text-decoration: none;
+    align-self: flex-start;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.capability-link:hover,
+.capability-link:focus-visible {
+    color: #06b6d4;
+    transform: translateX(3px);
+    outline: none;
+}
+
+.capability-link:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 4px;
 }
 
 @media (max-width: 1024px) {
-    .expertise-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .expertise-grid {
+    .capability-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
 }
 
