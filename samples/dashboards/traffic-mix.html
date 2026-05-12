@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Traffic Mix — Channel Composition Over Time (illustrative)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:#1e3c72; --blue:#2a5298; --cyan:#06b6d4;
+    --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb; --bg:#f7f8fa;
+    --green:#16a34a; --red:#dc2626; --amber:#d97706;
+  }
+  body { font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif; background:var(--bg); color:var(--ink); padding:24px; }
+  .wrap { max-width:1100px; margin:0 auto; }
+  .topbar { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:20px; }
+  .eyebrow { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  h1 { font-size:20px; font-weight:700; color:var(--navy); margin-top:4px; }
+  .sub { font-size:13px; color:var(--muted); margin-top:3px; }
+  .illus { display:inline-block; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--amber); border:1px solid #f1d8b0; background:#fdf6ec; padding:2px 8px; border-radius:10px; margin-top:8px; }
+
+  .controls { display:flex; gap:8px; align-items:center; background:#fff; border:1px solid var(--line); border-radius:10px; padding:6px; }
+  .seg { display:flex; gap:4px; }
+  .seg button { border:none; background:transparent; padding:7px 14px; border-radius:7px; font-size:13px; font-weight:600; color:var(--muted); cursor:pointer; transition:.15s; }
+  .seg button.active { background:linear-gradient(135deg,var(--navy),var(--blue)); color:#fff; }
+  .seg button:not(.active):hover { background:#f1f3f7; color:var(--ink); }
+
+  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:20px; }
+  .kpi { background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+  .kpi .lbl { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  .kpi .val { font-size:24px; font-weight:800; color:var(--ink); margin-top:6px; letter-spacing:-.5px; }
+  .kpi .delta { font-size:12px; font-weight:600; margin-top:3px; }
+  .delta.up { color:var(--green); } .delta.down { color:var(--red); } .delta.flat { color:var(--muted); }
+
+  .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-bottom:16px; }
+  .card h2 { font-size:14px; font-weight:700; color:var(--ink); margin-bottom:2px; }
+  .card .h2sub { font-size:12px; color:var(--muted); margin-bottom:14px; }
+  .chart-box { position:relative; height:340px; }
+
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .chart-box.small { height:240px; }
+
+  .callout { margin-top:8px; background:linear-gradient(135deg,rgba(30,60,114,.06),rgba(6,182,212,.06)); border:1px solid rgba(30,60,114,.15); border-left:3px solid var(--navy); border-radius:8px; padding:12px 14px; font-size:13px; color:var(--ink); line-height:1.5; }
+  .callout strong { color:var(--navy); }
+  .footnote { font-size:11px; color:#9aa5b1; margin-top:10px; font-style:italic; text-align:center; }
+
+  @media (max-width:820px){ .kpis{grid-template-columns:repeat(2,1fr);} .grid2{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Acquisition</div>
+      <h1>Traffic Mix Over Time</h1>
+      <div class="sub">Where sessions come from, month over month &mdash; and which way the mix is drifting.</div>
+      <span class="illus">Illustrative &middot; synthetic data</span>
+    </div>
+    <div class="controls">
+      <span style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding-left:6px;">View</span>
+      <div class="seg" id="viewSeg">
+        <button data-view="share" class="active">% of mix</button>
+        <button data-view="abs">Sessions</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="lbl">Sessions (last 12 mo)</div>
+      <div class="val" id="kpiTotal">39.4M</div>
+      <div class="delta up" id="kpiTotalD">+2.6% YoY</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Biggest Mix Gainer</div>
+      <div class="val" id="kpiGain">Paid Search</div>
+      <div class="delta up" id="kpiGainD">+4.1 pts of mix</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Biggest Mix Loser</div>
+      <div class="val" id="kpiLose">Organic</div>
+      <div class="delta down" id="kpiLoseD">&minus;6.8 pts of mix</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Owned-channel share</div>
+      <div class="val" id="kpiOwned">48%</div>
+      <div class="delta down" id="kpiOwnedD">Organic + Direct + Email, was 53%</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Channel composition by month</h2>
+    <div class="h2sub" id="mainSub">% of total sessions &mdash; toggle "Sessions" for absolute volume. Click a legend entry to isolate a channel.</div>
+    <div class="chart-box"><canvas id="chMix"></canvas></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>12-month mix shift</h2>
+      <div class="h2sub">Change in each channel's share of total sessions, first month vs. last</div>
+      <div class="chart-box small"><canvas id="chShift"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>What it means</h2>
+      <div class="h2sub">&nbsp;</div>
+      <div class="callout">
+        <strong>The free seat at the table is shrinking.</strong> Organic share fell ~7 points in 12 months; paid search picked up most of it. The mix is getting more expensive to maintain at the same session volume &mdash; every point that shifts from organic to paid is incremental media cost for flat traffic.
+      </div>
+      <div class="callout">
+        <strong>Email is the bright spot.</strong> The one owned channel gaining share (+1.6 pts) &mdash; worth leaning into before the organic gap widens further.
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">Synthetic figures for portfolio illustration. Structure mirrors a production traffic-mix dashboard (share vs. absolute toggle, channel isolation, period-over-period mix-shift sizing).</div>
+</div>
+
+<script>
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const CHANNELS = ['Organic','Paid Search','Direct','Email','Paid Social','Referral'];
+const COLORS   = ['#1e3c72','#2a5298','#06b6d4','#16a34a','#d97706','#9ca3af'];
+
+// Share of sessions (%) per channel, per month — every row sums to 100.
+// Org   PS    Dir   Eml   PSoc  Ref
+const SHARE = [
+  [38.0, 22.0, 16.0,  8.5,  9.0,  6.5], // Jan
+  [37.5, 22.5, 16.0,  8.7,  8.8,  6.5], // Feb
+  [37.0, 23.0, 16.0,  9.0,  8.5,  6.5], // Mar
+  [36.0, 24.0, 16.0,  9.2,  8.3,  6.5], // Apr
+  [35.2, 24.5, 16.2,  9.5,  8.1,  6.5], // May
+  [34.3, 25.2, 16.2,  9.8,  8.0,  6.5], // Jun
+  [33.5, 26.0, 16.3, 10.0,  7.7,  6.5], // Jul
+  [32.8, 26.7, 16.3, 10.2,  7.5,  6.5], // Aug
+  [32.0, 27.5, 16.4, 10.4,  7.2,  6.5], // Sep
+  [31.0, 28.5, 16.4, 10.6,  7.0,  6.5], // Oct
+  [30.0, 29.3, 16.5, 10.8,  6.9,  6.5], // Nov
+  [29.0, 30.0, 16.5, 11.0,  6.8,  6.7], // Dec
+];
+// Total sessions (M) per month
+const TOTALS = [3.10, 3.05, 3.12, 3.18, 3.22, 3.20, 3.24, 3.26, 3.30, 3.40, 3.62, 3.70];
+const N = MONTHS.length;
+const absVal = (i,c) => SHARE[i][c] / 100 * TOTALS[i];
+
+let view = 'share';
+const seriesFor = c => SHARE.map((_,i)=> view==='share' ? SHARE[i][c] : absVal(i,c));
+
+// main stacked bar chart
+const mixChart = new Chart(document.getElementById('chMix').getContext('2d'), {
+  type:'bar',
+  data:{ labels: MONTHS, datasets: CHANNELS.map((name,c)=>({
+    label:name, data: seriesFor(c),
+    backgroundColor: COLORS[c], borderColor:'#fff', borderWidth:0.5, maxBarThickness:46,
+  })) },
+  options:{ responsive:true, maintainAspectRatio:false, animation:{ duration:450 },
+    interaction:{ mode:'index', intersect:false },
+    plugins:{
+      legend:{ position:'bottom', labels:{ boxWidth:12, font:{size:11} } },
+      tooltip:{ callbacks:{ label:c=> view==='share'
+        ? c.dataset.label + ': ' + c.parsed.y.toFixed(1) + '%'
+        : c.dataset.label + ': ' + c.parsed.y.toFixed(2) + 'M' } }
+    },
+    scales:{
+      y:{ stacked:true, beginAtZero:true,
+          title:{ display:true, text: view==='share' ? 'Share of sessions (%)' : 'Sessions (M)' },
+          ticks:{ callback:v=> view==='share' ? v+'%' : v+'M' }, grid:{ color:'#eef0f3' },
+          max: view==='share' ? 100 : undefined },
+      x:{ stacked:true, grid:{ display:false } }
+    } }
+});
+
+// mix shift bar (Dec vs Jan, share delta in pts)
+const shiftData = CHANNELS.map((_,c)=> +(SHARE[N-1][c] - SHARE[0][c]).toFixed(1));
+new Chart(document.getElementById('chShift').getContext('2d'), {
+  type:'bar',
+  data:{ labels: CHANNELS, datasets:[{ data: shiftData,
+    backgroundColor: shiftData.map(v=> v>=0 ? '#16a34a' : '#dc2626'), borderRadius:5 }] },
+  options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, animation:{ duration:450 },
+    plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=> (c.parsed.x>=0?'+':'') + c.parsed.x.toFixed(1) + ' pts of mix' } } },
+    scales:{ x:{ title:{display:true,text:'Change in share (percentage points)'}, ticks:{ callback:v=> (v>0?'+':'')+v }, grid:{color:'#eef0f3'}, suggestedMin:-10, suggestedMax:9 }, y:{ grid:{display:false} } } }
+});
+
+function setView(v){
+  view = v;
+  mixChart.data.datasets.forEach((ds,c)=>{ ds.data = seriesFor(c); });
+  mixChart.options.scales.y.max = view==='share' ? 100 : undefined;
+  mixChart.options.scales.y.title.text = view==='share' ? 'Share of sessions (%)' : 'Sessions (M)';
+  mixChart.update();
+  document.getElementById('mainSub').textContent = (view==='share'
+    ? '% of total sessions — toggle "Sessions" for absolute volume.'
+    : 'Absolute sessions (millions) — toggle "% of mix" for composition.') + ' Click a legend entry to isolate a channel.';
+  document.querySelectorAll('#viewSeg button').forEach(b=>b.classList.toggle('active', b.dataset.view===v));
+}
+document.querySelectorAll('#viewSeg button').forEach(b=> b.addEventListener('click', ()=> setView(b.dataset.view)));
+
+// KPI fills
+(function fillKpis(){
+  const total12 = TOTALS.reduce((a,b)=>a+b,0);
+  document.getElementById('kpiTotal').textContent = total12.toFixed(1) + 'M';
+  let gi=0, li=0;
+  shiftData.forEach((v,c)=>{ if(v>shiftData[gi]) gi=c; if(v<shiftData[li]) li=c; });
+  document.getElementById('kpiGain').textContent = CHANNELS[gi];
+  document.getElementById('kpiGainD').textContent = '+' + shiftData[gi].toFixed(1) + ' pts of mix';
+  document.getElementById('kpiLose').textContent = CHANNELS[li];
+  document.getElementById('kpiLoseD').textContent = shiftData[li].toFixed(1) + ' pts of mix';
+  const ownedIdx = [0,2,3];
+  const ownedLast = ownedIdx.reduce((a,c)=> a + SHARE[N-1][c], 0);
+  const ownedFirst = ownedIdx.reduce((a,c)=> a + SHARE[0][c], 0);
+  document.getElementById('kpiOwned').textContent = Math.round(ownedLast) + '%';
+  document.getElementById('kpiOwnedD').textContent = 'Organic + Direct + Email, was ' + Math.round(ownedFirst) + '%';
+})();
+</script>
+</body>
+</html>

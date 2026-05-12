@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conversion Funnel — Where Sessions Leak (illustrative)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:#1e3c72; --blue:#2a5298; --cyan:#06b6d4;
+    --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb; --bg:#f7f8fa;
+    --green:#16a34a; --red:#dc2626; --amber:#d97706;
+  }
+  body { font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif; background:var(--bg); color:var(--ink); padding:24px; }
+  .wrap { max-width:1100px; margin:0 auto; }
+  .topbar { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:20px; }
+  .eyebrow { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  h1 { font-size:20px; font-weight:700; color:var(--navy); margin-top:4px; }
+  .sub { font-size:13px; color:var(--muted); margin-top:3px; }
+  .illus { display:inline-block; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--amber); border:1px solid #f1d8b0; background:#fdf6ec; padding:2px 8px; border-radius:10px; margin-top:8px; }
+
+  .controls { display:flex; gap:8px; align-items:center; background:#fff; border:1px solid var(--line); border-radius:10px; padding:6px; }
+  .seg { display:flex; gap:4px; }
+  .seg button { border:none; background:transparent; padding:7px 14px; border-radius:7px; font-size:13px; font-weight:600; color:var(--muted); cursor:pointer; transition:.15s; }
+  .seg button.active { background:linear-gradient(135deg,var(--navy),var(--blue)); color:#fff; }
+  .seg button:not(.active):hover { background:#f1f3f7; color:var(--ink); }
+
+  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:20px; }
+  .kpi { background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+  .kpi .lbl { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  .kpi .val { font-size:24px; font-weight:800; color:var(--ink); margin-top:6px; letter-spacing:-.5px; }
+  .kpi .delta { font-size:12px; font-weight:600; margin-top:3px; color:var(--muted); }
+  .kpi.alert .val { color:var(--red); }
+
+  .grid2 { display:grid; grid-template-columns:1.3fr 1fr; gap:16px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px 20px; }
+  .card h2 { font-size:14px; font-weight:700; color:var(--ink); margin-bottom:2px; }
+  .card .h2sub { font-size:12px; color:var(--muted); margin-bottom:16px; }
+
+  .funnel { display:flex; flex-direction:column; gap:8px; }
+  .step-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px; }
+  .step-name { font-size:13px; font-weight:600; color:var(--ink); }
+  .step-count { font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .step-bar-track { background:#eef0f3; border-radius:6px; overflow:hidden; height:28px; }
+  .step-bar { height:100%; background:linear-gradient(135deg,var(--navy),var(--blue)); border-radius:6px; transition:width .5s ease; display:flex; align-items:center; padding-left:10px; min-width:42px; }
+  .step-bar.last { background:linear-gradient(135deg,var(--blue),var(--cyan)); }
+  .step-bar span { color:#fff; font-size:11.5px; font-weight:700; }
+  .dropline { display:flex; align-items:center; gap:6px; padding:1px 0 3px 6px; font-size:11.5px; color:var(--muted); }
+  .dropline .pct { font-weight:700; }
+  .dropline.leak .pct { color:var(--red); background:#fdecec; padding:1px 6px; border-radius:6px; }
+  .dropline .arrow { color:#cbd5e1; }
+  .dropline .tag { color:var(--red); font-weight:700; }
+
+  .chart-box { position:relative; height:270px; }
+
+  .callout { margin-top:16px; background:linear-gradient(135deg,rgba(220,38,38,.06),rgba(217,119,6,.06)); border:1px solid rgba(220,38,38,.18); border-left:3px solid var(--red); border-radius:8px; padding:12px 14px; font-size:13px; color:var(--ink); line-height:1.5; }
+  .callout strong { color:var(--red); }
+  .footnote { font-size:11px; color:#9aa5b1; margin-top:18px; font-style:italic; text-align:center; }
+
+  @media (max-width:820px){ .kpis{grid-template-columns:repeat(2,1fr);} .grid2{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Conversion Experience</div>
+      <h1>Where the Funnel Leaks</h1>
+      <div class="sub">Sessions in, orders out &mdash; and the revenue sitting in the worst step versus benchmark.</div>
+      <span class="illus">Illustrative &middot; synthetic data</span>
+    </div>
+    <div class="controls">
+      <span style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding-left:6px;">Device</span>
+      <div class="seg" id="devSeg">
+        <button data-dev="all" class="active">All</button>
+        <button data-dev="desktop">Desktop</button>
+        <button data-dev="mobile">Mobile</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="lbl">Sessions</div>
+      <div class="val" id="kpiSessions">4.20M</div>
+      <div class="delta">entered the funnel</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Orders</div>
+      <div class="val" id="kpiOrders">58.0K</div>
+      <div class="delta" id="kpiCvr">1.38% session conversion</div>
+    </div>
+    <div class="kpi alert">
+      <div class="lbl">Worst Step vs Benchmark</div>
+      <div class="val">Cart &rarr; Checkout</div>
+      <div class="delta" id="kpiGap">35% reach checkout vs ~45% benchmark</div>
+    </div>
+    <div class="kpi alert">
+      <div class="lbl">Revenue at Risk</div>
+      <div class="val" id="kpiRisk">$3.6M</div>
+      <div class="delta">closing half the gap to benchmark</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>Funnel by step</h2>
+      <div class="h2sub" id="funnelSub">All devices &mdash; bar length = share of entering sessions; red badge marks the worst step vs. benchmark</div>
+      <div class="funnel" id="funnel"></div>
+    </div>
+    <div class="card">
+      <h2>Step conversion vs. benchmark</h2>
+      <div class="h2sub">Solid = actual advance rate; outline = expected. The gap is where the money is.</div>
+      <div class="chart-box"><canvas id="chSteps"></canvas></div>
+      <div class="callout" id="callout">
+        <strong>Cart &rarr; Checkout is the leak.</strong> Only <span id="coAct">~35%</span> of carts reach the checkout step &mdash; a <span id="coGap">~10-point</span> gap to benchmark, and it's worse on mobile. Closing half of it is worth roughly <span id="coRisk">$6M</span> a year. Diagnosis lives one layer down: shipping/fee surprise, forced account creation, or payment-step errors.
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">Synthetic figures for portfolio illustration. Structure mirrors a production intent-dropoff dashboard (device toggle, step funnel, actual-vs-benchmark conversion, revenue-at-risk sizing).</div>
+</div>
+
+<script>
+const STEPS = ['Sessions','Product View','Add to Cart','Checkout Started','Order Placed'];
+// counts per device — Cart->Checkout (index 2->3) is intentionally the weak step vs benchmark
+const DATA = {
+  all:     [4200000, 2520000, 252000, 88000, 58000],
+  desktop: [1640000, 1080000, 119000, 47000, 32000],
+  mobile:  [2330000, 1320000, 124000, 35000, 24000],
+};
+// expected advance rate for each of the 4 transitions
+const BENCH = [0.62, 0.10, 0.45, 0.62];
+const AOV = 690;
+const LEAK = 2; // transition index: from STEPS[2] (Add to Cart) to STEPS[3] (Checkout Started)
+let dev = 'all';
+
+const navy='#1e3c72', blue='#2a5298', cyan='#06b6d4', red='#dc2626';
+const fmtN = n => n >= 1e6 ? (n/1e6).toFixed(2)+'M' : n >= 1e3 ? Math.round(n/1e3)+'K' : ''+n;
+const fmtM = v => '$' + (v/1e6).toFixed(1) + 'M';
+
+const stepChart = new Chart(document.getElementById('chSteps').getContext('2d'), {
+  type:'bar',
+  data:{ labels:['Sess→PV','PV→Cart','Cart→Checkout','Checkout→Order'],
+    datasets:[
+      { label:'Actual', data:[], backgroundColor:[navy,blue,red,cyan], borderRadius:5, order:1 },
+      { label:'Benchmark', data: BENCH.map(b=>b*100), type:'bar', backgroundColor:'rgba(0,0,0,0)', borderColor:'#9aa5b1', borderWidth:1.5, borderRadius:5, order:2 },
+    ] },
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:'bottom', labels:{boxWidth:12,font:{size:11}}}, tooltip:{ callbacks:{ label:c=>c.dataset.label+': '+c.parsed.y.toFixed(1)+'%' } } },
+    scales:{ y:{ beginAtZero:true, max:80, ticks:{ callback:v=>v+'%' }, grid:{color:'#eef0f3'} }, x:{ grid:{display:false} } } }
+});
+
+function render(){
+  const c = DATA[dev];
+  const top = c[0];
+  document.getElementById('kpiSessions').textContent = fmtN(c[0]);
+  document.getElementById('kpiOrders').textContent = fmtN(c[c.length-1]);
+  document.getElementById('kpiCvr').textContent = (c[c.length-1]/c[0]*100).toFixed(2)+'% session conversion';
+
+  // leak transition stats
+  const actC2C = c[LEAK+1]/c[LEAK];
+  const benchC2C = BENCH[LEAK];
+  document.getElementById('kpiGap').textContent =
+    Math.round(actC2C*100) + '% reach checkout vs ~' + Math.round(benchC2C*100) + '% benchmark';
+
+  // revenue at risk: close half the gap, flow downstream to orders, x AOV
+  const gap = Math.max(0, benchC2C - actC2C);
+  const extraCheckouts = c[LEAK] * gap * 0.5;
+  const checkoutToOrder = c[4]/c[3];
+  const risk = extraCheckouts * checkoutToOrder * AOV;
+  document.getElementById('kpiRisk').textContent = fmtM(risk);
+  document.getElementById('coAct').textContent = '~' + Math.round(actC2C*100) + '%';
+  document.getElementById('coGap').textContent = '~' + Math.round((benchC2C-actC2C)*100) + '-point';
+  document.getElementById('coRisk').textContent = '~$' + (risk/1e6).toFixed(1) + 'M';
+
+  // funnel bars
+  const f = document.getElementById('funnel');
+  f.innerHTML = '';
+  c.forEach((v,i) => {
+    const w = v/top*100;
+    f.insertAdjacentHTML('beforeend', `
+      <div>
+        <div class="step-head"><span class="step-name">${STEPS[i]}</span><span class="step-count">${v.toLocaleString()} &nbsp;(${w.toFixed(1)}%)</span></div>
+        <div class="step-bar-track"><div class="step-bar ${i===c.length-1?'last':''}" style="width:${Math.max(w,3.5)}%"><span>${w.toFixed(1)}%</span></div></div>
+      </div>`);
+    if(i < c.length-1){
+      const drop = (1 - c[i+1]/c[i]) * 100;
+      const isLeak = (i === LEAK);
+      f.insertAdjacentHTML('beforeend', `
+        <div class="dropline ${isLeak?'leak':''}"><span class="arrow">↓</span> advances ${(100-drop).toFixed(0)}% &middot; drops <span class="pct">${drop.toFixed(0)}%</span>${isLeak?' &nbsp;<span class="tag">— biggest gap to benchmark</span>':''}</div>`);
+    }
+  });
+
+  // step chart actuals
+  const adv = [];
+  for(let i=1;i<c.length;i++) adv.push(c[i]/c[i-1]*100);
+  stepChart.data.datasets[0].data = adv;
+  stepChart.update();
+
+  document.getElementById('funnelSub').textContent =
+    (dev==='all'?'All devices':dev[0].toUpperCase()+dev.slice(1)) +
+    ' — bar length = share of entering sessions; red badge marks the worst step vs. benchmark';
+  document.querySelectorAll('#devSeg button').forEach(b=>b.classList.toggle('active', b.dataset.dev===dev));
+}
+document.querySelectorAll('#devSeg button').forEach(b => b.addEventListener('click', () => { dev = b.dataset.dev; render(); }));
+render();
+</script>
+</body>
+</html>
