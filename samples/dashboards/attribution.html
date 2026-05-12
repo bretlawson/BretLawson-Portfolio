@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marketing Attribution — Channel Revenue by Model (illustrative)</title>
+<title>Marketing Attribution — Omni Channel Performance (illustrative)</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --navy: #1e3c72; --blue: #2a5298; --cyan: #06b6d4;
-    --ink: #1f2937; --muted: #6b7280; --line: #e5e7eb; --bg: #f7f8fa;
-    --green: #16a34a; --red: #dc2626; --amber: #d97706;
+    --navy:#1e3c72; --blue:#2a5298; --cyan:#06b6d4;
+    --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb; --bg:#f7f8fa;
+    --green:#16a34a; --red:#dc2626; --amber:#d97706; --hl:#fef9c3;
   }
-  body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: var(--bg); color: var(--ink); padding: 24px; }
-  .wrap { max-width: 1100px; margin: 0 auto; }
-  .topbar { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:20px; }
+  body { font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif; background:var(--bg); color:var(--ink); padding:24px; }
+  .wrap { max-width:1180px; margin:0 auto; }
+  .topbar { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:18px; }
   .eyebrow { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:700; }
   h1 { font-size:20px; font-weight:700; color:var(--navy); margin-top:4px; }
   .sub { font-size:13px; color:var(--muted); margin-top:3px; }
@@ -26,25 +26,44 @@
   .seg button.active { background:linear-gradient(135deg,var(--navy),var(--blue)); color:#fff; }
   .seg button:not(.active):hover { background:#f1f3f7; color:var(--ink); }
 
-  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:20px; }
-  .kpi { background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
-  .kpi .lbl { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:700; }
-  .kpi .val { font-size:24px; font-weight:800; color:var(--ink); margin-top:6px; letter-spacing:-.5px; }
-  .kpi .delta { font-size:12px; font-weight:600; margin-top:3px; }
+  .kpis { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:18px; }
+  .kpi { background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+  .kpi .lbl { font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  .kpi .val { font-size:22px; font-weight:800; color:var(--ink); margin-top:5px; letter-spacing:-.5px; }
+  .kpi .delta { font-size:11.5px; font-weight:600; margin-top:2px; }
   .delta.up { color:var(--green); } .delta.down { color:var(--red); } .delta.flat { color:var(--muted); }
 
-  .grid2 { display:grid; grid-template-columns:1.6fr 1fr; gap:16px; }
-  .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px 20px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:16px; }
   .card h2 { font-size:14px; font-weight:700; color:var(--ink); margin-bottom:2px; }
-  .card .h2sub { font-size:12px; color:var(--muted); margin-bottom:14px; }
+  .card .h2sub { font-size:12px; color:var(--muted); margin-bottom:12px; }
+
+  /* table */
+  .tbl-scroll { overflow-x:auto; }
+  table.perf { width:100%; border-collapse:collapse; font-size:12px; }
+  table.perf thead th { background:var(--navy); color:#fff; font-weight:600; padding:7px 8px; text-align:right; white-space:nowrap; font-size:11px; }
+  table.perf thead th.grp { text-align:center; border-left:1px solid rgba(255,255,255,.18); }
+  table.perf thead tr.sub th { background:#2a4a86; font-size:10px; font-weight:500; padding:4px 8px; }
+  table.perf thead th.chcol { text-align:left; }
+  table.perf tbody td { padding:6px 8px; text-align:right; border-bottom:1px solid #eef0f3; white-space:nowrap; }
+  table.perf tbody td.chname { text-align:left; font-weight:600; color:var(--ink); }
+  table.perf tbody tr:hover { background:#fafbfc; }
+  table.perf tbody tr.subtotal td { background:#f3f6fb; font-weight:700; border-top:1.5px solid #c9d6ea; }
+  table.perf tbody tr.total td { background:#eef2f9; font-weight:800; border-top:2px solid var(--navy); font-size:12.5px; }
+  td .ty { font-variant-numeric:tabular-nums; }
+  td .dl { display:inline-block; min-width:42px; font-size:10.5px; font-weight:600; margin-left:6px; }
+  .dl.up { color:var(--green); } .dl.down { color:var(--red); } .dl.zero { color:#9aa5b1; }
+  td.hl .ty { background:var(--hl); padding:1px 4px; border-radius:4px; }
+  td.dim { color:#b8c0cb; }
+  .spark { vertical-align:middle; }
+
+  .grid2 { display:grid; grid-template-columns:1.6fr 1fr; gap:16px; }
   .chart-box { position:relative; height:300px; }
-  .chart-box.small { height:240px; }
-
-  .callout { margin-top:16px; background:linear-gradient(135deg,rgba(30,60,114,.06),rgba(6,182,212,.06)); border:1px solid rgba(30,60,114,.15); border-left:3px solid var(--navy); border-radius:8px; padding:12px 14px; font-size:13px; color:var(--ink); line-height:1.5; }
+  .chart-box.small { height:230px; }
+  .callout { margin-top:14px; background:linear-gradient(135deg,rgba(30,60,114,.06),rgba(6,182,212,.06)); border:1px solid rgba(30,60,114,.15); border-left:3px solid var(--navy); border-radius:8px; padding:12px 14px; font-size:13px; line-height:1.5; }
   .callout strong { color:var(--navy); }
-  .footnote { font-size:11px; color:#9aa5b1; margin-top:18px; font-style:italic; text-align:center; }
-
-  @media (max-width:820px){ .kpis{grid-template-columns:repeat(2,1fr);} .grid2{grid-template-columns:1fr;} }
+  .footnote { font-size:11px; color:#9aa5b1; margin-top:16px; font-style:italic; text-align:center; }
+  .hidden { display:none; }
+  @media (max-width:920px){ .kpis{grid-template-columns:repeat(2,1fr);} .grid2{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
@@ -52,134 +71,215 @@
   <div class="topbar">
     <div>
       <div class="eyebrow">Marketing Performance</div>
-      <h1>Channel Revenue by Attribution Model</h1>
-      <div class="sub">Same spend, two models &mdash; how much each channel actually earns when you stop giving the last click all the credit.</div>
+      <h1>Omni Channel Performance — This Year vs Prior Year</h1>
+      <div class="sub">Every channel on one page: spend, sessions, shopping intent, conversion, AOV, revenue, ROAS &mdash; with the year-over-year delta on each.</div>
       <span class="illus">Illustrative &middot; synthetic data</span>
     </div>
     <div class="controls">
-      <span style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding-left:6px;">Model</span>
-      <div class="seg" id="modelSeg">
-        <button data-model="lastclick">Last-Click</button>
-        <button data-model="datadriven" class="active">Data-Driven</button>
+      <span style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding-left:6px;">View</span>
+      <div class="seg" id="viewSeg">
+        <button data-view="table" class="active">Channel Table</button>
+        <button data-view="models">Attribution Models</button>
       </div>
     </div>
   </div>
 
   <div class="kpis">
-    <div class="kpi">
-      <div class="lbl">Attributed Revenue</div>
-      <div class="val" id="kpiRev">$24.8M</div>
-      <div class="delta flat" id="kpiRevSub">across 6 channels</div>
-    </div>
-    <div class="kpi">
-      <div class="lbl">Biggest Model Shift</div>
-      <div class="val" id="kpiShift">Paid Search</div>
-      <div class="delta down" id="kpiShiftSub">&minus;$2.1M vs last-click</div>
-    </div>
-    <div class="kpi">
-      <div class="lbl">Most Under-credited</div>
-      <div class="val" id="kpiUnder">Email</div>
-      <div class="delta up" id="kpiUnderSub">+$1.4M vs last-click</div>
-    </div>
-    <div class="kpi">
-      <div class="lbl">Online &rarr; In-Store</div>
-      <div class="val">$9.6M</div>
-      <div class="delta flat">39% of attributed revenue lands offline</div>
+    <div class="kpi"><div class="lbl">Total Revenue</div><div class="val" id="kRev">$32.5M</div><div class="delta down" id="kRevD">&minus;5.2% YoY</div></div>
+    <div class="kpi"><div class="lbl">Orders</div><div class="val" id="kOrd">83.5K</div><div class="delta down" id="kOrdD">&minus;17.9% YoY</div></div>
+    <div class="kpi"><div class="lbl">AOV</div><div class="val" id="kAov">$389</div><div class="delta up" id="kAovD">+15.5% YoY</div></div>
+    <div class="kpi"><div class="lbl">Blended ROAS</div><div class="val" id="kRoas">$6.4</div><div class="delta up" id="kRoasD">+17% YoY</div></div>
+    <div class="kpi"><div class="lbl">Online &rarr; In-Store</div><div class="val" id="kSplit">38%</div><div class="delta flat">of attributed revenue lands offline</div></div>
+  </div>
+
+  <!-- VIEW: CHANNEL TABLE -->
+  <div id="viewTable">
+    <div class="card">
+      <h2>Channel detail</h2>
+      <div class="h2sub">TY value with the YoY delta beside it &middot; revenue column shaded &middot; <span style="font-style:italic;">click a column header note for definitions in the real build</span></div>
+      <div class="tbl-scroll">
+        <table class="perf" id="perfTbl">
+          <thead>
+            <tr>
+              <th class="chcol" rowspan="2">Channel</th>
+              <th class="grp" colspan="2">Spend</th>
+              <th class="grp" colspan="2">Sessions</th>
+              <th class="grp" colspan="2">Shopping</th>
+              <th class="grp" colspan="2">Conv %</th>
+              <th class="grp" colspan="2">AOV</th>
+              <th class="grp" colspan="2">Revenue</th>
+              <th class="grp" colspan="2">ROAS</th>
+              <th class="grp" rowspan="2">Rev<br>trend</th>
+            </tr>
+            <tr class="sub">
+              <th>TY</th><th>&Delta;</th>
+              <th>TY</th><th>&Delta;</th>
+              <th>TY</th><th>&Delta;</th>
+              <th>TY</th><th>&Delta;</th>
+              <th>TY</th><th>&Delta;</th>
+              <th>TY</th><th>&Delta;</th>
+              <th>TY</th><th>&Delta;</th>
+            </tr>
+          </thead>
+          <tbody id="perfBody"></tbody>
+        </table>
+      </div>
+      <div class="callout" id="tblCallout">
+        <strong>Same story, all channels in one view.</strong> AOV is up double digits across the board (a richer basket), but it's masking volume softness &mdash; sessions and orders are both down. Brand still prints an ~$18 ROAS on a fraction of the spend; the paid efficiency is real, the demand isn't there.
+      </div>
     </div>
   </div>
 
-  <div class="grid2">
-    <div class="card">
-      <h2>Revenue by channel</h2>
-      <div class="h2sub" id="chSub">Data-Driven model &mdash; ghost bars show the Last-Click baseline</div>
-      <div class="chart-box"><canvas id="chChannel"></canvas></div>
-      <div class="callout" id="chCallout">
-        <strong>Last-click overstates Paid Search by ~$2.1M.</strong> Under data-driven attribution, that budget reads as assisting conversions other channels open &mdash; not originating them. Email and Organic carry more of the real credit than the last-click report shows.
+  <!-- VIEW: ATTRIBUTION MODELS -->
+  <div id="viewModels" class="hidden">
+    <div class="grid2">
+      <div class="card">
+        <h2>Revenue by channel &mdash; attribution model</h2>
+        <div class="h2sub" id="mSub">Data-Driven model &mdash; ghost bars show the Last-Click baseline. Same $32.5M, redistributed.</div>
+        <div class="chart-box"><canvas id="chModel"></canvas></div>
+        <div class="callout">
+          <strong>Last-click overstates the lower-funnel paid trio by ~$3.5M.</strong> Re-credit it and Direct, Organic, and prospecting all read truer to their actual role in opening conversions. Budget decisions made on the last-click view systematically over-fund the channels that <em>close</em> demand and under-fund the ones that <em>create</em> it.
+        </div>
       </div>
-    </div>
-    <div class="card">
-      <h2>Where the revenue lands</h2>
-      <div class="h2sub">Attributed digital revenue, online order vs. in-store transaction</div>
-      <div class="chart-box small"><canvas id="chSplit"></canvas></div>
-      <div class="callout">
-        <strong>39% of digital-attributed revenue is an in-store purchase.</strong> Stitching store transactions to digital touchpoints keeps that revenue from disappearing from the marketing P&amp;L.
+      <div class="card">
+        <h2>Where the revenue lands</h2>
+        <div class="h2sub">Attributed digital revenue, online order vs. in-store transaction</div>
+        <div class="chart-box small"><canvas id="chSplit"></canvas></div>
+        <div class="callout">
+          <strong>38% of digital-attributed revenue is an in-store purchase.</strong> Stitching store transactions to digital touchpoints keeps that revenue from disappearing from the marketing P&amp;L.
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="footnote">Synthetic figures for portfolio illustration. Structure mirrors a production attribution dashboard (model toggle, channel comparison, online-to-offline split).</div>
+  <div class="footnote">Synthetic figures for portfolio illustration. Totals tie out: 10 detailed channels + an Awareness group sum to the Total row; AOV = Revenue &divide; Orders throughout. Structure mirrors a production omni-attribution report.</div>
 </div>
 
 <script>
-const CH = ['Paid Search','Paid Social','Display','Email','Organic','Direct'];
-// revenue in $M
-const DATA = {
-  lastclick:  [9.4, 3.1, 1.8, 2.2, 5.0, 3.3],
-  datadriven: [7.3, 3.4, 2.1, 3.6, 5.7, 2.7],
-};
-const SPLIT = { online: 15.2, instore: 9.6 }; // $M
+// ── synthetic channel data (revenue ties to $32.5M, orders to 83,548 -> AOV $389) ──
+// keys: spendK ($000, null if unpaid), sessK (000), shopK (000), orders, revK ($000)
+//        deltas d = {sp, se, sh, cvBps, ao, re, ro}  (percent unless noted)
+const CHANNELS = [
+  { name:'Brand',              grp:'lf', spendK:290,  sessK:720,  shopK:480, orders:13065, revK:5200, d:{sp:-38, se:3.1, sh:2.8, cvBps:-41, ao:9.2, re:4.5, ro:69},  spark:[4.6,4.7,4.5,4.8,5.0,4.9,5.1,5.2] },
+  { name:'Non-Brand',          grp:'lf', spendK:1400, sessK:1100, shopK:520, orders:11141, revK:4100, d:{sp:-19, se:-8.4, sh:-13.1, cvBps:-22, ao:9.8, re:-12.3, ro:8},  spark:[4.9,4.7,4.6,4.4,4.3,4.2,4.1,4.1] },
+  { name:'PLAs',               grp:'lf', spendK:1050, sessK:780,  shopK:460, orders:10227, revK:3600, d:{sp:-48, se:-15.6, sh:-21.4, cvBps:-118, ao:71, re:-13.8, ro:66}, spark:[4.4,4.2,4.0,3.9,3.8,3.7,3.6,3.6] },
+  { name:'LIAs',               grp:'lf', spendK:720,  sessK:640,  shopK:410, orders:5854,  revK:2400, d:{sp:-26, se:-23.5, sh:-18.0, cvBps:52, ao:1.7, re:18.9, ro:61}, spark:[2.0,2.1,2.2,2.2,2.3,2.3,2.4,2.4] },
+  { name:'Affiliates',         grp:'lf', spendK:440,  sessK:210,  shopK:130, orders:4082,  revK:1600, d:{sp:28, se:18.2, sh:14.8, cvBps:-156, ao:48, re:33.5, ro:4.3}, spark:[1.2,1.3,1.3,1.4,1.5,1.5,1.6,1.6] },
+  { name:'Direct',             grp:'lf', spendK:null, sessK:1150, shopK:430, orders:13264, revK:6000, d:{sp:0, se:-33.2, sh:-30.4, cvBps:97, ao:14.9, re:-1.1, ro:0},  spark:[6.1,6.0,6.0,5.9,5.9,6.0,6.0,6.0] },
+  { name:'Organic Brand',      grp:'lf', spendK:null, sessK:480,  shopK:290, orders:7268,  revK:2900, d:{sp:0, se:-38.0, sh:-38.3, cvBps:-64, ao:9.0, re:-43.6, ro:0}, spark:[5.0,4.6,4.2,3.8,3.5,3.2,3.0,2.9] },
+  { name:'Organic Non-Brand',  grp:'lf', spendK:null, sessK:560,  shopK:230, orders:5413,  revK:1900, d:{sp:0, se:8.4, sh:-24.4, cvBps:38, ao:3.1, re:-6.6, ro:0},  spark:[2.0,2.0,1.9,1.9,1.9,1.9,1.9,1.9] },
+  { name:'Email / SMS',        grp:'lf', spendK:null, sessK:640,  shopK:250, orders:5376,  revK:2000, d:{sp:0, se:21.9, sh:21.6, cvBps:-132, ao:-3.1, re:-2.6, ro:0}, spark:[2.1,2.0,2.0,2.0,2.0,2.0,2.0,2.0] },
+  { name:'Referrer',           grp:'lf', spendK:null, sessK:130,  shopK:52,  orders:1500,  revK:600,  d:{sp:0, se:-10.3, sh:1.6, cvBps:780, ao:-2.4, re:109, ro:0},  spark:[0.3,0.3,0.4,0.45,0.5,0.55,0.58,0.6] },
+  { name:'Awareness (prospecting display / video / social)', grp:'aw', spendK:1200, sessK:1800, shopK:240, orders:6358, revK:2200, d:{sp:-4, se:-68, sh:-71, cvBps:210, ao:38, re:41, ro:47}, spark:[1.4,1.5,1.6,1.8,1.9,2.0,2.1,2.2] },
+];
 
-const navy = '#1e3c72', blue = '#2a5298', cyan = '#06b6d4', ghost = 'rgba(30,60,114,0.18)';
-let current = 'datadriven';
+const fmtMoney = v => v >= 1e6 ? '$'+(v/1e6).toFixed(1)+'M' : v >= 1e3 ? '$'+Math.round(v/1e3)+'K' : '$'+Math.round(v);
+const fmtK = v => v >= 1e6 ? (v/1e6).toFixed(1)+'M' : v >= 1e3 ? Math.round(v/1e3)+'K' : ''+Math.round(v);
+const fmtPct = v => v.toFixed(2)+'%';
+const fmtRoas = v => '$'+v.toFixed(v<10?2:1);
+const dlPct = v => { const s = (v>0?'+':'')+v.toFixed(1)+'%'; const c = v>0?'up':v<0?'down':'zero'; return `<span class="dl ${c}">${v===0?'—':s}</span>`; };
+const dlBps = v => { const s = (v>0?'+':'')+v+'bps'; const c = v>0?'up':v<0?'down':'zero'; return `<span class="dl ${c}">${v===0?'—':s}</span>`; };
 
-const fmt = v => '$' + v.toFixed(1) + 'M';
-
-const chCtx = document.getElementById('chChannel').getContext('2d');
-const barChart = new Chart(chCtx, {
-  type: 'bar',
-  data: {
-    labels: CH,
-    datasets: [
-      { label: 'Last-Click (baseline)', data: DATA.lastclick, backgroundColor: ghost, borderRadius: 4, order: 2 },
-      { label: 'Selected model', data: DATA.datadriven, backgroundColor: navy, borderRadius: 4, order: 1 },
-    ]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: {
-      legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
-      tooltip: { callbacks: { label: c => c.dataset.label + ': ' + fmt(c.parsed.y) } }
-    },
-    scales: {
-      y: { beginAtZero: true, title: { display: true, text: 'Attributed revenue ($M)' }, ticks: { callback: v => '$'+v+'M' }, grid: { color: '#eef0f3' } },
-      x: { grid: { display: false } }
-    }
-  }
-});
-
-const splitChart = new Chart(document.getElementById('chSplit').getContext('2d'), {
-  type: 'doughnut',
-  data: {
-    labels: ['Online order','In-store transaction'],
-    datasets: [{ data: [SPLIT.online, SPLIT.instore], backgroundColor: [blue, cyan], borderWidth: 2, borderColor: '#fff' }]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false, cutout: '62%',
-    plugins: {
-      legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
-      tooltip: { callbacks: { label: c => c.label + ': ' + fmt(c.parsed) + '  (' + Math.round(c.parsed/(SPLIT.online+SPLIT.instore)*100) + '%)' } }
-    }
-  }
-});
-
-function setModel(m){
-  current = m;
-  barChart.data.datasets[1].data = DATA[m];
-  barChart.data.datasets[1].label = (m === 'lastclick' ? 'Last-Click' : 'Data-Driven');
-  barChart.data.datasets[1].backgroundColor = (m === 'lastclick' ? blue : navy);
-  // hide ghost baseline when last-click is the selected model
-  barChart.data.datasets[0].hidden = (m === 'lastclick');
-  barChart.update();
-  document.getElementById('chSub').textContent = (m === 'lastclick'
-    ? 'Last-Click model' : 'Data-Driven model — ghost bars show the Last-Click baseline');
-  const total = DATA[m].reduce((a,b)=>a+b,0);
-  document.getElementById('kpiRev').textContent = fmt(total);
-  // shift highlights only meaningful under data-driven
-  document.getElementById('chCallout').style.display = (m === 'lastclick' ? 'none' : 'block');
-  document.querySelectorAll('#modelSeg button').forEach(b => b.classList.toggle('active', b.dataset.model === m));
+function sparkSvg(arr){
+  const w=58,h=18,pad=2; const mn=Math.min(...arr), mx=Math.max(...arr), rng=(mx-mn)||1;
+  const pts = arr.map((v,i)=>{ const x=pad+i*(w-2*pad)/(arr.length-1); const y=h-pad-(v-mn)/rng*(h-2*pad); return x.toFixed(1)+','+y.toFixed(1); }).join(' ');
+  const up = arr[arr.length-1] >= arr[0];
+  return `<svg class="spark" width="${w}" height="${h}"><polyline points="${pts}" fill="none" stroke="${up?'#16a34a':'#dc2626'}" stroke-width="1.6"/></svg>`;
 }
-document.querySelectorAll('#modelSeg button').forEach(b => b.addEventListener('click', () => setModel(b.dataset.model)));
-setModel('datadriven');
+
+// derived
+function derive(c){
+  const conv = c.orders / (c.shopK*1000) * 100;
+  const aov = c.revK*1000 / c.orders;
+  const roas = c.spendK ? c.revK / c.spendK : null;
+  return { conv, aov, roas };
+}
+
+// ── render table ──
+function rowHtml(c, cls=''){
+  const dv = derive(c);
+  return `<tr class="${cls}">
+    <td class="chname">${c.name}</td>
+    <td>${c.spendK!=null?`<span class="ty">${fmtMoney(c.spendK*1000)}</span>${dlPct(c.d.sp)}`:`<span class="dim">—</span>`}</td>
+    <td><span class="ty">${fmtK(c.sessK*1000)}</span>${dlPct(c.d.se)}</td>
+    <td><span class="ty">${fmtK(c.shopK*1000)}</span>${dlPct(c.d.sh)}</td>
+    <td><span class="ty">${fmtPct(dv.conv)}</span>${dlBps(c.d.cvBps)}</td>
+    <td><span class="ty">$${Math.round(dv.aov)}</span>${dlPct(c.d.ao)}</td>
+    <td class="hl"><span class="ty">${fmtMoney(c.revK*1000)}</span>${dlPct(c.d.re)}</td>
+    <td>${dv.roas!=null?`<span class="ty">${fmtRoas(dv.roas)}</span>${dlPct(c.d.ro)}`:`<span class="dim">—</span>`}</td>
+    <td>${sparkSvg(c.spark)}</td>
+  </tr>`;
+}
+
+(function buildTable(){
+  const lf = CHANNELS.filter(c=>c.grp==='lf');
+  const aw = CHANNELS.filter(c=>c.grp==='aw');
+  const sum = arr => arr.reduce((a,c)=>({
+    spendK:a.spendK+(c.spendK||0), sessK:a.sessK+c.sessK, shopK:a.shopK+c.shopK,
+    orders:a.orders+c.orders, revK:a.revK+c.revK }), {spendK:0,sessK:0,shopK:0,orders:0,revK:0});
+  const lfSum = sum(lf), allSum = sum(CHANNELS);
+
+  const lfRow = { name:'Lower Funnel (subtotal)', spendK:lfSum.spendK, sessK:lfSum.sessK, shopK:lfSum.shopK, orders:lfSum.orders, revK:lfSum.revK,
+    spark:[26.3,26.0,25.7,25.4,25.1,25.0,24.9,30.3].map(v=>v), d:{sp:-23, se:-22.0, sh:-16.3, cvBps:-6, ao:14.6, re:-6.2, ro:38} };
+  const totRow = { name:'Total', spendK:allSum.spendK, sessK:allSum.sessK, shopK:allSum.shopK, orders:allSum.orders, revK:allSum.revK,
+    spark:[34.3,33.9,33.5,33.1,32.8,32.7,32.6,32.5], d:{sp:-19, se:-52.0, sh:-16.0, cvBps:-8, ao:15.5, re:-5.2, ro:17} };
+
+  const body = document.getElementById('perfBody');
+  body.innerHTML =
+    lf.map(c=>rowHtml(c)).join('') +
+    rowHtml(lfRow,'subtotal') +
+    aw.map(c=>rowHtml(c)).join('') +
+    rowHtml(totRow,'total');
+
+  // KPI tie-out from the data
+  const totRev = allSum.revK*1000, totOrd = allSum.orders, aov = totRev/totOrd;
+  const totSpend = allSum.spendK*1000, blendRoas = totRev/totSpend;
+  document.getElementById('kRev').textContent  = '$'+(totRev/1e6).toFixed(1)+'M';
+  document.getElementById('kOrd').textContent  = (totOrd/1e3).toFixed(1)+'K';
+  document.getElementById('kAov').textContent  = '$'+Math.round(aov);
+  document.getElementById('kRoas').textContent = '$'+blendRoas.toFixed(1);
+})();
+
+// ── attribution-model view (same $32.5M, redistributed) ──
+const M_LABELS = CHANNELS.map(c=> c.name.startsWith('Awareness') ? 'Awareness' : c.name);
+const M_DATADRIVEN = CHANNELS.map(c=> c.revK/1000);            // $M, ties to 32.5
+const M_LASTCLICK  = [6.8, 4.9, 4.7, 2.4, 1.5, 4.9, 2.2, 1.5, 1.7, 0.6, 1.3]; // $M, sums to 32.5
+const SPLIT = { online: 20.15, instore: 12.35 }; // $M, sums to 32.5; 38% offline
+const navy='#1e3c72', blue='#2a5298', cyan='#06b6d4', ghost='rgba(30,60,114,0.18)';
+let modelChart=null, splitChart=null, currentModel='datadriven';
+
+function buildModelCharts(){
+  if(modelChart) return;
+  modelChart = new Chart(document.getElementById('chModel').getContext('2d'), {
+    type:'bar',
+    data:{ labels:M_LABELS, datasets:[
+      { label:'Last-Click (baseline)', data:M_LASTCLICK, backgroundColor:ghost, borderRadius:3, order:2 },
+      { label:'Data-Driven', data:M_DATADRIVEN, backgroundColor:navy, borderRadius:3, order:1 },
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false, animation:{duration:450},
+      plugins:{ legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}},
+        tooltip:{ callbacks:{ label:c=> c.dataset.label+': $'+c.parsed.y.toFixed(1)+'M' } } },
+      scales:{ y:{ beginAtZero:true, title:{display:true,text:'Attributed revenue ($M)'}, ticks:{callback:v=>'$'+v+'M'}, grid:{color:'#eef0f3'} },
+               x:{ grid:{display:false}, ticks:{ maxRotation:35, minRotation:35, font:{size:10} } } } }
+  });
+  splitChart = new Chart(document.getElementById('chSplit').getContext('2d'), {
+    type:'doughnut',
+    data:{ labels:['Online order','In-store transaction'], datasets:[{ data:[SPLIT.online,SPLIT.instore], backgroundColor:[blue,cyan], borderWidth:2, borderColor:'#fff' }] },
+    options:{ responsive:true, maintainAspectRatio:false, cutout:'62%', animation:{duration:450},
+      plugins:{ legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}},
+        tooltip:{ callbacks:{ label:c=> c.label+': $'+c.parsed.toFixed(1)+'M ('+Math.round(c.parsed/(SPLIT.online+SPLIT.instore)*100)+'%)' } } } }
+  });
+}
+
+// ── view toggle ──
+function setView(v){
+  document.getElementById('viewTable').classList.toggle('hidden', v!=='table');
+  document.getElementById('viewModels').classList.toggle('hidden', v!=='models');
+  document.querySelectorAll('#viewSeg button').forEach(b=>b.classList.toggle('active', b.dataset.view===v));
+  if(v==='models'){ buildModelCharts(); setTimeout(()=>{ modelChart.resize(); splitChart.resize(); }, 30); }
+}
+document.querySelectorAll('#viewSeg button').forEach(b=> b.addEventListener('click', ()=> setView(b.dataset.view)));
+setView('table');
 </script>
 </body>
 </html>
