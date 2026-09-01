@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /archive/
+Disallow: /redesign/
+
+Sitemap: https://www.bretlawson.com/sitemap.xml

@@ -1,285 +1,218 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bret Lawson — Resume | Analytics & Measurement Leader</title>
-    <meta name="description" content="Bret Lawson — Analytics & Measurement Leader in ecommerce and omnichannel retail: causal measurement, online-to-offline attribution, forecasting, analytics engineering, and an AI-native workflow.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://bretlawson.com/resume.html">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --ink: #1f2937;
-            --muted: #4b5563;
-            --faint: #6b7280;
-            --accent: #1e3c72;
-            --rule: #d1d5db;
-        }
-
-        body {
-            font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            color: var(--ink);
-            line-height: 1.45;
-            background: #f3f4f6;
-            font-size: 14px;
-        }
-
-        .page {
-            max-width: 8.5in;
-            margin: 24px auto;
-            background: #fff;
-            padding: 0.6in 0.7in;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-        }
-
-        /* Header */
-        header { text-align: center; margin-bottom: 14px; }
-        header h1 {
-            font-size: 2.3em;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: var(--accent);
-        }
-        header .headline {
-            font-size: 1.05em;
-            font-weight: 600;
-            color: var(--ink);
-            margin-top: 4px;
-        }
-        header .roles {
-            font-size: 0.92em;
-            font-style: italic;
-            color: var(--faint);
-            margin-top: 3px;
-        }
-        header .contact {
-            font-size: 0.88em;
-            color: var(--muted);
-            margin-top: 8px;
-        }
-        header .contact a { color: var(--muted); text-decoration: none; }
-        header .contact a:hover { text-decoration: underline; }
-
-        /* Sections */
-        section { margin-top: 16px; }
-        h2 {
-            font-size: 0.95em;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--accent);
-            border-bottom: 1.5px solid var(--accent);
-            padding-bottom: 3px;
-            margin-bottom: 8px;
-        }
-
-        p.summary { color: var(--muted); }
-
-        ul { list-style: none; margin-top: 4px; }
-        li {
-            position: relative;
-            padding-left: 14px;
-            margin-bottom: 4px;
-            color: var(--muted);
-        }
-        li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0.55em;
-            width: 4px;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-        li strong { color: var(--ink); }
-
-        /* Experience entries */
-        .job { margin-bottom: 12px; }
-        .job:last-child { margin-bottom: 0; }
-        .job-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .job-title { font-weight: 700; color: var(--ink); }
-        .job-org { font-style: italic; color: var(--muted); font-size: 0.95em; }
-        .job-dates { color: var(--faint); font-size: 0.88em; white-space: nowrap; }
-        .job-note { color: var(--faint); font-size: 0.85em; font-style: italic; margin-top: 1px; }
-        .job-summary { color: var(--muted); font-size: 0.95em; margin-top: 4px; font-style: italic; }
-        .subgroup { font-weight: 600; color: var(--ink); font-size: 0.92em; margin-top: 8px; }
-
-        .award { color: var(--accent); font-weight: 600; font-size: 0.85em; }
-
-        @media print {
-            body { background: #fff; font-size: 10pt; line-height: 1.4; }
-            .page { box-shadow: none; margin: 0; max-width: none; padding: 0.5in 0.6in; }
-            header { margin-bottom: 12px; }
-            header h1 { font-size: 2.1em; letter-spacing: 2px; }
-            section { margin-top: 14px; }
-            h2 { break-after: avoid; margin-bottom: 7px; }
-            .subgroup { break-after: avoid; margin-top: 8px; }
-            li { break-inside: avoid; margin-bottom: 3px; }
-            .job { break-inside: avoid; margin-bottom: 11px; }
-            a { color: inherit; text-decoration: none; }
-            .print-hide { display: none; }
-        }
-        @page { size: letter; margin: 0; }
-
-        .print-hint {
-            max-width: 8.5in;
-            margin: 0 auto 8px;
-            font-size: 0.82em;
-            color: var(--faint);
-            text-align: center;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Résumé · Bret Lawson</title>
+<meta name="description" content="Résumé of Bret Lawson, full-stack data scientist in ecommerce and omnichannel retail: causal measurement, online-to-offline attribution, forecasting, analytics engineering, and an AI-native workflow.">
+<meta name="author" content="Bret Lawson">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.bretlawson.com/resume.html">
+<link rel="alternate" type="application/pdf" href="https://www.bretlawson.com/BretLawson_Resume.pdf" title="Résumé (PDF)">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://www.bretlawson.com/resume.html">
+<meta property="og:title" content="Résumé · Bret Lawson">
+<meta property="og:description" content="Full-stack data scientist in ecommerce and omnichannel retail: causal measurement, online-to-offline attribution, forecasting, analytics engineering, AI-native workflow.">
+<meta property="og:image" content="https://www.bretlawson.com/bret_lawson.jpg">
+<meta property="og:site_name" content="Bret Lawson">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DN2PPZNDRJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DN2PPZNDRJ',{'send_page_view':true,'anonymize_ip':true});</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vdqbyh8fhw");</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Bret Lawson",
+  "jobTitle": "Senior Manager, Digital Analytics",
+  "description": "Full-stack data scientist in ecommerce and omnichannel retail: causal measurement, online-to-offline attribution, forecasting, analytics engineering.",
+  "worksFor": { "@type": "Organization", "name": "Mattress Firm" },
+  "url": "https://www.bretlawson.com/",
+  "mainEntityOfPage": "https://www.bretlawson.com/resume.html",
+  "image": "https://www.bretlawson.com/bret_lawson.jpg",
+  "email": "bretalawson@gmail.com",
+  "telephone": "832.403.7762",
+  "address": { "@type": "PostalAddress", "addressLocality": "Houston", "addressRegion": "TX", "addressCountry": "US" },
+  "alumniOf": { "@type": "EducationalOrganization", "name": "Texas A&M University" },
+  "sameAs": ["https://www.linkedin.com/in/bretlawson"],
+  "knowsAbout": ["Data Science", "Digital Analytics", "Ecommerce Forecasting", "Decomposition Analysis", "Causal Inference", "Marketing Attribution", "Python", "SQL", "dbt", "BigQuery", "Adobe Analytics", "Agentic AI Workflows"]
+}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--paper:#FAFAF7;--card:#fff;--ink:#1A1A1A;--muted:#5B5B57;--faint:#8a877d;--hair:#E5E2D9;--accent:#1F3A5F;
+  --serif:'Fraunces',Georgia,serif;--sans:'Inter',-apple-system,'Segoe UI',sans-serif}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.5;font-size:13.5px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.bar{border-bottom:1px solid var(--hair);background:rgba(250,250,247,.9)}
+.bar-in{max-width:900px;margin:0 auto;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;font-size:.95rem}
+.bar-in .name{font-family:var(--serif);font-weight:600;color:var(--ink)}
+.actions{max-width:900px;margin:22px auto 0;padding:0 28px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:.86rem;color:var(--muted)}
+.btn{font-family:var(--sans);font-size:.88rem;font-weight:500;padding:8px 15px;border:1px solid var(--hair);border-radius:8px;background:#fff;color:var(--ink);cursor:pointer;transition:.15s}
+.btn:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.primary:hover{background:#2C5688;color:#fff}
+.actions .upd{margin-left:auto}
+.page{max-width:8.5in;margin:16px auto 60px;background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:.6in .7in}
+header{text-align:center;padding-bottom:14px;border-bottom:1px solid var(--hair)}
+header h1{font-family:var(--serif);font-weight:600;font-size:2.1rem;letter-spacing:-.5px;line-height:1.05}
+header .headline{font-size:1rem;font-weight:600;margin-top:6px}
+header .roles{font-size:.86rem;color:var(--muted);margin-top:4px}
+header .contact{font-size:.84rem;color:var(--muted);margin-top:8px}
+header .contact a{color:var(--muted)}
+h2{font-family:var(--serif);font-weight:600;font-size:1.02rem;letter-spacing:.02em;color:var(--accent);margin:18px 0 7px;padding-bottom:4px;border-bottom:1px solid var(--hair)}
+p{margin-bottom:6px;color:#2e2c27}
+ul{list-style:none}
+li{position:relative;padding-left:14px;margin-bottom:4px;color:#2e2c27}
+li::before{content:"";position:absolute;left:1px;top:.6em;width:4px;height:4px;border-radius:50%;background:var(--accent);opacity:.6}
+.kv{display:grid;grid-template-columns:172px 1fr;gap:4px 14px;margin-top:2px}
+.kv .k{font-weight:600;color:var(--ink)}
+.kv .v{color:#2e2c27}
+.job{margin-top:12px}
+.job-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.job-t{font-weight:600;font-size:.98rem}
+.job-d{font-size:.84rem;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.job-o{font-size:.88rem;color:var(--muted);margin-top:1px}
+.job-o .award{color:var(--accent);font-weight:600}
+.job-s{margin-top:5px;color:#2e2c27}
+.grp{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:8px 0 3px}
+@media(max-width:640px){.page{padding:26px 20px;border-radius:0;margin:0}.kv{grid-template-columns:1fr;gap:2px}.kv .v{margin-bottom:6px}}
+@media print{
+  @page{size:Letter;margin:.45in .55in}
+  body{background:#fff;font-size:9.4pt;line-height:1.3}
+  .bar,.actions{display:none}
+  .page{max-width:none;margin:0;padding:0;border:0;border-radius:0}
+  header{padding-bottom:8px}
+  header h1{font-size:20pt}
+  h2{margin:8pt 0 3pt;font-size:10.5pt;break-after:avoid;page-break-after:avoid}
+  .grp{break-after:avoid;page-break-after:avoid}
+  p,li{margin-bottom:2.5pt}
+  .kv{gap:2pt 10pt;grid-template-columns:150px 1fr}
+  .job{margin-top:7pt;break-inside:avoid}
+  .grp{margin:5pt 0 2pt}
+  a{color:inherit}
+}
+</style>
 </head>
 <body>
-    <p class="print-hint print-hide">Print or save as PDF: <strong>Ctrl/Cmd&nbsp;+&nbsp;P</strong> &rarr; "Save as PDF" (Letter, default margins).</p>
-    <div class="page">
-        <header>
-            <h1>BRET LAWSON</h1>
-            <div class="headline">Analytics &amp; Measurement Leader&nbsp;&nbsp;|&nbsp;&nbsp;Ecommerce &amp; Omnichannel Retail</div>
-            <div class="roles">Causal measurement &middot; Online-to-offline attribution &middot; Forecasting &middot; Analytics engineering &middot; AI-native workflow</div>
-            <div class="contact">
-                832.403.7762 &nbsp;|&nbsp; <a href="mailto:bretalawson@gmail.com">bretalawson@gmail.com</a> &nbsp;|&nbsp; <a href="https://linkedin.com/in/bretlawson">linkedin.com/in/bretlawson</a> &nbsp;|&nbsp; <a href="https://bretlawson.com">bretlawson.com</a>
-            </div>
-        </header>
 
-        <section>
-            <h2>Summary</h2>
-            <p class="summary">Analytics leader with 20+ years in ecommerce and omnichannel retail who finds out why the number moved, and proves it. Measurement that holds up under challenge: attribution that reaches store transactions, decompositions that sum exactly to the observed change, forecasts that finance plans against. Builds the platform underneath it (dbt mart, pipelines, 38 production dashboards) with an AI-native workflow that lets one senior person deliver what usually takes a team. Founder before enterprise leader.</p>
-        </section>
+<nav class="bar"><div class="bar-in">
+  <a href="index.html" class="name" style="color:var(--ink)">← Bret Lawson</a>
+  <span><a href="index.html#work">All work</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="mailto:bretalawson@gmail.com">Email</a></span>
+</div></nav>
 
-        <section>
-            <h2>Selected Results</h2>
-            <ul>
-                <li>Decomposed a ~25% YoY organic-traffic decline into seven measured causes that sum exactly to the observed loss. Rank, the assumed culprit, explained under 1%, reframing an eight-figure revenue exposure</li>
-                <li>Architected online-to-offline attribution for a ~2,300-store retailer: identity-stitched digital journeys to ERP transactions, ERP-calibrated, with measured stitch rates. Now the basis for channel budget allocation</li>
-                <li>Built the finance forecast: gradient-boosted daily conversion and AOV models, holiday-tiered and walk-forward backtested; monthly, quarterly, and annual revenue forecasts within &plusmn;5%</li>
-                <li>Traced a brand paid-search position loss to internal bid changes rather than competitor pressure using auction-insights and impression-share data, correcting the initial competitor-pressure read</li>
-                <li>Built the ecommerce master mart (dbt on BigQuery): one governed daily table unifying ERP sales, web analytics, Google Ads, media, calls, and chat; the single source of truth for the executive deck, forecast, and 38 dashboards</li>
-                <li>Delivered the platform around it solo: API ingestion pipelines, 20+ scheduled jobs, 38 dashboards, and an automated weekly executive deck; ~850 commits in nine months on an AI-native workflow</li>
-            </ul>
-        </section>
+<div class="actions">
+  <a class="btn primary" href="BretLawson_Resume.pdf">Download PDF</a>
+  <button class="btn" onclick="window.print()">Print</button>
+  <span class="upd">Updated September 2026</span>
+</div>
 
-        <section>
-            <h2>Core Strengths</h2>
-            <ul>
-                <li><strong>Measurement science:</strong> attribution (multi-touch, tiered last-touch, online-to-offline), incrementality (difference-in-differences, event studies, Granger causality), LMDI decomposition, media mix modeling</li>
-                <li><strong>Forecasting &amp; planning:</strong> revenue and KPI forecasting, gradient-boosted models, fiscal-calendar holiday alignment, spend-scenario and sensitivity analysis, walk-forward backtesting</li>
-                <li><strong>Analytics engineering &amp; delivery:</strong> dbt semantic layer, BigQuery/GCP, API ingestion, scheduled pipelines, data-quality gates, metric definitions; executive decks and dashboards where every number is verifiable</li>
-                <li><strong>AI-native workflow:</strong> Claude Code, MCP servers (built &amp; consumed), LangChain, OpenAI API; AI-assisted modeling, SQL, and documentation under human review (68% faster in a 12-query study)</li>
-            </ul>
-        </section>
+<main class="page">
+  <header>
+    <h1>Bret Lawson</h1>
+    <div class="headline">Data Scientist · Full Data Stack&nbsp;&nbsp;|&nbsp;&nbsp;Ecommerce &amp; Omnichannel Retail</div>
+    <div class="roles">Causal measurement · Online-to-offline attribution · Forecasting · Analytics engineering · AI-native workflow</div>
+    <div class="contact">832.403.7762 &nbsp;|&nbsp; <a href="mailto:bretalawson@gmail.com">bretalawson@gmail.com</a> &nbsp;|&nbsp; <a href="https://linkedin.com/in/bretlawson">linkedin.com/in/bretlawson</a> &nbsp;|&nbsp; <a href="https://www.bretlawson.com/">bretlawson.com</a></div>
+  </header>
 
-        <section>
-            <h2>Technologies</h2>
-            <ul>
-                <li><strong>Data:</strong> BigQuery, GCP, dbt, SQL, Python (pandas, scikit-learn, XGBoost), R, HTML/CSS/JS, PowerShell, Git</li>
-                <li><strong>Analytics:</strong> Adobe CJA, Contentsquare, Google Analytics, Tealium, Search Console, Conductor, SimilarWeb</li>
-                <li><strong>Marketing:</strong> Google Ads (API), Adobe Advertising, Campaign Manager, Datorama, Optimizely, Adobe Target</li>
-                <li><strong>BI &amp; AI:</strong> Streamlit, R Shiny, Looker Studio, Tableau, Netlify &middot; Claude Code, MCP, LangChain, OpenAI API</li>
-            </ul>
-        </section>
+  <h2>Summary</h2>
+  <p>Full-stack data scientist with 20+ years in ecommerce and omnichannel retail who finds out why the number moved, and proves it. Measurement that holds up under challenge: attribution that reaches store transactions, decompositions that sum exactly to the observed change, forecasts that finance plans against. Builds the platform underneath it (dbt mart, pipelines, 38 production dashboards) with an AI-native workflow that lets one senior person deliver what usually takes a team. Founder before enterprise leader.</p>
 
-        <section>
-            <h2>Professional Experience</h2>
+  <h2>Selected Results</h2>
+  <ul>
+    <li>Decomposed a ~25% YoY organic-traffic decline into seven measured causes that sum exactly to the observed loss. Rank, the assumed culprit, explained under 1%, reframing an eight-figure revenue exposure</li>
+    <li>Architected online-to-offline attribution for a ~2,300-store retailer: identity-stitched digital journeys to ERP transactions, ERP-calibrated, with measured stitch rates. Now the basis for channel budget allocation</li>
+    <li>Built the finance forecast: gradient-boosted daily conversion and AOV models, holiday-tiered and walk-forward backtested; monthly, quarterly, and annual revenue forecasts within &plusmn;5%</li>
+    <li>Traced a brand paid-search position loss to internal bid changes rather than competitor pressure using auction-insights and impression-share data, correcting the initial competitor-pressure read</li>
+    <li>Built the ecommerce master mart (dbt on BigQuery): one governed daily table unifying ERP sales, web analytics, Google Ads, media, calls, and chat; the single source of truth for the executive deck, forecast, and 38 dashboards</li>
+    <li>Delivered the platform around it solo: API ingestion pipelines, 20+ scheduled jobs, 38 dashboards, and an automated weekly executive deck; ~850 commits in nine months on an AI-native workflow</li>
+  </ul>
 
-            <div class="job">
-                <div class="job-head">
-                    <div>
-                        <div class="job-title">Senior Manager, Digital Analytics</div>
-                        <div class="job-org">Mattress Firm&nbsp;&nbsp;|&nbsp;&nbsp;Houston, TX</div>
-                    </div>
-                    <div class="job-dates">May 2020 &ndash; Present</div>
-                </div>
-                <div class="job-summary">Ecommerce analytics owner for a ~2,300-store omnichannel retailer. Led a team of 7 analysts and developers.</div>
+  <h2>Core Strengths</h2>
+  <div class="kv">
+    <div class="k">Measurement science</div><div class="v">attribution (multi-touch, tiered last-touch, online-to-offline), incrementality (difference-in-differences, event studies, Granger causality), LMDI decomposition, media mix modeling</div>
+    <div class="k">Forecasting &amp; planning</div><div class="v">revenue and KPI forecasting, gradient-boosted models, fiscal-calendar holiday alignment, spend-scenario and sensitivity analysis, walk-forward backtesting</div>
+    <div class="k">Analytics engineering &amp; delivery</div><div class="v">dbt semantic layer, BigQuery/GCP, API ingestion, scheduled pipelines, data-quality gates, metric definitions; executive decks and dashboards where every number is verifiable</div>
+    <div class="k">AI-native workflow</div><div class="v">Claude Code as the daily analytical workflow in the IDE, MCP data connectors (Conductor, SimilarWeb, Contentsquare); AI-assisted modeling, SQL, and documentation under human review (68% faster in a 12-query study)</div>
+  </div>
 
-                <div class="subgroup">Measurement &amp; causal analysis</div>
-                <ul>
-                    <li>Decomposed a ~25% organic-traffic decline into named causes with LMDI decomposition, sessions as ground truth and third-party data directional; refuted the rank narrative and withdrew a confounded DiD</li>
-                    <li>Tested paid-to-organic spillover across 16 channels with first-difference and partial correlation, bootstrap intervals, and Granger causality to separate incremental from cannibalized organic traffic</li>
-                    <li>Sized an $18.2M page-speed revenue opportunity and $2.1M conversion-friction loss to set tech priorities</li>
-                </ul>
+  <h2>Technologies</h2>
+  <div class="kv">
+    <div class="k">Data</div><div class="v">BigQuery, GCP, dbt, SQL, Python (pandas, scikit-learn, XGBoost), R, HTML/CSS/JS, PowerShell, Git</div>
+    <div class="k">Analytics</div><div class="v">Adobe CJA, Contentsquare, Google Analytics, Tealium, Search Console, Conductor, SimilarWeb</div>
+    <div class="k">Marketing</div><div class="v">Google Ads (API), Adobe Advertising, Campaign Manager, Datorama, Optimizely, Adobe Target</div>
+    <div class="k">BI &amp; AI</div><div class="v">Looker Studio, Tableau, Streamlit, R Shiny, Netlify &middot; Claude Code, MCP connectors, VS Code</div>
+  </div>
 
-                <div class="subgroup">Attribution &amp; metric governance</div>
-                <ul>
-                    <li>Architected online-to-offline attribution (cross-device visitor stitching, 30-day lookback, tiered last-touch across 16 channels, ERP-calibrated), the source of truth for channel ROAS alongside media mix modeling</li>
-                    <li>Defined the canonical KPI catalog (sales, shopping conversion, AOV, contribution dollars, stitch rate, attribution windows) so every dashboard, deck, and ad-hoc answer reconciles to the same definitions</li>
-                </ul>
+  <h2>Professional Experience</h2>
 
-                <div class="subgroup">Forecasting &amp; planning</div>
-                <ul>
-                    <li>Built the finance forecast orchestrator (gradient-boosted daily conversion and AOV models, holiday-tiered to the fiscal calendar, walk-forward backtested) that finance and the weekly executive deck run on</li>
-                    <li>Built a CPC-based paid-search traffic engine and spend-scenario models for annual budget planning</li>
-                </ul>
+  <div class="job" style="margin-top:4px">
+    <div class="job-h"><div class="job-t">Senior Manager, Digital Analytics</div><div class="job-d">May 2020 &ndash; Present</div></div>
+    <div class="job-o">Mattress Firm&nbsp;&nbsp;|&nbsp;&nbsp;Houston, TX</div>
+    <p class="job-s">Ecommerce analytics owner for a ~2,300-store omnichannel retailer. Led a team of 7 analysts and developers.</p>
+    <div class="grp">Measurement &amp; causal analysis</div>
+    <ul>
+      <li>Decomposed a ~25% organic-traffic decline into named causes with LMDI decomposition, sessions as ground truth and third-party data directional; refuted the rank narrative and withdrew a confounded DiD</li>
+      <li>Tested paid-to-organic spillover across 16 channels with first-difference and partial correlation, bootstrap intervals, and Granger causality to separate incremental from cannibalized organic traffic</li>
+      <li>Sized an $18.2M page-speed revenue opportunity and $2.1M conversion-friction loss to set tech priorities</li>
+    </ul>
+    <div class="grp">Attribution &amp; metric governance</div>
+    <ul>
+      <li>Architected online-to-offline attribution (cross-device visitor stitching, 30-day lookback, tiered last-touch across 16 channels, ERP-calibrated), the source of truth for channel ROAS alongside media mix modeling</li>
+      <li>Defined the canonical KPI catalog (sales, shopping conversion, AOV, contribution dollars, stitch rate, attribution windows) so every dashboard, deck, and ad-hoc answer reconciles to the same definitions</li>
+    </ul>
+    <div class="grp">Forecasting &amp; planning</div>
+    <ul>
+      <li>Built the finance forecast orchestrator (gradient-boosted daily conversion and AOV models, holiday-tiered to the fiscal calendar, walk-forward backtested) that finance and the weekly executive deck run on</li>
+      <li>Built a CPC-based paid-search traffic engine and spend-scenario models for annual budget planning</li>
+    </ul>
+    <div class="grp">Platform &amp; automation</div>
+    <ul>
+      <li>Modeled the mart in dbt with field definitions, an ERD, tests, and quality monitoring; engineered API ingestion (Google Ads, Contentsquare, Conductor, SimilarWeb) and 20+ scheduled jobs for pulls, refreshes, and alerts</li>
+      <li>Wrote the dashboard house standard (metric definitions, data-integrity gates, formatting) and shipped 38 dashboards plus the automated weekly executive deck against it, so numbers agree across every surface</li>
+    </ul>
+  </div>
 
-                <div class="subgroup">Platform &amp; automation</div>
-                <ul>
-                    <li>Modeled the mart in dbt with field definitions, an ERD, tests, and quality monitoring; engineered API ingestion (Google Ads, Contentsquare, Conductor, SimilarWeb) and 20+ scheduled jobs for pulls, refreshes, and alerts</li>
-                    <li>Wrote the dashboard house standard (metric definitions, data-integrity gates, formatting) and shipped 38 dashboards plus the automated weekly executive deck against it, so numbers agree across every surface</li>
-                </ul>
-            </div>
+  <div class="job">
+    <div class="job-h"><div class="job-t">Director of Customer Engagement &amp; Digital Analytics</div><div class="job-d">May 2016 &ndash; April 2020</div></div>
+    <div class="job-o">Stage Stores&nbsp;&nbsp;|&nbsp;&nbsp;Houston, TX &nbsp;·&nbsp; Promoted April 2019 · Digital Analytics Manager 2016&ndash;2019 · <span class="award">Omni-Channel Associate of the Year 2018</span></div>
+    <ul style="margin-top:6px">
+      <li>Led omnichannel analytics for an 800+ store retailer; built cross-channel attribution integrating online and offline touchpoints to guide budget allocation and reduce customer acquisition cost</li>
+      <li>Deployed Adobe Advertising DSP analytics with geospatial targeting, a 30%+ campaign-efficiency gain</li>
+      <li>Segmented ecommerce performance by distance-to-store bands and connected web analytics to store foot traffic for executive omnichannel KPIs; share-of-wallet modeling to tune regional spend</li>
+    </ul>
+  </div>
 
-            <div class="job">
-                <div class="job-head">
-                    <div>
-                        <div class="job-title">Director of Customer Engagement &amp; Digital Analytics</div>
-                        <div class="job-org">Stage Stores&nbsp;&nbsp;|&nbsp;&nbsp;Houston, TX</div>
-                        <div class="job-note">Promoted April 2019 &middot; Digital Analytics Manager 2016&ndash;2019 &middot; <span class="award">Omni-Channel Associate of the Year 2018</span></div>
-                    </div>
-                    <div class="job-dates">May 2016 &ndash; April 2020</div>
-                </div>
-                <ul>
-                    <li>Led omnichannel analytics for an 800+ store retailer; built cross-channel attribution integrating online and offline touchpoints to guide budget allocation and reduce customer acquisition cost</li>
-                    <li>Deployed Adobe Advertising DSP analytics with geospatial targeting, a 30%+ campaign-efficiency gain</li>
-                    <li>Segmented ecommerce performance by distance-to-store bands and connected web analytics to store foot traffic for executive omnichannel KPIs; share-of-wallet modeling to tune regional spend</li>
-                </ul>
-            </div>
+  <div class="job">
+    <div class="job-h"><div class="job-t">Digital Project Lead</div><div class="job-d">Dec 2013 &ndash; Mar 2016</div></div>
+    <div class="job-o">Hisco, Inc.&nbsp;&nbsp;|&nbsp;&nbsp;Houston, TX</div>
+    <ul style="margin-top:6px">
+      <li>Led a 400,000+ SKU ecommerce platform launch in 14 months to top-of-industry conversion benchmarks</li>
+      <li>Managed a 20+ person cross-functional team; integrated catalog, inventory, and payment systems</li>
+    </ul>
+  </div>
 
-            <div class="job">
-                <div class="job-head">
-                    <div>
-                        <div class="job-title">Digital Project Lead</div>
-                        <div class="job-org">Hisco, Inc.&nbsp;&nbsp;|&nbsp;&nbsp;Houston, TX</div>
-                    </div>
-                    <div class="job-dates">Dec 2013 &ndash; Mar 2016</div>
-                </div>
-                <ul>
-                    <li>Led a 400,000+ SKU ecommerce platform launch in 14 months to top-of-industry conversion benchmarks</li>
-                    <li>Managed a 20+ person cross-functional team; integrated catalog, inventory, and payment systems</li>
-                </ul>
-            </div>
+  <div class="job">
+    <div class="job-h"><div class="job-t">Founder &amp; Owner</div><div class="job-d">Jan 2003 &ndash; Sep 2013</div></div>
+    <div class="job-o">VectorTec&nbsp;&nbsp;|&nbsp;&nbsp;Spring, TX</div>
+    <ul style="margin-top:6px">
+      <li>Grew a specialty ecommerce retailer to $2M+ revenue and #3 nationally in its sector</li>
+      <li>Built fully automated invoicing, fulfillment, and reporting; applied analytics to pricing and inventory</li>
+    </ul>
+  </div>
 
-            <div class="job">
-                <div class="job-head">
-                    <div>
-                        <div class="job-title">Founder &amp; Owner</div>
-                        <div class="job-org">VectorTec&nbsp;&nbsp;|&nbsp;&nbsp;Spring, TX</div>
-                    </div>
-                    <div class="job-dates">Jan 2003 &ndash; Sep 2013</div>
-                </div>
-                <ul>
-                    <li>Grew a specialty ecommerce retailer to $2M+ revenue and #3 nationally in its sector</li>
-                    <li>Built fully automated invoicing, fulfillment, and reporting; applied analytics to pricing and inventory</li>
-                </ul>
-            </div>
-        </section>
-
-        <section>
-            <h2>Education &amp; Certifications</h2>
-            <ul>
-                <li><strong>B.S., Life Sciences,</strong> Texas A&amp;M University</li>
-                <li><strong>Business Science University:</strong> Data Science for Business (101P), Python for Data Science Automation (101P-A)</li>
-            </ul>
-        </section>
-    </div>
+  <h2>Education &amp; Certifications</h2>
+  <ul>
+    <li><strong>B.S., Life Sciences,</strong> Texas A&amp;M University</li>
+    <li><strong>Business Science University:</strong> Data Science for Business (101P), Python for Data Science Automation (101P-A)</li>
+  </ul>
+</main>
 </body>
 </html>
