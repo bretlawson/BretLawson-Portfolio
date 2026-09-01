@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="robots" content="index, follow">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DN2PPZNDRJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DN2PPZNDRJ',{'send_page_view':true,'anonymize_ip':true});</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vdqbyh8fhw");</script>
+<title>Paid Funnel Decomposition — interactive replica</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --page:#f5f5f5; --card:#fff; --ink:#1f2937; --muted:#6b7280; --hair:#e5e7eb;
+  --navy:#1a3a5c; --prim:#1a5fb4; --comp:#c2620a; --good:#15803d; --bad:#b91c1c;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--page);color:var(--ink);font-size:14px;line-height:1.5;padding:18px}
+.wrap{max-width:1240px;margin:0 auto}
+.repl{background:#fdf8e8;border:1px solid #e8dca0;border-radius:8px;padding:8px 14px;font-size:12px;color:#7a5d00;margin-bottom:14px}
+.repl a{color:#1a5fb4;font-weight:600;text-decoration:none}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+h1{font-size:20px;font-weight:700;letter-spacing:-.2px}
+.sub{font-size:12.5px;color:var(--muted);margin-top:2px;max-width:760px}
+.card{background:var(--card);border:1px solid var(--hair);border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);padding:16px 18px;margin-bottom:14px}
+.card h2{font-size:13.5px;font-weight:700}
+.card .h2s{font-size:11.5px;color:var(--muted);margin:2px 0 12px}
+
+/* range controls */
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.panel{border:1px solid var(--hair);border-left:4px solid var(--prim);border-radius:8px;padding:12px 14px}
+.panel.comp{border-left-color:var(--comp)}
+.panel .pl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--prim)}
+.panel.comp .pl{color:var(--comp)}
+.prow{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+select{font-family:inherit;font-size:12.5px;font-weight:600;border:1px solid #d1d5db;border-radius:6px;padding:5px 8px;background:#fff;color:var(--ink)}
+.chips{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+.chip{font-family:inherit;font-size:11px;font-weight:600;border:1px solid #d1d5db;background:#fff;color:var(--ink);border-radius:14px;padding:4px 10px;cursor:pointer}
+.chip:hover{border-color:var(--prim);color:var(--prim)}
+.chip.on{background:var(--prim);border-color:var(--prim);color:#fff}
+.panel.comp .chip.on{background:var(--comp);border-color:var(--comp)}
+.span{font-size:11px;color:var(--muted);margin-top:8px}
+
+/* scorecards */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--card);border:1px solid var(--hair);border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);padding:12px 14px}
+.kpi .l{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.kpi .v{font-size:20px;font-weight:800;margin-top:4px;letter-spacing:-.4px;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:11px;font-weight:700;margin-top:1px;font-variant-numeric:tabular-nums}
+.up{color:var(--good)}.down{color:var(--bad)}.flat{color:var(--muted)}
+
+.grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:14px}
+.chartbox{position:relative;height:330px}
+.note{background:#fdf8e8;border:1px solid #e8dca0;border-radius:8px;padding:10px 13px;font-size:12px;line-height:1.55;margin-top:12px}
+.note b{color:var(--ink)}
+
+/* house tables */
+.texp{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.csv{font-family:inherit;font-size:11px;font-weight:600;color:var(--prim);background:#fff;border:1px solid #d1d5db;border-radius:6px;padding:4px 10px;cursor:pointer}
+.csv:hover{border-color:var(--prim)}
+.tscroll{overflow-x:auto}
+table{border-collapse:collapse;font-size:12px;table-layout:auto;width:auto;min-width:100%}
+th{background:var(--navy);color:#fff;font-weight:600;font-size:10.5px;padding:7px 9px;text-align:center;vertical-align:middle;white-space:nowrap}
+th .hlab{display:inline-block;max-width:56px;white-space:normal;line-height:1.25}
+td{padding:6px 9px;border-bottom:1px solid #eef0f3;text-align:center;vertical-align:middle;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr:nth-child(even){background:#f6f8fb}
+td.row-label{background:#edf1f6;font-weight:600;text-align:left}
+td.dcol{background:#f8f9fa;font-size:11px;font-weight:700}
+tr.tot td{font-weight:800;border-top:2px solid var(--navy);background:#f3f4f2}
+.basis{display:inline-block;font-size:10px;color:var(--muted);border:1px solid var(--hair);border-radius:10px;padding:2px 8px;margin-left:8px}
+.foot{font-size:10.5px;color:#9ca3af;margin:16px 0 6px;text-align:center;line-height:1.6;font-style:italic}
+@media(max-width:920px){.kpis{grid-template-columns:repeat(3,1fr)}.grid2,.panels{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="repl">Sanitized portfolio replica of a production dashboard — <b>synthetic data, real method</b>. The production version adds four more tabs, campaign-level tables, and click-lineage verification. Read <a href="dashboard-suite.html">the case study</a>.</div>
+
+  <div class="top">
+    <div>
+      <h1>Paid-Search Funnel Decomposition</h1>
+      <div class="sub">Is paid-search conversion really falling — or is spend shifting into tactics that never converted well? An exact decomposition splits the revenue change into eight additive effects, so mix shift can't masquerade as funnel failure. Every number recomputes client-side for any pair of ranges.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Compare any two spans</h2>
+    <div class="h2s">Data is weekly grain; selections aggregate exactly. Primary is the span you're explaining; Comparison is the base it's measured against.</div>
+    <div class="panels">
+      <div class="panel">
+        <div class="pl">Primary — Focus</div>
+        <div class="prow">
+          <select id="pFy"><option>FY26</option><option>FY25</option></select>
+          <select id="pW1"></select><span style="font-size:11px;color:var(--muted)">to</span><select id="pW2"></select>
+        </div>
+        <div class="chips" id="pChips">
+          <button class="chip on" data-r="1,26">H1 · W1–26</button>
+          <button class="chip" data-r="14,26">Last 13 wks</button>
+          <button class="chip" data-r="23,26">Last 4 wks</button>
+          <button class="chip" data-r="1,52">Full year</button>
+        </div>
+        <div class="span" id="pSpan"></div>
+      </div>
+      <div class="panel comp">
+        <div class="pl">Comparison — Baseline</div>
+        <div class="prow">
+          <select id="cMode"><option value="match">Same weeks, prior FY (day-matched)</option><option value="custom">Custom span</option></select>
+          <span id="cCustom" hidden><select id="cFy"><option>FY25</option><option>FY26</option></select>
+          <select id="cW1"></select><span style="font-size:11px;color:var(--muted)">to</span><select id="cW2"></select></span>
+        </div>
+        <div class="span" id="cSpan"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>Why revenue moved — eight additive effects <span class="basis" id="wfBasis"></span></h2>
+      <div class="h2s">Log-mean (LMDI) decomposition of ΔRevenue. The eight bars sum to the total change to machine precision — no residual, no "other".</div>
+      <div class="chartbox"><canvas id="wf"></canvas></div>
+      <div class="note" id="callout"></div>
+    </div>
+    <div class="card">
+      <h2>Mix vs. rate, by tactic <span class="basis">share of paid-search clicks</span></h2>
+      <div class="h2s">The Simpson's-paradox guard: blended conversion can fall while every tactic's own funnel holds.</div>
+      <div class="chartbox" style="height:250px"><canvas id="mixCh"></canvas></div>
+      <div class="note" id="mixNote"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="texp"><div><h2 style="display:inline">Funnel rates by tactic</h2><span class="basis" id="tb1Basis"></span></div><button class="csv" data-t="tbl1">Export CSV</button></div>
+    <div class="tscroll"><table id="tbl1"></table></div>
+  </div>
+
+  <div class="card">
+    <div class="texp"><div><h2 style="display:inline">Efficiency</h2><span class="basis">cost side · lower is better on costs</span></div><button class="csv" data-t="tbl2">Export CSV</button></div>
+    <div class="tscroll"><table id="tbl2"></table></div>
+  </div>
+
+  <div class="foot">Synthetic weekly panel, deterministic generator — figures are illustrative; the decomposition identity, the controls pattern, and the table conventions mirror the production build. Identity: Revenue = Σ<sub>tactic</sub> Clicks<sub>total</sub> · share · (Sess/Click) · (Shop/Sess) · (Cart/Shop) · (CO/Cart) · (Orders/CO) · AOV.</div>
+</div>
+
+<script>
+"use strict";
+// ---------- synthetic weekly panel (deterministic) ----------
+const TACTS=[
+ {i:0,key:'brand',name:'Brand',     clicks0:52, cG:.78, s2c:.92,s2cG:1.00, shop:.44,shopG:1.02, cart:.106,cartG:1.03, co:.62,coG:1.00, close:.78,closeG:1.00, aov:1180,aovG:1.05, cpc:.92, cpcG:1.28},
+ {i:1,key:'nonbr',name:'Non-Brand', clicks0:61, cG:1.58, s2c:.86,s2cG:0.94, shop:.31,shopG:0.99, cart:.052,cartG:1.00, co:.55,coG:0.98, close:.70,closeG:1.00, aov: 980,aovG:1.03, cpc:2.02, cpcG:1.05},
+ {i:2,key:'pla',name:'Shopping',    clicks0:115, cG:.97, s2c:.88,s2cG:1.00, shop:.36,shopG:1.00, cart:.061,cartG:1.02, co:.58,coG:1.00, close:.72,closeG:1.02, aov:1060,aovG:1.04, cpc:.64, cpcG:0.88},
+ {i:3,key:'lia',name:'Local',       clicks0:64, cG:1.05, s2c:.90,s2cG:1.00, shop:.38,shopG:1.01, cart:.079,cartG:1.00, co:.60,coG:1.00, close:.74,closeG:1.00, aov:1240,aovG:1.05, cpc:.57, cpcG:1.03},
+];
+const WKS=52, DATA={FY25:{},FY26:{}};
+for(const fy of ['FY25','FY26']){ const g = fy==='FY26';
+  for(const t of TACTS){ const rows=[];
+    for(let w=1;w<=WKS;w++){
+      const seas=1+0.16*Math.sin((w-8)/52*2*Math.PI)+(w>=46?0.22:0)+0.05*Math.sin(w*2.3+t.i);
+      const clicks=t.clicks0*1000*(g?t.cG:1)*seas*(1+0.03*Math.sin(w*1.7+t.i*2));
+      const s2c=t.s2c*(g?t.s2cG:1)*(1+0.012*Math.sin(w*1.1+t.i));
+      const shop=t.shop*(g?t.shopG:1)*(1+0.015*Math.sin(w*0.9+t.i*3));
+      const cart=t.cart*(g?t.cartG:1)*(1+0.02*Math.sin(w*1.3+t.i));
+      const co=t.co*(g?t.coG:1), close=t.close*(g?t.closeG:1);
+      const aov=t.aov*(g?t.aovG:1)*(1+0.03*Math.sin((w-2)/52*2*Math.PI)+(w>=46?0.05:0));
+      const sessions=clicks*s2c, shopS=sessions*shop, carts=shopS*cart, cos=carts*co, orders=cos*close, rev=orders*aov;
+      const spend=clicks*t.cpc*(g?t.cpcG:1)*(1+0.02*Math.sin(w*0.8+t.i));
+      rows.push({clicks,sessions,shopS,carts,cos,orders,rev,spend});
+    }
+    DATA[fy][t.key]=rows;
+  }
+}
+function agg(fy,w1,w2){
+  const per={}; let T={clicks:0,sessions:0,shopS:0,carts:0,cos:0,orders:0,rev:0,spend:0};
+  for(const t of TACTS){ const a={clicks:0,sessions:0,shopS:0,carts:0,cos:0,orders:0,rev:0,spend:0};
+    for(let w=w1;w<=w2;w++){ const r=DATA[fy][t.key][w-1]; for(const k in a) a[k]+=r[k]; }
+    per[t.key]=a; for(const k in T) T[k]+=a[k];
+  }
+  return {per,T};
+}
+// factors per tactic from an aggregate
+function factors(A,key){ const a=A.per[key];
+  return [A.T.clicks, a.clicks/A.T.clicks, a.sessions/a.clicks, a.shopS/a.sessions, a.carts/a.shopS, a.cos/a.carts, a.orders/a.cos, a.rev/a.orders];
+}
+const EFFECTS=['Demand','Mix','Landing','Shop','Cart','Checkout','Close','AOV'];
+const lmean=(a,b)=> a===b? a : (a-b)/(Math.log(Math.max(a,1e-9))-Math.log(Math.max(b,1e-9)));
+function lmdi(P,C){
+  const eff=EFFECTS.map(()=>0);
+  for(const t of TACTS){
+    const vp=P.per[t.key].rev, vc=C.per[t.key].rev, L=lmean(vp,vc);
+    const fp=factors(P,t.key), fc=factors(C,t.key);
+    for(let k=0;k<8;k++) eff[k]+=L*Math.log(Math.max(fp[k],1e-12)/Math.max(fc[k],1e-12));
+  }
+  return eff;
+}
+// ---------- formatting ----------
+const mK=v=>{const s=v<0?'−':'';v=Math.abs(v);return s+(v>=1e6?'$'+(v/1e6).toFixed(2)+'M':v>=1e3?'$'+Math.round(v/1e3)+'K':'$'+Math.round(v));};
+const n0=v=>v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?Math.round(v/1e3)+'K':Math.round(v);
+const pct=v=>(v>=0?'+':'−')+Math.abs(v*100).toFixed(1)+'%';
+const bps=v=>(v>=0?'+':'−')+Math.abs(Math.round(v*10000))+' bps';
+function dCls(v,invert){ if(Math.abs(v)<1e-4) return 'flat'; return ((invert?v<0:v>0)?'up':'down'); }
+function dSpan(v,fmt,invert){ return '<span class="'+dCls(v,invert)+'">'+fmt(v)+'</span>'; }
+
+// ---------- state & controls ----------
+const S={pFy:'FY26',pW1:1,pW2:26,cMode:'match',cFy:'FY25',cW1:1,cW2:26};
+function wkOpts(sel,val){ sel.innerHTML=Array.from({length:WKS},(_,i)=>`<option ${i+1===val?'selected':''}>W${i+1}</option>`).join(''); }
+const $=id=>document.getElementById(id);
+wkOpts($('pW1'),S.pW1); wkOpts($('pW2'),S.pW2); wkOpts($('cW1'),S.cW1); wkOpts($('cW2'),S.cW2);
+function compSpan(){ if(S.cMode==='match'){ S.cFy = S.pFy==='FY26'?'FY25':'FY25'; S.cW1=S.pW1; S.cW2=S.pW2; } }
+['pFy','pW1','pW2','cFy','cW1','cW2'].forEach(id=>$(id).addEventListener('change',e=>{
+  const v=e.target.value; S[id]=id.endsWith('Fy')?v:parseInt(v.slice(1));
+  if(id==='pW1'&&S.pW2<S.pW1){S.pW2=S.pW1;wkOpts($('pW2'),S.pW2);}
+  document.querySelectorAll('#pChips .chip').forEach(c=>c.classList.remove('on'));
+  render();
+}));
+$('cMode').addEventListener('change',e=>{ S.cMode=e.target.value; $('cCustom').hidden=S.cMode!=='custom'; render(); });
+document.querySelectorAll('#pChips .chip').forEach(c=>c.addEventListener('click',()=>{
+  const [a,b]=c.dataset.r.split(',').map(Number); S.pW1=a; S.pW2=b;
+  wkOpts($('pW1'),a); wkOpts($('pW2'),b);
+  document.querySelectorAll('#pChips .chip').forEach(x=>x.classList.toggle('on',x===c));
+  render();
+}));
+
+// ---------- charts ----------
+let wfCh, mixCh;
+const wfLbl={id:'wfl',afterDatasetsDraw(ch){ const {ctx}=ch,m=ch.getDatasetMeta(0);
+  ctx.save();ctx.textAlign='center';ctx.font='700 11px -apple-system,Segoe UI,sans-serif';
+  m.data.forEach((bar,i)=>{ const s=ch.$steps[i], top=Math.min(bar.y,bar.base);
+    ctx.fillStyle=s.total!=null?'#1f2937':(s.d>=0?'#15803d':'#b91c1c');
+    ctx.fillText(s.total!=null?mK(s.total):(s.d>=0?'+':'−')+mK(Math.abs(s.d)), bar.x, top-6); });
+  ctx.restore(); }};
+function initCharts(){
+  wfCh=new Chart($('wf'),{type:'bar',data:{labels:[],datasets:[{data:[],backgroundColor:[],borderRadius:3,barPercentage:.72}]},
+    options:{responsive:true,maintainAspectRatio:false,animation:{duration:350},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const s=wfCh.$steps[c.dataIndex];return s.total!=null?mK(s.total):(s.d>=0?'+':'−')+mK(Math.abs(s.d)).replace('−','');}}}},
+      scales:{y:{ticks:{callback:v=>mK(v),font:{size:10}},grid:{color:'#eef0f3'}},x:{grid:{display:false},ticks:{font:{size:10},autoSkip:false}}}},
+    plugins:[wfLbl]});
+  mixCh=new Chart($('mixCh'),{type:'bar',data:{labels:TACTS.map(t=>t.name),datasets:[
+      {label:'Primary',data:[],backgroundColor:'#1a5fb4',borderRadius:3},
+      {label:'Comparison',data:[],backgroundColor:'rgba(194,98,10,.75)',borderRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,animation:{duration:350},
+      plugins:{legend:{position:'bottom',labels:{boxWidth:11,font:{size:10.5}}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y*100).toFixed(1)+'% of clicks'}}},
+      scales:{y:{ticks:{callback:v=>(v*100).toFixed(0)+'%',font:{size:10}},grid:{color:'#eef0f3'},title:{display:true,text:'Share of PS clicks',font:{size:10}}},
+              x:{grid:{display:false},ticks:{font:{size:10.5}}}}}});
+}
+
+// ---------- render ----------
+function render(){
+  compSpan();
+  const P=agg(S.pFy,S.pW1,S.pW2), C=agg(S.cFy,S.cW1,S.cW2);
+  $('pSpan').textContent='= '+S.pFy+' W'+S.pW1+'–W'+S.pW2+' · '+(S.pW2-S.pW1+1)+' weeks';
+  $('cSpan').textContent='= '+S.cFy+' W'+S.cW1+'–W'+S.cW2+' · '+(S.cW2-S.cW1+1)+' weeks';
+  $('wfBasis').textContent=S.pFy+' W'+S.pW1+'–'+S.pW2+' vs '+S.cFy+' W'+S.cW1+'–'+S.cW2;
+  $('tb1Basis').textContent='Primary '+S.pFy+' W'+S.pW1+'–'+S.pW2+' · Comparison '+S.cFy+' W'+S.cW1+'–'+S.cW2;
+  // KPIs
+  const cvrP=P.T.orders/P.T.clicks, cvrC=C.T.orders/C.T.clicks;
+  const K=[
+    ['Revenue',mK(P.T.rev),dSpan((P.T.rev-C.T.rev)/C.T.rev,pct)],
+    ['Orders',n0(P.T.orders),dSpan((P.T.orders-C.T.orders)/C.T.orders,pct)],
+    ['Blended CVR',(cvrP*100).toFixed(2)+'%',dSpan(cvrP-cvrC,bps)],
+    ['Clicks',n0(P.T.clicks),dSpan((P.T.clicks-C.T.clicks)/C.T.clicks,pct)],
+    ['Spend',mK(P.T.spend),'<span class="flat">'+pct((P.T.spend-C.T.spend)/C.T.spend)+'</span>'],
+    ['ROAS','$'+(P.T.rev/P.T.spend).toFixed(2),dSpan(P.T.rev/P.T.spend-C.T.rev/C.T.spend,v=>(v>=0?'+':'−')+'$'+Math.abs(v).toFixed(2))],
+  ];
+  $('kpis').innerHTML=K.map(k=>'<div class="kpi"><div class="l">'+k[0]+'</div><div class="v">'+k[1]+'</div><div class="d">'+k[2]+'</div></div>').join('');
+  // waterfall
+  const eff=lmdi(P,C); let run=C.T.rev;
+  const steps=[{label:['Comparison'],v:[0,C.T.rev],total:C.T.rev,c:'rgba(194,98,10,.85)'}];
+  eff.forEach((d,k)=>{ const a=run, b=run+d; steps.push({label:[EFFECTS[k]],v:[Math.min(a,b),Math.max(a,b)],d,c:d>=0?'#15803d':'#b91c1c'}); run=b; });
+  steps.push({label:['Primary'],v:[0,P.T.rev],total:P.T.rev,c:'#1a5fb4'});
+  const lo=Math.min(...steps.map(s=>s.total!=null?s.total:s.v[0]));
+  wfCh.$steps=steps;
+  wfCh.data.labels=steps.map(s=>s.label);
+  wfCh.data.datasets[0].data=steps.map(s=>s.v);
+  wfCh.data.datasets[0].backgroundColor=steps.map(s=>s.c);
+  wfCh.options.scales.y.min=Math.floor(lo*0.965/1e6)*1e6;
+  wfCh.update();
+  // callout
+  const worst=eff.map((d,k)=>({d,k})).sort((a,b)=>a.d-b.d)[0], best=eff.map((d,k)=>({d,k})).sort((a,b)=>b.d-a.d)[0];
+  const dRev=P.T.rev-C.T.rev, mixIdx=EFFECTS.indexOf('Mix');
+  const rateSum=eff.reduce((s,d,k)=>k>=2&&k<=6?s+d:s,0);
+  $('callout').innerHTML='<b>'+(dRev<0?'Revenue is down '+mK(Math.abs(dRev)):'Revenue is up '+mK(dRev))+'.</b> Largest drag: <b>'+EFFECTS[worst.k]+' ('+mK(worst.d)+')</b>; largest offset: <b>'+EFFECTS[best.k]+' (+'+mK(best.d).replace('−','')+')</b>. '
+    +(eff[mixIdx]<0&&Math.abs(eff[mixIdx])>Math.abs(rateSum)?'Mix — clicks shifting toward lower-converting tactics — explains more than all five funnel stages combined: the funnel is not the problem.':'Funnel-stage effects ('+mK(rateSum)+' combined) are the story in this span.');
+  // mix chart + note
+  mixCh.data.datasets[0].data=TACTS.map(t=>P.per[t.key].clicks/P.T.clicks);
+  mixCh.data.datasets[1].data=TACTS.map(t=>C.per[t.key].clicks/C.T.clicks);
+  mixCh.update();
+  const nb=TACTS[1];
+  const shP=P.per.nonbr.clicks/P.T.clicks, shC=C.per.nonbr.clicks/C.T.clicks;
+  const nbCvrP=P.per.nonbr.orders/P.per.nonbr.clicks, brCvrP=P.per.brand.orders/P.per.brand.clicks;
+  $('mixNote').innerHTML='Non-Brand is '+dSpan(shP-shC,bps).replace('class="down"','class="flat"').replace('class="up"','class="flat"')+' of clicks vs comparison, and converts at '+(nbCvrP*100).toFixed(2)+'% against Brand\'s '+(brCvrP*100).toFixed(2)+'% — blended CVR falls even if no tactic\'s funnel moves.';
+  // table 1: funnel rates value|Δ pairs
+  const r1=['Sess/Click','Shop/Sess','Cart/Shop','CO/Cart','Ord/CO'];
+  let h='<thead><tr><th style="text-align:left">Tactic</th><th><span class="hlab">Clicks</span></th><th><span class="hlab">Δ</span></th>';
+  r1.forEach(x=>h+='<th><span class="hlab">'+x+'</span></th><th><span class="hlab">Δ</span></th>');
+  h+='<th><span class="hlab">AOV</span></th><th><span class="hlab">Δ</span></th><th><span class="hlab">Revenue</span></th><th><span class="hlab">Δ</span></th></tr></thead><tbody>';
+  const rowRates=a=>[a.sessions/a.clicks,a.shopS/a.sessions,a.carts/a.shopS,a.cos/a.carts,a.orders/a.cos];
+  for(const t of TACTS){ const p=P.per[t.key],c=C.per[t.key],rp=rowRates(p),rc=rowRates(c);
+    h+='<tr><td class="row-label">'+t.name+'</td><td>'+n0(p.clicks)+'</td><td class="dcol">'+dSpan((p.clicks-c.clicks)/c.clicks,pct)+'</td>';
+    rp.forEach((v,i)=>h+='<td>'+(v*100).toFixed(1)+'%</td><td class="dcol">'+dSpan(v-rc[i],bps)+'</td>');
+    h+='<td>$'+Math.round(p.rev/p.orders)+'</td><td class="dcol">'+dSpan((p.rev/p.orders-c.rev/c.orders)/(c.rev/c.orders),pct)+'</td>';
+    h+='<td>'+mK(p.rev)+'</td><td class="dcol">'+dSpan((p.rev-c.rev)/c.rev,pct)+'</td></tr>'; }
+  const tp=P.T,tc=C.T,tr=rowRates(tp),tq=rowRates(tc);
+  h+='<tr class="tot"><td class="row-label">Total</td><td>'+n0(tp.clicks)+'</td><td class="dcol">'+dSpan((tp.clicks-tc.clicks)/tc.clicks,pct)+'</td>';
+  tr.forEach((v,i)=>h+='<td>'+(v*100).toFixed(1)+'%</td><td class="dcol">'+dSpan(v-tq[i],bps)+'</td>');
+  h+='<td>$'+Math.round(tp.rev/tp.orders)+'</td><td class="dcol">'+dSpan((tp.rev/tp.orders-tc.rev/tc.orders)/(tc.rev/tc.orders),pct)+'</td><td>'+mK(tp.rev)+'</td><td class="dcol">'+dSpan((tp.rev-tc.rev)/tc.rev,pct)+'</td></tr></tbody>';
+  $('tbl1').innerHTML=h;
+  // table 2: efficiency (down = good)
+  let e='<thead><tr><th style="text-align:left">Tactic</th><th><span class="hlab">Spend</span></th><th><span class="hlab">Δ</span></th><th><span class="hlab">CPC</span></th><th><span class="hlab">Δ</span></th><th><span class="hlab">Cost / Shop Sess</span></th><th><span class="hlab">Δ</span></th><th><span class="hlab">CPA</span></th><th><span class="hlab">Δ</span></th><th><span class="hlab">ROAS</span></th><th><span class="hlab">Δ</span></th></tr></thead><tbody>';
+  const effRow=(p,c,nm,cls)=>{
+    const m=[[p.spend,c.spend,mK,null,'flat'],[p.spend/p.clicks,c.spend/c.clicks,v=>'$'+v.toFixed(2),true],[p.spend/p.shopS,c.spend/c.shopS,v=>'$'+v.toFixed(2),true],[p.spend/p.orders,c.spend/c.orders,v=>'$'+Math.round(v),true],[p.rev/p.spend,c.rev/c.spend,v=>'$'+v.toFixed(2),false]];
+    let s='<tr'+(cls?' class="'+cls+'"':'')+'><td class="row-label">'+nm+'</td>';
+    m.forEach(([a,b,f,inv,forceFlat])=>{ const d=(a-b)/b;
+      s+='<td>'+f(a)+'</td><td class="dcol">'+(forceFlat==='flat'?'<span class="flat">'+pct(d)+'</span>':dSpan(d,pct,inv))+'</td>'; });
+    return s+'</tr>'; };
+  for(const t of TACTS) e+=effRow(P.per[t.key],C.per[t.key],t.name);
+  e+=effRow(P.T,C.T,'Total','tot');
+  $('tbl2').innerHTML=e;
+}
+// CSV export
+document.querySelectorAll('.csv').forEach(b=>b.onclick=()=>{
+  const rows=[...document.getElementById(b.dataset.t).querySelectorAll('tr')].map(tr=>
+    [...tr.children].map(td=>'"'+td.textContent.replace(/"/g,'""').replace(/[−]/g,'-')+'"').join(','));
+  const blob=new Blob(['﻿'+rows.join('\n')],{type:'text/csv'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=b.dataset.t+'.csv'; a.click();
+});
+initCharts(); render();
+</script>
+</body>
+</html>

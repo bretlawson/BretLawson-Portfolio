@@ -1,789 +1,470 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    
-    <!-- Language and Region -->
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-    
-    <!-- Page Title -->
-    
-    <title>Bret Lawson - Senior Analytics Leader | Full Data Stack</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bret Lawson — Data Scientist · Full Data Stack</title>
+<meta name="description" content="Bret Lawson — full-stack data scientist, ecommerce & retail. I model the data, build the pipeline, and ship the dashboard — turning multi-source warehouse data into decisions leaders trust.">
+<meta name="author" content="Bret Lawson">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://bretlawson.com/">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#1F3A5F">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bretlawson.com/">
+<meta property="og:title" content="Bret Lawson — Data Scientist · Full Data Stack">
+<meta property="og:description" content="Full-stack data scientist, ecommerce &amp; retail. I model the data, build the pipeline, and ship the dashboard — case studies in decomposition, semantic-layer engineering, and decision-grade reporting.">
+<meta property="og:image" content="https://bretlawson.com/bret_lawson.jpg">
+<meta property="og:image:alt" content="Bret Lawson — data scientist, full data stack">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Bret Lawson">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:url" content="https://bretlawson.com/">
+<meta property="twitter:title" content="Bret Lawson — Data Scientist · Full Data Stack">
+<meta property="twitter:description" content="Full-stack data scientist, ecommerce &amp; retail. Case studies in decomposition, semantic-layer engineering, and decision-grade reporting.">
+<meta property="twitter:image" content="https://bretlawson.com/bret_lawson.jpg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DN2PPZNDRJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DN2PPZNDRJ',{'send_page_view':true,'anonymize_ip':true});</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vdqbyh8fhw");</script>
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Bret Lawson",
+    "alternateName": ["bretlawson.com"],
+    "url": "https://bretlawson.com/",
+    "author": { "@type": "Person", "name": "Bret Lawson" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Bret Lawson",
+    "jobTitle": "Senior Manager, Digital Analytics",
+    "worksFor": { "@type": "Organization", "name": "Mattress Firm" },
+    "url": "https://bretlawson.com",
+    "email": "bretalawson@gmail.com",
+    "telephone": "832.403.7762",
+    "address": { "@type": "PostalAddress", "addressLocality": "Houston", "addressRegion": "TX", "addressCountry": "US" },
+    "alumniOf": { "@type": "EducationalOrganization", "name": "Texas A&M University" },
+    "sameAs": ["https://www.linkedin.com/in/bretlawson"],
+    "knowsAbout": ["Data Science", "Digital Analytics", "Ecommerce Forecasting", "Decomposition Analysis", "Causal Inference", "Python", "SQL", "dbt", "BigQuery", "Adobe Analytics", "Marketing Attribution", "Agentic AI Workflows"]
+  }
+]
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#FAFAF7; --paper2:#F3F4F2; --card:#FFFFFF; --ink:#1A1A1A; --muted:#5B5B57;
+  --hair:#E5E2D9; --accent:#1F3A5F; --accent-2:#2C5688; --accent-soft:rgba(31,58,95,.07);
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Inter',-apple-system,'Segoe UI',sans-serif;
+  --wrap:1060px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 30px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.skip{position:absolute;left:8px;top:-44px;background:var(--accent);color:#fff;padding:8px 14px;border-radius:6px;font-weight:600;z-index:200;transition:top .2s}
+.skip:focus{top:8px}
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Senior Analytics Leader specializing in AI-enhanced data strategy, LLM integration (Python, LangChain, OpenAI API), and marketing attribution modeling. Proven expertise in BigQuery, Adobe Analytics, and predictive forecasting that drives multi-million dollar business outcomes across enterprise retail operations.">
-    <meta name="keywords" content="AI analytics, LLM integration, generative AI, Python LangChain, OpenAI API, BigQuery, digital analytics, marketing attribution modeling, ecommerce forecasting, revenue prediction, data science, SQL, Adobe Analytics, ContentSquare, Google Analytics, ChatGPT Claude integration">
-    <meta name="author" content="Bret Lawson">
+/* nav */
+.nav{position:sticky;top:0;z-index:100;background:rgba(250,250,247,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+.nav-in{max-width:var(--wrap);margin:0 auto;padding:15px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.nav-name{font-family:var(--serif);font-weight:600;font-size:1.05rem;letter-spacing:-.2px}
+.nav-links{display:flex;gap:24px;align-items:center;list-style:none;font-size:.9rem}
+.nav-links a{color:var(--muted);position:relative;padding:2px 0;transition:color .15s}
+.nav-links a:hover,.nav-links a.active{color:var(--ink)}
+.nav-links a.active::after{content:'';position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--accent)}
+.nav-cta{color:var(--accent)!important;font-weight:600}
+.nav-toggle{display:none;background:none;border:0;font-size:1.3rem;cursor:pointer;color:var(--ink)}
 
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://bretlawson.com/">
+/* hero */
+.hero{padding:84px 0 70px}
+.hero-grid{display:grid;grid-template-columns:1fr 210px;gap:52px;align-items:center;max-width:940px;margin:0 auto}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.6rem,6vw,3.7rem);letter-spacing:-1.2px;line-height:1;margin:12px 0 0}
+.hero .lead{font-family:var(--serif);font-weight:400;font-size:clamp(1.25rem,2.6vw,1.7rem);font-style:italic;color:var(--accent);margin-top:20px;line-height:1.3;max-width:28ch}
+.hero .intro{font-size:1.05rem;color:#3c3a34;margin-top:22px;max-width:54ch;line-height:1.7}
+.hero .links{display:flex;gap:10px;margin-top:30px;flex-wrap:wrap}
+.hero .links a{font-size:.9rem;font-weight:500;padding:9px 16px;border:1px solid var(--hair);border-radius:8px;transition:.16s;background:#fff}
+.hero .links a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.hero .links a.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.hero .links a.primary:hover{background:var(--accent-2);color:#fff}
+.hero-photo{width:210px;height:248px;object-fit:cover;border-radius:12px;border:1px solid var(--hair);filter:grayscale(.1) contrast(1.02)}
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bretlawson.com/">
-    <meta property="og:title" content="Bret Lawson - Senior Analytics Leader | Full Data Stack">
-    <meta property="og:description" content="Senior Analytics Leader specializing in AI-enhanced data strategy, LLM integration, and marketing attribution. Expert in Python, LangChain, BigQuery, and Adobe Analytics with proven multi-million dollar business impact.">
-    <meta property="og:image" content="https://bretlawson.com/og-image.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Bret Lawson - Senior Analytics Leader, 20 years across the full data stack">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:site_name" content="Bret Lawson">
+/* section */
+.sec{padding:46px 0;border-top:1px solid var(--hair)}
+.sec-head{display:flex;align-items:baseline;gap:14px}
+.sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.45rem,3vw,1.9rem);letter-spacing:-.4px}
+.sec-head .idx{font-size:.78rem;color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums}
+.sec-note{font-size:.94rem;color:var(--muted);margin-top:10px;max-width:66ch}
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://bretlawson.com/">
-    <meta property="twitter:title" content="Bret Lawson - Senior Analytics Leader | Full Data Stack">
-    <meta property="twitter:description" content="Senior Analytics Leader specializing in AI-enhanced data strategy, LLM integration, and marketing attribution. Expert in Python, LangChain, BigQuery, and Adobe Analytics.">
-    <meta property="twitter:image" content="https://bretlawson.com/og-image.png">
-    <meta property="twitter:image:alt" content="Bret Lawson - Senior Analytics Leader, 20 years across the full data stack">
-    
-    <!-- Mobile optimization -->
-    <meta name="theme-color" content="#1e3c72">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
-    <!-- Preconnect to external resources -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
-    
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DN2PPZNDRJ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-DN2PPZNDRJ', {
-            'send_page_view': true,
-            'anonymize_ip': true
-        });
-    </script>
+/* case-study cards */
+.case{display:grid;grid-template-columns:300px 1fr;margin-top:20px;border:1px solid var(--hair);border-radius:14px;overflow:hidden;background:var(--card);transition:box-shadow .2s,border-color .2s,transform .2s;color:inherit}
+.case:hover{box-shadow:0 14px 36px rgba(26,26,26,.09);border-color:#d6d2c5;transform:translateY(-2px)}
+.case:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.case-vis{background:#fff;border-right:1px solid var(--hair);display:flex;align-items:center;justify-content:center;padding:18px}
+.case-vis svg{width:100%;height:auto;max-height:150px}
+.case-txt{padding:24px 28px}
+.case-txt .cq{font-size:.76rem;color:var(--muted);font-weight:600;letter-spacing:.02em}
+.case-txt h3{font-family:var(--serif);font-weight:600;font-size:1.35rem;letter-spacing:-.4px;margin-top:7px;line-height:1.2}
+.case-txt .cco{font-size:.95rem;color:#3c3a34;margin-top:11px;line-height:1.6;max-width:62ch}
+.case-txt .cmeta{font-size:.74rem;color:var(--muted);margin-top:15px;padding-top:12px;border-top:1px solid var(--hair)}
+.case-txt .cmeta b{color:var(--accent);font-weight:600}
+/* secondary row */
+.also{margin-top:30px;border-top:1px solid var(--hair);padding-top:18px}
+.also .al{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.also ul{list-style:none;margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.also li{font-size:.92rem;color:#3c3a34}
+.also li b{font-weight:600;color:var(--ink)}
+.also li a{color:var(--accent);border-bottom:1.5px solid rgba(31,58,95,.3);padding-bottom:1px;transition:color .15s,border-color .15s}
+.also li a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
+.also li a::after{content:' →';font-weight:600}
+.also li .sep{color:var(--muted);margin:0 6px}
 
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "vdqbyh8fhw");
-    </script>
+/* about */
+.about-grid{display:grid;grid-template-columns:1fr 258px;gap:46px;align-items:start;margin-top:22px}
+.about-prose p{font-size:1.06rem;color:#34322c;margin-bottom:16px;line-height:1.72}
+.about-prose p:last-child{margin-bottom:0}
+.about strong{color:var(--ink);font-weight:600}
+.about-side{border:1px solid var(--hair);border-radius:12px;padding:6px 20px 8px;background:#fff}
+.asg-row{display:flex;flex-direction:column;gap:2px;padding:12px 0;border-top:1px solid var(--hair)}
+.asg-row:first-child{border-top:0}
+.asg-k{font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.asg-v{font-size:.92rem;color:var(--ink);line-height:1.4}
 
-    <!-- Schema.org structured data -->
-    <script type="application/ld+json">
-    [
-        {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "Bret Lawson",
-            "alternateName": ["Bret Lawson Digital", "bretlawson.com"],
-            "url": "https://bretlawson.com/",
-            "author": {
-            "@type": "Person",
-            "name": "Bret Lawson"
-            }
-        },
-        {
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Bret Lawson",
-            "jobTitle": "Senior Manager, Digital Analytics",
-            "worksFor": {
-            "@type": "Organization",
-            "name": "Mattress Firm"
-            },
-            "url": "https://bretlawson.com",
-            "email": "bretalawson@gmail.com",
-            "telephone": "832.403.7762",
-            "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Houston",
-            "addressRegion": "TX",
-            "addressCountry": "US"
-            },
-            "alumniOf": {
-            "@type": "EducationalOrganization",
-            "name": "Texas A&M University"
-            },
-            "sameAs": [
-            "https://www.linkedin.com/in/bretlawson"
-            ],
-            "knowsAbout": ["Digital Analytics", "Ecommerce Forecasting", "Python", "SQL", "Adobe Analytics", "BigQuery", "Marketing Attribution", "LLM Integration"]
-        }
-    ]
-    </script>
+/* experience */
+.xp{margin-top:24px}
+.role{padding:22px 0;border-top:1px solid var(--hair)}
+.role:first-child{border-top:0;padding-top:6px}
+.role-h{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline}
+.role-t{font-weight:600;font-size:1.05rem}
+.role-o{color:var(--muted);font-size:.92rem;margin-top:2px}
+.role-d{color:var(--muted);font-size:.84rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.role .award{color:var(--accent);font-weight:600}
+.role ul{margin:12px 0 0;padding-left:0;list-style:none}
+.role li{position:relative;padding-left:18px;font-size:.92rem;color:#46443c;margin-bottom:6px;line-height:1.55;max-width:80ch}
+.role li::before{content:'';position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.55}
+
+/* skills */
+.skills{margin-top:22px;display:flex;flex-direction:column;gap:0}
+.skline{display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:baseline;padding:13px 0;border-top:1px solid var(--hair)}
+.skline:first-child{border-top:0}
+.skline .k{font-size:.74rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.skline .v{font-size:.94rem;color:#3a382f}
+.skline .v b{color:var(--accent);font-weight:600}
+
+/* contact */
+.contact{padding:64px 0 80px;border-top:1px solid var(--hair)}
+.contact .idx{font-size:.78rem;color:var(--accent);font-weight:600}
+.contact h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,3.6vw,2.4rem);letter-spacing:-.6px;margin-top:8px;max-width:20ch}
+.contact p{color:#3c3a34;margin-top:16px;max-width:58ch;font-size:1.05rem;line-height:1.7}
+.contact .links{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+.contact .links a{font-size:.92rem;font-weight:500;padding:11px 18px;border:1px solid var(--hair);border-radius:8px;background:#fff;transition:.16s}
+.contact .links a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.contact .links a.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.contact .links a.primary:hover{background:var(--accent-2);color:#fff}
+.foot{margin-top:50px;font-size:.8rem;color:var(--muted)}
+
+.reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:840px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-photo{order:-1;width:128px;height:152px}
+  .case{grid-template-columns:1fr}
+  .case-vis{border-right:0;border-bottom:1px solid var(--hair)}
+  .about-grid{grid-template-columns:1fr;gap:26px}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--hair);padding:8px 0}
+  .nav-links.show{display:flex}.nav-links li{padding:11px 30px}
+  .nav-toggle{display:block}
+  .skline{grid-template-columns:1fr;gap:4px}
+}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}*{scroll-behavior:auto}}
+</style>
 </head>
 <body>
-    <a href="#main" class="skip-link">Skip to main content</a>
-    <nav class="site-nav" aria-label="Main">
-        <div class="site-nav-inner">
-            <a href="#top" class="site-nav-brand">Bret Lawson</a>
-            <ul class="site-nav-links">
-                <li><a href="#samples">Samples</a></li>
-                <li><a href="#expertise">How I Help</a></li>
-                <li><a href="#projects">Case Studies</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="mailto:bretalawson@gmail.com" class="site-nav-cta">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-    <main id="main" class="container" tabindex="-1">
-        <header class="header" id="top">
-                    <div class="headshot-container">
-                <img src="bret_lawson.jpg"
-                     srcset="bret_lawson.jpg 1x, bret_lawson@2x.jpg 2x, bret_lawson@3x.jpg 3x"
-                     alt="Bret Lawson headshot" class="headshot" width="160" height="160" decoding="async">
-            </div>
-            <div class="header-content">
-                <h1>Bret Lawson</h1>
-                <div class="subtitle">Senior Analytics Leader &middot; Ecommerce &amp; Retail</div>
-                <p>I build analytics systems that help companies make better decisions and grow revenue. Twenty years across the full data stack. A decade as a founder before becoming an enterprise analytics leader. An agentic AI workflow that turns weeks of work into days.</p>
-                <div class="subtitle subtitle-roles">Analyst &middot; Data Scientist &middot; Data Engineer &middot; Data Architect</div>
-                <div class="contact-info">
-                    <a href="mailto:bretalawson@gmail.com" data-contact="email">📧 bretalawson@gmail.com</a>
-                    <a href="tel:+18324037762" data-contact="phone">📱 832.403.7762</a>
-                    <a href="https://linkedin.com/in/bretlawson" target="_blank" rel="noopener" data-contact="linkedin">🔗 linkedin.com/in/bretlawson</a>
-                    <a href="BretLawson_Resume.pdf" download data-contact="resume" class="contact-cta">📄 Download Resume</a>
-                </div>
-            </div>
-        </header>
+<a href="#main" class="skip">Skip to content</a>
 
+<nav class="nav">
+  <div class="nav-in">
+    <a href="#top" class="nav-name">Bret Lawson</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact" class="nav-cta">Hire me</a></li>
+    </ul>
+  </div>
+</nav>
 
-        <section class="section" id="samples">
-            <h2>Sample Visuals &amp; Dashboards</h2>
-            <p class="section-intro">Examples of the visualizations and interactive dashboards I build &mdash; click any card to view full-size.</p>
-            <div class="samples-grid">
+<main id="main">
 
-                <article class="sample-card" role="button" tabindex="0"
-                         data-modal-type="image"
-                         data-modal-id="page-speed-impact"
-                         data-modal-title="Mobile Performance: Conversion Rate &amp; AOV by Landing Page TTFB"
-                         data-modal-src="samples/page-speed-impact.png"
-                         data-modal-caption="Focusing on the specific speed issues revealed in this visual increased revenue by $3.8M annually."
-                         aria-label="View visual: Mobile TTFB performance">
-                    <div class="sample-thumb">
-                        <img src="samples/page-speed-impact.png" alt="" loading="lazy">
-                        <span class="sample-badge sample-badge--visual">Visual</span>
-                        <div class="sample-overlay"><span>View Full-Size</span></div>
-                    </div>
-                    <div class="sample-content">
-                        <h3>Mobile TTFB &times; Conversion</h3>
-                    </div>
-                </article>
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Data Scientist · Full Data Stack · Ecommerce &amp; Retail</div>
+      <h1>Bret Lawson</h1>
+      <p class="lead">I connect the whole warehouse into one interactive view — and surface the question leadership should be asking next.</p>
+      <p class="intro">A full-stack data scientist with twenty years in retail: I model the data, build the pipeline, and ship the dashboard myself — turning scattered, multi-source data into decisions leaders trust, in a fraction of the time and cost of a typical BI build.</p>
+      <div class="links">
+        <a href="#work" class="primary">See the work</a>
+        <a href="BretLawson_Resume.pdf">Résumé</a>
+        <a href="https://linkedin.com/in/bretlawson" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:bretalawson@gmail.com">Email</a>
+      </div>
+    </div>
+    <img class="hero-photo" src="bret_lawson.jpg" alt="Bret Lawson">
+  </div>
+</header>
 
-                <article class="sample-card" role="button" tabindex="0"
-                         data-modal-type="image"
-                         data-modal-id="aov-decomposition"
-                         data-modal-title="AOV Decomposition — YoY Driver Waterfall (illustrative)"
-                         data-modal-src="samples/aov-decomposition.png"
-                         data-modal-caption="Decomposed a $95 YoY AOV gain to the exact driver — pinpointing that product price-per-unit, not mix or attach rate, carried 61% of the lift. Turned a 'why is AOV up?' question into a one-day, defensible answer."
-                         aria-label="View visual: AOV YoY decomposition waterfall">
-                    <div class="sample-thumb">
-                        <img src="samples/aov-decomposition.png" alt="" loading="lazy">
-                        <span class="sample-badge sample-badge--visual">Visual</span>
-                        <div class="sample-overlay"><span>View Full-Size</span></div>
-                    </div>
-                    <div class="sample-content">
-                        <h3>AOV YoY Decomposition</h3>
-                    </div>
-                </article>
+<!-- WORK -->
+<section class="sec" id="work">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">01</span><h2>Selected work</h2></div>
+    <p class="sec-note">Three systems from the last year, told as short case studies — the data layer, the deepest analysis that ran on it, and the delivery layer that carries answers into the weekly cadence. Chart shapes are real; scales are disguised.</p>
 
-                <article class="sample-card" role="button" tabindex="0"
-                         data-modal-id="dash-attribution"
-                         data-modal-title="Marketing Attribution — Channel Revenue by Model (illustrative)"
-                         data-modal-src="samples/dashboards/attribution.html"
-                         aria-label="Open interactive dashboard: marketing attribution">
-                    <div class="sample-thumb">
-                        <img src="samples/dashboards/thumb-attribution.png" alt="" loading="lazy">
-                        <span class="sample-badge sample-badge--dashboard">Dashboard</span>
-                        <div class="sample-overlay"><span>Open Interactive</span></div>
-                    </div>
-                    <div class="sample-content">
-                        <h3>Marketing Attribution</h3>
-                    </div>
-                </article>
+    <!-- 1: organic decline decomposition -->
+    <a class="case" href="organic-decline.html">
+      <div class="case-vis" aria-hidden="true">
+        <!-- real shape: the case study's hero waterfall — baseline 100 → 77, seven bands, axis broken at 70 -->
+        <svg viewBox="0 0 300 150"><rect width="300" height="150" fill="#fff"/>
+          <line x1="14" y1="126" x2="294" y2="126" stroke="#E5E2D9"/>
+          <rect x="20"  y="30.7"  width="24" height="95.3" fill="#1A1A1A"/>
+          <rect x="51"  y="30.7"  width="24" height="22.6" fill="#7a1e2b"/>
+          <rect x="82"  y="53.3"  width="24" height="17.4" fill="#b3341f" opacity=".85"/>
+          <rect x="113" y="70.7"  width="24" height="14"   fill="#b3341f" opacity=".7"/>
+          <rect x="144" y="84.7"  width="24" height="10.2" fill="#b3341f" opacity=".55"/>
+          <rect x="175" y="94.9"  width="24" height="5.1"  fill="#bdb9ad"/>
+          <rect x="206" y="99.9"  width="24" height="3.2"  fill="#bdb9ad"/>
+          <rect x="237" y="103.1" width="24" height="1.5"  fill="#1F3A5F"/>
+          <rect x="268" y="103.8" width="24" height="22.2" fill="#1A1A1A"/>
+          <circle cx="249" cy="103.8" r="11" fill="none" stroke="#1F3A5F" stroke-width="1.6" stroke-dasharray="3 2.5"/>
+          <text x="249" y="88" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="10" fill="#1F3A5F">rank</text>
+        </svg>
+      </div>
+      <div class="case-txt">
+        <div class="cq">Organic traffic fell by nearly a quarter. Was SEO failing — or was AI eating search?</div>
+        <h3>Everyone blamed rankings. Rankings were one percent of it.</h3>
+        <p class="cco">Seven measured causes that sum exactly to the observed loss — and the cause the org was organized around turned out to be the smallest. The head term held #1 the whole time; the click was being intercepted before it reached the blue links.</p>
+        <div class="cmeta"><b>Read the case study →</b> · index decomposition · falsification tests · changed 3 decisions</div>
+      </div>
+    </a>
 
-                <article class="sample-card" role="button" tabindex="0"
-                         data-modal-id="dash-funnel"
-                         data-modal-title="Conversion Funnel — Where Sessions Leak (illustrative)"
-                         data-modal-src="samples/dashboards/funnel.html"
-                         aria-label="Open interactive dashboard: conversion funnel">
-                    <div class="sample-thumb">
-                        <img src="samples/dashboards/thumb-funnel.png" alt="" loading="lazy">
-                        <span class="sample-badge sample-badge--dashboard">Dashboard</span>
-                        <div class="sample-overlay"><span>Open Interactive</span></div>
-                    </div>
-                    <div class="sample-content">
-                        <h3>Conversion Funnel</h3>
-                    </div>
-                </article>
+    <!-- 2: ecom mart -->
+    <a class="case" href="ecomm-mart.html">
+      <div class="case-vis" aria-hidden="true">
+        <!-- real topology: the case study's lineage hero — 9 sources → staging → mart → 4 consumers -->
+        <svg viewBox="0 0 300 150"><rect width="300" height="150" fill="#fff"/>
+          <g fill="#fff" stroke="#bdb9ad">
+            <rect x="16" y="10.0"  width="52" height="9" rx="2"/>
+            <rect x="16" y="24.8"  width="52" height="9" rx="2"/>
+            <rect x="16" y="39.6"  width="52" height="9" rx="2"/>
+            <rect x="16" y="54.4"  width="52" height="9" rx="2"/>
+            <rect x="16" y="69.2"  width="52" height="9" rx="2"/>
+            <rect x="16" y="84.0"  width="52" height="9" rx="2"/>
+            <rect x="16" y="98.8"  width="52" height="9" rx="2"/>
+            <rect x="16" y="113.6" width="52" height="9" rx="2"/>
+            <rect x="16" y="128.4" width="52" height="9" rx="2" stroke-dasharray="3 2.5"/>
+          </g>
+          <g stroke="#c9c5b8" fill="none" stroke-width=".9">
+            <path d="M68 14.5 C 84 14.5, 86 52, 100 56"/>
+            <path d="M68 29.3 C 84 29.3, 86 58, 100 62"/>
+            <path d="M68 44.1 C 84 44.1, 86 65, 100 68"/>
+            <path d="M68 58.9 C 84 58.9, 86 72, 100 73"/>
+            <path d="M68 73.7 C 84 73.7, 86 78, 100 78"/>
+            <path d="M68 88.5 C 84 88.5, 86 84, 100 83"/>
+            <path d="M68 103.3 C 84 103.3, 86 90, 100 88"/>
+            <path d="M68 118.1 C 84 118.1, 86 96, 100 93"/>
+            <path d="M68 132.9 C 84 132.9, 86 102, 100 98"/>
+          </g>
+          <rect x="100" y="45" width="56" height="60" rx="5" fill="#fff" stroke="#9a968c"/>
+          <g stroke="#bdb9ad"><line x1="110" y1="60" x2="146" y2="60"/><line x1="110" y1="71" x2="146" y2="71"/><line x1="110" y1="82" x2="140" y2="82"/><line x1="110" y1="93" x2="143" y2="93"/></g>
+          <path d="M156 75 L 176 75" stroke="#9a968c" stroke-width="1.6"/>
+          <path d="M172 71 L 178 75 L 172 79" fill="none" stroke="#9a968c" stroke-width="1.6"/>
+          <rect x="180" y="55" width="56" height="40" rx="5" fill="#fff" stroke="#1F3A5F" stroke-width="2"/>
+          <g stroke="#1F3A5F"><line x1="190" y1="68" x2="226" y2="68" opacity=".55"/><line x1="190" y1="77" x2="226" y2="77" opacity=".35"/><line x1="190" y1="86" x2="218" y2="86" opacity=".35"/></g>
+          <g stroke="#9a968c" fill="none" stroke-width=".9">
+            <path d="M236 66 C 248 66, 250 28, 260 28"/>
+            <path d="M236 72 C 248 72, 250 62, 260 62"/>
+            <path d="M236 78 C 248 78, 250 96, 260 96"/>
+            <path d="M236 84 C 248 84, 250 130, 260 130"/>
+          </g>
+          <g fill="#fff" stroke="#bdb9ad">
+            <rect x="260" y="20"  width="32" height="16" rx="2"/>
+            <rect x="260" y="54"  width="32" height="16" rx="2"/>
+            <rect x="260" y="88"  width="32" height="16" rx="2"/>
+            <rect x="260" y="122" width="32" height="16" rx="2"/>
+          </g>
+        </svg>
+      </div>
+      <div class="case-txt">
+        <div class="cq">Eight sources, one hand-updated workbook as referee, and meetings that started with “whose number is right?”</div>
+        <h3>The source of truth was a 40-tab spreadsheet.</h3>
+        <p class="cco">A governed daily mart — one row per day, ~130 documented metrics — that reconciles to finance within dollars. The surprise: it earns its keep as an alarm system, catching broken feeds before they reach a deck.</p>
+        <div class="cmeta"><b>Read the case study →</b> · dbt + BigQuery · reconciled to finance · 25+ consumers</div>
+      </div>
+    </a>
 
-                <article class="sample-card" role="button" tabindex="0"
-                         data-modal-id="dash-traffic-mix"
-                         data-modal-title="Traffic Mix — Channel Composition Over Time (illustrative)"
-                         data-modal-src="samples/dashboards/traffic-mix.html"
-                         aria-label="Open interactive dashboard: traffic mix over time">
-                    <div class="sample-thumb">
-                        <img src="samples/dashboards/thumb-traffic-mix.png" alt="" loading="lazy">
-                        <span class="sample-badge sample-badge--dashboard">Dashboard</span>
-                        <div class="sample-overlay"><span>Open Interactive</span></div>
-                    </div>
-                    <div class="sample-content">
-                        <h3>Traffic Mix Over Time</h3>
-                    </div>
-                </article>
+    <!-- 3: dashboard suite -->
+    <a class="case" href="dashboard-suite.html">
+      <div class="case-vis" aria-hidden="true">
+        <!-- real shape: the replica's 8-effect LMDI waterfall at its default view ($99.29M → $103.03M), house colors -->
+        <svg viewBox="0 0 300 150"><rect width="300" height="150" fill="#fff"/>
+          <line x1="8" y1="132" x2="294" y2="132" stroke="#E5E2D9"/>
+          <rect x="14"  y="86.7"  width="22" height="45.3" fill="#c2620a" opacity=".85"/>
+          <rect x="43"  y="19.2"  width="22" height="67.4" fill="#15803d"/>
+          <rect x="72"  y="19.2"  width="22" height="90.9" fill="#b91c1c"/>
+          <rect x="101" y="110.1" width="22" height="5.8"  fill="#b91c1c"/>
+          <rect x="130" y="108.9" width="22" height="7"    fill="#15803d"/>
+          <rect x="159" y="95.6"  width="22" height="13.3" fill="#15803d"/>
+          <rect x="188" y="95.6"  width="22" height="1.9"  fill="#b91c1c"/>
+          <rect x="217" y="92.7"  width="22" height="4.8"  fill="#15803d"/>
+          <rect x="246" y="54.6"  width="22" height="38"   fill="#15803d"/>
+          <rect x="275" y="54.6"  width="19" height="77.4" fill="#1a5fb4"/>
+        </svg>
+      </div>
+      <div class="case-txt">
+        <div class="cq">Exec-ready views across marketing, merch, and product — without licenses, a platform queue, or a server.</div>
+        <h3>The BI stack is a folder of HTML files.</h3>
+        <p class="cco">Fifteen-plus dashboards and a one-command weekly deck, generated by Python and footed to the dollar. Includes a working interactive replica of the flagship: an eight-effect funnel decomposition that stopped a confident wrong bid increase.</p>
+        <div class="cmeta"><b>Read the case study →</b> · includes live interactive replica · design standard · footing rules</div>
+      </div>
+    </a>
 
-                <!-- Additional sample cards: copy a card above, swap data-modal-* attributes,
-                     thumbnail src, badge class (visual / dashboard), title, caption.
-                     Image cards add data-modal-type="image" and data-modal-caption; dashboard
-                     cards omit data-modal-type (defaults to iframe). -->
+    <div class="also">
+      <div class="al">Also in the portfolio</div>
+      <ul>
+        <li><b><a href="forecast-explorer.html">Quarterly forecast explorer</a></b><span class="sep">·</span>drag planned spend per tactic and watch sessions and sales re-forecast live, diminishing returns built in — interactive, illustrative data.</li>
+        <li><b><a href="sku-decomposition.html">SKU sales decomposition</a></b><span class="sep">·</span>splits sales swings into launches, exits, and true like-for-like movement, and auto-flags SKUs whose conversion is quietly collapsing.</li>
+        <li><b><a href="propensity-signals.html">Purchase-propensity signals</a></b><span class="sep">·</span>per-channel models for on-site personalization — including the feature that turned out to be 90% data leakage, caught before deployment.</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-            </div>
-        </section>
+<!-- ABOUT -->
+<section class="sec about" id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">02</span><h2>About</h2></div>
+    <div class="about-grid">
+      <div class="about-prose">
+        <p>I'm a full-stack data scientist with twenty years in ecommerce and retail. I spent a decade building and running my own ecommerce company before moving into enterprise analytics — which is why I think in <strong>P&amp;L terms first and dashboards second</strong>.</p>
+        <p>At a nine-figure national retailer I built the ecommerce analytics practice from the ground up: the warehouse modeling, the forecasts leadership plans against, and the attribution that ties marketing spend to real store revenue. I work the whole stack, from the data model to the number on the slide.</p>
+        <p>What I do best is take data nobody else can connect and turn it into an <strong>interactive view that answers the question on the table — and the one no one had thought to ask yet</strong>. Lately that runs through an agentic-AI workflow that compresses weeks of analysis into days. The thing I care about most is whether an answer survives the follow-up question in the room.</p>
+      </div>
+      <aside class="about-side" aria-label="At a glance">
+        <div class="asg-row"><span class="asg-k">Experience</span><span class="asg-v">20 years · ecommerce &amp; retail</span></div>
+        <div class="asg-row"><span class="asg-k">Currently</span><span class="asg-v">Sr. Manager, Digital Analytics</span></div>
+        <div class="asg-row"><span class="asg-k">Based in</span><span class="asg-v">Houston, TX</span></div>
+        <div class="asg-row"><span class="asg-k">Methods</span><span class="asg-v">Causal inference · forecasting · ML/propensity · attribution</span></div>
+        <div class="asg-row"><span class="asg-k">Stack</span><span class="asg-v">dbt · BigQuery · Python · R · SQL</span></div>
+        <div class="asg-row"><span class="asg-k">Also</span><span class="asg-v">Founder → enterprise · agentic-AI workflow</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
 
-        <section class="section" id="technologies">
-            <h2>Technologies</h2>
-            <div class="tech-stack">
-                <div class="tech-row">
-                    <div class="tech-label">Data Modeling &amp; Warehouse</div>
-                    <div class="tech-pills">
-                        <span class="tech-pill">dbt</span>
-                        <span class="tech-pill">BigQuery</span>
-                        <span class="tech-pill">GCP</span>
-                        <span class="tech-pill">Semantic Layer</span>
-                        <span class="tech-pill">Dimensional Modeling</span>
-                        <span class="tech-pill">ETL / ELT</span>
-                    </div>
-                </div>
-                <div class="tech-row">
-                    <div class="tech-label">Languages</div>
-                    <div class="tech-pills">
-                        <span class="tech-pill">SQL</span>
-                        <span class="tech-pill">Python</span>
-                        <span class="tech-pill">R</span>
-                        <span class="tech-pill">HTML / CSS / JS</span>
-                    </div>
-                </div>
-                <div class="tech-row">
-                    <div class="tech-label">Analytics &amp; BI</div>
-                    <div class="tech-pills">
-                        <span class="tech-pill">Adobe Analytics (CJA)</span>
-                        <span class="tech-pill">Google Analytics</span>
-                        <span class="tech-pill">ContentSquare</span>
-                        <span class="tech-pill">Tealium</span>
-                        <span class="tech-pill">Tableau</span>
-                        <span class="tech-pill">Looker Studio</span>
-                        <span class="tech-pill">Streamlit</span>
-                        <span class="tech-pill">R Shiny</span>
-                    </div>
-                </div>
-                <div class="tech-row">
-                    <div class="tech-label">Marketing &amp; Optimization</div>
-                    <div class="tech-pills">
-                        <span class="tech-pill">Google Ads</span>
-                        <span class="tech-pill">Adobe Advertising</span>
-                        <span class="tech-pill">Google Campaign Manager</span>
-                        <span class="tech-pill">Optimizely</span>
-                        <span class="tech-pill">Adobe Target</span>
-                    </div>
-                </div>
-                <div class="tech-row">
-                    <div class="tech-label">Agentic AI</div>
-                    <div class="tech-pills">
-                        <span class="tech-pill tech-pill-accent">Claude Code</span>
-                        <span class="tech-pill tech-pill-accent">MCP Servers (built &amp; consumed)</span>
-                        <span class="tech-pill">Claude</span>
-                        <span class="tech-pill">ChatGPT</span>
-                        <span class="tech-pill">LangChain</span>
-                        <span class="tech-pill">OpenAI API</span>
-                    </div>
-                </div>
-                <div class="tech-row">
-                    <div class="tech-label">Research &amp; Behavior</div>
-                    <div class="tech-pills">
-                        <span class="tech-pill">SimilarWeb</span>
-                        <span class="tech-pill">Foursquare</span>
-                        <span class="tech-pill">FullStory</span>
-                        <span class="tech-pill">eSpatial</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!-- EXPERIENCE -->
+<section class="sec" id="experience">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">03</span><h2>Experience</h2></div>
+    <div class="xp">
+      <div class="role">
+        <div class="role-h"><div><div class="role-t">Senior Manager, Digital Analytics</div><div class="role-o">Mattress Firm · Houston, TX</div></div><div class="role-d">2020 – Present</div></div>
+        <ul>
+          <li>Built the ecommerce analytics practice from zero for a nine-figure business — a dbt semantic layer on BigQuery unifying ERP, ecommerce, marketing, and behavioral data into a governed single source of truth.</li>
+          <li>Designed and shipped executive dashboards in Streamlit, R Shiny, Looker Studio, and custom HTML — built for adoption, not just delivery.</li>
+          <li>Delivered revenue and KPI forecasts at ±5% accuracy used for budget allocation; made A/B testing and marketing holdouts the organizational standard.</li>
+          <li>Architected online-to-offline attribution linking digital marketing spend to in-store transactions, complementing media-mix modeling with transaction-level precision.</li>
+          <li>Integrated Claude Code and MCP data connectors into the analytics workflow, cutting build time roughly 68% while keeping analysis auditable.</li>
+        </ul>
+      </div>
+      <div class="role">
+        <div class="role-h"><div><div class="role-t">Director, Customer Engagement &amp; Digital Analytics</div><div class="role-o">Stage Stores · Houston, TX · <span class="award">Omni-Channel Associate of the Year, 2018</span></div></div><div class="role-d">2016 – 2020</div></div>
+        <ul>
+          <li>Led omnichannel analytics for an 800+ location national retailer; promoted from Digital Analytics Manager in 2019.</li>
+          <li>Built cross-channel attribution integrating online and offline touchpoints to guide budget allocation and reduce customer acquisition cost.</li>
+          <li>Deployed an Adobe Advertising DSP framework with geospatial targeting, delivering a 30%+ improvement in campaign efficiency.</li>
+          <li>Established the KPI framework connecting web analytics to store foot traffic for executive visibility.</li>
+        </ul>
+      </div>
+      <div class="role">
+        <div class="role-h"><div><div class="role-t">Digital Project Lead</div><div class="role-o">Hisco, Inc. · Houston, TX</div></div><div class="role-d">2013 – 2016</div></div>
+        <ul>
+          <li>Launched a 400,000+ SKU ecommerce platform in 14 months, hitting top-of-industry conversion benchmarks.</li>
+          <li>Led cross-functional teams of 20+ across development, merchandising, and operations; integrated catalog, inventory, and payment systems.</li>
+        </ul>
+      </div>
+      <div class="role">
+        <div class="role-h"><div><div class="role-t">Founder &amp; Owner</div><div class="role-o">VectorTec · Spring, TX</div></div><div class="role-d">2003 – 2013</div></div>
+        <ul>
+          <li>Built a specialty ecommerce retailer to $2M+ revenue and #3 nationally in its category.</li>
+          <li>Personally engineered a 100% automated order, fulfillment, and reporting system end-to-end, and applied early analytics to pricing, acquisition, and inventory.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <section class="section" id="expertise">
-            <h2>How I Help</h2>
-            <div class="capability-grid">
-                <article class="capability-card">
-                    <h3>Build a data practice from zero</h3>
-                    <p>Semantic layer, governed metrics, pipelines, and forecasts &mdash; a single source of truth across ERP, ecommerce, and marketing data. Dashboards designed for adoption, not just delivery.</p>
-                    <a href="#speed-analysis" class="capability-link">See revenue impact &rarr;</a>
-                </article>
-                <article class="capability-card">
-                    <h3>Measure what marketing actually drives</h3>
-                    <p>Attribution that connects every dollar of spend to actual revenue &mdash; including in-store transactions, not just digital pixels.</p>
-                    <a href="#o2o-attribution" class="capability-link">See O2O attribution &rarr;</a>
-                </article>
-                <article class="capability-card">
-                    <h3>Run analytics with AI in the loop</h3>
-                    <p>Claude Code and custom MCP servers wired into the daily workflow &mdash; collapsing weeks of attribution analysis into days, without sacrificing rigor or auditability.</p>
-                    <a href="#llm-sql-analysis" class="capability-link">See LLM workflow &rarr;</a>
-                </article>
-            </div>
-        </section>
+<!-- SKILLS -->
+<section class="sec" id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">04</span><h2>Skills &amp; stack</h2></div>
+    <p class="sec-note">Tools are table stakes — kept brief on purpose.</p>
+    <div class="skills">
+      <div class="skline"><div class="k">Warehouse &amp; pipelines</div><div class="v">dbt · BigQuery · SQL · semantic-layer / dimensional modeling · scheduled, self-healing pipelines · REST-API ingestion</div></div>
+      <div class="skline"><div class="k">Methods</div><div class="v">decomposition (index / LMDI, waterfalls) · forecasting &amp; elasticity · causal inference (diff-in-diff, geo holdouts, falsification testing) · propensity modeling · attribution (digital + online-to-offline) · A&#47;B &amp; holdouts</div></div>
+      <div class="skline"><div class="k">Languages</div><div class="v">Python · SQL · R · JavaScript (client-side data apps)</div></div>
+      <div class="skline"><div class="k">Analytics &amp; sources</div><div class="v">Adobe Analytics (CJA) · Contentsquare · Tealium · Google Search Console · Conductor · SimilarWeb · Google Ads · Google Analytics</div></div>
+      <div class="skline"><div class="k">Delivery</div><div class="v">self-contained HTML dashboards (Python-generated, no BI server) · automated exec decks via headless Chrome · Looker Studio · Tableau</div></div>
+      <div class="skline"><div class="k">Agentic AI</div><div class="v"><b>Claude Code</b> as the daily analytical workflow · <b>MCP data connectors</b> (Conductor · SimilarWeb · Contentsquare) · LLM-assisted analysis kept auditable</div></div>
+    </div>
+  </div>
+</section>
 
-        <section class="section" id="projects">
-            <h2>Featured Case Studies</h2>
-            <p class="section-intro">Interactive deep-dives showcasing analytical methodology, system design, and business impact</p>
+<!-- CONTACT / HIRE -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="idx">05</span>
+    <h2>Available for senior analytics leadership roles.</h2>
+    <p>If you're building an analytics function that has to turn data into decisions leadership trusts — that's the work I do best. Bring me the messy, multi-source problem nobody's been able to answer.</p>
+    <div class="links">
+      <a href="mailto:bretalawson@gmail.com" class="primary">bretalawson@gmail.com</a>
+      <a href="tel:+18324037762">832.403.7762</a>
+      <a href="https://linkedin.com/in/bretlawson" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="BretLawson_Resume.pdf">Résumé (PDF)</a>
+    </div>
+    <div class="foot">© 2026 Bret Lawson · Senior Analytics Leader · Houston, TX</div>
+  </div>
+</section>
 
-            <div class="analysis-grid">
-                <article class="analysis-card" role="button" tabindex="0"
-                         data-analysis-id="o2o-attribution"
-                         data-analysis-title="Online-to-Offline Attribution System"
-                         data-analysis-src="analysis/o2o-attribution.html"
-                         aria-label="Open case study: Online-to-Offline Attribution">
-                    <div class="analysis-thumbnail">
-                        <div class="o2o-thumb">
-                            <div class="o2o-thumb-flow">
-                                <span class="o2o-node">Digital</span>
-                                <span class="o2o-arrow">&rarr;</span>
-                                <span class="o2o-node">Identity</span>
-                                <span class="o2o-arrow">&rarr;</span>
-                                <span class="o2o-node">Store $</span>
-                            </div>
-                        </div>
-                        <div class="thumbnail-overlay">
-                            <div class="view-analysis">View Analysis</div>
-                        </div>
-                    </div>
-                    <div class="analysis-content">
-                        <h3>Online-to-Offline Attribution</h3>
-                        <div class="analysis-meta">Attribution Architecture | Identity Stitching | Revenue Impact</div>
-                        <p class="scenario"><strong>Scenario:</strong> Built an end-to-end attribution system connecting digital marketing interactions to physical store transactions at the individual customer level.</p>
-                        <p class="outcome"><strong>Key Finding:</strong> Enabled transaction-level marketing measurement, replacing platform-reported metrics with actual revenue contribution for budget allocation.</p>
-                        <div class="analysis-tags">
-                            <span class="tag">Attribution</span>
-                            <span class="tag">BigQuery</span>
-                            <span class="tag">dbt</span>
-                            <span class="tag">Identity Stitching</span>
-                        </div>
-                    </div>
-                </article>
+</main>
 
-                <article class="analysis-card" role="button" tabindex="0"
-                         data-analysis-id="payment-analysis"
-                         data-analysis-title="Payment Method Launch Impact Analysis"
-                         data-analysis-src="analysis/payment-disruption-analysis.html"
-                         aria-label="Open case study: Payment Method Launch Impact">
-                    <div class="analysis-thumbnail">
-                        <img src="thumbnails/payment-analysis-thumb.png" alt="" loading="lazy">
-                        <div class="thumbnail-overlay">
-                            <div class="view-analysis">View Analysis</div>
-                        </div>
-                    </div>
-                    <div class="analysis-content">
-                        <h3>Payment Method Launch Impact</h3>
-                        <div class="analysis-meta">Causal Impact Analysis | BSTS Methodology | Market Share Analysis</div>
-                        <p class="scenario"><strong>Scenario:</strong> Analyzed the impact of launching a new payment option to determine incremental transaction growth vs. cannibalization across existing payment methods.</p>
-                        <p class="outcome"><strong>Key Finding:</strong> 99% cannibalization with minimal incrementality (-0.07%), revealing market share redistribution rather than genuine growth.</p>
-                        <div class="analysis-tags">
-                            <span class="tag">Causal Impact</span>
-                            <span class="tag">Python/R</span>
-                            <span class="tag">BSTS</span>
-                            <span class="tag">Data Viz</span>
-                        </div>
-                    </div>
-                </article>
+<script>
+const navToggle=document.getElementById('navToggle'),navLinks=document.getElementById('navLinks');
+navToggle.onclick=()=>navLinks.classList.toggle('show');
+navLinks.querySelectorAll('a').forEach(a=>a.onclick=()=>navLinks.classList.remove('show'));
 
-                <article class="analysis-card" role="button" tabindex="0"
-                         data-analysis-id="llm-sql-analysis"
-                         data-analysis-title="LLM-Assisted SQL Query Optimization"
-                         data-analysis-src="analysis/llm-sql-optimization.html"
-                         aria-label="Open case study: LLM-Assisted SQL Query Optimization">
-                    <div class="analysis-thumbnail">
-                        <img src="thumbnails/llm-sql-optimization-thumb.png" alt="" loading="lazy">
-                        <div class="thumbnail-overlay">
-                            <div class="view-analysis">View Analysis</div>
-                        </div>
-                    </div>
-                    <div class="analysis-content">
-                        <h3>LLM-Assisted SQL Query Optimization</h3>
-                        <div class="analysis-meta">BigQuery Development | AI-Enhanced Workflows | Time Efficiency Analysis</div>
-                        <p class="scenario"><strong>Scenario:</strong> Quantified development efficiency gains from integrating LLM tools (ChatGPT/Claude) into BigQuery SQL workflows for marketing attribution and analytics queries.</p>
-                        <p class="outcome"><strong>Key Finding:</strong> 68% average time savings across 12 query types, with complex multi-source joins showing highest benefit (78%), enabling attribution analysis cycles to compress from weeks to days.</p>
-                        <div class="analysis-tags">
-                            <span class="tag">LLM Integration</span>
-                            <span class="tag">SQL Optimization</span>
-                            <span class="tag">Development Efficiency</span>
-                            <span class="tag">Time Analysis</span>
-                        </div>
-                    </div>
-                </article>
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  document.querySelectorAll('.case,.role,.skline,.about p').forEach(el=>el.classList.add('reveal'));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}
+const map={};document.querySelectorAll('.nav-links a[href^="#"]').forEach(a=>map[a.getAttribute('href').slice(1)]=a);
+const nio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){Object.values(map).forEach(a=>a.classList.remove('active'));(map[e.target.id]||{}).classList?.add('active');}}),{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('section[id],header[id]').forEach(s=>nio.observe(s));
 
-                <article class="analysis-card" role="button" tabindex="0"
-                         data-analysis-id="paid-search-analysis"
-                         data-analysis-title="Paid Search Campaign Analysis"
-                         data-analysis-src="analysis/paid-search-analysis.html"
-                         aria-label="Open case study: Paid Search Campaign Analysis">
-                    <div class="analysis-thumbnail">
-                        <img src="thumbnails/paid-search-analysis-thumb.png" alt="" loading="lazy">
-                        <div class="thumbnail-overlay">
-                            <div class="view-analysis">View Analysis</div>
-                        </div>
-                    </div>
-                    <div class="analysis-content">
-                        <h3>Paid Search Campaign Analysis</h3>
-                        <div class="analysis-meta">Google Ads Optimization | YoY Performance | Campaign Assessment</div>
-                        <p class="scenario"><strong>Scenario:</strong> Comprehensive year-over-year Google Ads performance analysis revealing systematic conversion rate declines across all campaign types despite maintained impression shares.</p>
-                        <p class="outcome"><strong>Key Finding:</strong> 39-59% conversion rate drops across Brand, Non-Brand, LIA, and PLA campaigns, indicating critical ad positioning and post-click optimization issues requiring immediate intervention.</p>
-                        <div class="analysis-tags">
-                            <span class="tag">Google Ads</span>
-                            <span class="tag">YoY Analysis</span>
-                            <span class="tag">Optimization</span>
-                            <span class="tag">Performance Assessment</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="analysis-card" role="button" tabindex="0"
-                         data-analysis-id="friction-analysis"
-                         data-analysis-title="Site Friction Impact Assessment"
-                         data-analysis-src="analysis/friction-impact-analysis.html"
-                         aria-label="Open case study: Site Friction Impact Assessment">
-                    <div class="analysis-thumbnail">
-                        <img src="thumbnails/friction-analysis-thumb.png" alt="" loading="lazy">
-                        <div class="thumbnail-overlay">
-                            <div class="view-analysis">View Analysis</div>
-                        </div>
-                    </div>
-                    <div class="analysis-content">
-                        <h3>Site Friction Impact Assessment</h3>
-                        <div class="analysis-meta">UX Analysis | Revenue Impact | Friction Mapping</div>
-                        <p class="scenario"><strong>Scenario:</strong> Comprehensive analysis of user experience friction points across the platform to quantify conversion barriers and prioritize optimization efforts.</p>
-                        <p class="outcome"><strong>Key Finding:</strong> $2.1M annual revenue loss from 6 critical friction points affecting 285K users, with product filtering representing the highest impact area.</p>
-                        <div class="analysis-tags">
-                            <span class="tag">UX Research</span>
-                            <span class="tag">Revenue Impact</span>
-                            <span class="tag">Bubble Chart</span>
-                            <span class="tag">Prioritization</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="analysis-card" role="button" tabindex="0"
-                         data-analysis-id="speed-analysis"
-                         data-analysis-title="Page Speed Performance Impact Analysis"
-                         data-analysis-src="analysis/page-speed-analysis.html"
-                         aria-label="Open case study: Page Speed Performance Impact">
-                    <div class="analysis-thumbnail">
-                        <img src="thumbnails/speed-analysis-thumb.png" alt="" loading="lazy">
-                        <div class="thumbnail-overlay">
-                            <div class="view-analysis">View Analysis</div>
-                        </div>
-                    </div>
-                    <div class="analysis-content">
-                        <h3>Page Speed Performance Impact</h3>
-                        <div class="analysis-meta">Core Web Vitals | Performance Optimization | Revenue Impact</div>
-                        <p class="scenario"><strong>Scenario:</strong> Comprehensive analysis of Core Web Vitals (TTFB, LCP) impact on conversion rates across device types to identify performance optimization opportunities.</p>
-                        <p class="outcome"><strong>Key Finding:</strong> $18.2M annual revenue opportunity from page speed optimization, with mobile PDP performance representing the highest priority at $7.3M impact.</p>
-                        <div class="analysis-tags">
-                            <span class="tag">Core Web Vitals</span>
-                            <span class="tag">Performance</span>
-                            <span class="tag">Mobile Priority</span>
-                            <span class="tag">Revenue Impact</span>
-                        </div>
-                    </div>
-                </article>
-
-            </div>
-        </section>
-
-        <!-- Modal Structure -->
-        <div id="analysisModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 id="modalTitle">Analysis Visualization</h3>
-                    <button type="button" class="close" id="modalCloseBtn" aria-label="Close case study">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div id="modalAnalysis"></div>
-                </div>
-            </div>
-        </div>
-
-        <script>
-        (function () {
-            'use strict';
-
-            const modal = document.getElementById('analysisModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalBody = document.getElementById('modalAnalysis');
-            const closeBtn = document.getElementById('modalCloseBtn');
-            let lastFocusedElement = null;
-
-            function trackEvent(eventName, params = {}) {
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', eventName, params);
-                }
-            }
-
-            function escapeHtml(s) {
-                return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-            }
-
-            function openModal(card) {
-                const isImage = card.dataset.modalType === 'image';
-                const id = card.dataset.modalId || card.dataset.analysisId;
-                const title = card.dataset.modalTitle || card.dataset.analysisTitle;
-                const src = card.dataset.modalSrc || card.dataset.analysisSrc;
-                const caption = card.dataset.modalCaption;
-                if (!src) return;
-
-                lastFocusedElement = document.activeElement;
-                modalTitle.innerHTML = escapeHtml(title);
-
-                if (isImage) {
-                    modalBody.innerHTML = `
-                        <div class="image-viewer">
-                            ${caption ? `<div class="image-callout">${escapeHtml(caption)}</div>` : ''}
-                            <img src="${escapeHtml(src)}" alt="${escapeHtml(title)}" />
-                        </div>
-                    `;
-                } else {
-                    modalBody.innerHTML = `
-                        <div class="analysis-viewer">
-                            <iframe src="${escapeHtml(src)}" title="${escapeHtml(title)}" width="100%" height="800px" frameborder="0" loading="lazy"></iframe>
-                        </div>
-                    `;
-                }
-
-                modal.style.display = 'block';
-                modal.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden';
-                closeBtn.focus();
-
-                if (history.replaceState && id) {
-                    history.replaceState(null, '', '#' + id);
-                }
-
-                trackEvent('analysis_view', {
-                    analysis_type: id,
-                    event_category: 'engagement',
-                    event_label: id
-                });
-            }
-
-            function closeModal() {
-                modal.style.display = 'none';
-                modal.setAttribute('aria-hidden', 'true');
-                modalBody.innerHTML = '';
-                document.body.style.overflow = '';
-                if (lastFocusedElement) lastFocusedElement.focus();
-                if (history.replaceState && location.hash) {
-                    history.replaceState(null, '', location.pathname + location.search);
-                }
-                trackEvent('modal_close', { event_category: 'engagement' });
-            }
-
-            function findCardById(id) {
-                return document.querySelector(
-                    `.analysis-card[data-analysis-id="${id}"], .sample-card[data-modal-id="${id}"]`
-                );
-            }
-
-            document.addEventListener('DOMContentLoaded', function () {
-                document.querySelectorAll('.analysis-card, .sample-card:not(.sample-card--placeholder)').forEach(card => {
-                    card.addEventListener('click', () => openModal(card));
-                    card.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            openModal(card);
-                        }
-                    });
-
-                    let hoverTimeout;
-                    card.addEventListener('mouseenter', () => {
-                        hoverTimeout = setTimeout(() => {
-                            const title = card.querySelector('h3')?.textContent;
-                            trackEvent('analysis_card_hover', {
-                                analysis_name: title,
-                                event_category: 'engagement'
-                            });
-                        }, 2000);
-                    });
-                    card.addEventListener('mouseleave', () => clearTimeout(hoverTimeout));
-                });
-
-                closeBtn.addEventListener('click', closeModal);
-
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) closeModal();
-                });
-
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && modal.style.display === 'block') closeModal();
-                });
-
-                document.querySelectorAll('[data-contact]').forEach(link => {
-                    link.addEventListener('click', () => {
-                        trackEvent('contact_click', {
-                            contact_method: link.dataset.contact,
-                            event_category: 'engagement',
-                            event_label: link.dataset.contact
-                        });
-                    });
-                });
-
-                if (location.hash) {
-                    const card = findCardById(location.hash.slice(1));
-                    if (card) openModal(card);
-                }
-
-                let maxScroll = 0;
-                window.addEventListener('scroll', () => {
-                    const pct = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
-                    if (pct > maxScroll && pct % 25 === 0) {
-                        maxScroll = pct;
-                        trackEvent('scroll_depth', { scroll_percentage: pct, event_category: 'engagement' });
-                    }
-                });
-            });
-
-            window.addEventListener('hashchange', () => {
-                const card = location.hash ? findCardById(location.hash.slice(1)) : null;
-                if (card) openModal(card);
-                else if (modal.style.display === 'block') closeModal();
-            });
-        })();
-        </script>
-
-        <section class="section" id="experience">
-            <h2>Professional Experience</h2>
-            
-            <div class="experience-item">
-                <div class="experience-header">
-                    <div>
-                        <div class="experience-title">Senior Manager, Digital Analytics</div>
-                        <div class="experience-company">Mattress Firm &nbsp;|&nbsp; Houston, TX</div>
-                    </div>
-                    <div class="experience-date">May 2020 – Present</div>
-                </div>
-                <div class="experience-description">
-                    Built the ecommerce analytics practice from the ground up, defining KPIs, architecting the data infrastructure, and engineering the pipelines that power executive decision making. Leads cross-functional analytics projects spanning performance, marketing, and customer experience.
-                    <ul>
-                        <li>Architected and engineered enterprise ecommerce KPI system from scratch, integrating ERP sales data, product data, and web traffic into a unified dbt data lake, delivering interactive real-time dashboards in Streamlit, R Shiny, and HTML that did not previously exist</li>
-                        <li>Developed ecommerce revenue and KPI forecasting models at monthly, quarterly, and annual horizons, achieving +/- 5% accuracy and providing executives with a data-driven foundation for budget allocation, spend reallocation, and justified investment decisions</li>
-                        <li>Established A/B testing and marketing holdout experimentation as organizational decision-making standards, replacing opinion-driven changes with statistically validated tests that directly informed conversion rate and revenue optimization priorities</li>
-                        <li>Delivered analyses quantifying $18.2M in page speed opportunity, $2.1M in site friction loss, and 68% SQL development time savings through LLM integration, all built on the underlying data infrastructure</li>
-                        <li>Partnered with tagging and data engineering teams to architect online-to-offline attribution, stitching store transaction data to digital marketing channels, delivering direct channel-level attribution to complement existing Media Mix Modeling with transaction-level precision</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="experience-item">
-                <div class="experience-header">
-                    <div>
-                        <div class="experience-title">Director of Customer Engagement & Digital Analytics</div>
-                        <div class="experience-company">Stage Stores &nbsp;|&nbsp; Houston, TX &nbsp;|&nbsp; Omni-Channel Associate of the Year, 2018</div>
-                    </div>
-                    <div class="experience-date">May 2016 – April 2020</div>
-                </div>
-                <div class="experience-description">
-                    <div class="role-progression">Director of Customer Engagement &amp; Digital Analytics (Promoted April 2019)<br>Digital Analytics Manager (May 2016 – April 2019)</div>
-                    Led omnichannel analytics strategy and data-driven media optimization for a retail chain with 800+ locations, implementing advanced attribution modeling to maximize marketing ROI across TV, digital display, and search campaigns.
-                    <ul>
-                        <li>Deployed enterprise DSP analytics framework using Adobe Advertising with advanced audience targeting and geospatial optimization, achieving 30%+ improvement in campaign efficiency through location-based performance analysis</li>
-                        <li>Architected comprehensive cross-channel attribution models integrating online and offline customer touchpoints, enabling data-driven budget allocation that improved marketing effectiveness and reduced customer acquisition costs</li>
-                        <li>Leveraged market penetration analytics and share-of-wallet modeling to identify high-value customer segments, maximizing reach efficiency across diverse regional markets</li>
-                        <li>Established KPI frameworks connecting website analytics with location-based foot traffic data, providing executive leadership with comprehensive omnichannel performance insights</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="experience-item">
-                <div class="experience-header">
-                    <div>
-                        <div class="experience-title">Digital Project Lead</div>
-                        <div class="experience-company">Hisco, Inc. &nbsp;|&nbsp; Houston, TX</div>
-                    </div>
-                    <div class="experience-date">Dec 2013 – Mar 2016</div>
-                </div>
-                <div class="experience-description">
-                    Led enterprise ecommerce platform implementation for a major industrial supplier, managing cross-functional teams of 20+ members across development, merchandising, and operations.
-                    <ul>
-                        <li>Delivered 400,000+ SKU ecommerce platform within a 14-month timeline, hitting industry-leading benchmarks for conversion rates and user adoption</li>
-                        <li>Managed complex systems integration across product catalog, inventory, and payment processing platforms</li>
-                        <li>Drove data-informed optimization strategies that produced measurable revenue and efficiency gains post-launch</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="experience-item">
-                <div class="experience-header">
-                    <div>
-                        <div class="experience-title">Founder & Owner</div>
-                        <div class="experience-company">VectorTec &nbsp;|&nbsp; Spring, TX</div>
-                    </div>
-                    <div class="experience-date">Jan 2003 – Sep 2013</div>
-                </div>
-                <div class="experience-description">
-                    Built a specialty ecommerce retailer from the ground up, growing it to become the nation's third-largest distributor in its sector. Personally engineered a fully automated ecommerce system covering invoicing, fulfillment, and reporting, without outside development help.
-                    <ul>
-                        <li>Grew online revenue to $2M+ within three years through data-driven marketing and operational decisions</li>
-                        <li>Designed and built end-to-end ecommerce infrastructure with 100% automated order processing and fulfillment</li>
-                        <li>Applied early analytics practices to drive customer acquisition, pricing strategy, and inventory management</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="education">
-            <h2>Education &amp; Certifications</h2>
-
-            <div class="experience-item">
-                <div class="experience-header">
-                    <div>
-                        <div class="experience-title">Bachelor of Science, Life Sciences</div>
-                        <div class="experience-company">Texas A&amp;M University &nbsp;|&nbsp; College Station, TX</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="experience-item">
-                <div class="experience-header">
-                    <div>
-                        <div class="experience-title">Python for Data Science Automation (DS4B 101P-A)</div>
-                        <div class="experience-company">Business Science University</div>
-                    </div>
-                </div>
-                <div class="experience-description">
-                    Python Automation | Predictive Modeling | Marketing Analytics | Interactive Visualization | AI-Assisted Development
-                </div>
-            </div>
-
-            <div class="experience-item">
-                <div class="experience-header">
-                    <div>
-                        <div class="experience-title">Data Science for Business (DS4B 101P)</div>
-                        <div class="experience-company">Business Science University</div>
-                    </div>
-                </div>
-                <div class="experience-description">
-                    Data Science with R & Python | Forecasting, Modeling, and ROI Optimization
-                </div>
-            </div>
-        </section>
-    </main>
+</script>
 </body>
 </html>

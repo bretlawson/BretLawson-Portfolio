@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="robots" content="index, follow">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DN2PPZNDRJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DN2PPZNDRJ',{'send_page_view':true,'anonymize_ip':true});</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vdqbyh8fhw");</script>
+<title>Case study — The source of truth was a spreadsheet</title>
+<meta name="description" content="Case study: replacing a hand-updated 40-tab workbook with a governed daily data mart that reconciles to finance within dollars — and catches broken feeds before they reach a deck.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#FAFAF7; --card:#fff; --ink:#1A1A1A; --muted:#5B5B57; --hair:#E5E2D9;
+  --accent:#1F3A5F; --ox:#7a1e2b;
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',-apple-system,'Segoe UI',sans-serif;
+}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.68;font-size:16.5px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.bar{border-bottom:1px solid var(--hair);background:rgba(250,250,247,.9)}
+.bar-in{max-width:1000px;margin:0 auto;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;font-size:.9rem}
+.bar-in .name{font-family:var(--serif);font-weight:600;color:var(--ink)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+.prose{max-width:700px}
+.head{padding:58px 0 8px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.8px;line-height:1.08;margin-top:14px;max-width:19ch}
+.stand{font-family:var(--serif);font-style:italic;font-size:1.22rem;color:var(--accent);margin-top:20px;line-height:1.45;max-width:52ch}
+.meta{display:flex;gap:26px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-top:26px;padding:14px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.meta b{display:block;font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;margin-bottom:2px;color:#8a877d}
+h2{font-family:var(--serif);font-weight:600;font-size:1.45rem;letter-spacing:-.3px;margin:46px 0 14px}
+p{margin-bottom:15px;color:#2e2c27}
+p b{color:var(--ink)}
+.fig{margin:34px 0;background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:22px 24px 16px}
+.fig .ft{font-size:.85rem;font-weight:600}
+.fig .fs{font-size:.76rem;color:var(--muted);margin:2px 0 12px}
+.fig svg{width:100%;height:auto;display:block}
+.fig .cap{font-size:.82rem;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px solid var(--hair);line-height:1.55}
+.pull{font-family:var(--serif);font-size:1.3rem;line-height:1.45;color:var(--ink);border-left:3px solid var(--ox);padding:6px 0 6px 22px;margin:30px 0}
+details.tech{margin:44px 0 0;border:1px solid var(--hair);border-radius:12px;background:var(--card)}
+details.tech summary{cursor:pointer;padding:16px 22px;font-weight:600;font-size:.95rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.tech summary::after{content:'+';font-family:var(--serif);font-size:1.3rem;color:var(--muted)}
+details.tech[open] summary::after{content:'−'}
+details.tech .tin{padding:4px 22px 20px;font-size:.92rem;color:#3a382f}
+details.tech .tin p{font-size:.92rem;margin-bottom:12px}
+.datanote{margin:40px 0 70px;font-size:.83rem;color:var(--muted);border-top:1px solid var(--hair);padding-top:18px;max-width:700px}
+.next{margin-top:34px;font-size:.92rem}
+</style>
+</head>
+<body>
+
+<nav class="bar"><div class="bar-in">
+  <a href="index.html" class="name" style="color:var(--ink)">← Bret Lawson</a>
+  <span><a href="index.html#work">All work</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="mailto:bretalawson@gmail.com">Email</a></span>
+</div></nav>
+
+<header class="head wrap">
+  <div class="eyebrow">Case study · Data engineering &amp; semantic layer</div>
+  <h1>The source of truth was a 40-tab spreadsheet.</h1>
+  <p class="stand">I replaced it with a governed daily mart — eight sources, one row per day, ~130 documented metrics — that reconciles to finance within dollars and now catches broken data feeds before anyone presents a wrong number.</p>
+  <div class="meta">
+    <div><b>When</b>2026 · ~5 months, alongside delivery work</div>
+    <div><b>Role</b>Sole designer &amp; builder</div>
+    <div><b>Stack</b>dbt · BigQuery · Python · scheduled queries</div>
+    <div><b>Scale</b>8 sources · 9 staging models · ~130 daily metrics · ~980 days of history</div>
+  </div>
+</header>
+
+<main class="wrap">
+<div class="prose">
+  <h2>The situation</h2>
+  <p>Answering anything about the ecommerce business meant joining <b>eight-plus source tables across different warehouse projects</b> — ERP sales, two web-analytics feeds, behavioral sessions, media spend, search-ads data, the contact center, store foot traffic. Every new dashboard started with the same 200-plus lines of SQL, subtly re-derived each time. The same metric carried different definitions in different reports, and the de-facto arbiter was a <b>hand-updated, 40-tab workbook</b> that one person maintained daily.</p>
+  <p>The predictable result: meetings that opened with a debate about whose number was right, before anyone could get to what the number meant.</p>
+</div>
+
+<figure class="fig">
+  <div class="ft">One governed layer under every number</div>
+  <div class="fs">Sources → typed &amp; tested staging → one master table → everything downstream</div>
+  <svg viewBox="0 0 1000 440" role="img" aria-label="Lineage diagram: eight sources flow into nine staging models, into one master mart table, into the weekly deck, dashboards, forecasts, and research" font-family="Inter,-apple-system,sans-serif">
+    <defs>
+      <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0L10 5L0 10z" fill="#9a968c"/>
+      </marker>
+    </defs>
+    <!-- column headers -->
+    <text x="115" y="22" text-anchor="middle" font-size="10.5" font-weight="600" fill="#8a877d" letter-spacing="1.5">SOURCES</text>
+    <text x="415" y="22" text-anchor="middle" font-size="10.5" font-weight="600" fill="#8a877d" letter-spacing="1.5">STAGING</text>
+    <text x="672" y="22" text-anchor="middle" font-size="10.5" font-weight="600" fill="#8a877d" letter-spacing="1.5">MART</text>
+    <text x="915" y="22" text-anchor="middle" font-size="10.5" font-weight="600" fill="#8a877d" letter-spacing="1.5">CONSUMERS</text>
+    <!-- sources -->
+    <g font-size="11.5" fill="#1A1A1A">
+      <g transform="translate(20,36)">
+        <rect width="190" height="30" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="19">ERP sales &amp; store master</text>
+      </g>
+      <g transform="translate(20,78)">
+        <rect width="190" height="30" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="19">Web analytics — feed A</text>
+      </g>
+      <g transform="translate(20,120)">
+        <rect width="190" height="30" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="19">Web analytics — feed B</text>
+      </g>
+      <g transform="translate(20,162)">
+        <rect width="190" height="30" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="19">Behavioral sessions</text>
+      </g>
+      <g transform="translate(20,204)">
+        <rect width="190" height="30" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="19">Media-spend platform</text>
+      </g>
+      <g transform="translate(20,246)">
+        <rect width="190" height="30" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="19">Search-ads API</text>
+      </g>
+      <g transform="translate(20,288)">
+        <rect width="190" height="30" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="19">Chat &amp; call center</text>
+      </g>
+      <g transform="translate(20,330)">
+        <rect width="190" height="30" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="19">Store foot traffic</text>
+      </g>
+      <g transform="translate(20,372)">
+        <rect width="190" height="30" rx="6" fill="#fff" stroke="#E5E2D9" stroke-dasharray="3 3"/><text x="12" y="19">Finance plan (seeds)</text>
+      </g>
+    </g>
+    <!-- source arrows -->
+    <g stroke="#c9c5b8" stroke-width="1.2" fill="none">
+      <path d="M210 51 C 260 51, 270 120, 318 130"/>
+      <path d="M210 93 C 260 93, 270 140, 318 148"/>
+      <path d="M210 135 C 260 135, 270 162, 318 166"/>
+      <path d="M210 177 C 260 177, 270 184, 318 184"/>
+      <path d="M210 219 C 260 219, 270 206, 318 202"/>
+      <path d="M210 261 C 260 261, 270 228, 318 220"/>
+      <path d="M210 303 C 260 303, 270 250, 318 238"/>
+      <path d="M210 345 C 260 345, 270 272, 318 256"/>
+      <path d="M210 387 C 260 387, 270 292, 318 274"/>
+    </g>
+    <!-- staging -->
+    <g transform="translate(320,110)">
+      <rect width="190" height="180" rx="8" fill="#fff" stroke="#bdb9ad"/>
+      <text x="16" y="34" font-size="13" font-weight="600">9 staging models</text>
+      <text x="16" y="58" font-size="10.5" fill="#5B5B57">one per source · typed &amp; tested</text>
+      <text x="16" y="76" font-size="10.5" fill="#5B5B57">every row joined to the</text>
+      <text x="16" y="92" font-size="10.5" fill="#5B5B57">fiscal calendar — no source</text>
+      <text x="16" y="108" font-size="10.5" fill="#5B5B57">can silently drop a day</text>
+      <text x="16" y="136" font-size="10.5" fill="#1F3A5F" font-weight="600">20 validation checks</text>
+      <text x="16" y="154" font-size="10.5" fill="#1F3A5F" font-weight="600">staleness alerts on feeds</text>
+    </g>
+    <path d="M510 200 L 566 200" stroke="#9a968c" stroke-width="2" marker-end="url(#ah)"/>
+    <!-- mart -->
+    <g transform="translate(572,140)">
+      <rect width="200" height="120" rx="8" fill="#fff" stroke="#1F3A5F" stroke-width="2"/>
+      <text x="16" y="32" font-size="13.5" font-weight="600" fill="#1F3A5F">The master mart</text>
+      <text x="16" y="56" font-size="10.5" fill="#5B5B57">one row per day, ~130 metrics</text>
+      <text x="16" y="72" font-size="10.5" fill="#5B5B57">sales · traffic · spend · funnel</text>
+      <text x="16" y="88" font-size="10.5" fill="#5B5B57">forecast · contact center · stores</text>
+      <text x="16" y="106" font-size="10.5" fill="#5B5B57">definitions documented in-place</text>
+    </g>
+    <!-- consumer arrows -->
+    <g stroke="#9a968c" stroke-width="1.4" fill="none">
+      <path d="M772 175 C 800 175, 805 90, 838 78" marker-end="url(#ah)"/>
+      <path d="M772 192 C 800 192, 805 168, 838 164" marker-end="url(#ah)"/>
+      <path d="M772 210 C 800 210, 805 250, 838 250" marker-end="url(#ah)"/>
+      <path d="M772 227 C 800 227, 805 334, 838 336" marker-end="url(#ah)"/>
+    </g>
+    <!-- consumers -->
+    <g font-size="11.5" fill="#1A1A1A">
+      <g transform="translate(842,56)">
+        <rect width="148" height="44" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="20">Weekly exec deck</text><text x="12" y="35" font-size="9.5" fill="#8a877d">11 modules, one command</text>
+      </g>
+      <g transform="translate(842,142)">
+        <rect width="148" height="44" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="20">15+ dashboards</text><text x="12" y="35" font-size="9.5" fill="#8a877d">published to a gated hub</text>
+      </g>
+      <g transform="translate(842,228)">
+        <rect width="148" height="44" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="20">3 forecast engines</text><text x="12" y="35" font-size="9.5" fill="#8a877d">weekly · monthly · traffic</text>
+      </g>
+      <g transform="translate(842,314)">
+        <rect width="148" height="44" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="20">Ad-hoc research</text><text x="12" y="35" font-size="9.5" fill="#8a877d">25+ downstream projects</text>
+      </g>
+    </g>
+    <!-- refresh annotation -->
+    <line x1="20" y1="420" x2="990" y2="420" stroke="#E5E2D9"/>
+    <text x="505" y="437" text-anchor="middle" font-size="10.5" fill="#8a877d">Refreshes on schedule every morning before the business opens · rewrites a trailing 7-day window, so late-arriving data heals itself</text>
+  </svg>
+  <figcaption class="cap"><b>The point of the shape:</b> nothing downstream touches a raw source. A dashboard that used to start with 200 lines of bespoke SQL now starts with <i>select from the mart</i> — same definitions, every time.</figcaption>
+</figure>
+
+<div class="prose">
+  <h2>What I did</h2>
+  <p>The engineering is deliberately boring: one staging model per source, typed and tested; everything joined to the fiscal calendar so a missing day is visible instead of silent; a single mart table with one row per day and ~130 metrics whose definitions live in the warehouse UI, not in tribal memory. Production runs on scheduled queries each morning and <b>rewrites a trailing seven-day window on every run</b>, so late-arriving source data corrects itself without anyone noticing there was a problem.</p>
+  <p>The hard part wasn't the SQL — it was <b>making the definitions match finance</b>. What counts as an ecommerce sale, which of a thousand legacy store codes belong to the channel, how vendor income behaves on a return: each of those was an argument until it was a reconciliation. The channel-definition fight alone moved a quarterly figure by millions; settling it against the finance system brought the gap from seven figures down to <b>double-digit dollars on an eight-figure quarter</b>. After that, the debates stopped — not because anyone won, but because there was nothing left to debate.</p>
+
+  <h2>The turn</h2>
+  <p>The surprise came after launch: the mart turned out to be less valuable as plumbing than as an <b>alarm system</b>. When one table carries every source side by side, a broken feed can't hide.</p>
+  <p>Three catches in one summer: a media-spend feed silently zeroed its newest day, which would have turned a genuinely soft week into a fake disaster — the mart's cross-source spend columns flagged the gap before the weekly readout. A web-analytics feed began partially loading and sessions "fell" 90% — while the parallel behavioral source showed a normal seasonal dip, proving a feed failure rather than a traffic collapse, and a staleness alert shipped that week. And a units-per-transaction metric turned out to be inflated roughly 70% by free promotional items nobody had filtered.</p>
+  <div class="pull">A semantic layer isn't just where the numbers agree. It's where the broken feeds get caught — before they reach a deck.</div>
+
+  <h2>What happened after</h2>
+  <p>More than <b>25 downstream projects</b> now read the mart: the weekly executive deck, the dashboard suite, all three forecast engines, and most new analysis. The deck's canonical forecast switched from a stale planning file — which had drifted roughly ten points from reality — to the mart's daily forecast columns. Hard-coded stopgap numbers in the deck were deleted once the mart reproduced them to within basis points. And the 40-tab workbook was retired from its role as referee.</p>
+  <p>The quieter payoff: analyses like the <a href="organic-decline.html">organic-decline decomposition</a> could treat sessions as ground truth precisely because the ground truth had already been built.</p>
+</div>
+
+<details class="tech prose">
+  <summary>Technical notes, for the people who will ask</summary>
+  <div class="tin">
+    <p><b>Modeling.</b> dbt over BigQuery: sources → one staging model per source (<i>typed, deduplicated, calendar-joined</i>) → a single wide daily mart. LEFT JOINs from the calendar spine so no source can drop a row; ~3.5K lines of SQL, ~5K of Python for the API pulls; a 20-test validation suite on the trickiest feed.</p>
+    <p><b>Operations.</b> Production runs as warehouse-scheduled queries (staging, then mart) every morning, DELETE+INSERT over a trailing 7-day window — idempotent, self-healing for late data. API ingestion retries on a scheduler; metric documentation is pushed into the warehouse schema UI so definitions travel with the table.</p>
+    <p><b>Fiscal-calendar correctness.</b> Year-over-year comparisons use a mapped <i>last-year date</i> column rather than a naive 364-day offset — the retail calendar's 53-week years and moving holidays break the naive version in ways that only surface at the worst possible time.</p>
+    <p><b>Resilience.</b> Overlapping sources are kept side by side (two web-analytics feeds, spend from platform and API) with blended columns that prefer the freshest complete source — that redundancy is what makes the feed-failure catches possible.</p>
+  </div>
+</details>
+
+<p class="next prose">Next: <a href="dashboard-suite.html">the dashboard &amp; reporting suite</a> that reads from this layer — or back to <a href="index.html#work">all work</a>.</p>
+
+<div class="datanote">Structure and anecdotes are real; dollar figures, source names, and platform details are generalized or perturbed. The methods, the reconciliations, and the catches are real.</div>
+</main>
+</body>
+</html>

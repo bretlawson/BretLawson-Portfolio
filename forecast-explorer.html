@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="robots" content="index, follow">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DN2PPZNDRJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DN2PPZNDRJ',{'send_page_view':true,'anonymize_ip':true});</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vdqbyh8fhw");</script>
+<title>Quarterly Paid-Search Forecast — interactive (illustrative)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#FAFAF7;--card:#fff;--ink:#1A1A1A;--muted:#5B5B57;--hair:#E5E2D9;
+    --accent:#1F3A5F;--accent2:#2C5688;--amber:#B26B00;--green:#1f7a45;--red:#b3341f;
+  }
+  body{font-family:'Inter','Segoe UI',Arial,sans-serif;background:var(--paper);color:var(--ink);padding:22px;font-size:15px}
+  .wrap{max-width:1120px;margin:0 auto}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+  .eyebrow{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  h1{font-size:20px;font-weight:700;color:var(--ink);margin-top:3px;letter-spacing:-.3px}
+  .sub{font-size:12.5px;color:var(--muted);margin-top:3px;max-width:640px;line-height:1.5}
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#8a5a00;border:1px solid #ecd9b0;background:#fdf6e9;padding:3px 9px;border-radius:10px;font-weight:700}
+  .badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--amber)}
+
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+  .kpi{background:var(--card);border:1px solid var(--hair);border-radius:11px;padding:13px 15px}
+  .kpi .l{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .kpi .v{font-size:21px;font-weight:800;color:var(--ink);margin-top:5px;letter-spacing:-.4px;font-variant-numeric:tabular-nums}
+  .kpi .d{font-size:11px;font-weight:600;margin-top:2px;font-variant-numeric:tabular-nums}
+  .d.up{color:var(--green)}.d.down{color:var(--red)}.d.flat{color:var(--muted)}
+
+  .grid2{display:grid;grid-template-columns:1.15fr 1fr;gap:16px}
+  .card{background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+  .card h2{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .card .h2s{font-size:11.5px;color:var(--muted);margin:2px 0 14px}
+
+  .tacts{display:flex;flex-direction:column;gap:14px}
+  .tact{display:grid;grid-template-columns:120px 1fr auto;gap:14px;align-items:center}
+  .tact .nm{font-size:12.5px;font-weight:700;color:var(--ink)}
+  .tact .nm small{display:block;font-weight:500;color:var(--muted);font-size:10.5px}
+  .tact input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer}
+  .tact .amt{font-size:13px;font-weight:700;color:var(--accent);text-align:right;min-width:66px;font-variant-numeric:tabular-nums}
+  .tact .amt small{display:block;font-weight:500;color:var(--muted);font-size:10px}
+
+  .presets{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+  .btn{font-family:inherit;font-size:12px;font-weight:600;border:1px solid var(--hair);background:#fff;color:var(--accent);border-radius:8px;padding:7px 12px;cursor:pointer;transition:.15s}
+  .btn:hover{background:#f2f0ea;border-color:var(--accent)}
+  .btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+  table.t{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px}
+  table.t th{text-align:right;padding:7px 8px;color:#fff;background:var(--accent);font-weight:600;font-size:11px;white-space:nowrap}
+  table.t th.l{text-align:left}
+  table.t td{text-align:right;padding:6px 8px;border-bottom:1px solid #eee;font-variant-numeric:tabular-nums;white-space:nowrap}
+  table.t td.l{text-align:left;font-weight:600}
+  table.t tr.tot td{font-weight:800;border-top:2px solid var(--accent);background:#f3f4f2}
+  .up{color:var(--green)}.down{color:var(--red)}
+
+  .chartbox{position:relative;height:230px}
+  .selrow{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .selrow select{font-family:inherit;font-size:12px;font-weight:600;border:1px solid var(--hair);border-radius:7px;padding:5px 8px;color:var(--ink);background:#fff}
+  .callout{margin-top:6px;background:linear-gradient(135deg,rgba(31,58,95,.05),rgba(31,58,95,.02));border:1px solid rgba(31,58,95,.14);border-left:3px solid var(--accent);border-radius:8px;padding:12px 14px;font-size:12.5px;line-height:1.55;color:var(--ink)}
+  .callout b{color:var(--accent)}
+  .rec{margin-top:12px;font-size:12px;line-height:1.55;color:#3a382f;background:#fff;border:1px solid var(--hair);border-radius:8px;padding:11px 13px}
+  .rec .lbl{font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:4px}
+  .foot{font-size:10.5px;color:#9a968c;margin-top:16px;font-style:italic;text-align:center;line-height:1.5}
+  @media(max-width:880px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.tact{grid-template-columns:104px 1fr auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <div class="eyebrow">Interactive forecast · Paid search</div>
+      <h1>Quarterly Paid-Search Forecast Explorer</h1>
+      <div class="sub">Move next quarter's planned spend on any tactic — CPC, sessions, and sales re-forecast live. A tactic-level model that catches auction shifts (Brand up, Shopping down) a single blended spend curve can't see.</div>
+    </div>
+    <span class="badge">Illustrative · synthetic data</span>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="l">Planned Spend</div><div class="v" id="kSpend">—</div><div class="d flat" id="kSpendD">this quarter</div></div>
+    <div class="kpi"><div class="l">Forecast Sessions</div><div class="v" id="kSess">—</div><div class="d" id="kSessD">—</div></div>
+    <div class="kpi"><div class="l">Forecast Sales</div><div class="v" id="kSales">—</div><div class="d" id="kSalesD">—</div></div>
+    <div class="kpi"><div class="l">Blended CPC</div><div class="v" id="kCpc">—</div><div class="d" id="kCpcD">—</div></div>
+    <div class="kpi"><div class="l">Blended ROAS</div><div class="v" id="kRoas">—</div><div class="d flat">sales ÷ spend</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>Plan the spend</h2>
+      <div class="h2s">Drag any tactic. CPC rises as you push more spend through the same auctions (diminishing returns), so sessions don't scale 1:1.</div>
+      <div class="tacts" id="tacts"></div>
+      <div class="presets">
+        <button class="btn active" data-preset="plan">Finance plan</button>
+        <button class="btn" data-preset="ly">Match last year</button>
+        <button class="btn" data-preset="flat10">Cut 10%</button>
+        <button class="btn" data-preset="opt">Auto-reallocate ▸</button>
+      </div>
+      <div class="callout" id="callout"></div>
+      <div class="rec"><span class="lbl">Recommendation</span><span id="rec"></span></div>
+    </div>
+    <div class="card">
+      <h2>Forecast sessions by tactic</h2>
+      <div class="h2s">This plan vs last year's actuals.</div>
+      <div class="chartbox"><canvas id="chBar"></canvas></div>
+      <div class="selrow" style="margin-top:16px">
+        <span style="font-size:11.5px;color:var(--muted);font-weight:600">Marginal return —</span>
+        <select id="selTact"></select>
+      </div>
+      <div class="chartbox" style="height:170px"><canvas id="chCurve"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Per-tactic detail</h2>
+    <div class="h2s">Forecast CPC includes YoY auction inflation × a spend-response (elasticity) term. Sessions = spend ÷ CPC.</div>
+    <table class="t" id="tbl"></table>
+  </div>
+
+  <div class="foot">Synthetic figures for portfolio illustration. Model: forecast CPC = last-year CPC × YoY factor × (spend ÷ LY spend)^elasticity × holiday premium; sessions = spend ÷ CPC; sales = sessions × conversion × AOV. The production version is walk-forward backtested and beats a single blended-spend (Hill) curve on weekly MAPE.</div>
+</div>
+
+<script>
+"use strict";
+// ---- synthetic tactic model (deterministic) ----
+const TACTS = [
+  { key:'brand',  name:'Brand',      note:'defends brand SERP',   lySpend:290,  lyCpc:0.85, yoy:1.35, elast:0.10, conv:0.019, aov:1250 },
+  { key:'nonbr',  name:'Non-Brand',  note:'prospecting',          lySpend:1400, lyCpc:1.95, yoy:1.05, elast:0.24, conv:0.0075,aov:1050 },
+  { key:'pla',    name:'Shopping/PLA',note:'product listing ads',  lySpend:1050, lyCpc:0.62, yoy:0.83, elast:0.18, conv:0.0092,aov:1150 },
+  { key:'lia',    name:'Local (LIA)', note:'store inventory ads',  lySpend:720,  lyCpc:0.55, yoy:1.02, elast:0.16, conv:0.011, aov:1300 },
+];
+const holiday = 1.06;
+let spend = {};                     // current planned spend per tactic ($K)
+TACTS.forEach(t => spend[t.key] = t.lySpend);   // default = plan ≈ last-year spend
+
+const fmtK = v => v>=1000? (v/1000).toFixed(2)+'M' : Math.round(v)+'K';
+const money = v => v>=1e6? '$'+(v/1e6).toFixed(1)+'M' : v>=1e3? '$'+Math.round(v/1e3)+'K' : '$'+Math.round(v);
+const dollars = v => '$'+v.toFixed(2);
+const pct = v => (v>=0?'+':'')+(v*100).toFixed(1)+'%';
+
+function forecast(key, s){
+  const t = TACTS.find(x=>x.key===key);
+  const ratio = s / t.lySpend;
+  const cpc = t.lyCpc * t.yoy * Math.pow(ratio<=0?0.001:ratio, t.elast) * holiday;
+  const sessions = (s*1000) / cpc;                 // s is in $K
+  const orders = sessions * t.conv;
+  const sales = orders * t.aov;
+  return { cpc, sessions, orders, sales };
+}
+function lyOf(key){
+  const t = TACTS.find(x=>x.key===key);
+  const sessions = (t.lySpend*1000)/t.lyCpc;
+  return { cpc:t.lyCpc, sessions, sales: sessions*t.conv*t.aov, spend:t.lySpend };
+}
+
+// ---- charts ----
+let barChart, curveChart;
+const ACC='#1F3A5F', GHOST='rgba(31,58,95,.18)', AMBER='#B26B00';
+function initCharts(){
+  barChart = new Chart(document.getElementById('chBar'), {
+    type:'bar',
+    data:{ labels:TACTS.map(t=>t.name), datasets:[
+      { label:'This plan', data:[], backgroundColor:ACC, borderRadius:4, order:1 },
+      { label:'Last year', data:[], backgroundColor:GHOST, borderRadius:4, order:2 },
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false, animation:{duration:300},
+      plugins:{ legend:{position:'bottom',labels:{boxWidth:11,font:{size:10.5}}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmtK(c.parsed.y)+' sessions'}}},
+      scales:{ y:{beginAtZero:true,ticks:{callback:v=>fmtK(v),font:{size:10}},grid:{color:'#eee'}}, x:{grid:{display:false},ticks:{font:{size:10.5}}} } }
+  });
+  const sel=document.getElementById('selTact');
+  sel.innerHTML=TACTS.map(t=>`<option value="${t.key}">${t.name}</option>`).join('');
+  sel.onchange=drawCurve;
+  curveChart = new Chart(document.getElementById('chCurve'), {
+    type:'line',
+    data:{ labels:[], datasets:[
+      { label:'Sessions vs spend', data:[], borderColor:ACC, backgroundColor:'rgba(31,58,95,.06)', borderWidth:2, fill:true, tension:.3, pointRadius:0 },
+      { label:'Current plan', data:[], borderColor:AMBER, backgroundColor:AMBER, pointRadius:4, showLine:false },
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false, animation:{duration:250},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{title:i=>'$'+i[0].label+'K spend',label:c=>c.datasetIndex===1?'current plan':fmtK(c.parsed.y)+' sessions'}}},
+      scales:{ y:{beginAtZero:true,ticks:{callback:v=>fmtK(v),font:{size:9.5}},grid:{color:'#eee'}}, x:{ticks:{callback:function(v){return '$'+this.getLabelForValue(v)+'K'},font:{size:9},maxTicksLimit:6},grid:{display:false}} } }
+  });
+}
+function drawCurve(){
+  const key=document.getElementById('selTact').value, t=TACTS.find(x=>x.key===key);
+  const max=t.lySpend*1.8, pts=[], labels=[];
+  for(let s=Math.round(t.lySpend*0.3); s<=max; s+=Math.max(20,Math.round(max/24))){ labels.push(s); pts.push(forecast(key,s).sessions); }
+  curveChart.data.labels=labels;
+  curveChart.data.datasets[0].data=pts;
+  curveChart.data.datasets[1].data=labels.map(s=> Math.abs(s-spend[key])<Math.max(20,Math.round(max/24))/2 ? forecast(key,spend[key]).sessions : null);
+  // ensure current point shows
+  curveChart.data.datasets[1].data=labels.map((s,i)=> i===labels.reduce((best,_,j)=>Math.abs(labels[j]-spend[key])<Math.abs(labels[best]-spend[key])?j:best,0)? forecast(key,spend[key]).sessions:null);
+  curveChart.update();
+}
+
+// ---- render ----
+function render(){
+  let tSpend=0,tSess=0,tSales=0, lSpend=0,lSess=0,lSales=0;
+  const rows = TACTS.map(t=>{
+    const f=forecast(t.key,spend[t.key]), ly=lyOf(t.key);
+    tSpend+=spend[t.key]; tSess+=f.sessions; tSales+=f.sales;
+    lSpend+=ly.spend; lSess+=ly.sessions; lSales+=ly.sales;
+    return {t,f,ly};
+  });
+  // KPIs
+  document.getElementById('kSpend').textContent=money(tSpend*1000);
+  document.getElementById('kSpendD').textContent=pct((tSpend-lSpend)/lSpend)+' vs LY';
+  document.getElementById('kSpendD').className='d '+cls((tSpend-lSpend)/lSpend);
+  document.getElementById('kSess').textContent=fmtK(tSess);
+  setDelta('kSessD',(tSess-lSess)/lSess,' vs LY');
+  document.getElementById('kSales').textContent=money(tSales);
+  setDelta('kSalesD',(tSales-lSales)/lSales,' vs LY');
+  const bcpc=(tSpend*1000)/tSess, lcpc=(lSpend*1000)/lSess;
+  document.getElementById('kCpc').textContent=dollars(bcpc);
+  setDelta('kCpcD',(bcpc-lcpc)/lcpc,' vs LY',true);
+  document.getElementById('kRoas').textContent='$'+(tSales/(tSpend*1000)).toFixed(1);
+  // table
+  let h=`<thead><tr><th class="l">Tactic</th><th>Spend</th><th>YoY CPC</th><th>Fcst CPC</th><th>Sessions</th><th>Δ vs LY</th><th>Sales</th></tr></thead><tbody>`;
+  rows.forEach(({t,f,ly})=>{ const d=(f.sessions-ly.sessions)/ly.sessions;
+    h+=`<tr><td class="l">${t.name}</td><td>${money(spend[t.key]*1000)}</td><td class="${t.yoy>=1?'down':'up'}">${pct(t.yoy-1)}</td><td>${dollars(f.cpc)}</td><td>${fmtK(f.sessions)}</td><td class="${d>=0?'up':'down'}">${pct(d)}</td><td>${money(f.sales)}</td></tr>`; });
+  h+=`<tr class="tot"><td class="l">Total</td><td>${money(tSpend*1000)}</td><td>—</td><td>${dollars(bcpc)}</td><td>${fmtK(tSess)}</td><td class="${(tSess-lSess)>=0?'up':'down'}">${pct((tSess-lSess)/lSess)}</td><td>${money(tSales)}</td></tr></tbody>`;
+  document.getElementById('tbl').innerHTML=h;
+  // chart
+  barChart.data.datasets[0].data=rows.map(r=>r.f.sessions);
+  barChart.data.datasets[1].data=rows.map(r=>r.ly.sessions);
+  barChart.update();
+  drawCurve();
+  // callout: find cheapest marginal tactic
+  const marg = TACTS.map(t=>{ const a=forecast(t.key,spend[t.key]).sessions, b=forecast(t.key,spend[t.key]+25).sessions; return {t,gain:(b-a)/25}; }).sort((x,y)=>y.gain-x.gain);
+  const best=marg[0].t, worst=marg[marg.length-1].t;
+  const sessYoY=(tSess-lSess)/lSess;
+  document.getElementById('callout').innerHTML =
+    `At this plan you land <b>${fmtK(tSess)} sessions</b> (${pct(sessYoY)} YoY) and <b>${money(tSales)}</b> in sales on ${money(tSpend*1000)} of spend. `+
+    `The next $25K buys the most sessions in <b>${best.name}</b> and the fewest in <b>${worst.name}</b> — that spread is where the reallocation upside is.`;
+  document.getElementById('rec').textContent =
+    `Hold the quarter to this tactic-level forecast, not the blended curve (which reads several points more optimistic). Shift marginal dollars toward ${best.name} and trim over-saturated ${worst.name}; keep Brand funded — its CPC is low and it defends conversions the prospecting tactics feed.`;
+  // sliders + amounts
+  TACTS.forEach(t=>{ const r=document.getElementById('rng-'+t.key), a=document.getElementById('amt-'+t.key);
+    if(r) r.value=spend[t.key]; if(a) a.firstChild.textContent=money(spend[t.key]*1000); });
+}
+function cls(v){ return Math.abs(v)<0.002?'flat':(v>0?'up':'down'); }
+function setDelta(id,v,suffix,invert){ const el=document.getElementById(id); el.textContent=pct(v)+suffix;
+  el.className='d '+(Math.abs(v)<0.002?'flat':((invert? v<0 : v>0)?'up':'down')); }
+
+function buildSliders(){
+  const c=document.getElementById('tacts');
+  c.innerHTML=TACTS.map(t=>`
+    <div class="tact">
+      <div class="nm">${t.name}<small>${t.note}</small></div>
+      <input type="range" id="rng-${t.key}" min="${Math.round(t.lySpend*0.3)}" max="${Math.round(t.lySpend*1.8)}" step="10" value="${spend[t.key]}">
+      <div class="amt" id="amt-${t.key}">${money(t.lySpend*1000)}<small>/qtr</small></div>
+    </div>`).join('');
+  TACTS.forEach(t=>{ document.getElementById('rng-'+t.key).addEventListener('input',e=>{ spend[t.key]=+e.target.value; setPreset(null); render(); }); });
+}
+function applyPreset(p){
+  TACTS.forEach(t=>{
+    if(p==='ly') spend[t.key]=t.lySpend;
+    else if(p==='plan') spend[t.key]=t.lySpend;                        // plan defaults to LY spend
+    else if(p==='flat10') spend[t.key]=Math.round(t.lySpend*0.9);
+    else if(p==='opt'){ // shift 20% of PLA/Non-brand toward Brand/LIA (illustrative reallocation)
+      const boost={brand:1.5,lia:1.2,pla:0.82,nonbr:0.9}[t.key]||1; spend[t.key]=Math.round(t.lySpend*boost);
+    }
+  });
+}
+function setPreset(p){ document.querySelectorAll('.presets .btn').forEach(b=>b.classList.toggle('active',b.dataset.preset===p)); }
+document.querySelectorAll('.presets .btn').forEach(b=>b.onclick=()=>{ applyPreset(b.dataset.preset); setPreset(b.dataset.preset); render(); });
+
+initCharts(); buildSliders(); render();
+</script>
+</body>
+</html>
