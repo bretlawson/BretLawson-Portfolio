@@ -11,7 +11,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.bretlawson.com/propensity-signals.html">
 <meta property="og:title" content="Purchase-propensity signals · Bret Lawson">
-<meta property="og:description" content="Short write-up: per-channel purchase-propensity models for on-site personalization — and the top-ranked feature that turned out to be 90% data leakage, caught before deployment.">
+<meta property="og:description" content="Short write-up: per-channel purchase-propensity models for on-site personalization, and the top-ranked feature that turned out to be 90% data leakage, caught before deployment.">
 <meta property="og:image" content="https://www.bretlawson.com/bret_lawson.jpg">
 <meta property="og:site_name" content="Bret Lawson">
 <meta name="twitter:card" content="summary">
@@ -19,7 +19,7 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DN2PPZNDRJ',{'send_page_view':true,'anonymize_ip':true});</script>
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vdqbyh8fhw");</script>
 <title>Purchase-propensity signals · Bret Lawson</title>
-<meta name="description" content="Short write-up: per-channel purchase-propensity models for on-site personalization — and the top-ranked feature that turned out to be 90% data leakage, caught before deployment.">
+<meta name="description" content="Short write-up: per-channel purchase-propensity models for on-site personalization, and the top-ranked feature that turned out to be 90% data leakage, caught before deployment.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -67,7 +67,7 @@ p b{color:var(--ink)}
 <header class="head wrap">
   <div class="eyebrow">Short write-up · Predictive modeling</div>
   <h1>The best-performing feature was 90% data leakage.</h1>
-  <p class="stand">Per-channel purchase-propensity models produced dozens of deploy-ready personalization signals — and the project's most valuable output was the one signal that didn't ship.</p>
+  <p class="stand">Per-channel purchase-propensity models produced dozens of deploy-ready personalization signals. The project's most valuable output was the one signal that didn't ship.</p>
   <div class="meta">
     <div><b>When</b>2026</div>
     <div><b>Role</b>Sole analyst</div>
@@ -78,20 +78,20 @@ p b{color:var(--ink)}
 
 <main class="wrap">
   <h2>The question</h2>
-  <p>Which on-site behaviors actually predict a purchase in each channel — and which are strong enough to drive personalization rules, instead of the gut-feel targeting the platform was running on?</p>
+  <p>Which on-site behaviors actually predict a purchase in each channel, and which are strong enough to drive personalization rules, instead of the gut-feel targeting the platform was running on?</p>
 
   <h2>What I built</h2>
-  <p>One model per purchase channel — cart, phone, chat, store, and two more — trained on roughly a hundred thousand converters with a 30-day pre-purchase behavior window, L1-regularized so the model itself prunes weak signals, validated out-of-fold so every reported number is on unseen data. The output wasn't a black-box score: it was a <b>ranked, vetted list of individual behaviors</b>, each one deployable as a plain targeting rule.</p>
+  <p>One model per purchase channel (cart, phone, chat, store, and two more), trained on roughly a hundred thousand converters with a 30-day pre-purchase behavior window, L1-regularized so the model itself prunes weak signals, validated out-of-fold so every reported number is on unseen data. The output wasn't a black-box score: it was a <b>ranked, vetted list of individual behaviors</b>, each one deployable as a plain targeting rule.</p>
 
   <h2>The catch that mattered</h2>
-  <p>The strongest feature in early runs was a delivery-status page view — spectacular predictive power, obvious retrospective logic ("people checking delivery are engaged buyers"). It was also <b>~90% leakage</b>: most of those visits happened <i>after</i> the order, reached from shipping-confirmation emails. The model was predicting purchases that had already occurred. Strict timestamp windowing — only behavior strictly before the order counts — collapsed the feature to noise, and it was cut before anything reached production.</p>
+  <p>The strongest feature in early runs was a delivery-status page view: spectacular predictive power, obvious retrospective logic ("people checking delivery are engaged buyers"). It was also <b>~90% leakage</b>: most of those visits happened <i>after</i> the order, reached from shipping-confirmation emails. The model was predicting purchases that had already occurred. Strict timestamp windowing, counting only behavior that happened before the order, collapsed the feature to noise, and it was cut before anything reached production.</p>
   <div class="pull">If that signal had shipped, the personalization program's first result would have been "targeting works brilliantly on people who already bought."</div>
 
 <figure class="fig">
-  <div class="ft">Top signals by out-of-fold predictive strength — one channel shown</div>
+  <div class="ft">Top signals by out-of-fold predictive strength (one channel shown)</div>
   <div class="fs">Illustrative ranking · the struck bar is the leakage feature, shown at its pre-windowing strength</div>
   <div class="chartbox"><canvas id="sig"></canvas></div>
-  <figcaption class="cap"><b>The honest list is less dramatic, and that's the point.</b> What survived validation are ordinary, actionable behaviors — repeat product views, saved-item returns, financing-page visits — each strong enough to act on, none too good to be true.</figcaption>
+  <figcaption class="cap"><b>The honest list is less dramatic.</b> What survived validation are ordinary, actionable behaviors: repeat product views, saved-item returns, financing-page visits. Each is strong enough to act on, and none is too good to be true.</figcaption>
 </figure>
 
   <h2>Where it landed</h2>
@@ -121,7 +121,7 @@ const strike={id:'strike',afterDatasetsDraw(ch){
     ctx.strokeStyle='#b3341f'; ctx.lineWidth=2;
     ctx.beginPath(); ctx.moveTo(bar.base,bar.y); ctx.lineTo(bar.x,bar.y); ctx.stroke();
     ctx.fillStyle='#b3341f'; ctx.font='italic 600 11px Inter,sans-serif'; ctx.textAlign='right';
-    ctx.fillText('removed — 90% leakage', bar.x-8, bar.y-9);
+    ctx.fillText('removed: 90% leakage', bar.x-8, bar.y-9);
   });
   ctx.restore();
 }};
@@ -129,7 +129,7 @@ new Chart(document.getElementById('sig'),{type:'bar',
   data:{labels:rows.map(r=>r.n),datasets:[{data:rows.map(r=>r.v),
     backgroundColor:rows.map(r=>r.leak?'rgba(179,52,31,.28)':'#1F3A5F'),borderRadius:3}]},
   options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,animation:{duration:400},
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>rows[c.dataIndex].leak?'pre-windowing strength — removed as leakage':'relative signal strength '+c.parsed.x.toFixed(2)}}},
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>rows[c.dataIndex].leak?'pre-windowing strength, removed as leakage':'relative signal strength '+c.parsed.x.toFixed(2)}}},
     scales:{x:{min:0,max:1,ticks:{font:{size:10}},grid:{color:'#efede6'},title:{display:true,text:'Relative signal strength (out-of-fold, illustrative)',font:{size:10.5}}},
             y:{grid:{display:false},ticks:{font:{size:11}}}}},
   plugins:[strike]});
