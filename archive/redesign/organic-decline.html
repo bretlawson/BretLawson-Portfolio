@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case study — Rankings were one percent of it</title>
+<meta name="description" content="Case study: decomposing a ~25% organic-traffic decline. Everyone blamed rankings; a factor decomposition put blue-link rank at under 1% of the loss.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#FAFAF7; --card:#fff; --ink:#1A1A1A; --muted:#5B5B57; --hair:#E5E2D9;
+  --accent:#1F3A5F; --ox:#7a1e2b; --green:#1f7a45; --red:#b3341f;
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',-apple-system,'Segoe UI',sans-serif;
+}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.68;font-size:16.5px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.bar{border-bottom:1px solid var(--hair);background:rgba(250,250,247,.9)}
+.bar-in{max-width:1000px;margin:0 auto;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;font-size:.9rem}
+.bar-in .name{font-family:var(--serif);font-weight:600;color:var(--ink)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+.prose{max-width:700px}
+.head{padding:58px 0 8px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.8px;line-height:1.08;margin-top:14px;max-width:19ch}
+.stand{font-family:var(--serif);font-style:italic;font-size:1.22rem;color:var(--accent);margin-top:20px;line-height:1.45;max-width:52ch}
+.meta{display:flex;gap:26px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-top:26px;padding:14px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.meta b{display:block;font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;margin-bottom:2px;color:#8a877d}
+h2{font-family:var(--serif);font-weight:600;font-size:1.45rem;letter-spacing:-.3px;margin:46px 0 14px}
+p{margin-bottom:15px;color:#2e2c27}
+p b{color:var(--ink)}
+.fig{margin:34px 0;background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:22px 24px 16px}
+.fig .ft{font-size:.85rem;font-weight:600}
+.fig .fs{font-size:.76rem;color:var(--muted);margin:2px 0 12px}
+.chartbox{position:relative;height:340px}
+.chartbox.sm{height:250px}
+.fig .cap{font-size:.82rem;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px solid var(--hair);line-height:1.55}
+.pull{font-family:var(--serif);font-size:1.3rem;line-height:1.45;color:var(--ink);border-left:3px solid var(--ox);padding:6px 0 6px 22px;margin:30px 0}
+details.tech{margin:44px 0 0;border:1px solid var(--hair);border-radius:12px;background:var(--card)}
+details.tech summary{cursor:pointer;padding:16px 22px;font-weight:600;font-size:.95rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.tech summary::after{content:'+';font-family:var(--serif);font-size:1.3rem;color:var(--muted)}
+details.tech[open] summary::after{content:'−'}
+details.tech .tin{padding:4px 22px 20px;font-size:.92rem;color:#3a382f}
+details.tech .tin p{font-size:.92rem;margin-bottom:12px}
+.datanote{margin:40px 0 70px;font-size:.83rem;color:var(--muted);border-top:1px solid var(--hair);padding-top:18px;max-width:700px}
+.next{margin-top:34px;font-size:.92rem}
+@media(max-width:640px){.chartbox{height:280px}}
+</style>
+</head>
+<body>
+
+<nav class="bar"><div class="bar-in">
+  <a href="index-mock.html" class="name" style="color:var(--ink)">← Bret Lawson</a>
+  <span><a href="index-mock.html#work">All work</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="mailto:bretalawson@gmail.com">Email</a></span>
+</div></nav>
+
+<header class="head wrap">
+  <div class="eyebrow">Case study · Search &amp; demand decomposition</div>
+  <h1>Everyone blamed rankings. Rankings were one percent of it.</h1>
+  <p class="stand">Organic traffic fell by nearly a quarter in a year. I decomposed the loss into seven measured causes that sum exactly to the observed decline — and the cause everyone was organized around turned out to be the smallest one.</p>
+  <div class="meta">
+    <div><b>When</b>2026 · ~10 weeks</div>
+    <div><b>Role</b>Sole analyst, method &amp; delivery</div>
+    <div><b>Data</b>Search console · 5,000-keyword rank panel · session analytics · auction data</div>
+    <div><b>Methods</b>Index (LMDI) decomposition · difference-in-differences · falsification tests</div>
+  </div>
+</header>
+
+<main class="wrap">
+<div class="prose">
+  <h2>The situation</h2>
+  <p>At a national omnichannel retailer, organic search clicks on the brand's own name had fallen by nearly half year-over-year — while reported average position <i>improved</i>. Organic search was roughly a third of site traffic but roughly two-thirds of attributed ecommerce revenue, so this was not an SEO-team problem; it was a revenue problem with an eight-figure annual exposure.</p>
+  <p>Two narratives were already circulating: <b>“SEO is failing”</b> and <b>“AI is eating search.”</b> Each implied a different — expensive — response. My brief, in effect: stop the storytelling and size the causes.</p>
+</div>
+
+<figure class="fig">
+  <div class="ft">Where the traffic actually went</div>
+  <div class="fs">Organic sessions, indexed to 100 at the prior-year baseline · seven measured causes, largest first · they sum exactly to the observed loss</div>
+  <div class="chartbox"><canvas id="wf"></canvas></div>
+  <figcaption class="cap"><b>Blue-link rank — the thing everyone blamed — explains under 1% of the loss.</b> The real damage: searches that now end on map-pack and store surfaces instead of the website, a genuine category-demand decline, and clicks absorbed by AI Overviews and other zero-click behavior.</figcaption>
+</figure>
+
+<div class="prose">
+  <h2>What I did</h2>
+  <p>I treated <b>sessions as ground truth</b> and every third-party source — search console, the rank panel, ads auction data — as directional evidence against it. The decline was split into brand and non-brand on disjoint query populations, decomposed separately, and forced to reconcile: the two halves had to sum back to the total, with <b>no unexplained remainder</b>. Anything that couldn’t be measured got labeled as such rather than absorbed into a convenient bucket.</p>
+  <p>The causal factors — rank movement, paid crowding, SERP modules, demand, AI Overviews — entered as <b>index decompositions rather than regressions</b>, for a specific reason: a regression’s intercept silently absorbs anything that hits every keyword at once, which is exactly what a SERP-layout change does. Same data, same variable, the regression saw a fraction of what the index accounted for.</p>
+  <p>Then I tried to kill my own answer. A named algorithm update was refuted on timing (our break predates it by four weeks). A difference-in-differences result was computed, found confounded, and <b>withdrawn</b>. The residual-allocation choice was settled by testing against an independent third-party zero-click series rather than by preference.</p>
+
+  <h2>The turn</h2>
+  <p>The brand’s head term held the <b>#1 blue-link position for over a year of consecutive periods while its clicks fell by nearly half</b>. On desktop — a clean control with no map pack and where AI Overviews never rendered — clicks still fell ~60% across two years at uninterrupted rank #1. Position wasn’t lost; the click was intercepted before it reached the blue links.</p>
+</div>
+
+<figure class="fig">
+  <div class="ft">The alibi chart</div>
+  <div class="fs">Head brand term · blue-link rank (left, 1 = top) vs. clicks per day (right, indexed)</div>
+  <div class="chartbox sm"><canvas id="alibi"></canvas></div>
+  <figcaption class="cap">Rank never moved. Clicks fell by nearly half. Whatever took the traffic, it wasn’t position — and a factor pinned to a flat line can’t explain a falling one.</figcaption>
+</figure>
+
+<div class="prose">
+  <p>The AI narrative fared no better: AI Overviews never rendered on the head brand term in either year, AI-assistant referrals were a rounding error of brand organic, and industry panel data showed click-through falling almost as hard on queries with <i>no</i> AI Overview at all. And paid search wasn’t cannibalizing organic — ad depth above the organic results was flat, and when paid spend was actually cut, the two organic series didn’t flinch.</p>
+  <div class="pull">The question changed from “how do we fix our rankings?” to “which surfaces still return a click — and are we the best result on those?”</div>
+
+  <h2>What happened after</h2>
+  <p>Two earlier dashboards built on the wrong cut of the data were <b>retired</b> and replaced with a by-surface view that leadership still uses. The exec Q&amp;A shipped with every claim labeled <b>measured / inferred / not established</b> — that labeling, more than any single number, is what let the answer survive the room.</p>
+  <p>Three decisions moved: rank tracking was demoted from the headline KPI (it no longer predicts traffic; click-through is tracked in its own right), recovery investment was pointed at local and store surfaces, the shopping feed, and owned demand rather than at chasing AI-search optimization, and the revenue exposure was booked as gross — not incremental — which kept an inflated recovery case out of the plan.</p>
+</div>
+
+<details class="tech prose">
+  <summary>Technical notes, for the people who will ask</summary>
+  <div class="tin">
+    <p><b>Decomposition.</b> Log-mean Divisia (LMDI-I) with base-year Laspeyres weights, decomposing clicks — never impression-weighted CTR, which double-counts mix. Causes are constrained to all-negative slices of the loss pool, each capped at its own surface’s size, summing exactly to the observed decline.</p>
+    <p><b>Why not regression.</b> A per-period cross-sectional regression identifies factors from between-keyword variation; a SERP-layout change moves all keywords together and lands in the intercept. On the same variable, the index attribution recovered roughly the full effect where the regression recovered 10–40%.</p>
+    <p><b>Bias handling.</b> Survivor-bias adjustment on AI Overview exposure (the panel only observes surviving queries), a median filter on module-presence flags to remove flicker, and deliberate haircuts on rank and module bands documented in the methodology rather than buried.</p>
+    <p><b>Falsification.</b> Timing tests against named algorithm updates; a DiD across ~5,000 keywords on a rank-flip event, computed and withdrawn when confounded; residual allocation validated against an independent zero-click series (the alternative overshot it 1.6× and halved shape correlation).</p>
+    <p><b>Stack.</b> Python; search console + enterprise rank panel + session analytics + ads auction data, cross-validated; ~160 commits over ten weeks.</p>
+  </div>
+</details>
+
+<p class="next prose">Next in this portfolio: <a href="index-mock.html#work">the semantic layer this analysis stood on</a>, and the dashboard suite that carries results like this one into the weekly operating cadence.</p>
+
+<div class="datanote">Chart shapes and the decomposition structure are real; scales are indexed and figures perturbed. The employer, query terms, and vendor names are generalized. The methods, the reversals, and the decisions are real.</div>
+</main>
+
+<script>
+"use strict";
+const INK='#1A1A1A', ACC='#1F3A5F', OX='#7a1e2b', RED='#b3341f', MUT='#bdb9ad';
+
+// ---- waterfall: indexed 100 -> 77, seven bands (perturbed/illustrative scales) ----
+const steps=[
+  {label:['Baseline','(prior yr)'], v:[0,100], total:100, c:INK},
+  {label:['Local & store','interception'], v:[92.9,100], d:-7.1, c:OX},
+  {label:['Category','demand'],     v:[87.4,92.9], d:-5.5, c:RED},
+  {label:['AI Overview','exposure'],v:[83.0,87.4], d:-4.4, c:RED},
+  {label:['Zero-click','(ex-AIO)'], v:[79.8,83.0], d:-3.2, c:RED},
+  {label:['Page-estate','decay'],   v:[78.2,79.8], d:-1.6, c:MUT},
+  {label:['SERP','crowding'],       v:[77.2,78.2], d:-1.0, c:MUT},
+  {label:['Blue-link','rank'],      v:[77.0,77.2], d:-0.2, c:ACC},
+  {label:['Current','year'],        v:[0,77.0], total:77, c:INK},
+];
+const wfLabels={ id:'wfl', afterDatasetsDraw(ch){
+  const {ctx}=ch, m=ch.getDatasetMeta(0);
+  ctx.save(); ctx.textAlign='center'; ctx.font='600 11.5px Inter, sans-serif';
+  m.data.forEach((bar,i)=>{ const s=steps[i], top=Math.min(bar.y,bar.base);
+    ctx.fillStyle = s.total!=null ? INK : (s.c===ACC?ACC:'#8a2f1e');
+    ctx.fillText(s.total!=null ? s.total : s.d.toFixed(1), bar.x, top-6);
+    if(s.c===ACC && s.total==null){ ctx.font='italic 600 10.5px Inter, sans-serif'; ctx.fillStyle=ACC;
+      ctx.fillText('← what everyone blamed', bar.x-8, top-22); ctx.font='600 11.5px Inter, sans-serif'; }
+  });
+  ctx.restore();
+}};
+new Chart(document.getElementById('wf'),{ type:'bar',
+  data:{ labels:steps.map(s=>s.label), datasets:[{ data:steps.map(s=>s.v), backgroundColor:steps.map(s=>s.c), borderRadius:3, barPercentage:.7 }]},
+  options:{ responsive:true, maintainAspectRatio:false, animation:{duration:500},
+    plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>{const s=steps[c.dataIndex]; return s.total!=null?('index '+s.total):(s.d.toFixed(1)+' index pts');}}}},
+    scales:{ y:{min:70,max:104,ticks:{font:{size:10.5}},grid:{color:'#efede6'},title:{display:true,text:'Organic sessions (indexed)',font:{size:10.5}}},
+             x:{grid:{display:false},ticks:{font:{size:10},autoSkip:false}} }},
+  plugins:[wfLabels]
+});
+
+// ---- alibi chart: rank flat at 1, clicks indexed falling ~-46% (deterministic synthetic shape) ----
+const P=24, labels=[], rank=[], clicks=[];
+for(let i=0;i<P;i++){ labels.push('P'+(i+1)); rank.push(1);
+  const base=100*Math.pow(0.972,i);                       // steady erosion
+  const wig=4.5*Math.sin(i*1.7)+2.5*Math.sin(i*0.55);      // seasonal noise
+  clicks.push(Math.max(50,Math.round(base+(i>3?wig:wig*0.4))));
+}
+clicks[P-1]=54;
+new Chart(document.getElementById('alibi'),{ type:'line',
+  data:{ labels, datasets:[
+    { label:'Blue-link rank', data:rank, borderColor:ACC, borderWidth:2.5, pointRadius:0, yAxisID:'y', stepped:true },
+    { label:'Clicks / day (indexed)', data:clicks, borderColor:OX, backgroundColor:'rgba(122,30,43,.06)', borderWidth:2, pointRadius:0, fill:true, tension:.35, yAxisID:'y1' },
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false, animation:{duration:400}, interaction:{mode:'index',intersect:false},
+    plugins:{ legend:{position:'bottom',labels:{boxWidth:12,font:{size:10.5}}},
+      tooltip:{callbacks:{label:c=>c.datasetIndex===0?('rank #'+c.parsed.y):('index '+c.parsed.y)}}},
+    scales:{ y:{position:'left',reverse:true,min:0.6,max:5.4,ticks:{stepSize:1,callback:v=>Number.isInteger(v)?'#'+v:null,font:{size:10}},grid:{display:false},title:{display:true,text:'Rank',font:{size:10}}},
+             y1:{position:'right',min:40,max:110,ticks:{font:{size:10}},grid:{color:'#efede6'},title:{display:true,text:'Clicks (indexed)',font:{size:10}}},
+             x:{grid:{display:false},ticks:{font:{size:9},maxTicksLimit:12}} }}
+});
+</script>
+</body>
+</html>

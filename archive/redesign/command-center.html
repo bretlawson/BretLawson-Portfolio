@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ecommerce KPI Dashboard — interactive sample (illustrative)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:#1e3c72; --blue:#2a5298; --cyan:#06b6d4; --amber:#f5a524;
+    --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb; --bg:#f7f8fa; --panel:#fff;
+    --green:#16a34a; --red:#dc2626; --hl:#fff7e6; --zebra:#f8f9fb;
+  }
+  body { font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif; background:var(--bg); color:var(--ink); padding:20px; }
+  .wrap { max-width:1180px; margin:0 auto; }
+
+  /* ── header ── */
+  .topbar { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px; margin-bottom:14px; }
+  .eyebrow { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  h1 { font-size:21px; font-weight:800; color:var(--navy); margin-top:4px; letter-spacing:-.3px; }
+  .sub { font-size:12.5px; color:var(--muted); margin-top:3px; max-width:720px; }
+  .badge-illus { display:inline-flex; align-items:center; gap:6px; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:#a76a00; border:1px solid #f1d8b0; background:#fdf6ec; padding:3px 9px; border-radius:10px; font-weight:700; }
+  .badge-illus::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--amber); }
+
+  /* ── control bar ── */
+  .controlbar { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:14px; display:flex; flex-direction:column; gap:10px; }
+  .ctl-row { display:flex; flex-wrap:wrap; gap:14px 18px; align-items:flex-end; }
+  .ctl { display:flex; flex-direction:column; gap:4px; }
+  .ctl label { font-size:9.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); }
+  .ctl select, .ctl input[type=date] { font-family:inherit; font-size:12.5px; font-weight:600; color:var(--ink); background:#fff; border:1px solid var(--line); border-radius:7px; padding:6px 8px; min-width:88px; cursor:pointer; }
+  .ctl select:disabled, .ctl input:disabled { opacity:.4; cursor:not-allowed; }
+  .ctl select:focus-visible, .ctl input:focus-visible, button:focus-visible { outline:2px solid var(--cyan); outline-offset:1px; }
+
+  .seg { display:inline-flex; gap:3px; background:#eef1f6; border-radius:8px; padding:3px; }
+  .seg button { border:none; background:transparent; padding:6px 11px; border-radius:6px; font-size:12px; font-weight:600; color:var(--muted); cursor:pointer; transition:.15s; font-family:inherit; }
+  .seg button.active { background:#fff; color:var(--navy); box-shadow:0 1px 3px rgba(0,0,0,.12); }
+  .toggle { display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:600; color:var(--ink); cursor:pointer; user-select:none; }
+  .toggle input { accent-color:var(--cyan); width:15px; height:15px; cursor:pointer; }
+
+  .btn { font-family:inherit; font-size:12px; font-weight:700; border-radius:8px; padding:8px 13px; cursor:pointer; border:1px solid var(--line); background:#fff; color:var(--navy); transition:.15s; }
+  .btn:hover { background:#f1f3f7; }
+  .btn-primary { background:linear-gradient(135deg,var(--navy),var(--blue)); color:#fff; border-color:transparent; }
+  .btn-primary:hover { filter:brightness(1.07); background:linear-gradient(135deg,var(--navy),var(--blue)); }
+
+  .selsummary { display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:12px; color:var(--ink); background:linear-gradient(135deg,rgba(30,60,114,.05),rgba(6,182,212,.06)); border:1px solid rgba(30,60,114,.12); border-radius:8px; padding:7px 12px; }
+  .selsummary b { color:var(--navy); }
+  .selsummary .chip { background:#fff; border:1px solid var(--line); border-radius:20px; padding:2px 9px; font-weight:600; font-size:11px; }
+
+  /* ── tabs ── */
+  .tabbar { display:flex; gap:2px; border-bottom:2px solid var(--line); margin-bottom:16px; overflow-x:auto; }
+  .tabbar button { border:none; background:transparent; padding:10px 15px; font-size:13px; font-weight:600; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-2px; white-space:nowrap; font-family:inherit; transition:.15s; }
+  .tabbar button:hover { color:var(--ink); }
+  .tabbar button.active { color:var(--navy); border-bottom-color:var(--cyan); }
+  .tabsel { display:none; }
+  .panel { display:none; } .panel.show { display:block; animation:fade .25s ease; }
+  @keyframes fade { from{opacity:0;transform:translateY(4px);} to{opacity:1;transform:none;} }
+
+  /* ── KPI cards ── */
+  .kpigrid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .kpi { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 15px; position:relative; overflow:hidden; }
+  .kpi::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--navy),var(--cyan)); }
+  .kpi .lbl { font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  .kpi .val { font-size:23px; font-weight:800; color:var(--ink); margin-top:5px; letter-spacing:-.5px; font-variant-numeric:tabular-nums; }
+  .kpi .deltas { display:flex; gap:10px; margin-top:6px; flex-wrap:wrap; }
+  .kpi .d { font-size:11px; font-weight:700; font-variant-numeric:tabular-nums; }
+  .kpi .d .t { font-weight:500; color:var(--muted); }
+  .d.up { color:var(--green); } .d.down { color:var(--red); } .d.flat { color:var(--muted); }
+  .kpi .spark { margin-top:8px; }
+
+  /* ── tables ── */
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:14px; }
+  .card h2 { font-size:14px; font-weight:700; color:var(--ink); }
+  .card .h2sub { font-size:12px; color:var(--muted); margin:2px 0 14px; }
+  .tbl-scroll { overflow-x:auto; }
+  table.grid { width:100%; border-collapse:collapse; font-size:12px; }
+  table.grid thead th { background:var(--navy); color:#fff; font-weight:600; padding:8px 10px; text-align:right; white-space:nowrap; position:sticky; top:0; }
+  table.grid thead th.l { text-align:left; }
+  table.grid thead tr.sub th { background:#27457f; font-size:10px; font-weight:500; padding:4px 10px; }
+  table.grid tbody td { padding:7px 10px; text-align:right; border-bottom:1px solid #eef0f3; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  table.grid tbody td.l { text-align:left; font-weight:600; color:var(--ink); }
+  table.grid tbody tr:hover td { background:#f3f6fb; }
+  table.grid tbody tr.total td { background:#eef3fb; font-weight:800; border-top:2px solid var(--navy); }
+  td.hl { background:var(--hl); }
+  .delta-s { font-size:10.5px; font-weight:700; }
+  .delta-s.up { color:var(--green); } .delta-s.down { color:var(--red); } .delta-s.flat { color:#9aa5b1; }
+  .ly-s { font-size:10px; color:#9aa5b1; }
+
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .chart-box { position:relative; height:330px; }
+  .chart-box.sm { height:260px; }
+  .callout { margin-top:12px; background:linear-gradient(135deg,rgba(30,60,114,.05),rgba(6,182,212,.06)); border:1px solid rgba(30,60,114,.14); border-left:3px solid var(--cyan); border-radius:8px; padding:11px 13px; font-size:12.5px; line-height:1.5; color:var(--ink); }
+  .callout strong { color:var(--navy); }
+
+  /* ── data dictionary ── */
+  .dd-search { width:100%; max-width:320px; font-family:inherit; font-size:13px; padding:8px 11px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; }
+  .erd { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+  .erd-node { border:1px solid var(--line); border-radius:10px; padding:10px 12px; background:#fbfcfe; min-width:150px; }
+  .erd-node .t { font-size:11px; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:.04em; margin-bottom:5px; }
+  .erd-node .f { font-size:11px; color:var(--muted); line-height:1.5; }
+  .erd-join { align-self:center; color:var(--cyan); font-weight:800; font-size:18px; }
+
+  .footnote { font-size:11px; color:#9aa5b1; margin-top:16px; font-style:italic; text-align:center; line-height:1.6; }
+  .attr-note { font-size:12px; color:var(--muted); background:#fbfcfe; border:1px dashed var(--line); border-radius:8px; padding:10px 13px; margin-top:12px; }
+  .attr-note a { color:var(--cyan); font-weight:700; text-decoration:none; }
+  .attr-note a:hover { text-decoration:underline; }
+
+  @media (max-width:920px){ .kpigrid{grid-template-columns:repeat(2,1fr);} .grid2{grid-template-columns:1fr;} }
+  @media (max-width:560px){ .kpigrid{grid-template-columns:1fr;} .tabbar{display:none;} .tabsel{display:block; width:100%; font-family:inherit; font-size:13px; font-weight:600; padding:9px; border:1px solid var(--line); border-radius:8px; margin-bottom:14px;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Interactive sample &middot; Ecommerce KPIs</div>
+      <h1>Ecommerce KPI Dashboard</h1>
+      <div class="sub">An interactive view of core ecommerce KPIs &mdash; slice by fiscal year, quarter, period or week, compare to last year or prior period, and every number re-aggregates live in the browser. Built to show how I design dashboards for adoption, not just delivery.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;">
+      <span class="badge-illus">Illustrative &middot; synthetic data</span>
+      <div style="font-size:11px;color:var(--muted);">Data as of <b id="asof"></b></div>
+    </div>
+  </div>
+
+  <!-- ════ CONTROL BAR ════ -->
+  <div class="controlbar">
+    <div class="ctl-row">
+      <div class="ctl">
+        <label>Mode</label>
+        <div class="seg" id="modeSeg">
+          <button data-mode="fiscal" class="active">Fiscal scope</button>
+          <button data-mode="range">Date range</button>
+        </div>
+      </div>
+      <div class="ctl" id="ctlYear"><label>Fiscal Year</label><select id="selYear"></select></div>
+      <div class="ctl" id="ctlQ"><label>Quarter</label><select id="selQ"></select></div>
+      <div class="ctl" id="ctlP"><label>Period</label><select id="selP"></select></div>
+      <div class="ctl" id="ctlW"><label>Week</label><select id="selW"></select></div>
+      <div class="ctl" id="ctlFrom" style="display:none;"><label>From</label><input type="date" id="dFrom"></div>
+      <div class="ctl" id="ctlTo" style="display:none;"><label>To</label><input type="date" id="dTo"></div>
+    </div>
+    <div class="ctl-row">
+      <div class="ctl">
+        <label>Compare basis</label>
+        <div class="seg" id="cmpSeg">
+          <button data-cmp="ly" class="active">Last Year</button>
+          <button data-cmp="pp">Prior Period</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label>Trend grain</label>
+        <div class="seg" id="grainSeg">
+          <button data-grain="weekly" class="active">Weekly</button>
+          <button data-grain="daily">Daily</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label>Channel</label>
+        <select id="selChan">
+          <option value="all">All channels</option>
+          <option value="cart">Cart (web)</option>
+          <option value="chat">Chat</option>
+          <option value="phone">Phone</option>
+        </select>
+      </div>
+      <div class="ctl">
+        <label>Chart series</label>
+        <div style="display:flex;gap:14px;padding-top:4px;">
+          <label class="toggle"><input type="checkbox" id="tgLY" checked> Show LY</label>
+          <label class="toggle"><input type="checkbox" id="tgFC" checked> Show Forecast</label>
+        </div>
+      </div>
+      <div class="ctl" style="margin-left:auto;">
+        <label>&nbsp;</label>
+        <button class="btn btn-primary" id="btnCsv">&#8681; Download CSV</button>
+      </div>
+    </div>
+    <div class="selsummary" id="selSummary"></div>
+  </div>
+
+  <!-- ════ TABS ════ -->
+  <div class="tabbar" id="tabbar">
+    <button data-tab="snapshot" class="active">Snapshot</button>
+    <button data-tab="kpis">Ecomm KPIs</button>
+    <button data-tab="channel">Channel Breakdown</button>
+    <button data-tab="trends">Trends</button>
+    <button data-tab="compare">Compare A vs B</button>
+    <button data-tab="attr">Attribution</button>
+    <button data-tab="dict">Data Dictionary</button>
+  </div>
+  <select class="tabsel" id="tabsel">
+    <option value="snapshot">Snapshot</option>
+    <option value="kpis">Ecomm KPIs</option>
+    <option value="channel">Channel Breakdown</option>
+    <option value="trends">Trends</option>
+    <option value="compare">Compare A vs B</option>
+    <option value="attr">Attribution</option>
+    <option value="dict">Data Dictionary</option>
+  </select>
+
+  <!-- ── SNAPSHOT ── -->
+  <div class="panel show" id="p-snapshot">
+    <div class="kpigrid" id="kpiGrid"></div>
+    <div class="callout" id="snapCallout"></div>
+  </div>
+
+  <!-- ── ECOMM KPIs ── -->
+  <div class="panel" id="p-kpis">
+    <div class="card">
+      <h2>Ecommerce KPI rollup</h2>
+      <div class="h2sub">Every metric across four windows that anchor to the selection end-date. Each cell: this-year value, with prior comparison and variance to forecast beside it.</div>
+      <div class="tbl-scroll">
+        <table class="grid" id="kpiTable"></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CHANNEL BREAKDOWN ── -->
+  <div class="panel" id="p-channel">
+    <div class="card">
+      <h2>Order-channel breakdown</h2>
+      <div class="h2sub">How the three order paths &mdash; Cart (self-serve web), Chat, and Phone &mdash; compare across the selection. Mattress-attach column highlighted.</div>
+      <div class="tbl-scroll"><table class="grid" id="chanTable"></table></div>
+      <div class="callout" id="chanCallout"></div>
+    </div>
+  </div>
+
+  <!-- ── TRENDS ── -->
+  <div class="panel" id="p-trends">
+    <div class="card">
+      <h2>Net sales trend &mdash; the fiscal fence</h2>
+      <div class="h2sub" id="trendSub"></div>
+      <div class="chart-box"><canvas id="chTrend"></canvas></div>
+      <div class="callout" id="trendCallout"></div>
+    </div>
+  </div>
+
+  <!-- ── COMPARE A vs B ── -->
+  <div class="panel" id="p-compare">
+    <div class="card">
+      <h2>Compare any two windows, head to head</h2>
+      <div class="h2sub">Pick two date ranges &mdash; the KPI deltas and charts recompute instantly. Useful for promo vs non-promo weeks, launch vs baseline, this period vs last.</div>
+      <div class="ctl-row" style="margin-bottom:14px;">
+        <div class="ctl"><label>Range A &mdash; From</label><input type="date" id="aFrom"></div>
+        <div class="ctl"><label>Range A &mdash; To</label><input type="date" id="aTo"></div>
+        <div class="ctl" style="padding:0 6px;align-self:center;color:var(--muted);font-weight:700;">vs</div>
+        <div class="ctl"><label>Range B &mdash; From</label><input type="date" id="bFrom"></div>
+        <div class="ctl"><label>Range B &mdash; To</label><input type="date" id="bTo"></div>
+        <button class="btn" id="btnSwap" style="align-self:flex-end;">&#8646; Swap</button>
+      </div>
+      <div class="grid2">
+        <div class="chart-box sm"><canvas id="chCompare"></canvas></div>
+        <div class="tbl-scroll"><table class="grid" id="cmpTable"></table></div>
+      </div>
+      <div class="callout" id="cmpCallout"></div>
+    </div>
+  </div>
+
+  <!-- ── ATTRIBUTION ── -->
+  <div class="panel" id="p-attr">
+    <div class="card">
+      <h2>Attributed revenue by channel</h2>
+      <div class="h2sub">A summary of the tiered last-touch attribution that feeds budget decisions. Toggle the model to see credit re-allocate.</div>
+      <div class="seg" id="attrSeg" style="margin-bottom:12px;">
+        <button data-m="lastclick" class="active">Last-Click</button>
+        <button data-m="datadriven">Data-Driven</button>
+      </div>
+      <div class="tbl-scroll"><table class="grid" id="attrTable"></table></div>
+      <div class="attr-note">This tab is a summary surface. The full identity-stitched online-to-offline attribution &mdash; with the six-model credit comparison, YoY sales bridge, and Safari-ITP correction &mdash; is the <a href="#">Online-to-Offline Attribution case study</a>.</div>
+    </div>
+  </div>
+
+  <!-- ── DATA DICTIONARY ── -->
+  <div class="panel" id="p-dict">
+    <div class="card">
+      <h2>Data dictionary &amp; lineage</h2>
+      <div class="h2sub">Every metric is governed and defined once. In production this runs on a dbt semantic layer over a BigQuery mart (~1,092 daily rows &times; 80 columns); here it is a synthetic stand-in with the same shape.</div>
+      <div class="erd">
+        <div class="erd-node"><div class="t">stg_traffic</div><div class="f">date &middot; sessions<br>engaged_sessions<br>device &middot; channel</div></div>
+        <div class="erd-join">&rarr;</div>
+        <div class="erd-node"><div class="t">fact_orders</div><div class="f">order_id &middot; date<br>net_sales &middot; units<br>channel &middot; attach_flag</div></div>
+        <div class="erd-join">&rarr;</div>
+        <div class="erd-node"><div class="t">dim_calendar</div><div class="f">date &middot; fiscal_yr<br>quarter &middot; period<br>week &middot; ly_date</div></div>
+        <div class="erd-join">&rarr;</div>
+        <div class="erd-node" style="border-color:var(--cyan);background:#f0fbfd;"><div class="t">mart_ecomm_master</div><div class="f">one governed row<br>per day, all KPIs<br>+ forecast + LY</div></div>
+      </div>
+      <input class="dd-search" id="ddSearch" placeholder="Search metrics…">
+      <div class="tbl-scroll"><table class="grid" id="ddTable"></table></div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    Synthetic figures for portfolio illustration &mdash; deterministically generated (seeded), three fiscal years on a 4-5-4 retail calendar, with all KPI aggregation, YoY/period comparison, and forecast variance computed client-side. The production version runs on a dbt semantic layer over BigQuery, refreshed daily.
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ════════════════════════════════════════════════════════════════════
+   EXEC ECOMMERCE COMMAND CENTER — synthetic engine + live aggregation
+   ════════════════════════════════════════════════════════════════════ */
+const DAY = 86400000;
+// Fiscal years on a 4-5-4 retail calendar, each 52 weeks (364 days), starting on a Sunday.
+const FY_START = { 2024: Date.UTC(2024,1,4), 2025: Date.UTC(2025,1,2), 2026: Date.UTC(2026,1,1) };
+const FYS = [2024,2025,2026];
+const AS_OF = Date.UTC(2026,5,13);                 // 2026-06-13 (FY26 Q2 P5 W19, Sat)
+const PERIOD_END_WEEK = [4,9,13,17,22,26,30,35,39,43,48,52]; // cumulative week each period ends (4-5-4)
+
+const weekToPeriod = w => { for (let i=0;i<12;i++) if (w<=PERIOD_END_WEEK[i]) return i+1; return 12; };
+const periodToQuarter = p => Math.ceil(p/3);
+const fyOf = ts => ts>=FY_START[2026]?2026 : ts>=FY_START[2025]?2025 : 2024;
+const diOf = (ts,fy) => Math.round((ts-FY_START[fy])/DAY);
+function calOf(ts){ const fy=fyOf(ts), di=diOf(ts,fy), week=Math.floor(di/7)+1, dow=di%7;
+  const period=weekToPeriod(week); return { fy, di, week, dow, period, quarter:periodToQuarter(period) }; }
+const weekStartDi = w => (w-1)*7;
+function periodStartTs(ts){ const c=calOf(ts); const w=c.period>1?PERIOD_END_WEEK[c.period-2]+1:1; return FY_START[c.fy]+weekStartDi(w)*DAY; }
+function quarterStartTs(ts){ const c=calOf(ts); const w=(c.quarter-1)*13+1; return FY_START[c.fy]+weekStartDi(w)*DAY; }
+const fyStartTs = ts => FY_START[fyOf(ts)];
+const fmtDate = ts => new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'});
+const isoDate = ts => new Date(ts).toISOString().slice(0,10);
+
+// ── seeded PRNG (mulberry32) ──
+function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+const rnd = mulberry32(20260614);
+const noise = (amp) => 1 + (rnd()-0.5)*2*amp;
+
+// ── synthetic daily generator ──
+// Volume softens YoY (~ -12% sessions) while AOV lifts (~ +14%): the real exec narrative.
+const HOLIDAY = [ // [week, lift] mattress-retail sale peaks
+  {w:1,m:1.06},{w:3,m:1.10},   // New Year / Presidents build
+  {w:16,m:1.22},{w:17,m:1.34}, // Memorial Day weekend (huge for mattresses)
+  {w:30,m:1.20},               // Labor Day
+  {w:43,m:1.18},{w:44,m:1.55},{w:45,m:1.28}, // Black Friday / Cyber
+  {w:48,m:1.12} // mid-December
+];
+const holidayMult = w => { let m=1; HOLIDAY.forEach(h=>{ if(Math.abs(h.w-w)<=0) m*=h.m; else if(Math.abs(h.w-w)===1) m*=1+(h.m-1)*0.4; }); return m; };
+
+function genYear(fy, sessBase, cvrBase, aovBase){
+  const rows=[];
+  for(let di=0; di<364; di++){
+    const ts=FY_START[fy]+di*DAY;
+    if(ts>AS_OF) break; // no actuals beyond as-of
+    const week=Math.floor(di/7)+1, dow=di%7, period=weekToPeriod(week), quarter=periodToQuarter(period);
+    const weekendLift = (dow===0||dow===6)?1.14:(dow===5?1.05:0.98);
+    const seasonal = 1 + 0.12*Math.sin((week/52)*2*Math.PI - 1.1); // soft annual wave
+    const sessions = Math.round(sessBase * weekendLift * seasonal * holidayMult(week) * noise(0.05));
+    const cvr = cvrBase * (1 + 0.06*Math.sin((week/52)*2*Math.PI)) * noise(0.04);
+    const orders = Math.round(sessions * cvr);
+    const aov = aovBase * (1 + 0.05*Math.sin((week/52)*2*Math.PI + 0.6)) * noise(0.03);
+    const net_sales = Math.round(orders * aov);
+    const upt = 1.55 + 0.18*Math.sin((week/52)*2*Math.PI) ;
+    const units = Math.round(orders * upt * noise(0.02));
+    const engaged = Math.round(sessions * (0.55 + 0.05*Math.sin((week/52)*2*Math.PI)) * noise(0.02));
+    const paid_spend = Math.round(net_sales / (6.4 * noise(0.06))); // blended ROAS ~6.4
+    // order-channel split: Cart dominant, Phone & Chat assisted (higher AOV on phone)
+    const oCart=Math.round(orders*0.84), oPhone=Math.round(orders*0.10), oChat=orders-oCart-oPhone;
+    const sCart=Math.round(net_sales*0.80), sPhone=Math.round(net_sales*0.13), sChat=net_sales-sCart-sPhone;
+    const uCart=Math.round(units*0.83), uPhone=Math.round(units*0.10), uChat=units-uCart-uPhone;
+    // mattress attach rate (share of orders incl. a mattress) varies by channel
+    const attach = 0.42 + 0.04*Math.sin((week/52)*2*Math.PI);
+    rows.push({ ts, fy, di, week, dow, period, quarter,
+      sessions, orders, net_sales, units, engaged, paid_spend,
+      oCart,oChat,oPhone, sCart,sChat,sPhone, uCart,uChat,uPhone, attach });
+  }
+  return rows;
+}
+
+// LY base ~ +14% sessions and -12% AOV relative to TY targets => TY shows volume soft / AOV up.
+const DATA = [].concat(
+  genYear(2024, 41000, 0.0132, 320),
+  genYear(2025, 43500, 0.0138, 338),  // last year
+  genYear(2026, 38200, 0.0141, 389)   // this year: fewer sessions, richer baskets
+);
+const IDX = {}; DATA.forEach(r=>{ (IDX[r.fy]=IDX[r.fy]||{})[r.di]=r; });
+
+// ── forecast (annual operating plan) for FY2026: plan assumed LY +3% sessions, +10% AOV ──
+DATA.filter(r=>r.fy===2026).forEach(r=>{
+  const ly = (IDX[2025]||{})[r.di];
+  if(!ly){ r.fc=null; return; }
+  const fcSess=Math.round(ly.sessions*1.03), fcCvr=0.0140, fcOrders=Math.round(fcSess*fcCvr),
+        fcAov=ly.net_sales/Math.max(ly.orders,1)*1.10, fcSales=Math.round(fcOrders*fcAov),
+        fcUnits=Math.round(fcOrders*1.6), fcEng=Math.round(fcSess*0.56), fcSpend=Math.round(fcSales/6.2);
+  r.fc={ sessions:fcSess, orders:fcOrders, net_sales:fcSales, units:fcUnits, engaged:fcEng, paid_spend:fcSpend };
+});
+
+/* ════════════════════ aggregation ════════════════════ */
+const METRICS = [
+  { key:'net_sales', label:'Net Sales',       type:'money', better:'up' },
+  { key:'orders',    label:'Orders',          type:'int',   better:'up' },
+  { key:'cvr',       label:'Conversion Rate', type:'pct',   better:'up', derived:true },
+  { key:'aov',       label:'AOV',             type:'money0',better:'up', derived:true },
+  { key:'upt',       label:'Units / Txn',     type:'dec2',  better:'up', derived:true },
+  { key:'engagement',label:'Engagement Rate', type:'pct',   better:'up', derived:true },
+  { key:'sessions',  label:'Sessions',        type:'int',   better:'flat'},
+  { key:'paid_spend',label:'Paid Spend',      type:'money', better:'flat'}
+];
+let CHAN='all';
+function pick(r, base){ // returns channel-aware order-based fields
+  if(CHAN==='all') return { orders:r.orders, net_sales:r.net_sales, units:r.units };
+  const map={cart:['oCart','sCart','uCart'],chat:['oChat','sChat','uChat'],phone:['oPhone','sPhone','uPhone']}[CHAN];
+  return { orders:r[map[0]], net_sales:r[map[1]], units:r[map[2]] };
+}
+function aggregate(rows){
+  const a={ sessions:0,orders:0,net_sales:0,units:0,engaged:0,paid_spend:0, fcOK:false,
+            fc:{sessions:0,orders:0,net_sales:0,units:0,engaged:0,paid_spend:0} };
+  rows.forEach(r=>{ const c=pick(r);
+    a.sessions+=r.sessions; a.engaged+=r.engaged; a.paid_spend+=r.paid_spend;
+    a.orders+=c.orders; a.net_sales+=c.net_sales; a.units+=c.units;
+    if(r.fc){ a.fcOK=true; a.fc.sessions+=r.fc.sessions; a.fc.orders+=r.fc.orders; a.fc.net_sales+=r.fc.net_sales;
+      a.fc.units+=r.fc.units; a.fc.engaged+=r.fc.engaged; a.fc.paid_spend+=r.fc.paid_spend; } });
+  const der = o => ({ ...o,
+    cvr: o.sessions? o.orders/o.sessions : 0,
+    aov: o.orders? o.net_sales/o.orders : 0,
+    upt: o.orders? o.units/o.orders : 0,
+    engagement: o.sessions? o.engaged/o.sessions : 0 });
+  const out=der(a); out.fc = a.fcOK? der(a.fc) : null; out.fcOK=a.fcOK; out.n=rows.length;
+  return out;
+}
+const rowsBetween = (from,to) => DATA.filter(r=> r.ts>=from && r.ts<=to);
+const shiftLY  = (from,to) => [from-364*DAY, to-364*DAY];
+const shiftPP  = (from,to) => { const len=to-from+DAY; return [from-len, from-DAY]; };
+
+/* ════════════════════ formatting ════════════════════ */
+const fmt = {
+  money:  v => v>=1e6? '$'+(v/1e6).toFixed(2)+'M' : v>=1e3? '$'+(v/1e3).toFixed(0)+'K' : '$'+Math.round(v),
+  money0: v => '$'+Math.round(v),
+  int:    v => v>=1e6? (v/1e6).toFixed(2)+'M' : v>=1e3? (v/1e3).toFixed(1)+'K' : ''+Math.round(v),
+  pct:    v => (v*100).toFixed(2)+'%',
+  dec2:   v => v.toFixed(2)
+};
+const fmtV = (m,v)=> fmt[m.type](v);
+function deltaClass(better, dv){ if(better==='flat') return 'flat'; const good = better==='up'? dv>0 : dv<0; return Math.abs(dv)<1e-9?'flat':(good?'up':'down'); }
+function pctDelta(ty,base){ if(!base) return {txt:'—',cls:'flat',raw:0}; const dv=(ty-base)/base; return { txt:(dv>0?'+':'')+(dv*100).toFixed(1)+'%', raw:dv }; }
+
+/* ════════════════════ selection state ════════════════════ */
+let MODE='fiscal', CMP='ly', GRAIN='weekly';
+let SEL={ fy:2026, q:2, p:5, w:19 };           // default: current week
+let RANGE={ from:null, to:null };
+let activeTab='snapshot';
+
+function weeksInPeriod(p){ const end=PERIOD_END_WEEK[p-1], start=p>1?PERIOD_END_WEEK[p-2]+1:1; const out=[]; for(let w=start;w<=end;w++) out.push(w); return out; }
+function periodsInQuarter(q){ return [ (q-1)*3+1, (q-1)*3+2, (q-1)*3+3 ]; }
+
+// resolve the current fiscal selection -> [from,to] clamped to as-of for current FY
+function fiscalRange(){
+  const fy=SEL.fy;
+  let fromDi, toDi;
+  if(SEL.w){ fromDi=weekStartDi(SEL.w); toDi=fromDi+6; }
+  else if(SEL.p){ const ws=weeksInPeriod(SEL.p); fromDi=weekStartDi(ws[0]); toDi=weekStartDi(ws[ws.length-1])+6; }
+  else if(SEL.q){ const fw=(SEL.q-1)*13+1; fromDi=weekStartDi(fw); toDi=weekStartDi(fw+12)+6; }
+  else { fromDi=0; toDi=363; }
+  let from=FY_START[fy]+fromDi*DAY, to=FY_START[fy]+toDi*DAY;
+  if(to>AS_OF) to=AS_OF;
+  if(from>AS_OF) from=fyStartTs(AS_OF); // guard
+  return [from,to];
+}
+function currentRange(){ return MODE==='range'? [RANGE.from,RANGE.to] : fiscalRange(); }
+
+/* ════════════════════ control wiring ════════════════════ */
+function fillSelect(el, items, val){ el.innerHTML=items.map(i=>`<option value="${i.v}"${i.v==val?' selected':''}>${i.t}</option>`).join(''); }
+function rebuildCascade(){
+  fillSelect(selYear, FYS.map(y=>({v:y,t:'FY'+y})), SEL.fy);
+  fillSelect(selQ, [{v:0,t:'All quarters'}].concat([1,2,3,4].map(q=>({v:q,t:'Q'+q}))), SEL.q||0);
+  const pOpts=[{v:0,t:'All periods'}]; if(SEL.q) periodsInQuarter(SEL.q).forEach(p=>pOpts.push({v:p,t:'P'+p}));
+  fillSelect(selP, pOpts, SEL.p||0);
+  const wOpts=[{v:0,t:'All weeks'}]; if(SEL.p) weeksInPeriod(SEL.p).forEach(w=>wOpts.push({v:w,t:'W'+w}));
+  fillSelect(selW, wOpts, SEL.w||0);
+}
+selYear.onchange=e=>{ SEL={fy:+e.target.value, q:0,p:0,w:0}; rebuildCascade(); render(); };
+selQ.onchange=e=>{ SEL.q=+e.target.value||0; SEL.p=0; SEL.w=0; rebuildCascade(); render(); };
+selP.onchange=e=>{ SEL.p=+e.target.value||0; SEL.w=0; rebuildCascade(); render(); };
+selW.onchange=e=>{ SEL.w=+e.target.value||0; render(); };
+
+document.querySelectorAll('#modeSeg button').forEach(b=>b.onclick=()=>{
+  MODE=b.dataset.mode; document.querySelectorAll('#modeSeg button').forEach(x=>x.classList.toggle('active',x===b));
+  const fiscal=MODE==='fiscal';
+  ['ctlYear','ctlQ','ctlP','ctlW'].forEach(id=>document.getElementById(id).style.display=fiscal?'flex':'none');
+  ctlFrom.style.display=ctlTo.style.display=fiscal?'none':'flex';
+  if(MODE==='range' && !RANGE.from){ const [f,t]=fiscalRange(); RANGE.from=f; RANGE.to=t; dFrom.value=isoDate(f); dTo.value=isoDate(t); }
+  render();
+});
+dFrom.onchange=e=>{ RANGE.from=Date.parse(e.target.value+'T00:00:00Z'); render(); };
+dTo.onchange=e=>{ RANGE.to=Date.parse(e.target.value+'T00:00:00Z'); render(); };
+document.querySelectorAll('#cmpSeg button').forEach(b=>b.onclick=()=>{ CMP=b.dataset.cmp; document.querySelectorAll('#cmpSeg button').forEach(x=>x.classList.toggle('active',x===b)); render(); });
+document.querySelectorAll('#grainSeg button').forEach(b=>b.onclick=()=>{ GRAIN=b.dataset.grain; document.querySelectorAll('#grainSeg button').forEach(x=>x.classList.toggle('active',x===b)); render(); });
+selChan.onchange=e=>{ CHAN=e.target.value; render(); };
+tgLY.onchange=render; tgFC.onchange=render;
+
+// tabs
+function setTab(t){ activeTab=t;
+  document.querySelectorAll('#tabbar button').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('show',p.id==='p-'+t));
+  tabsel.value=t; render();
+}
+document.querySelectorAll('#tabbar button').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
+tabsel.onchange=e=>setTab(e.target.value);
+
+/* ════════════════════ rendering ════════════════════ */
+let trendChart=null, compareChart=null;
+
+function cmpLabel(){ return CMP==='ly'?'LY':'PP'; }
+function comparisonRows(from,to){ const [cf,ct]=CMP==='ly'?shiftLY(from,to):shiftPP(from,to); return rowsBetween(cf,ct); }
+
+function renderSummary(from,to){
+  const c=calOf(to);
+  let scope;
+  if(MODE==='range'){ scope=`${fmtDate(from)} → ${fmtDate(to)}`; }
+  else { scope = `FY${SEL.fy}` + (SEL.q?` · Q${SEL.q}`:'') + (SEL.p?` · P${SEL.p}`:'') + (SEL.w?` · W${SEL.w}`:'') ; }
+  const chan = CHAN==='all'?'All channels':({cart:'Cart (web)',chat:'Chat',phone:'Phone'})[CHAN];
+  selSummary.innerHTML =
+    `Showing <b>${scope}</b>` +
+    `<span class="chip">${fmtDate(from)} → ${fmtDate(to)}</span>` +
+    `<span class="chip">${c.n? '' : ''}${Math.round((to-from)/DAY)+1} days</span>` +
+    `<span class="chip">vs ${CMP==='ly'?'Last Year':'Prior Period'}</span>` +
+    `<span class="chip">${GRAIN} grain</span>` +
+    `<span class="chip">${chan}</span>`;
+}
+
+function renderSnapshot(ty, base){
+  const grid=document.getElementById('kpiGrid'); grid.innerHTML='';
+  METRICS.forEach(m=>{
+    const v=ty[m.key], bv=base[m.key];
+    const d=pctDelta(v,bv); const cls=deltaClass(m.better,d.raw);
+    // forecast delta
+    let fcHtml='';
+    if(ty.fcOK && ty.fc){ const fd=pctDelta(v,ty.fc[m.key]); const fcls=deltaClass(m.better,fd.raw);
+      fcHtml=`<span class="d ${fcls}"><span class="t">vs FC</span> ${fd.txt}</span>`; }
+    grid.insertAdjacentHTML('beforeend',`
+      <div class="kpi">
+        <div class="lbl">${m.label}</div>
+        <div class="val">${fmtV(m,v)}</div>
+        <div class="deltas">
+          <span class="d ${cls}"><span class="t">vs ${cmpLabel()}</span> ${d.txt}</span>
+          ${fcHtml}
+        </div>
+        <div class="spark">${sparkFor(m.key)}</div>
+      </div>`);
+  });
+  // callout
+  const sd=pctDelta(ty.sessions,base.sessions), ad=pctDelta(ty.aov,base.aov), rd=pctDelta(ty.net_sales,base.net_sales);
+  document.getElementById('snapCallout').innerHTML =
+    `<strong>Volume soft, basket rich.</strong> Sessions ${sd.txt} vs ${cmpLabel()==='LY'?'last year':'prior period'} while AOV is ${ad.txt} — net sales land ${rd.txt}. `+
+    `The bigger basket (mattress penetration + attach) is carrying revenue against a traffic headwind. Conversion holding at ${fmt.pct(ty.cvr)}.`;
+}
+// 8-week sparkline of a metric leading up to as-of (weekly)
+function sparkFor(key){
+  const wks=[]; let cur=calOf(AS_OF); let endDi=weekStartDi(cur.week)+6;
+  for(let i=7;i>=0;i--){ const ws=weekStartDi(cur.week-i); if(ws<0) continue;
+    const from=FY_START[2026]+ws*DAY, to=Math.min(FY_START[2026]+(ws+6)*DAY, AS_OF);
+    const agg=aggregate(rowsBetween(from,to)); wks.push(agg[key]||0); }
+  if(wks.length<2) return '';
+  const w=64,h=20,pad=2, mn=Math.min(...wks), mx=Math.max(...wks), rng=(mx-mn)||1;
+  const pts=wks.map((v,i)=>{ const x=pad+i*(w-2*pad)/(wks.length-1); const y=h-pad-(v-mn)/rng*(h-2*pad); return x.toFixed(1)+','+y.toFixed(1); }).join(' ');
+  const up=wks[wks.length-1]>=wks[0];
+  return `<svg width="${w}" height="${h}" aria-hidden="true"><polyline points="${pts}" fill="none" stroke="${up?'#16a34a':'#dc2626'}" stroke-width="1.6"/></svg>`;
+}
+
+function renderKpiTable(from,to){
+  const anchor=to;
+  const windows=[
+    { name:'Selection', ty:aggregate(rowsBetween(from,to)), base:aggregate(comparisonRows(from,to)) },
+    { name:'PTD', ...rollup(periodStartTs(anchor),anchor) },
+    { name:'QTD', ...rollup(quarterStartTs(anchor),anchor) },
+    { name:'YTD', ...rollup(fyStartTs(anchor),anchor) }
+  ];
+  function rollupWrap(f,t){ return { ty:aggregate(rowsBetween(f,t)), base:aggregate(comparisonRows(f,t)) }; }
+  windows[1]=Object.assign({name:'PTD'},rollupWrap(periodStartTs(anchor),anchor));
+  windows[2]=Object.assign({name:'QTD'},rollupWrap(quarterStartTs(anchor),anchor));
+  windows[3]=Object.assign({name:'YTD'},rollupWrap(fyStartTs(anchor),anchor));
+
+  let head=`<thead><tr><th class="l" rowspan="2">Metric</th>`;
+  windows.forEach(w=>head+=`<th colspan="3" style="text-align:center;border-left:1px solid rgba(255,255,255,.16)">${w.name}</th>`);
+  head+=`</tr><tr class="sub">`;
+  windows.forEach(()=>head+=`<th style="border-left:1px solid rgba(255,255,255,.16)">TY</th><th>${cmpLabel()}</th><th>Δ</th>`);
+  head+=`</tr></thead>`;
+  let body='<tbody>';
+  METRICS.forEach(m=>{
+    body+=`<tr><td class="l">${m.label}</td>`;
+    windows.forEach(w=>{
+      const v=w.ty[m.key], bv=w.base[m.key], d=pctDelta(v,bv), cls=deltaClass(m.better,d.raw);
+      body+=`<td style="border-left:1px solid #eef0f3"><b>${fmtV(m,v)}</b></td><td class="ly-s">${fmtV(m,bv)}</td><td class="delta-s ${cls}">${d.txt}</td>`;
+    });
+    body+=`</tr>`;
+  });
+  body+='</tbody>';
+  document.getElementById('kpiTable').innerHTML=head+body;
+}
+function rollup(f,t){ return { ty:aggregate(rowsBetween(f,t)), base:aggregate(comparisonRows(f,t)) }; }
+
+function renderChannel(from,to){
+  const rows=rowsBetween(from,to), base=comparisonRows(from,to);
+  const chans=[
+    {k:'cart',label:'Cart (web)',o:'oCart',s:'sCart',u:'uCart'},
+    {k:'chat',label:'Chat',o:'oChat',s:'sChat',u:'uChat'},
+    {k:'phone',label:'Phone',o:'oPhone',s:'sPhone',u:'uPhone'}
+  ];
+  const sum=(arr,f)=>arr.reduce((a,r)=>a+f(r),0);
+  let head=`<thead><tr><th class="l">Channel</th><th>Orders</th><th>Net Sales</th><th>AOV</th><th>UPT</th><th class="hl" style="color:#ffe9c2">Mattress Attach</th><th>Share of Sales</th></tr></thead>`;
+  const totSales=sum(rows,r=>r.net_sales)||1;
+  let body='<tbody>';
+  chans.forEach(c=>{
+    const o=sum(rows,r=>r[c.o]), s=sum(rows,r=>r[c.s]), u=sum(rows,r=>r[c.u]);
+    const aov=o?s/o:0, upt=o?u/o:0, attach=(c.k==='phone'?0.58:c.k==='chat'?0.51:0.40);
+    body+=`<tr><td class="l">${c.label}</td><td>${fmt.int(o)}</td><td>${fmt.money(s)}</td><td>${fmt.money0(aov)}</td><td>${fmt.dec2(upt)}</td><td class="hl">${fmt.pct(attach)}</td><td>${fmt.pct(s/totSales)}</td></tr>`;
+  });
+  const tO=sum(rows,r=>r.orders), tS=sum(rows,r=>r.net_sales), tU=sum(rows,r=>r.units);
+  body+=`<tr class="total"><td class="l">Total</td><td>${fmt.int(tO)}</td><td>${fmt.money(tS)}</td><td>${fmt.money0(tS/(tO||1))}</td><td>${fmt.dec2(tU/(tO||1))}</td><td class="hl">${fmt.pct(0.42)}</td><td>100.0%</td></tr></tbody>`;
+  document.getElementById('chanTable').innerHTML=head+body;
+  document.getElementById('chanCallout').innerHTML=
+    `<strong>Phone and Chat punch above their volume.</strong> They are ~16% of orders but a higher share of sales — bigger baskets and a ~58% mattress-attach rate vs ~40% on self-serve Cart. Assisted selling is where the margin mix concentrates.`;
+}
+
+function weeklySeries(fyData, key){
+  const byWeek={};
+  fyData.forEach(r=>{ (byWeek[r.week]=byWeek[r.week]||[]).push(r); });
+  return Object.keys(byWeek).map(w=>({ week:+w, val: aggregate(byWeek[w])[key] })).sort((a,b)=>a.week-b.week);
+}
+function renderTrends(){
+  const key='net_sales';
+  const ty=DATA.filter(r=>r.fy===2026), ly=DATA.filter(r=>r.fy===2025);
+  let labels, tyArr, lyArr, fcArr;
+  if(GRAIN==='weekly'){
+    const tw=weeklySeries(ty,key); labels=tw.map(d=>'W'+d.week); tyArr=tw.map(d=>d.val);
+    const lwMap={}; weeklySeries(ly,key).forEach(d=>lwMap[d.week]=d.val); lyArr=tw.map(d=>lwMap[d.week]??null);
+    // forecast weekly
+    const fcByWeek={}; ty.forEach(r=>{ if(r.fc){ (fcByWeek[r.week]=fcByWeek[r.week]||0); fcByWeek[r.week]+=r.fc.net_sales; } });
+    // include forecast for full year weeks beyond as-of
+    const allWeeks=[]; for(let w=1;w<=calOf(AS_OF).week+6 && w<=52;w++) allWeeks.push(w);
+    labels=allWeeks.map(w=>'W'+w);
+    const tvByWeek={}; tw.forEach(d=>tvByWeek[d.week]=d.val);
+    tyArr=allWeeks.map(w=>tvByWeek[w]??null);
+    lyArr=allWeeks.map(w=>lwMap[w]??null);
+    // build forecast across full plan year
+    const fcFull={}; DATA.filter(r=>r.fy===2026).forEach(()=>{});
+    const planYear={}; for(let w=1;w<=52;w++) planYear[w]=0;
+    // derive plan weekly from LY*1.03*1.10 aov etc -> approximate via fc on existing + extend with ly*scale
+    const lyAllByWeek={}; weeklySeries(ly,key).forEach(d=>lyAllByWeek[d.week]=d.val);
+    fcArr=allWeeks.map(w=> fcByWeek[w]!=null? fcByWeek[w] : (lyAllByWeek[w]!=null? Math.round(lyAllByWeek[w]*1.133): null));
+  } else {
+    const days=ty.slice(-90); labels=days.map(r=>fmtDate(r.ts).replace(', 2026',''));
+    tyArr=days.map(r=>r.net_sales);
+    lyArr=days.map(r=>{ const l=(IDX[2025]||{})[r.di]; return l?l.net_sales:null; });
+    fcArr=days.map(r=>r.fc?r.fc.net_sales:null);
+  }
+  const navy='#1e3c72', cyan='#06b6d4', amber='#f5a524';
+  const ds=[{ label:'This Year', data:tyArr, borderColor:cyan, backgroundColor:'rgba(6,182,212,.08)', borderWidth:2.4, tension:.3, pointRadius:0, fill:true, spanGaps:true }];
+  if(tgLY.checked) ds.push({ label:'Last Year', data:lyArr, borderColor:'#94a3b8', borderWidth:1.6, borderDash:[5,4], tension:.3, pointRadius:0, spanGaps:true });
+  if(tgFC.checked) ds.push({ label:'Forecast (plan)', data:fcArr, borderColor:amber, borderWidth:1.6, borderDash:[2,3], tension:.3, pointRadius:0, spanGaps:true });
+  const cfg={ type:'line', data:{labels,datasets:ds},
+    options:{ responsive:true, maintainAspectRatio:false, interaction:{mode:'index',intersect:false},
+      plugins:{ legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}},
+        tooltip:{ callbacks:{ label:c=> c.dataset.label+': '+(c.parsed.y==null?'—':fmt.money(c.parsed.y)) } } },
+      scales:{ y:{ beginAtZero:false, ticks:{callback:v=>fmt.money(v)}, grid:{color:'#eef0f3'} }, x:{ grid:{display:false}, ticks:{maxRotation:0, autoSkip:true, maxTicksLimit:14, font:{size:10}} } } } };
+  if(trendChart) trendChart.destroy();
+  trendChart=new Chart(document.getElementById('chTrend'), cfg);
+  document.getElementById('trendSub').textContent = GRAIN==='weekly'
+    ? 'Weekly net sales across FY2026 — this year vs last year, with the operating plan. Vertical view of the whole fiscal year.'
+    : 'Daily net sales, trailing 90 days — this year vs the same fiscal day last year, with plan.';
+  document.getElementById('trendCallout').innerHTML =
+    `<strong>The plan assumed flat-to-up volume; the year delivered richer baskets instead.</strong> This-year sales track close to last year and the plan despite a double-digit sessions decline — the AOV lift (mattress penetration + attach) is absorbing the traffic shortfall. Memorial-Day weeks (W16–W17) are the standout peaks.`;
+}
+
+function renderCompare(){
+  const aF=Date.parse(aFrom.value+'T00:00:00Z'), aT=Date.parse(aTo.value+'T00:00:00Z');
+  const bF=Date.parse(bFrom.value+'T00:00:00Z'), bT=Date.parse(bTo.value+'T00:00:00Z');
+  if(isNaN(aF)||isNaN(aT)||isNaN(bF)||isNaN(bT)) return;
+  const A=aggregate(rowsBetween(aF,aT)), B=aggregate(rowsBetween(bF,bT));
+  // chart: sessions bars + cvr/aov lines for A vs B
+  const labels=['Range A','Range B'];
+  const navy='#1e3c72', cyan='#06b6d4', amber='#f5a524';
+  const cfg={ type:'bar', data:{ labels, datasets:[
+      { label:'Net Sales', data:[A.net_sales,B.net_sales], backgroundColor:[navy,cyan], borderRadius:5, yAxisID:'y' },
+      { label:'AOV', data:[A.aov,B.aov], type:'line', borderColor:amber, borderWidth:2.4, pointRadius:4, yAxisID:'y1' }
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}},
+        tooltip:{ callbacks:{ label:c=> c.dataset.label+': '+(c.dataset.label==='AOV'?fmt.money0(c.parsed.y):fmt.money(c.parsed.y)) } } },
+      scales:{ y:{ position:'left', ticks:{callback:v=>fmt.money(v)}, grid:{color:'#eef0f3'}, title:{display:true,text:'Net Sales'} },
+               y1:{ position:'right', ticks:{callback:v=>'$'+Math.round(v)}, grid:{display:false}, title:{display:true,text:'AOV'} },
+               x:{ grid:{display:false} } } } };
+  if(compareChart) compareChart.destroy();
+  compareChart=new Chart(document.getElementById('chCompare'), cfg);
+  // table
+  let head=`<thead><tr><th class="l">Metric</th><th>Range A</th><th>Range B</th><th>Δ A→B</th></tr></thead>`, body='<tbody>';
+  METRICS.forEach(m=>{ const d=pctDelta(B[m.key],A[m.key]), cls=deltaClass(m.better,d.raw);
+    body+=`<tr><td class="l">${m.label}</td><td>${fmtV(m,A[m.key])}</td><td>${fmtV(m,B[m.key])}</td><td class="delta-s ${cls}">${d.txt}</td></tr>`; });
+  body+='</tbody>';
+  cmpTable.innerHTML=head+body;
+  const rd=pctDelta(B.net_sales,A.net_sales), ad=pctDelta(B.aov,A.aov);
+  document.getElementById('cmpCallout').innerHTML=
+    `<strong>Range B vs Range A:</strong> net sales ${rd.txt}, AOV ${ad.txt}. Drop in two date ranges — a promo week vs a quiet week, a launch window vs its baseline — and the deltas update instantly.`;
+}
+
+const ATTR={
+  channels:['Brand Search','Non-Brand','PLAs','Direct','Organic','Email/SMS','Affiliates','Display/Video'],
+  lastclick:[6.8,4.9,4.7,5.9,4.8,2.0,1.5,1.4],
+  datadriven:[5.2,4.1,3.6,6.0,5.1,2.6,1.6,3.5],
+  spend:[0.29,1.40,1.05,0,0,0,0.44,1.20]
+};
+let attrModel='lastclick';
+function renderAttr(){
+  const rev=ATTR[attrModel];
+  let head=`<thead><tr><th class="l">Channel</th><th>Spend</th><th>Attributed Revenue</th><th>Share</th><th>ROAS</th></tr></thead>`, body='<tbody>';
+  const tot=rev.reduce((a,b)=>a+b,0);
+  ATTR.channels.forEach((c,i)=>{ const roas=ATTR.spend[i]? (rev[i]/ATTR.spend[i]):null;
+    body+=`<tr><td class="l">${c}</td><td>${ATTR.spend[i]?'$'+ATTR.spend[i].toFixed(2)+'M':'—'}</td><td>$${rev[i].toFixed(1)}M</td><td>${(rev[i]/tot*100).toFixed(1)}%</td><td>${roas!=null?'$'+roas.toFixed(1):'—'}</td></tr>`; });
+  body+=`<tr class="total"><td class="l">Total</td><td>$${ATTR.spend.reduce((a,b)=>a+b,0).toFixed(2)}M</td><td>$${tot.toFixed(1)}M</td><td>100%</td><td>$${(tot/ATTR.spend.reduce((a,b)=>a+b,0)).toFixed(1)}</td></tr></tbody>`;
+  document.getElementById('attrTable').innerHTML=head+body;
+}
+document.querySelectorAll('#attrSeg button').forEach(b=>b.onclick=()=>{ attrModel=b.dataset.m; document.querySelectorAll('#attrSeg button').forEach(x=>x.classList.toggle('active',x===b)); renderAttr(); });
+
+const DD=[
+  ['net_sales','Net Sales','SUM(order_total) net of returns/cancels','fact_orders','$'],
+  ['orders','Orders','COUNT(DISTINCT order_id), demand date','fact_orders','#'],
+  ['conversion_rate','Conversion Rate','orders / sessions','derived','%'],
+  ['aov','AOV','net_sales / orders','derived','$'],
+  ['upt','Units per Transaction','units / orders','derived','#'],
+  ['engagement_rate','Engagement Rate','engaged_sessions / sessions (>10s or 2+ pages)','stg_traffic','%'],
+  ['sessions','Sessions','COUNT(DISTINCT session_id), qualified','stg_traffic','#'],
+  ['paid_spend','Paid Spend','SUM(media_cost) across paid channels','fact_spend','$'],
+  ['mattress_attach','Mattress Attach','share of orders containing a mattress','fact_orders','%'],
+  ['ly_date','LY Date','fiscal day-of-year mapped prior year (53-wk aware)','dim_calendar','date'],
+  ['forecast','Forecast','annual operating plan, period-phased','plan_ecomm','$']
+];
+function renderDD(filter){
+  const f=(filter||'').toLowerCase();
+  let head=`<thead><tr><th class="l">Field</th><th class="l">Label</th><th class="l">Definition</th><th class="l">Source</th><th>Unit</th></tr></thead>`, body='<tbody>';
+  DD.filter(r=>!f|| (r[0]+r[1]+r[2]).toLowerCase().includes(f)).forEach(r=>{
+    body+=`<tr><td class="l" style="font-family:monospace;color:var(--navy)">${r[0]}</td><td class="l">${r[1]}</td><td class="l" style="font-weight:400;color:var(--muted)">${r[2]}</td><td class="l" style="font-weight:400">${r[3]}</td><td>${r[4]}</td></tr>`;
+  });
+  body+='</tbody>'; document.getElementById('ddTable').innerHTML=head+body;
+}
+ddSearch.oninput=e=>renderDD(e.target.value);
+
+function buildCsv(from,to){
+  const rows=rowsBetween(from,to);
+  const cols=['date','fiscal_year','quarter','period','week','sessions','orders','net_sales','units','engaged_sessions','paid_spend','aov','conversion_rate'];
+  let csv=cols.join(',')+'\n';
+  rows.forEach(r=>{ const c=pick(r); const aov=c.orders?c.net_sales/c.orders:0, cvr=r.sessions?c.orders/r.sessions:0;
+    csv+=[isoDate(r.ts),r.fy,r.quarter,r.period,r.week,r.sessions,c.orders,c.net_sales,c.units,r.engaged,r.paid_spend,aov.toFixed(2),(cvr*100).toFixed(3)].join(',')+'\n'; });
+  return csv;
+}
+btnCsv.onclick=()=>{ const [from,to]=currentRange(); const blob=new Blob([buildCsv(from,to)],{type:'text/csv'});
+  const url=URL.createObjectURL(blob), a=document.createElement('a'); a.href=url; a.download=`ecomm_command_center_${isoDate(from)}_to_${isoDate(to)}.csv`; a.click(); URL.revokeObjectURL(url); };
+btnSwap.onclick=()=>{ const f=aFrom.value,t=aTo.value; aFrom.value=bFrom.value; aTo.value=bTo.value; bFrom.value=f; bTo.value=t; renderCompare(); };
+[aFrom,aTo,bFrom,bTo].forEach(el=>el.onchange=renderCompare);
+
+/* ════════════════════ master render ════════════════════ */
+function render(){
+  let [from,to]=currentRange();
+  if(MODE==='range'){ if(!from||!to||from>to){ return; } }
+  renderSummary(from,to);
+  const ty=aggregate(rowsBetween(from,to)), base=aggregate(comparisonRows(from,to));
+  if(activeTab==='snapshot') renderSnapshot(ty,base);
+  else if(activeTab==='kpis') renderKpiTable(from,to);
+  else if(activeTab==='channel') renderChannel(from,to);
+  else if(activeTab==='trends') renderTrends();
+  else if(activeTab==='compare') renderCompare();
+  else if(activeTab==='attr') renderAttr();
+  else if(activeTab==='dict') renderDD(ddSearch.value);
+}
+
+/* ════════════════════ init ════════════════════ */
+document.getElementById('asof').textContent=fmtDate(AS_OF);
+rebuildCascade();
+// compare defaults: last 4 weeks (A) vs prior 4 weeks (B)
+(function initCompare(){ const aT=AS_OF, aF=AS_OF-27*DAY, bT=aF-DAY, bF=bT-27*DAY;
+  aFrom.value=isoDate(aF); aTo.value=isoDate(aT); bFrom.value=isoDate(bF); bTo.value=isoDate(bT); })();
+renderDD('');
+render();
+</script>
+</body>
+</html>

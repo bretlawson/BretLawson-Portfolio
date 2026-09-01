@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bret Lawson — Data Scientist · Full Data Stack</title>
+<meta name="description" content="Bret Lawson — full-stack data scientist, ecommerce & retail. I model the data, build the pipeline, and ship the dashboard — turning multi-source warehouse data into decisions leaders trust.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#FAFAF7; --paper2:#F3F4F2; --card:#FFFFFF; --ink:#1A1A1A; --muted:#5B5B57;
+  --hair:#E5E2D9; --accent:#1F3A5F; --accent-2:#2C5688; --accent-soft:rgba(31,58,95,.07);
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Inter',-apple-system,'Segoe UI',sans-serif;
+  --wrap:1060px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 30px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.skip{position:absolute;left:8px;top:-44px;background:var(--accent);color:#fff;padding:8px 14px;border-radius:6px;font-weight:600;z-index:200;transition:top .2s}
+.skip:focus{top:8px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:100;background:rgba(250,250,247,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+.nav-in{max-width:var(--wrap);margin:0 auto;padding:15px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.nav-name{font-family:var(--serif);font-weight:600;font-size:1.05rem;letter-spacing:-.2px}
+.nav-links{display:flex;gap:24px;align-items:center;list-style:none;font-size:.9rem}
+.nav-links a{color:var(--muted);position:relative;padding:2px 0;transition:color .15s}
+.nav-links a:hover,.nav-links a.active{color:var(--ink)}
+.nav-links a.active::after{content:'';position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--accent)}
+.nav-cta{color:var(--accent)!important;font-weight:600}
+.nav-toggle{display:none;background:none;border:0;font-size:1.3rem;cursor:pointer;color:var(--ink)}
+
+/* hero */
+.hero{padding:84px 0 70px}
+.hero-grid{display:grid;grid-template-columns:1fr 210px;gap:52px;align-items:center;max-width:940px;margin:0 auto}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.6rem,6vw,3.7rem);letter-spacing:-1.2px;line-height:1;margin:12px 0 0}
+.hero .lead{font-family:var(--serif);font-weight:400;font-size:clamp(1.25rem,2.6vw,1.7rem);font-style:italic;color:var(--accent);margin-top:20px;line-height:1.3;max-width:28ch}
+.hero .intro{font-size:1.05rem;color:#3c3a34;margin-top:22px;max-width:54ch;line-height:1.7}
+.hero .links{display:flex;gap:10px;margin-top:30px;flex-wrap:wrap}
+.hero .links a{font-size:.9rem;font-weight:500;padding:9px 16px;border:1px solid var(--hair);border-radius:8px;transition:.16s;background:#fff}
+.hero .links a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.hero .links a.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.hero .links a.primary:hover{background:var(--accent-2);color:#fff}
+.hero-photo{width:210px;height:248px;object-fit:cover;border-radius:12px;border:1px solid var(--hair);filter:grayscale(.1) contrast(1.02)}
+
+/* section */
+.sec{padding:46px 0;border-top:1px solid var(--hair)}
+.sec-head{display:flex;align-items:baseline;gap:14px}
+.sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.45rem,3vw,1.9rem);letter-spacing:-.4px}
+.sec-head .idx{font-size:.78rem;color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums}
+.sec-note{font-size:.94rem;color:var(--muted);margin-top:10px;max-width:66ch}
+
+/* case-study cards */
+.case{display:grid;grid-template-columns:300px 1fr;margin-top:20px;border:1px solid var(--hair);border-radius:14px;overflow:hidden;background:var(--card);transition:box-shadow .2s,border-color .2s,transform .2s;color:inherit}
+.case:hover{box-shadow:0 14px 36px rgba(26,26,26,.09);border-color:#d6d2c5;transform:translateY(-2px)}
+.case:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.case-vis{background:#fff;border-right:1px solid var(--hair);display:flex;align-items:center;justify-content:center;padding:18px}
+.case-vis svg{width:100%;height:auto;max-height:150px}
+.case-txt{padding:24px 28px}
+.case-txt .cq{font-size:.76rem;color:var(--muted);font-weight:600;letter-spacing:.02em}
+.case-txt h3{font-family:var(--serif);font-weight:600;font-size:1.35rem;letter-spacing:-.4px;margin-top:7px;line-height:1.2}
+.case-txt .cco{font-size:.95rem;color:#3c3a34;margin-top:11px;line-height:1.6;max-width:62ch}
+.case-txt .cmeta{font-size:.74rem;color:var(--muted);margin-top:15px;padding-top:12px;border-top:1px solid var(--hair)}
+.case-txt .cmeta b{color:var(--accent);font-weight:600}
+/* secondary row */
+.also{margin-top:30px;border-top:1px solid var(--hair);padding-top:18px}
+.also .al{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.also ul{list-style:none;margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.also li{font-size:.92rem;color:#3c3a34}
+.also li b{font-weight:600;color:var(--ink)}
+.also li a{color:var(--accent);border-bottom:1.5px solid rgba(31,58,95,.3);padding-bottom:1px;transition:color .15s,border-color .15s}
+.also li a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
+.also li a::after{content:' →';font-weight:600}
+.also li .sep{color:var(--muted);margin:0 6px}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1fr 258px;gap:46px;align-items:start;margin-top:22px}
+.about-prose p{font-size:1.06rem;color:#34322c;margin-bottom:16px;line-height:1.72}
+.about-prose p:last-child{margin-bottom:0}
+.about strong{color:var(--ink);font-weight:600}
+.about-side{border:1px solid var(--hair);border-radius:12px;padding:6px 20px 8px;background:#fff}
+.asg-row{display:flex;flex-direction:column;gap:2px;padding:12px 0;border-top:1px solid var(--hair)}
+.asg-row:first-child{border-top:0}
+.asg-k{font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.asg-v{font-size:.92rem;color:var(--ink);line-height:1.4}
+
+/* experience */
+.xp{margin-top:24px}
+.role{padding:22px 0;border-top:1px solid var(--hair)}
+.role:first-child{border-top:0;padding-top:6px}
+.role-h{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline}
+.role-t{font-weight:600;font-size:1.05rem}
+.role-o{color:var(--muted);font-size:.92rem;margin-top:2px}
+.role-d{color:var(--muted);font-size:.84rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.role .award{color:var(--accent);font-weight:600}
+.role ul{margin:12px 0 0;padding-left:0;list-style:none}
+.role li{position:relative;padding-left:18px;font-size:.92rem;color:#46443c;margin-bottom:6px;line-height:1.55;max-width:80ch}
+.role li::before{content:'';position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.55}
+
+/* skills */
+.skills{margin-top:22px;display:flex;flex-direction:column;gap:0}
+.skline{display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:baseline;padding:13px 0;border-top:1px solid var(--hair)}
+.skline:first-child{border-top:0}
+.skline .k{font-size:.74rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.skline .v{font-size:.94rem;color:#3a382f}
+.skline .v b{color:var(--accent);font-weight:600}
+
+/* contact */
+.contact{padding:64px 0 80px;border-top:1px solid var(--hair)}
+.contact .idx{font-size:.78rem;color:var(--accent);font-weight:600}
+.contact h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,3.6vw,2.4rem);letter-spacing:-.6px;margin-top:8px;max-width:20ch}
+.contact p{color:#3c3a34;margin-top:16px;max-width:58ch;font-size:1.05rem;line-height:1.7}
+.contact .links{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+.contact .links a{font-size:.92rem;font-weight:500;padding:11px 18px;border:1px solid var(--hair);border-radius:8px;background:#fff;transition:.16s}
+.contact .links a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.contact .links a.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.contact .links a.primary:hover{background:var(--accent-2);color:#fff}
+.foot{margin-top:50px;font-size:.8rem;color:var(--muted)}
+
+.mockbanner{background:#f1efe8;color:var(--muted);text-align:center;font-size:.78rem;padding:7px 16px;border-bottom:1px solid var(--hair)}
+.reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:840px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-photo{order:-1;width:128px;height:152px}
+  .case{grid-template-columns:1fr}
+  .case-vis{border-right:0;border-bottom:1px solid var(--hair)}
+  .about-grid{grid-template-columns:1fr;gap:26px}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--hair);padding:8px 0}
+  .nav-links.show{display:flex}.nav-links li{padding:11px 30px}
+  .nav-toggle{display:block}
+  .skline{grid-template-columns:1fr;gap:4px}
+}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}*{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+<div class="mockbanner">Redesign mockup v5 · selected work now links to case studies mined from real projects (figures disguised) · not the live site</div>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a href="#top" class="nav-name">Bret Lawson</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact" class="nav-cta">Hire me</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Data Scientist · Full Data Stack · Ecommerce &amp; Retail</div>
+      <h1>Bret Lawson</h1>
+      <p class="lead">I connect the whole warehouse into one interactive view — and surface the question leadership should be asking next.</p>
+      <p class="intro">A full-stack data scientist with twenty years in retail: I model the data, build the pipeline, and ship the dashboard myself — turning scattered, multi-source data into decisions leaders trust, in a fraction of the time and cost of a typical BI build.</p>
+      <div class="links">
+        <a href="#work" class="primary">See the work</a>
+        <a href="../BretLawson_Resume.pdf">Résumé</a>
+        <a href="https://linkedin.com/in/bretlawson" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:bretalawson@gmail.com">Email</a>
+      </div>
+    </div>
+    <img class="hero-photo" src="../bret_lawson.jpg" alt="Bret Lawson">
+  </div>
+</header>
+
+<!-- WORK -->
+<section class="sec" id="work">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">01</span><h2>Selected work</h2></div>
+    <p class="sec-note">Three systems from the last year, told as short case studies — the data layer, the deepest analysis that ran on it, and the delivery layer that carries answers into the weekly cadence. Chart shapes are real; scales are disguised.</p>
+
+    <!-- 1: organic decline decomposition -->
+    <a class="case" href="organic-decline.html">
+      <div class="case-vis" aria-hidden="true">
+        <!-- real shape: the case study's hero waterfall — baseline 100 → 77, seven bands, axis broken at 70 -->
+        <svg viewBox="0 0 300 150"><rect width="300" height="150" fill="#fff"/>
+          <line x1="14" y1="126" x2="294" y2="126" stroke="#E5E2D9"/>
+          <rect x="20"  y="30.7"  width="24" height="95.3" fill="#1A1A1A"/>
+          <rect x="51"  y="30.7"  width="24" height="22.6" fill="#7a1e2b"/>
+          <rect x="82"  y="53.3"  width="24" height="17.4" fill="#b3341f" opacity=".85"/>
+          <rect x="113" y="70.7"  width="24" height="14"   fill="#b3341f" opacity=".7"/>
+          <rect x="144" y="84.7"  width="24" height="10.2" fill="#b3341f" opacity=".55"/>
+          <rect x="175" y="94.9"  width="24" height="5.1"  fill="#bdb9ad"/>
+          <rect x="206" y="99.9"  width="24" height="3.2"  fill="#bdb9ad"/>
+          <rect x="237" y="103.1" width="24" height="1.5"  fill="#1F3A5F"/>
+          <rect x="268" y="103.8" width="24" height="22.2" fill="#1A1A1A"/>
+          <circle cx="249" cy="103.8" r="11" fill="none" stroke="#1F3A5F" stroke-width="1.6" stroke-dasharray="3 2.5"/>
+          <text x="249" y="88" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="10" fill="#1F3A5F">rank</text>
+        </svg>
+      </div>
+      <div class="case-txt">
+        <div class="cq">Organic traffic fell by nearly a quarter. Was SEO failing — or was AI eating search?</div>
+        <h3>Everyone blamed rankings. Rankings were one percent of it.</h3>
+        <p class="cco">Seven measured causes that sum exactly to the observed loss — and the cause the org was organized around turned out to be the smallest. The head term held #1 the whole time; the click was being intercepted before it reached the blue links.</p>
+        <div class="cmeta"><b>Read the case study →</b> · index decomposition · falsification tests · changed 3 decisions</div>
+      </div>
+    </a>
+
+    <!-- 2: ecom mart -->
+    <a class="case" href="ecomm-mart.html">
+      <div class="case-vis" aria-hidden="true">
+        <!-- real topology: the case study's lineage hero — 9 sources → staging → mart → 4 consumers -->
+        <svg viewBox="0 0 300 150"><rect width="300" height="150" fill="#fff"/>
+          <g fill="#fff" stroke="#bdb9ad">
+            <rect x="16" y="10.0"  width="52" height="9" rx="2"/>
+            <rect x="16" y="24.8"  width="52" height="9" rx="2"/>
+            <rect x="16" y="39.6"  width="52" height="9" rx="2"/>
+            <rect x="16" y="54.4"  width="52" height="9" rx="2"/>
+            <rect x="16" y="69.2"  width="52" height="9" rx="2"/>
+            <rect x="16" y="84.0"  width="52" height="9" rx="2"/>
+            <rect x="16" y="98.8"  width="52" height="9" rx="2"/>
+            <rect x="16" y="113.6" width="52" height="9" rx="2"/>
+            <rect x="16" y="128.4" width="52" height="9" rx="2" stroke-dasharray="3 2.5"/>
+          </g>
+          <g stroke="#c9c5b8" fill="none" stroke-width=".9">
+            <path d="M68 14.5 C 84 14.5, 86 52, 100 56"/>
+            <path d="M68 29.3 C 84 29.3, 86 58, 100 62"/>
+            <path d="M68 44.1 C 84 44.1, 86 65, 100 68"/>
+            <path d="M68 58.9 C 84 58.9, 86 72, 100 73"/>
+            <path d="M68 73.7 C 84 73.7, 86 78, 100 78"/>
+            <path d="M68 88.5 C 84 88.5, 86 84, 100 83"/>
+            <path d="M68 103.3 C 84 103.3, 86 90, 100 88"/>
+            <path d="M68 118.1 C 84 118.1, 86 96, 100 93"/>
+            <path d="M68 132.9 C 84 132.9, 86 102, 100 98"/>
+          </g>
+          <rect x="100" y="45" width="56" height="60" rx="5" fill="#fff" stroke="#9a968c"/>
+          <g stroke="#bdb9ad"><line x1="110" y1="60" x2="146" y2="60"/><line x1="110" y1="71" x2="146" y2="71"/><line x1="110" y1="82" x2="140" y2="82"/><line x1="110" y1="93" x2="143" y2="93"/></g>
+          <path d="M156 75 L 176 75" stroke="#9a968c" stroke-width="1.6"/>
+          <path d="M172 71 L 178 75 L 172 79" fill="none" stroke="#9a968c" stroke-width="1.6"/>
+          <rect x="180" y="55" width="56" height="40" rx="5" fill="#fff" stroke="#1F3A5F" stroke-width="2"/>
+          <g stroke="#1F3A5F"><line x1="190" y1="68" x2="226" y2="68" opacity=".55"/><line x1="190" y1="77" x2="226" y2="77" opacity=".35"/><line x1="190" y1="86" x2="218" y2="86" opacity=".35"/></g>
+          <g stroke="#9a968c" fill="none" stroke-width=".9">
+            <path d="M236 66 C 248 66, 250 28, 260 28"/>
+            <path d="M236 72 C 248 72, 250 62, 260 62"/>
+            <path d="M236 78 C 248 78, 250 96, 260 96"/>
+            <path d="M236 84 C 248 84, 250 130, 260 130"/>
+          </g>
+          <g fill="#fff" stroke="#bdb9ad">
+            <rect x="260" y="20"  width="32" height="16" rx="2"/>
+            <rect x="260" y="54"  width="32" height="16" rx="2"/>
+            <rect x="260" y="88"  width="32" height="16" rx="2"/>
+            <rect x="260" y="122" width="32" height="16" rx="2"/>
+          </g>
+        </svg>
+      </div>
+      <div class="case-txt">
+        <div class="cq">Eight sources, one hand-updated workbook as referee, and meetings that started with “whose number is right?”</div>
+        <h3>The source of truth was a 40-tab spreadsheet.</h3>
+        <p class="cco">A governed daily mart — one row per day, ~130 documented metrics — that reconciles to finance within dollars. The surprise: it earns its keep as an alarm system, catching broken feeds before they reach a deck.</p>
+        <div class="cmeta"><b>Read the case study →</b> · dbt + BigQuery · reconciled to finance · 25+ consumers</div>
+      </div>
+    </a>
+
+    <!-- 3: dashboard suite -->
+    <a class="case" href="dashboard-suite.html">
+      <div class="case-vis" aria-hidden="true">
+        <!-- real shape: the replica's 8-effect LMDI waterfall at its default view ($99.29M → $103.03M), house colors -->
+        <svg viewBox="0 0 300 150"><rect width="300" height="150" fill="#fff"/>
+          <line x1="8" y1="132" x2="294" y2="132" stroke="#E5E2D9"/>
+          <rect x="14"  y="86.7"  width="22" height="45.3" fill="#c2620a" opacity=".85"/>
+          <rect x="43"  y="19.2"  width="22" height="67.4" fill="#15803d"/>
+          <rect x="72"  y="19.2"  width="22" height="90.9" fill="#b91c1c"/>
+          <rect x="101" y="110.1" width="22" height="5.8"  fill="#b91c1c"/>
+          <rect x="130" y="108.9" width="22" height="7"    fill="#15803d"/>
+          <rect x="159" y="95.6"  width="22" height="13.3" fill="#15803d"/>
+          <rect x="188" y="95.6"  width="22" height="1.9"  fill="#b91c1c"/>
+          <rect x="217" y="92.7"  width="22" height="4.8"  fill="#15803d"/>
+          <rect x="246" y="54.6"  width="22" height="38"   fill="#15803d"/>
+          <rect x="275" y="54.6"  width="19" height="77.4" fill="#1a5fb4"/>
+        </svg>
+      </div>
+      <div class="case-txt">
+        <div class="cq">Exec-ready views across marketing, merch, and product — without licenses, a platform queue, or a server.</div>
+        <h3>The BI stack is a folder of HTML files.</h3>
+        <p class="cco">Fifteen-plus dashboards and a one-command weekly deck, generated by Python and footed to the dollar. Includes a working interactive replica of the flagship: an eight-effect funnel decomposition that stopped a confident wrong bid increase.</p>
+        <div class="cmeta"><b>Read the case study →</b> · includes live interactive replica · design standard · footing rules</div>
+      </div>
+    </a>
+
+    <div class="also">
+      <div class="al">Also in the portfolio</div>
+      <ul>
+        <li><b><a href="forecast-explorer.html">Quarterly forecast explorer</a></b><span class="sep">·</span>drag planned spend per tactic and watch sessions and sales re-forecast live, diminishing returns built in — interactive, illustrative data.</li>
+        <li><b><a href="sku-decomposition.html">SKU sales decomposition</a></b><span class="sep">·</span>splits sales swings into launches, exits, and true like-for-like movement, and auto-flags SKUs whose conversion is quietly collapsing.</li>
+        <li><b><a href="propensity-signals.html">Purchase-propensity signals</a></b><span class="sep">·</span>per-channel models for on-site personalization — including the feature that turned out to be 90% data leakage, caught before deployment.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec about" id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">02</span><h2>About</h2></div>
+    <div class="about-grid">
+      <div class="about-prose">
+        <p>I'm a full-stack data scientist with twenty years in ecommerce and retail. I spent a decade building and running my own ecommerce company before moving into enterprise analytics — which is why I think in <strong>P&amp;L terms first and dashboards second</strong>.</p>
+        <p>At a nine-figure national retailer I built the ecommerce analytics practice from the ground up: the warehouse modeling, the forecasts leadership plans against, and the attribution that ties marketing spend to real store revenue. I work the whole stack, from the data model to the number on the slide.</p>
+        <p>What I do best is take data nobody else can connect and turn it into an <strong>interactive view that answers the question on the table — and the one no one had thought to ask yet</strong>. Lately that runs through an agentic-AI workflow that compresses weeks of analysis into days. The thing I care about most is whether an answer survives the follow-up question in the room.</p>
+      </div>
+      <aside class="about-side" aria-label="At a glance">
+        <div class="asg-row"><span class="asg-k">Experience</span><span class="asg-v">20 years · ecommerce &amp; retail</span></div>
+        <div class="asg-row"><span class="asg-k">Currently</span><span class="asg-v">Sr. Manager, Digital Analytics</span></div>
+        <div class="asg-row"><span class="asg-k">Based in</span><span class="asg-v">Houston, TX</span></div>
+        <div class="asg-row"><span class="asg-k">Methods</span><span class="asg-v">Causal inference · forecasting · ML/propensity · attribution</span></div>
+        <div class="asg-row"><span class="asg-k">Stack</span><span class="asg-v">dbt · BigQuery · Python · R · SQL</span></div>
+        <div class="asg-row"><span class="asg-k">Also</span><span class="asg-v">Founder → enterprise · agentic-AI workflow</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="sec" id="experience">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">03</span><h2>Experience</h2></div>
+    <div class="xp">
+      <div class="role">
+        <div class="role-h"><div><div class="role-t">Senior Manager, Digital Analytics</div><div class="role-o">Mattress Firm · Houston, TX</div></div><div class="role-d">2020 – Present</div></div>
+        <ul>
+          <li>Built the ecommerce analytics practice from zero for a nine-figure business — a dbt semantic layer on BigQuery unifying ERP, ecommerce, marketing, and behavioral data into a governed single source of truth.</li>
+          <li>Designed and shipped executive dashboards in Streamlit, R Shiny, Looker Studio, and custom HTML — built for adoption, not just delivery.</li>
+          <li>Delivered revenue and KPI forecasts at ±5% accuracy used for budget allocation; made A/B testing and marketing holdouts the organizational standard.</li>
+          <li>Architected online-to-offline attribution linking digital marketing spend to in-store transactions, complementing media-mix modeling with transaction-level precision.</li>
+          <li>Integrated Claude Code and MCP data connectors into the analytics workflow, cutting build time roughly 68% while keeping analysis auditable.</li>
+        </ul>
+      </div>
+      <div class="role">
+        <div class="role-h"><div><div class="role-t">Director, Customer Engagement &amp; Digital Analytics</div><div class="role-o">Stage Stores · Houston, TX · <span class="award">Omni-Channel Associate of the Year, 2018</span></div></div><div class="role-d">2016 – 2020</div></div>
+        <ul>
+          <li>Led omnichannel analytics for an 800+ location national retailer; promoted from Digital Analytics Manager in 2019.</li>
+          <li>Built cross-channel attribution integrating online and offline touchpoints to guide budget allocation and reduce customer acquisition cost.</li>
+          <li>Deployed an Adobe Advertising DSP framework with geospatial targeting, delivering a 30%+ improvement in campaign efficiency.</li>
+          <li>Established the KPI framework connecting web analytics to store foot traffic for executive visibility.</li>
+        </ul>
+      </div>
+      <div class="role">
+        <div class="role-h"><div><div class="role-t">Digital Project Lead</div><div class="role-o">Hisco, Inc. · Houston, TX</div></div><div class="role-d">2013 – 2016</div></div>
+        <ul>
+          <li>Launched a 400,000+ SKU ecommerce platform in 14 months, hitting top-of-industry conversion benchmarks.</li>
+          <li>Led cross-functional teams of 20+ across development, merchandising, and operations; integrated catalog, inventory, and payment systems.</li>
+        </ul>
+      </div>
+      <div class="role">
+        <div class="role-h"><div><div class="role-t">Founder &amp; Owner</div><div class="role-o">VectorTec · Spring, TX</div></div><div class="role-d">2003 – 2013</div></div>
+        <ul>
+          <li>Built a specialty ecommerce retailer to $2M+ revenue and #3 nationally in its category.</li>
+          <li>Personally engineered a 100% automated order, fulfillment, and reporting system end-to-end, and applied early analytics to pricing, acquisition, and inventory.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="sec" id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">04</span><h2>Skills &amp; stack</h2></div>
+    <p class="sec-note">Tools are table stakes — kept brief on purpose.</p>
+    <div class="skills">
+      <div class="skline"><div class="k">Warehouse &amp; pipelines</div><div class="v">dbt · BigQuery · SQL · semantic-layer / dimensional modeling · scheduled, self-healing pipelines · REST-API ingestion</div></div>
+      <div class="skline"><div class="k">Methods</div><div class="v">decomposition (index / LMDI, waterfalls) · forecasting &amp; elasticity · causal inference (diff-in-diff, geo holdouts, falsification testing) · propensity modeling · attribution (digital + online-to-offline) · A&#47;B &amp; holdouts</div></div>
+      <div class="skline"><div class="k">Languages</div><div class="v">Python · SQL · R · JavaScript (client-side data apps)</div></div>
+      <div class="skline"><div class="k">Analytics &amp; sources</div><div class="v">Adobe Analytics (CJA) · Contentsquare · Tealium · Google Search Console · Conductor · SimilarWeb · Google Ads · Google Analytics</div></div>
+      <div class="skline"><div class="k">Delivery</div><div class="v">self-contained HTML dashboards (Python-generated, no BI server) · automated exec decks via headless Chrome · Looker Studio · Tableau</div></div>
+      <div class="skline"><div class="k">Agentic AI</div><div class="v"><b>Claude Code</b> as the daily analytical workflow · <b>MCP data connectors</b> (Conductor · SimilarWeb · Contentsquare) · LLM-assisted analysis kept auditable</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / HIRE -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="idx">05</span>
+    <h2>Available for senior analytics leadership roles.</h2>
+    <p>If you're building an analytics function that has to turn data into decisions leadership trusts — that's the work I do best. Bring me the messy, multi-source problem nobody's been able to answer.</p>
+    <div class="links">
+      <a href="mailto:bretalawson@gmail.com" class="primary">bretalawson@gmail.com</a>
+      <a href="tel:+18324037762">832.403.7762</a>
+      <a href="https://linkedin.com/in/bretlawson" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../BretLawson_Resume.pdf">Résumé (PDF)</a>
+    </div>
+    <div class="foot">© 2026 Bret Lawson · Senior Analytics Leader · Houston, TX</div>
+  </div>
+</section>
+
+</main>
+
+<script>
+const navToggle=document.getElementById('navToggle'),navLinks=document.getElementById('navLinks');
+navToggle.onclick=()=>navLinks.classList.toggle('show');
+navLinks.querySelectorAll('a').forEach(a=>a.onclick=()=>navLinks.classList.remove('show'));
+
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  document.querySelectorAll('.case,.role,.skline,.about p').forEach(el=>el.classList.add('reveal'));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}
+const map={};document.querySelectorAll('.nav-links a[href^="#"]').forEach(a=>map[a.getAttribute('href').slice(1)]=a);
+const nio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){Object.values(map).forEach(a=>a.classList.remove('active'));(map[e.target.id]||{}).classList?.add('active');}}),{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('section[id],header[id]').forEach(s=>nio.observe(s));
+
+</script>
+</body>
+</html>

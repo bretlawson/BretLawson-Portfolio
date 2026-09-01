@@ -1,5 +1,2 @@
 # Local Claude Code tooling state (permission grants reference private repo paths)
 .claude/
-
-# Redesign working drafts (published pages live at repo root)
-redesign/
