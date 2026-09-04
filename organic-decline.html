@@ -3,27 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<title>Organic search traffic fell by a quarter. Rankings explained under 1% of it · Bret Lawson</title>
+<meta name="description" content="Case study: a 25% organic search decline decomposed into seven measured causes that add up exactly to the loss. Store listings, category demand, and AI Overviews did the damage. Blue-link rank explained under 1%.">
+<meta name="author" content="Bret Lawson">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.bretlawson.com/organic-decline.html">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.bretlawson.com/organic-decline.html">
-<meta property="og:title" content="Rankings were one percent of it · Bret Lawson">
-<meta property="og:description" content="Case study: decomposing a ~25% organic-traffic decline. Everyone blamed rankings; a factor decomposition put blue-link rank at under 1% of the loss.">
+<meta property="og:title" content="Organic search traffic fell by a quarter. Rankings explained under 1% of it · Bret Lawson">
+<meta property="og:description" content="A 25% organic search decline decomposed into seven measured causes that add up exactly to the loss. Store listings, category demand, and AI Overviews did the damage. Blue-link rank explained under 1%.">
 <meta property="og:image" content="https://www.bretlawson.com/bret_lawson-960.jpg">
 <meta property="og:site_name" content="Bret Lawson">
 <meta name="twitter:card" content="summary">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DN2PPZNDRJ"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DN2PPZNDRJ',{'send_page_view':true,'anonymize_ip':true});</script>
-<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vdqbyh8fhw");</script>
-<title>Rankings were one percent of it · Bret Lawson</title>
-<meta name="description" content="Case study: decomposing a ~25% organic-traffic decline. Everyone blamed rankings; a factor decomposition put blue-link rank at under 1% of the loss.">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DN2PPZNDRJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DN2PPZNDRJ',{'send_page_view':true,'anonymize_ip':true});</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vdqbyh8fhw");</script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -58,11 +59,20 @@ p b{color:var(--ink)}
 .chartbox{position:relative;height:340px}
 .chartbox.sm{height:250px}
 .fig .cap{font-size:.82rem;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px solid var(--hair);line-height:1.55}
+.tscroll{overflow-x:auto}
+table.mods{border-collapse:collapse;font-size:.82rem;width:100%;min-width:640px}
+table.mods th{font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--hair);text-align:right;white-space:nowrap}
+table.mods th.l,table.mods td.l{text-align:left}
+table.mods th.grp{text-align:center;border-bottom:0;padding-bottom:0;color:var(--ink)}
+table.mods td{padding:6px 8px;border-bottom:1px solid #f0eee7;text-align:right;font-variant-numeric:tabular-nums;color:#2e2c27}
+table.mods td.we{color:var(--muted);border-right:1px solid #f0eee7}
+table.mods tr.hi td{background:#fbf6ee}
+table.mods tr.hi td.l{font-weight:600;color:var(--ink)}
 .pull{font-family:var(--serif);font-size:1.3rem;line-height:1.45;color:var(--ink);border-left:3px solid var(--ox);padding:6px 0 6px 22px;margin:30px 0}
 details.tech{margin:44px 0 0;border:1px solid var(--hair);border-radius:12px;background:var(--card)}
 details.tech summary{cursor:pointer;padding:16px 22px;font-weight:600;font-size:.95rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
 details.tech summary::after{content:'+';font-family:var(--serif);font-size:1.3rem;color:var(--muted)}
-details.tech[open] summary::after{content:'−'}
+details.tech[open] summary::after{content:'\2212'}
 details.tech .tin{padding:4px 22px 20px;font-size:.92rem;color:#3a382f}
 details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 .datanote{margin:40px 0 70px;font-size:.83rem;color:var(--muted);border-top:1px solid var(--hair);padding-top:18px;max-width:700px}
@@ -73,19 +83,19 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 <body>
 
 <nav class="bar"><div class="bar-in">
-  <a href="index.html" class="name" style="color:var(--ink)">← Bret Lawson</a>
-  <span><a href="index.html#work">All work</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="mailto:bretalawson@gmail.com">Email</a></span>
+  <a href="index.html" class="name" style="color:var(--ink)">&larr; Bret Lawson</a>
+  <span><a href="index.html#work">All work</a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;<a href="mailto:bretalawson@gmail.com">Email</a></span>
 </div></nav>
 
 <header class="head wrap">
-  <div class="eyebrow">Case study · Search &amp; demand decomposition</div>
-  <h1>Everyone blamed rankings. Rankings were one percent of it.</h1>
-  <p class="stand">Organic traffic fell about a quarter in a year. Seven causes, measured, summing exactly to the loss. Rank, the thing the whole org was organized around, was under 1% of it.</p>
+  <div class="eyebrow">Case study &middot; Organic search decomposition</div>
+  <h1>Organic search traffic fell by a quarter. Rankings explained under 1% of it.</h1>
+  <p class="stand">Seven measured causes that add up exactly to the loss. Store listings and lower category demand did most of the damage, AI Overviews took a fifth, and blue-link rank, the thing the whole org was organized around, was 0.7%.</p>
   <div class="meta">
-    <div><b>When</b>2026 · ~10 weeks</div>
+    <div><b>When</b>2026 &middot; ~10 weeks, then a monthly refresh</div>
     <div><b>Role</b>Sole analyst, method &amp; delivery</div>
-    <div><b>Data</b>Search console · 5,000-keyword rank panel · session analytics · auction data</div>
-    <div><b>Methods</b>Index (LMDI) decomposition · difference-in-differences · falsification tests</div>
+    <div><b>Data</b>Session analytics &middot; search console &middot; keyword rank panel &middot; ads auction data &middot; store-listing clicks</div>
+    <div><b>Methods</b>Index (LMDI) decomposition &middot; difference-in-differences &middot; falsification tests</div>
   </div>
 </header>
 
@@ -93,51 +103,80 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 <div class="prose">
   <h2>The problem</h2>
   <p>Brand-term organic clicks down nearly half year over year while reported average position went up. Two stories were already running: SEO is failing, and AI is eating search. Each came with an expensive fix. Organic search was a third of traffic and two-thirds of attributed ecommerce revenue, an eight-figure exposure, so guessing was not an option.</p>
+  <p>The complication nobody had priced in: the same query now returns five different page layouts depending on intent, and the first organic result lands anywhere from 200 to 1,100 pixels down the phone screen. Rank 1 on one layout is below the fold on another.</p>
 
   <h2>The method</h2>
   <ul>
-    <li><b>Sessions are ground truth.</b> Search console, the 5,000-keyword rank panel, and ads auction data are evidence weighed against them, not the other way around.</li>
-    <li><b>Brand and non-brand decomposed separately</b> on disjoint query sets, then forced to sum back to the total. No unexplained remainder allowed.</li>
+    <li><b>Sessions are ground truth.</b> Search console, the keyword rank panel, and ads auction data are evidence weighed against them, not the other way around.</li>
+    <li><b>Seven reasons, one pool.</b> Every lost session is assigned to exactly one reason and the seven add back to the total. Each reason has its own instrument: category search volume for demand, keyword-level AI Overview exposure, blue-link rank, store-listing clicks with the Directions button as a control, page position of the best result of any type, an exact per-keyword remainder for lost clicks, and the count of pages still earning a click.</li>
     <li><b>Index decomposition, not regression.</b> A regression's intercept eats anything that hits every keyword at once, which is exactly what a layout change does. On the same variable the index recovered the full effect; the regression saw 10 to 40% of it.</li>
-    <li><b>Try to kill the answer.</b> A named algorithm update refuted on timing (our break came four weeks earlier). A difference-in-differences result computed, found confounded, withdrawn. The residual allocation tested against an independent zero-click series instead of picked by preference.</li>
+    <li><b>Try to kill the answer.</b> A named algorithm update refuted on timing. A difference-in-differences result computed, found confounded, withdrawn. Google Trends rejected as a demand instrument because it read the opposite sign of every other count. The lost-clicks band checked against an outside zero-click series: same shape, r of about 0.8, and our band reads about 0.6 times the outside level, so it is conservative, not inflated.</li>
   </ul>
 
   <h2>What it showed</h2>
 </div>
 
 <figure class="fig">
-  <div class="ft">Where the traffic actually went</div>
-  <div class="fs">Organic sessions, indexed to 100 at the prior-year baseline · seven measured causes, largest first · they sum exactly to the observed loss</div>
+  <div class="ft">Where the traffic went</div>
+  <div class="fs">Organic sessions, indexed to 100 at the prior-year baseline &middot; the seven reasons as named on the dashboard, largest first &middot; they add up exactly to the observed loss</div>
   <div class="chartbox"><canvas id="wf"></canvas></div>
-  <figcaption class="cap"><b>Blue-link rank, the thing everyone blamed, explains under 1% of the loss.</b> The real damage: searches that now end on map-pack and store surfaces instead of the website, a real category-demand decline, and clicks absorbed by AI Overviews and other zero-click behavior.</figcaption>
+  <figcaption class="cap"><b>Blue-link rank, the thing everyone blamed, is the smallest bar.</b> The damage came from searches that now end on store listings instead of the site, from fewer people searching the category, and from AI Overviews and other answers that satisfy the query on the page.</figcaption>
 </figure>
 
 <div class="prose">
   <ul>
-    <li><b>Local and store surfaces</b> took about 31% of the loss: searches that now end on the map pack instead of the site.</li>
-    <li><b>Category demand</b> about 24%. People searched for the category less.</li>
-    <li><b>AI Overview exposure</b> about 19%. Other zero-click behavior another 14%.</li>
-    <li><b>Blue-link rank</b> under 1%. The thing the whole org was organized around.</li>
+    <li><b>Local pack to store pages, about 30%.</b> Directions clicks from the map listing rose 11% year over year while sessions arriving through the listing's Website button fell 51%. The routes changed, not demand: the Website button disappeared from the pack, then came back third of five.</li>
+    <li><b>Search demand, about 24%.</b> A basket of category terms with none of our own brand in it. Fewer people searched for mattresses.</li>
+    <li><b>AI Overview exposure, about 20%.</b> On roughly 35% of non-brand impressions now versus 2% at baseline, with about a 50% click-through penalty where it shows. Two instruments agree on the exposure figure within 1.3 points.</li>
+    <li><b>Lost clicks excluding AI Overviews, about 14%.</b> Answers on the page that are not an AI Overview. The outside zero-click rate for our query mix went from 42% to 51%.</li>
+    <li><b>Reduction in pages, about 7%.</b> Pages earning at least one click went from 1,166 to 84 over four years. What went was the tail.</li>
+    <li><b>Blue-link position, about 4%.</b> Our real rank among blue links moved 6.19 to 6.23, flat. The best result of any type above us moved 4.04 to 5.21. Same rank, more stacked above it.</li>
+    <li><b>Blue-link rank, 0.7%.</b> The head brand term, one-fifth of all web clicks, held rank 1 for 17 consecutive periods while its clicks fell 46%.</li>
   </ul>
-  <p>The head term held #1 for over a year of consecutive periods while its clicks fell by half. On desktop, with no map pack and no AI Overviews ever rendering, rank stayed #1 for 25 months and clicks still fell about 60%. Position was never lost. The click was intercepted upstream.</p>
 </div>
 
 <figure class="fig">
-  <div class="ft">The alibi chart</div>
-  <div class="fs">Head brand term · blue-link rank (left, 1 = top) vs. clicks per day (right, indexed)</div>
+  <div class="ft">What appeared on the page, and how often we were in it</div>
+  <div class="fs">Share of tracked keywords where each module appeared, and where we appeared inside it &middot; three windows &middot; mobile crawls, brand and non-brand pooled &middot; figures perturbed</div>
+  <div class="tscroll">
+  <table class="mods">
+    <thead>
+      <tr><th class="l" rowspan="2">Module</th><th class="grp" colspan="2">Aug&ndash;Oct 2024</th><th class="grp" colspan="2">Aug&ndash;Oct 2025</th><th class="grp" colspan="2">May&ndash;Jul 2026</th></tr>
+      <tr><th>appeared</th><th>we appeared</th><th>appeared</th><th>we appeared</th><th>appeared</th><th>we appeared</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="l">Blue links (web results)</td><td>100%</td><td class="we">88%</td><td>100%</td><td class="we">89%</td><td>100%</td><td class="we">79%</td></tr>
+      <tr class="hi"><td class="l">Local pack (store listings)</td><td>25%</td><td class="we">12%</td><td>20%</td><td class="we">4%</td><td>36%</td><td class="we">10%</td></tr>
+      <tr><td class="l">Free product listings</td><td>69%</td><td class="we">&lt;1%</td><td>68%</td><td class="we">3%</td><td>68%</td><td class="we">&lt;1%</td></tr>
+      <tr class="hi"><td class="l">AI Overview</td><td>2%</td><td class="we">1%</td><td>17%</td><td class="we">6%</td><td>35%</td><td class="we">10%</td></tr>
+      <tr><td class="l">People Also Ask</td><td>95%</td><td class="we">7%</td><td>92%</td><td class="we">8%</td><td>30%</td><td class="we">2%</td></tr>
+      <tr><td class="l">Video</td><td>30%</td><td class="we">0%</td><td>25%</td><td class="we">0%</td><td>28%</td><td class="we">0%</td></tr>
+      <tr><td class="l">Image</td><td>31%</td><td class="we">2%</td><td>30%</td><td class="we">2%</td><td>28%</td><td class="we">1%</td></tr>
+      <tr><td class="l">Carousel</td><td>8%</td><td class="we">&lt;1%</td><td>19%</td><td class="we">1%</td><td>16%</td><td class="we">&lt;1%</td></tr>
+      <tr><td class="l">Answer box</td><td>11%</td><td class="we">&lt;1%</td><td>8%</td><td class="we">&lt;1%</td><td>2%</td><td class="we">&lt;1%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <figcaption class="cap"><b>The page changed shape; our rank did not.</b> AI Overviews went from 2% of keywords to 35%. The local pack went from a quarter of pages to over a third, and we were in it less. Presence does not mean above the fold. Our own ads were on 69% of non-brand mobile keyword-months in the latest window, above everything in this table.</figcaption>
+</figure>
+
+<figure class="fig">
+  <div class="ft">The head term: rank flat, clicks down</div>
+  <div class="fs">Head brand term &middot; blue-link rank (left, 1 = top) vs. clicks per day (right, indexed)</div>
   <div class="chartbox sm"><canvas id="alibi"></canvas></div>
-  <figcaption class="cap">Rank never moved. Clicks fell by nearly half. Whatever took the traffic, it wasn’t position, and a factor pinned to a flat line can’t explain a falling one.</figcaption>
+  <figcaption class="cap">Rank 1 for 17 straight periods. Clicks down 46%. A factor pinned to a flat line cannot explain a falling one.</figcaption>
 </figure>
 
 <div class="prose">
-  <p>The AI story failed the same test. AI Overviews never rendered on the head brand term in either year. AI-assistant referrals were 0.02% of brand organic. Industry panels showed click-through falling almost as hard on queries with no AI Overview at all. Paid cannibalization failed too: ad depth above organic was flat, and when spend was cut, organic did not move.</p>
+  <p>The AI story failed the same test on the brand side. AI Overviews never rendered on the head brand term in either year. AI-assistant referrals were 0.02% of brand organic. Paid cannibalization failed too: ad depth above organic was flat, and when spend was cut, organic did not move.</p>
   <div class="pull">The question changed from "how do we fix our rankings?" to "which surfaces still return a click, and are we the best result on those?"</div>
 
   <h2>What changed</h2>
   <ul>
     <li>Rank demoted from the headline KPI. Click-through tracked on its own.</li>
-    <li>Recovery money pointed at local and store surfaces, the shopping feed, and owned demand, not at chasing AI-search optimization.</li>
-    <li>Two dashboards built on the wrong cut of the data retired. One by-surface view replaced them.</li>
+    <li>Recovery money pointed at store listings, the shopping feed, and owned demand, not at chasing AI-search optimization.</li>
+    <li>Two dashboards built on the wrong cut of the data retired. One by-surface view replaced them and refreshes monthly.</li>
+    <li>A leader asked to see it as an ordered, rule-by-rule waterfall, the way channel-processing rules work. That view shipped two days later as a second dashboard.</li>
     <li>The exec Q&amp;A shipped with every claim tagged measured, inferred, or not established. That tagging, more than any number, is why the answer survived the room.</li>
     <li>Revenue exposure booked gross, not incremental, so nobody planned against an inflated recovery.</li>
   </ul>
@@ -146,15 +185,14 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 <details class="tech prose">
   <summary>Technical notes, for the people who will ask</summary>
   <div class="tin">
-    <p><b>Decomposition.</b> Log-mean Divisia (LMDI-I) with base-year Laspeyres weights, decomposing clicks rather than impression-weighted CTR, which double-counts mix. Causes are constrained to all-negative slices of the loss pool, each capped at its own surface’s size, summing exactly to the observed decline.</p>
-    <p><b>Why not regression.</b> A per-period cross-sectional regression identifies factors from between-keyword variation; a SERP-layout change moves all keywords together and lands in the intercept. On the same variable, the index attribution recovered roughly the full effect where the regression recovered 10–40%.</p>
-    <p><b>Bias handling.</b> Survivor-bias adjustment on AI Overview exposure (the panel only observes surviving queries), a median filter on module-presence flags to remove flicker, and deliberate haircuts on rank and module bands documented in the methodology rather than buried.</p>
-    <p><b>Falsification.</b> Timing tests against named algorithm updates; a DiD across ~5,000 keywords on a rank-flip event, computed and withdrawn when confounded; residual allocation validated against an independent zero-click series (the alternative overshot it 1.6× and halved shape correlation).</p>
-    <p><b>Stack.</b> Python; search console + enterprise rank panel + session analytics + ads auction data, cross-validated; ~160 commits over ten weeks.</p>
+    <p><b>Decomposition.</b> Log-mean Divisia (LMDI-I) with base-year weights, decomposing sessions against a period-matched prior-year baseline over 22 fiscal periods. Reasons are all-negative slices of the loss pool, each bounded by the size of its own surface; any remainder is proportioned across the seven by magnitude (median factor 1.01). The chart build asserts that baseline, sessions, and change reproduce the pool exactly, and fails otherwise.</p>
+    <p><b>Instruments.</b> Demand: a basket of category terms, chained across a rank-tool baseline change, weighted to the non-brand share of the pool. AI Overviews: keyword-level exposure times a click-through penalty fitted inside the same keywords (~400 keyword-months). Rank: elasticity fitted on the same keywords and confirmed by a 48-configuration grid landing on the same value. Local pack: the Website button's yield measured against Directions, the one action present in all 29 observed pack layouts. Lost clicks: the exact per-keyword remainder after demand, rank, and position.</p>
+    <p><b>Validation.</b> Two independent counts of web traffic agree within 4% in each of three years. Two instruments agree on AI Overview exposure (36.6% vs 35.3%). An outside zero-click series matches the lost-clicks band in shape (r about 0.8) and reads above it, not below. Folding the whole remainder into lost clicks would overshoot that series 1.6 times and drop the correlation to 0.4, which is why it is not done.</p>
+    <p><b>Why brand and non-brand are not split.</b> The split is a landing-page rule wearing an intent name: a third of brand searches land on non-brand pages, and up to 37% of clicks on brand-labelled pages come from commercial searches. The model works by surface instead.</p>
   </div>
 </details>
 
-<p class="next prose">Next in this portfolio: <a href="index.html#work">the semantic layer this analysis stood on</a>, and the dashboard suite that carries results like this one into the weekly operating cadence.</p>
+<p class="next prose">Next in this portfolio: <a href="ecomm-mart.html">the semantic layer this analysis stood on</a>, <a href="dashboard-suite.html">the dashboard suite</a>, and <a href="brand-search.html">the brand-search budget question</a>. Or back to <a href="index.html#work">all work</a>.</p>
 
 <div class="datanote">Chart shapes and the decomposition structure are real; scales are indexed and figures perturbed. The employer, query terms, and vendor names are generalized. The methods, the reversals, and the decisions are real.</div>
 </main>
@@ -163,17 +201,17 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 "use strict";
 const INK='#1A1A1A', ACC='#1F3A5F', OX='#7a1e2b', RED='#b3341f', MUT='#bdb9ad';
 
-// ---- waterfall: indexed 100 -> 77, seven bands (perturbed/illustrative scales) ----
+// waterfall: indexed 100 -> 76, seven reasons in dashboard order of size (perturbed/illustrative scales)
 const steps=[
-  {label:['Baseline','(prior yr)'], v:[0,100], total:100, c:INK},
-  {label:['Local & store','interception'], v:[92.9,100], d:-7.1, c:OX},
-  {label:['Category','demand'],     v:[87.4,92.9], d:-5.5, c:RED},
-  {label:['AI Overview','exposure'],v:[83.0,87.4], d:-4.4, c:RED},
-  {label:['Zero-click','(ex-AIO)'], v:[79.8,83.0], d:-3.2, c:RED},
-  {label:['Page-estate','decay'],   v:[78.2,79.8], d:-1.6, c:MUT},
-  {label:['SERP','crowding'],       v:[77.2,78.2], d:-1.0, c:MUT},
-  {label:['Blue-link','rank'],      v:[77.0,77.2], d:-0.2, c:ACC},
-  {label:['Current','year'],        v:[0,77.0], total:77, c:INK},
+  {label:['Baseline','(prior yr)'],        v:[0,100],      total:100, c:INK},
+  {label:['Local pack to','store pages'],  v:[92.7,100],   d:-7.3, c:OX},
+  {label:['Search demand','(category MSV)'],v:[86.9,92.7], d:-5.8, c:RED},
+  {label:['AI Overview','exposure'],       v:[82.1,86.9],  d:-4.8, c:RED},
+  {label:['Lost clicks','(excl. AIO)'],    v:[78.7,82.1],  d:-3.4, c:RED},
+  {label:['Reduction','in pages'],         v:[77.1,78.7],  d:-1.6, c:MUT},
+  {label:['Blue-link','position'],         v:[76.2,77.1],  d:-0.9, c:MUT},
+  {label:['Blue-link','rank'],             v:[76.0,76.2],  d:-0.2, c:ACC},
+  {label:['Current'],                      v:[0,76.0],     total:76, c:INK},
 ];
 const wfLabels={ id:'wfl', afterDatasetsDraw(ch){
   const {ctx}=ch, m=ch.getDatasetMeta(0);
@@ -182,7 +220,7 @@ const wfLabels={ id:'wfl', afterDatasetsDraw(ch){
     ctx.fillStyle = s.total!=null ? INK : (s.c===ACC?ACC:'#8a2f1e');
     ctx.fillText(s.total!=null ? s.total : s.d.toFixed(1), bar.x, top-6);
     if(s.c===ACC && s.total==null){ ctx.font='italic 600 10.5px Inter, sans-serif'; ctx.fillStyle=ACC;
-      ctx.fillText('← what everyone blamed', bar.x-8, top-22); ctx.font='600 11.5px Inter, sans-serif'; }
+      ctx.fillText('what everyone blamed', bar.x-8, top-22); ctx.font='600 11.5px Inter, sans-serif'; }
   });
   ctx.restore();
 }};
@@ -195,11 +233,11 @@ new Chart(document.getElementById('wf'),{ type:'bar',
   plugins:[wfLabels]
 });
 
-// ---- alibi chart: rank flat at 1, clicks indexed falling ~-46% (deterministic synthetic shape) ----
+// head term: rank flat at 1, clicks indexed falling ~46% (deterministic synthetic shape)
 const P=24, labels=[], rank=[], clicks=[];
 for(let i=0;i<P;i++){ labels.push('P'+(i+1)); rank.push(1);
-  const base=100*Math.pow(0.972,i);                       // steady erosion
-  const wig=4.5*Math.sin(i*1.7)+2.5*Math.sin(i*0.55);      // seasonal noise
+  const base=100*Math.pow(0.972,i);
+  const wig=4.5*Math.sin(i*1.7)+2.5*Math.sin(i*0.55);
   clicks.push(Math.max(50,Math.round(base+(i>3?wig:wig*0.4))));
 }
 clicks[P-1]=54;
