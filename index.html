@@ -166,6 +166,18 @@ a{color:inherit;text-decoration:none}
 .sec-head .idx{font-size:.78rem;color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums}
 .sec-note{font-size:.94rem;color:var(--muted);margin-top:10px;max-width:66ch}
 
+/* featured tool beside the section intro */
+.lead-row{display:grid;grid-template-columns:1fr 1.45fr;gap:26px;align-items:start;margin-top:12px}
+.lead-row .sec-note{margin-top:4px}
+.feat{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:14px;overflow:hidden;background:var(--card);color:inherit;transition:box-shadow .2s,border-color .2s,transform .2s}
+.feat:hover{box-shadow:0 14px 36px rgba(26,26,26,.09);border-color:#d6d2c5;transform:translateY(-2px);text-decoration:none}
+.feat img{width:100%;display:block;border-bottom:1px solid var(--hair);aspect-ratio:1180/917;object-fit:cover}
+.feat-txt{padding:16px 20px 18px}
+.feat-txt .cq{font-size:.72rem;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.feat-txt h3{font-family:var(--serif);font-weight:600;font-size:1.25rem;letter-spacing:-.3px;margin-top:6px;line-height:1.2}
+.feat-txt p{font-size:.92rem;color:#3c3a34;margin-top:8px;line-height:1.55}
+.feat-txt .cmeta{font-size:.74rem;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px solid var(--hair)}
+.feat-txt .cmeta b{color:var(--accent);font-weight:600}
 /* case-study cards */
 .case{display:grid;grid-template-columns:300px 1fr;margin-top:20px;border:1px solid var(--hair);border-radius:14px;overflow:hidden;background:var(--card);transition:box-shadow .2s,border-color .2s,transform .2s;color:inherit}
 .case:hover{box-shadow:0 14px 36px rgba(26,26,26,.09);border-color:#d6d2c5;transform:translateY(-2px)}
@@ -247,6 +259,7 @@ a{color:inherit;text-decoration:none}
   .sec-note{margin-top:8px}
   .foot{margin-top:34px}
   .case{grid-template-columns:1fr}
+  .lead-row{grid-template-columns:1fr;gap:16px}
   .case-vis{border-right:0;border-bottom:1px solid var(--hair)}
   .about-grid{grid-template-columns:1fr;gap:26px}
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--hair);padding:8px 0}
@@ -299,7 +312,18 @@ a{color:inherit;text-decoration:none}
 <section class="sec" id="work">
   <div class="wrap">
     <div class="sec-head"><span class="idx">01</span><h2>Selected work</h2></div>
-    <p class="sec-note">Four case studies from the last year: the data layer, the deepest analysis that ran on it, the delivery layer that carries answers into the weekly cadence, and the brand-search analysis that stopped a budget increase that could not have worked. Chart shapes are real; scales are disguised.</p>
+    <div class="lead-row">
+    <p class="sec-note">Four case studies from the last year: the data layer, the deepest analysis that ran on it, the delivery layer that carries answers into the weekly cadence, and the brand-search analysis that stopped a budget increase that could not have worked. Chart shapes are real; scales are disguised. And one model you can drive yourself, on synthetic data.</p>
+      <a class="feat" href="planning-scenarios.html">
+        <img src="planning-preview.png" alt="Planning scenarios tool: KPI tiles, sales by fiscal period against the finance forecast, and a per-channel response curve" loading="lazy">
+        <div class="feat-txt">
+          <div class="cq">Interactive &middot; synthetic data &middot; methods explained</div>
+          <h3>Planning scenarios: what next year's paid-search plan buys</h3>
+          <p>Set spend by channel and the assumptions around it. Sessions, conversion, AOV, and sales by period, with each channel on its own response curve, a hard ceiling on brand search, and halo and cannibalization switched on or off.</p>
+          <div class="cmeta"><b>Open the model &rarr;</b> &middot; per-channel elasticities &middot; impression-share ceiling &middot; marginal return by channel</div>
+        </div>
+      </a>
+    </div>
 
     <!-- 1: organic decline decomposition -->
     <a class="case" href="organic-decline.html">
@@ -438,7 +462,6 @@ a{color:inherit;text-decoration:none}
       <ul>
         <li><b><a href="o2o-attribution.html">Online-to-offline attribution</a></b><span class="sep">&middot;</span>web-only said 0.9 ROAS, stitched store sales said 4.0, channel holdouts said 2.4; budgets run on the last number.</li>
         <li><b><a href="clienteling.html">Sales-floor behavior analytics</a></b><span class="sep">&middot;</span>the close-rate leaderboard was ranking tool adoption, not closing skill; three honest denominators split coaching into the right conversations.</li>
-        <li><b><a href="planning-scenarios.html">Planning scenarios</a></b><span class="sep">&middot;</span>set next year's paid-search spend by channel and see sessions, conversion, AOV, and sales by period, with per-channel response curves, a brand impression-share ceiling, and halo and cannibalization switched on or off. Interactive, synthetic data, methods explained.</li>
         <li><b><a href="sku-decomposition.html">SKU sales decomposition</a></b><span class="sep">·</span>splits sales swings into launches, exits, and true like-for-like movement, and auto-flags SKUs whose conversion is quietly collapsing.</li>
         <li><b><a href="propensity-signals.html">Purchase-propensity signals</a></b><span class="sep">·</span>per-channel models for on-site personalization, including the feature that turned out to be 90% data leakage, caught before deployment.</li>
       </ul>
@@ -550,7 +573,7 @@ navToggle.onclick=()=>navLinks.classList.toggle('show');
 navLinks.querySelectorAll('a').forEach(a=>a.onclick=()=>navLinks.classList.remove('show'));
 
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
-  document.querySelectorAll('.case,.role,.skline,.about p').forEach(el=>el.classList.add('reveal'));
+  document.querySelectorAll('.feat,.case,.role,.skline,.about p').forEach(el=>el.classList.add('reveal'));
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.08});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 }
