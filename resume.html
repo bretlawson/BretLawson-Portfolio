@@ -16,7 +16,7 @@
 <meta property="og:url" content="https://www.bretlawson.com/resume.html">
 <meta property="og:title" content="Résumé · Bret Lawson">
 <meta property="og:description" content="Analytics and measurement leader in ecommerce and omnichannel retail: causal measurement, online-to-offline attribution, forecasting, analytics engineering, AI-native workflow.">
-<meta property="og:image" content="https://www.bretlawson.com/bret_lawson.jpg">
+<meta property="og:image" content="https://www.bretlawson.com/bret_lawson-960.jpg">
 <meta property="og:site_name" content="Bret Lawson">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,20 +28,70 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Bret Lawson",
-  "jobTitle": "Senior Manager, Digital Analytics",
-  "description": "Analytics and measurement leader in ecommerce and omnichannel retail: causal measurement, online-to-offline attribution, forecasting, analytics engineering.",
-  "worksFor": { "@type": "Organization", "name": "Mattress Firm" },
-  "url": "https://www.bretlawson.com/",
-  "mainEntityOfPage": "https://www.bretlawson.com/resume.html",
-  "image": "https://www.bretlawson.com/bret_lawson.jpg",
-  "email": "bretalawson@gmail.com",
-  "telephone": "832.403.7762",
-  "address": { "@type": "PostalAddress", "addressLocality": "Houston", "addressRegion": "TX", "addressCountry": "US" },
-  "alumniOf": { "@type": "EducationalOrganization", "name": "Texas A&M University" },
-  "sameAs": ["https://www.linkedin.com/in/bretlawson"],
-  "knowsAbout": ["Data Science", "Digital Analytics", "Ecommerce Forecasting", "Decomposition Analysis", "Causal Inference", "Marketing Attribution", "Python", "SQL", "dbt", "BigQuery", "Adobe Analytics", "Agentic AI Workflows"]
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.bretlawson.com/resume.html",
+      "url": "https://www.bretlawson.com/resume.html",
+      "name": "Résumé · Bret Lawson",
+      "about": {
+        "@id": "https://www.bretlawson.com/#person"
+      },
+      "isPartOf": {
+        "@id": "https://www.bretlawson.com/#website"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.bretlawson.com/#person",
+      "name": "Bret Lawson",
+      "givenName": "Bret",
+      "familyName": "Lawson",
+      "jobTitle": "Senior Manager, Digital Analytics",
+      "description": "Analytics and measurement leader in ecommerce and omnichannel retail: causal measurement, online-to-offline attribution, forecasting, analytics engineering.",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Mattress Firm"
+      },
+      "url": "https://www.bretlawson.com/",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://www.bretlawson.com/bret_lawson-960.jpg",
+        "width": 960,
+        "height": 960,
+        "caption": "Bret Lawson"
+      },
+      "email": "bretalawson@gmail.com",
+      "telephone": "832.403.7762",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Houston",
+        "addressRegion": "TX",
+        "addressCountry": "US"
+      },
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "Texas A&M University"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/bretlawson"
+      ],
+      "knowsAbout": [
+        "Digital Analytics",
+        "Marketing Attribution",
+        "Incrementality Testing",
+        "Ecommerce Forecasting",
+        "Decomposition Analysis",
+        "Causal Inference",
+        "Python",
+        "SQL",
+        "dbt",
+        "BigQuery",
+        "Adobe Analytics"
+      ],
+      "mainEntityOfPage": "https://www.bretlawson.com/"
+    }
+  ]
 }
 </script>
 <style>
