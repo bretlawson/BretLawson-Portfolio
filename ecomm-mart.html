@@ -10,16 +10,16 @@
 <link rel="canonical" href="https://www.bretlawson.com/ecomm-mart.html">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.bretlawson.com/ecomm-mart.html">
-<meta property="og:title" content="The source of truth was a spreadsheet · Bret Lawson">
-<meta property="og:description" content="Case study: replacing a hand-updated 40-tab workbook with a governed daily data mart that reconciles to finance within dollars and catches broken feeds before they reach a deck.">
+<meta property="og:title" content="One data mart replaced eight source systems and reconciles to finance to the dollar · Bret Lawson">
+<meta property="og:description" content="Case study: a dbt data mart on BigQuery, one row per day and 136 documented metrics, replaced eight source systems and a hand-kept workbook. Ecommerce sales match finance to the dollar. It caught three broken feeds before they reached a deck.">
 <meta property="og:image" content="https://www.bretlawson.com/bret_lawson-960.jpg">
 <meta property="og:site_name" content="Bret Lawson">
 <meta name="twitter:card" content="summary">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DN2PPZNDRJ"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DN2PPZNDRJ',{'send_page_view':true,'anonymize_ip':true});</script>
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vdqbyh8fhw");</script>
-<title>The source of truth was a spreadsheet · Bret Lawson</title>
-<meta name="description" content="Case study: replacing a hand-updated 40-tab workbook with a governed daily data mart that reconciles to finance within dollars and catches broken feeds before they reach a deck.">
+<title>One data mart replaced eight source systems and reconciles to finance to the dollar · Bret Lawson</title>
+<meta name="description" content="Case study: a dbt data mart on BigQuery, one row per day and 136 documented metrics, replaced eight source systems and a hand-kept workbook. Ecommerce sales match finance to the dollar. It caught three broken feeds before they reached a deck.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -51,6 +51,13 @@ p b{color:var(--ink)}
 .prose li{position:relative;padding-left:18px;margin-bottom:9px;color:#2e2c27}
 .prose li::before{content:'';position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.55}
 .prose li b{color:var(--ink)}
+.tscroll{overflow-x:auto}
+table.ba{border-collapse:collapse;font-size:.86rem;width:100%;min-width:560px}
+table.ba th{font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:6px 10px;border-bottom:1px solid var(--hair);text-align:left}
+table.ba td{padding:8px 10px;border-bottom:1px solid #f0eee7;vertical-align:top;color:#2e2c27}
+table.ba td.k{font-weight:600;color:var(--ink);width:26%}
+table.ba td.b{color:var(--muted);width:37%}
+table.ba td.a{width:37%}
 .fig{margin:34px 0;background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:22px 24px 16px}
 .fig .ft{font-size:.85rem;font-weight:600}
 .fig .fs{font-size:.76rem;color:var(--muted);margin:2px 0 12px}
@@ -76,27 +83,27 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 
 <header class="head wrap">
   <div class="eyebrow">Case study · Data engineering &amp; semantic layer</div>
-  <h1>The source of truth was a 40-tab spreadsheet.</h1>
-  <p class="stand">Eight sources, 200 lines of copy-pasted SQL per report, and a hand-updated 40-tab workbook as referee. I replaced it with one governed daily table that foots to finance within dollars and catches broken feeds before they reach a deck.</p>
+  <h1>One data mart replaced eight source systems and reconciles to finance to the dollar.</h1>
+  <p class="stand">One row per day, 136 documented metrics, refreshed every morning, read by 40 downstream projects. Built solo in five months. It also caught three broken data feeds before they reached a deck.</p>
   <div class="meta">
     <div><b>When</b>2026 · ~5 months, alongside delivery work</div>
     <div><b>Role</b>Sole designer &amp; builder</div>
     <div><b>Stack</b>dbt · BigQuery · Python · scheduled queries</div>
-    <div><b>Scale</b>8 sources · 9 staging models · ~130 daily metrics · ~980 days of history</div>
+    <div><b>Scale</b>8 systems · 19 source tables · 9 staging models · 136 daily metrics · 40 consumers</div>
   </div>
 </header>
 
 <main class="wrap">
 <div class="prose">
   <h2>The problem</h2>
-  <p>Every ecommerce question started with the same eight-table join across warehouse projects, about 200 lines of SQL, re-derived slightly differently each time. The same metric had three definitions in three dashboards. The tiebreaker was a 40-tab spreadsheet one person updated by hand. Meetings opened with an argument about whose number was right and rarely got past it.</p>
+  <p>Every ecommerce question started with the same join across eight systems and 19 source tables, about 200 lines of SQL, re-derived slightly differently each time. The same metric was defined differently from dashboard to dashboard. The tiebreaker was a 40-tab workbook, 112 columns wide, that one person updated by hand every day. Meetings opened with an argument about whose number was right and rarely got past it.</p>
 
   <h2>The build</h2>
   <ul>
-    <li><b>One staging model per source</b>, typed and tested, joined to the fiscal calendar so a missing day shows up as a gap instead of a silent zero.</li>
-    <li><b>One mart.</b> One row per day, about 130 metrics, definitions documented in the warehouse where the table lives.</li>
+    <li><b>One staging model per source</b>, typed and deduplicated, joined to the fiscal calendar so a missing day shows up as a gap instead of a silent zero.</li>
+    <li><b>One mart.</b> One row per day, 136 metrics across sales, traffic, spend, funnel, forecast, contact center, and stores. Definitions documented in the warehouse where the table lives.</li>
     <li><b>Scheduled every morning.</b> Rewrites a trailing 7-day window on every run, so late-arriving data corrects itself without anyone noticing there was a problem.</li>
-    <li><b>The definition fights, settled by reconciliation.</b> What counts as an ecommerce sale, which of a thousand legacy store codes belong to the channel, how vendor income behaves on a return. The channel definition alone moved a quarterly figure by millions. Reconciling it to finance closed a seven-figure gap to double-digit dollars on an eight-figure quarter.</li>
+    <li><b>The definition fights, settled by reconciliation.</b> What counts as an ecommerce sale: a grab-bag channel bucket was overstating it by about $6M a quarter until an explicit store list replaced it. How vendor income behaves on a return: contribution dollars reconciled to the finance cube exactly. On completed weeks, ecommerce sales now match finance to the dollar.</li>
   </ul>
 </div>
 
@@ -164,7 +171,7 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
       <text x="16" y="76" font-size="10.5" fill="#5B5B57">every row joined to the</text>
       <text x="16" y="92" font-size="10.5" fill="#5B5B57">fiscal calendar, so no source</text>
       <text x="16" y="108" font-size="10.5" fill="#5B5B57">can silently drop a day</text>
-      <text x="16" y="136" font-size="10.5" fill="#1F3A5F" font-weight="600">20 validation checks</text>
+      <text x="16" y="136" font-size="10.5" fill="#1F3A5F" font-weight="600">quality report + drift gate</text>
       <text x="16" y="154" font-size="10.5" fill="#1F3A5F" font-weight="600">staleness alerts on feeds</text>
     </g>
     <path d="M510 200 L 566 200" stroke="#9a968c" stroke-width="2" marker-end="url(#ah)"/>
@@ -172,7 +179,7 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
     <g transform="translate(572,140)">
       <rect width="200" height="120" rx="8" fill="#fff" stroke="#1F3A5F" stroke-width="2"/>
       <text x="16" y="32" font-size="13.5" font-weight="600" fill="#1F3A5F">The master mart</text>
-      <text x="16" y="56" font-size="10.5" fill="#5B5B57">one row per day, ~130 metrics</text>
+      <text x="16" y="56" font-size="10.5" fill="#5B5B57">one row per day, 136 metrics</text>
       <text x="16" y="72" font-size="10.5" fill="#5B5B57">sales · traffic · spend · funnel</text>
       <text x="16" y="88" font-size="10.5" fill="#5B5B57">forecast · contact center · stores</text>
       <text x="16" y="106" font-size="10.5" fill="#5B5B57">definitions documented in-place</text>
@@ -187,16 +194,16 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
     <!-- consumers -->
     <g font-size="11.5" fill="#1A1A1A">
       <g transform="translate(842,56)">
-        <rect width="148" height="44" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="20">Weekly exec deck</text><text x="12" y="35" font-size="9.5" fill="#8a877d">11 modules, one command</text>
+        <rect width="148" height="44" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="20">Weekly exec deck</text><text x="12" y="35" font-size="9.5" fill="#8a877d">10 modules, one command</text>
       </g>
       <g transform="translate(842,142)">
-        <rect width="148" height="44" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="20">15+ dashboards</text><text x="12" y="35" font-size="9.5" fill="#8a877d">published to a gated hub</text>
+        <rect width="148" height="44" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="20">10 dashboards</text><text x="12" y="35" font-size="9.5" fill="#8a877d">published to a gated hub</text>
       </g>
       <g transform="translate(842,228)">
         <rect width="148" height="44" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="20">3 forecast engines</text><text x="12" y="35" font-size="9.5" fill="#8a877d">weekly · monthly · traffic</text>
       </g>
       <g transform="translate(842,314)">
-        <rect width="148" height="44" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="20">Ad-hoc research</text><text x="12" y="35" font-size="9.5" fill="#8a877d">25+ downstream projects</text>
+        <rect width="148" height="44" rx="6" fill="#fff" stroke="#E5E2D9"/><text x="12" y="20">Ad-hoc research</text><text x="12" y="35" font-size="9.5" fill="#8a877d">40 downstream projects</text>
       </g>
     </g>
     <!-- refresh annotation -->
@@ -206,38 +213,62 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
   <figcaption class="cap"><b>What the shape buys you:</b> nothing downstream touches a raw source. A dashboard that used to start with 200 lines of bespoke SQL now starts with <i>select from the mart</i>, so the definitions are the same every time.</figcaption>
 </figure>
 
+<figure class="fig">
+  <div class="ft">Before and after</div>
+  <div class="fs">What changed for the people who ask questions of the data</div>
+  <div class="tscroll">
+  <table class="ba">
+    <thead><tr><th></th><th>Before</th><th>After</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Sources joined per report</td><td class="b">8 systems, 19 tables, across warehouse projects</td><td class="a">1 table</td></tr>
+      <tr><td class="k">SQL to start a new dashboard</td><td class="b">200+ lines, re-derived each time</td><td class="a"><i>select from the mart</i></td></tr>
+      <tr><td class="k">Definition of a metric</td><td class="b">Varied by dashboard</td><td class="a">One, documented in the warehouse</td></tr>
+      <tr><td class="k">Referee when numbers disagreed</td><td class="b">A 40-tab workbook updated by hand daily</td><td class="a">Reconciliation to finance, checked weekly</td></tr>
+      <tr><td class="k">Ecommerce sales vs. finance</td><td class="b">Overstated by about $6M a quarter</td><td class="a">To the dollar on completed weeks</td></tr>
+      <tr><td class="k">Late-arriving data</td><td class="b">Manual re-pulls</td><td class="a">7-day self-healing window, every morning</td></tr>
+      <tr><td class="k">Lineage documentation</td><td class="b">Hand-drawn, drifted for 4 months unnoticed</td><td class="a">Generated from the models, build fails on drift</td></tr>
+      <tr><td class="k">Prior-year comparisons</td><td class="b">A 364-day offset, wrong in 53-week years</td><td class="a">A mapped prior-year date, 114 prior-year columns</td></tr>
+    </tbody>
+  </table>
+  </div>
+</figure>
+
 <div class="prose">
   <h2>What it showed</h2>
   <p>The payoff was not consistency. It was detection. With every source side by side in one table, a broken feed cannot hide. Three catches in one summer:</p>
   <ul>
     <li>A media-spend feed zeroed its newest day. A week that was really down 15% would have read down 26%. The cross-source spend columns flagged it before the readout.</li>
     <li>A web-analytics feed started half-loading. Sessions "fell" 90% while the parallel behavioral source showed the normal seasonal dip of about 18%. Feed failure, not traffic collapse. A staleness alert shipped that week.</li>
-    <li>Units per transaction was inflated about 70% by free promotional items nobody had filtered out.</li>
+    <li>Units per transaction was inflated about 75% by free promotional items nobody had filtered out.</li>
   </ul>
+  <p>The documentation needed a gate too. The hand-drawn lineage diagram drifted for four months, three sources and ten columns behind the models, before anyone noticed. It is generated from the models now, and the build fails if they diverge.</p>
+  <p>Not everything reconciles, and the mart says so. Two instruments for store intent disagree by roughly a quarter and are published as two independent instruments, not rescaled to agree.</p>
   <div class="pull">A semantic layer isn't where the numbers agree. It's where the broken feeds get caught before they reach a deck.</div>
 
   <h2>What changed</h2>
   <ul>
-    <li>25-plus downstream projects read the mart: the weekly executive deck, the dashboard suite, all three forecast engines, most new analysis.</li>
-    <li>The deck's forecast switched from a planning file that had drifted about ten points off reality to the mart's daily columns.</li>
+    <li>40 downstream projects read the mart: 10 dashboards, 10 weekly-deck modules, all three forecast engines, most new analysis.</li>
+    <li>The deck's forecast switched from a planning file that read down 24% when reality was down 14% to the mart's daily columns.</li>
     <li>Hard-coded stopgaps in the deck deleted once the mart reproduced them within basis points.</li>
     <li>The 40-tab workbook retired as referee. New dashboards start with <i>select from the mart</i>, not 200 lines of SQL.</li>
+    <li>A prior-year view with 114 mapped columns, so BI tools inherit the fiscal-calendar shift instead of re-implementing it.</li>
   </ul>
 </div>
 
 <details class="tech prose">
   <summary>Technical notes, for the people who will ask</summary>
   <div class="tin">
-    <p><b>Modeling.</b> dbt over BigQuery: sources → one staging model per source (<i>typed, deduplicated, calendar-joined</i>) → a single wide daily mart. LEFT JOINs from the calendar spine so no source can drop a row; ~3.5K lines of SQL, ~5K of Python for the API pulls; a 20-test validation suite on the trickiest feed.</p>
-    <p><b>Operations.</b> Production runs as warehouse-scheduled queries (staging, then mart) every morning, DELETE+INSERT over a trailing 7-day window, so runs are idempotent and late data self-heals. API ingestion retries on a scheduler; metric documentation is pushed into the warehouse schema UI so definitions travel with the table.</p>
-    <p><b>Fiscal-calendar correctness.</b> Year-over-year comparisons use a mapped <i>last-year date</i> column rather than a naive 364-day offset; the retail calendar's 53-week years and moving holidays break the naive version in ways that only surface at the worst possible time.</p>
+    <p><b>Modeling.</b> dbt over BigQuery: 19 source tables from 8 systems, one staging model per source (typed, deduplicated, calendar-joined), one wide daily mart of 136 documented columns plus a prior-year view. LEFT JOINs from the calendar spine so no source can drop a row.</p>
+    <p><b>Operations.</b> Warehouse-scheduled queries every morning, staging then mart, DELETE+INSERT over a trailing 7-day window, so runs are idempotent and late data self-heals. API ingestion for search ads runs outside dbt on a scheduler with retries. Metric documentation is pushed into the warehouse schema so definitions travel with the table.</p>
+    <p><b>Quality.</b> A check script and an HTML quality report per run, staleness alerts on feeds, and a lineage generator with a drift gate: undocumented model, orphan source, mart column outside a documented section, or a hard-coded table name fails the build.</p>
+    <p><b>Fiscal-calendar correctness.</b> Year-over-year comparisons use a mapped prior-year date rather than a naive 364-day offset; the retail calendar's 53-week years and moving holidays break the naive version in ways that surface at the worst time.</p>
     <p><b>Resilience.</b> Overlapping sources are kept side by side (two web-analytics feeds, spend from platform and API) with blended columns that prefer the freshest complete source. That redundancy is what makes the feed-failure catches possible.</p>
   </div>
 </details>
 
-<p class="next prose">Next: <a href="dashboard-suite.html">the dashboard &amp; reporting suite</a> that reads from this layer, or back to <a href="index.html#work">all work</a>.</p>
+<p class="next prose">Next: <a href="dashboard-suite.html">the dashboard &amp; reporting suite</a> that reads from this layer, <a href="organic-decline.html">the organic decline</a>, or back to <a href="index.html#work">all work</a>.</p>
 
-<div class="datanote">Structure and anecdotes are real; dollar figures, source names, and platform details are generalized or perturbed. The methods, the reconciliations, and the catches are real.</div>
+<div class="datanote">Structure, counts, and anecdotes are real; dollar figures are rounded or perturbed and source names generalized. The reconciliations and the catches are real.</div>
 </main>
 </body>
 </html>
