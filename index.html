@@ -217,7 +217,7 @@ a{color:inherit;text-decoration:none}
 <section class="sec" id="work">
   <div class="wrap">
     <div class="sec-head"><span class="idx">01</span><h2>Selected work</h2></div>
-    <p class="sec-note">Four case studies from the last year: the data layer, the deepest analysis that ran on it, the delivery layer that carries answers into the weekly cadence, and the sales-floor behavior work that redirected coaching. Chart shapes are real; scales are disguised.</p>
+    <p class="sec-note">Four case studies from the last year: the data layer, the deepest analysis that ran on it, the delivery layer that carries answers into the weekly cadence, and the attribution build that connects marketing spend to the register. Chart shapes are real; scales are disguised.</p>
 
     <!-- 1: organic decline decomposition -->
     <a class="case" href="organic-decline.html">
@@ -327,39 +327,32 @@ a{color:inherit;text-decoration:none}
       </div>
     </a>
 
-    <!-- 4: in-store behavior / clienteling -->
-    <a class="case" href="clienteling.html">
+    <!-- 4: online-to-offline attribution -->
+    <a class="case" href="o2o-attribution.html">
       <div class="case-vis" aria-hidden="true">
-        <!-- real shape: the case study slopegraph, two honest rankings of the same regions -->
+        <!-- real shape: ROAS pairs, web-only vs with stores, break-even line -->
         <svg viewBox="0 0 300 150"><rect width="300" height="150" fill="#fff"/>
-          <text x="62" y="14" text-anchor="end" font-family="Inter,sans-serif" font-size="8.5" fill="#8a877d">HEADLINE</text>
-          <text x="238" y="14" text-anchor="start" font-family="Inter,sans-serif" font-size="8.5" fill="#8a877d">ENGAGED ONLY</text>
-          <line x1="70" y1="22" x2="70" y2="138" stroke="#E5E2D9"/>
-          <line x1="230" y1="22" x2="230" y2="138" stroke="#E5E2D9"/>
-          <g fill="none" stroke-width="1.8">
-            <path d="M70 28 L230 70" stroke="#1F3A5F" opacity=".45"/>
-            <path d="M70 49 L230 28" stroke="#1F3A5F"/>
-            <path d="M70 70 L230 91" stroke="#bdb9ad"/>
-            <path d="M70 91 L230 133" stroke="#1F3A5F" opacity=".45"/>
-            <path d="M70 133 L230 112" stroke="#bdb9ad"/>
-            <path d="M70 112 L230 49" stroke="#7a1e2b" stroke-width="3"/>
-          </g>
-          <circle cx="70" cy="112" r="4" fill="#7a1e2b"/>
-          <circle cx="230" cy="49" r="4" fill="#7a1e2b"/>
-          <text x="150" y="66" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="9.5" fill="#7a1e2b">the misread</text>
+          <line x1="14" y1="103" x2="288" y2="103" stroke="#b3341f" stroke-width="1" stroke-dasharray="4 3"/>
+          <text x="286" y="97" text-anchor="end" font-family="Georgia,serif" font-style="italic" font-size="9" fill="#b3341f">break-even</text>
+          <line x1="14" y1="128" x2="288" y2="128" stroke="#E5E2D9"/>
+          <rect x="26"  y="110" width="22" height="18"  fill="#bdb9ad"/><rect x="50"  y="46"  width="22" height="82"  fill="#1F3A5F"/>
+          <rect x="96"  y="88"  width="22" height="40" fill="#bdb9ad"/><rect x="120" y="20"  width="22" height="108" fill="#1F3A5F"/>
+          <rect x="166" y="121" width="22" height="7"  fill="#bdb9ad"/><rect x="190" y="83"  width="22" height="45"  fill="#1F3A5F"/>
+          <rect x="236" y="119" width="22" height="9"  fill="#bdb9ad"/><rect x="260" y="90"  width="22" height="38"  fill="#1F3A5F"/>
         </svg>
       </div>
       <div class="case-txt">
-        <div class="cq">Are salespeople using the follow-up tools on customers under $1,500? A retail leader wanted to coach on the answer.</div>
-        <h3>The leaderboard was ranking adoption, not closing skill.</h3>
-        <p class="cco">One close rate computed three defensible ways ranked regions differently, and the disagreement was the diagnosis: some regions needed closing coaching, others just needed to open the tablet. Engaged leads closed at the same rate on both sides of the price line.</p>
-        <div class="cmeta"><b>Read the case study &rarr;</b> &middot; behavior stitched to transactions &middot; z-tested rankings &middot; redirected the coaching plan</div>
+        <div class="cq">Most sales happen in stores, but the journeys start online. Which marketing dollars actually reach the register?</div>
+        <h3>Marketing looked unprofitable. The register disagreed.</h3>
+        <p class="cco">Identity-stitched journeys tied ad clicks to ERP store transactions across a 2,300-store footprint. Blended paid ROAS went from below break-even to about 4x, every stitch rate is published, and channel budgets are now allocated on the stitched view.</p>
+        <div class="cmeta"><b>Read the case study &rarr;</b> &middot; led a 3-person build &middot; ERP-calibrated &middot; basis for budget allocation</div>
       </div>
     </a>
 
     <div class="also">
       <div class="al">Also in the portfolio</div>
       <ul>
+        <li><b><a href="clienteling.html">Sales-floor behavior analytics</a></b><span class="sep">&middot;</span>the close-rate leaderboard was ranking tool adoption, not closing skill; three honest denominators split coaching into the right conversations.</li>
         <li><b><a href="forecast-explorer.html">Quarterly forecast explorer</a></b><span class="sep">·</span>drag planned spend per tactic and watch sessions and sales re-forecast live, diminishing returns built in. Interactive, illustrative data.</li>
         <li><b><a href="sku-decomposition.html">SKU sales decomposition</a></b><span class="sep">·</span>splits sales swings into launches, exits, and true like-for-like movement, and auto-flags SKUs whose conversion is quietly collapsing.</li>
         <li><b><a href="propensity-signals.html">Purchase-propensity signals</a></b><span class="sep">·</span>per-channel models for on-site personalization, including the feature that turned out to be 90% data leakage, caught before deployment.</li>
