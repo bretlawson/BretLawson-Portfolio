@@ -167,16 +167,16 @@ a{color:inherit;text-decoration:none}
 .sec-note{font-size:.94rem;color:var(--muted);margin-top:10px;max-width:66ch}
 
 /* featured tool beside the section intro */
-.lead-row{display:grid;grid-template-columns:1fr 1.45fr;gap:26px;align-items:start;margin-top:12px}
+.lead-row{display:grid;grid-template-columns:1fr 1.3fr;gap:26px;align-items:stretch;margin-top:12px}
 .lead-row .sec-note{margin-top:4px}
-.feat{display:flex;flex-direction:column;border:1px solid var(--hair);border-radius:14px;overflow:hidden;background:var(--card);color:inherit;transition:box-shadow .2s,border-color .2s,transform .2s}
+.feat{display:grid;grid-template-columns:210px 1fr;border:1px solid var(--hair);border-radius:14px;overflow:hidden;background:var(--card);color:inherit;transition:box-shadow .2s,border-color .2s,transform .2s}
 .feat:hover{box-shadow:0 14px 36px rgba(26,26,26,.09);border-color:#d6d2c5;transform:translateY(-2px);text-decoration:none}
-.feat img{width:100%;display:block;border-bottom:1px solid var(--hair);aspect-ratio:1180/917;object-fit:cover}
-.feat-txt{padding:16px 20px 18px}
-.feat-txt .cq{font-size:.72rem;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
-.feat-txt h3{font-family:var(--serif);font-weight:600;font-size:1.25rem;letter-spacing:-.3px;margin-top:6px;line-height:1.2}
-.feat-txt p{font-size:.92rem;color:#3c3a34;margin-top:8px;line-height:1.55}
-.feat-txt .cmeta{font-size:.74rem;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px solid var(--hair)}
+.feat img{width:100%;height:100%;min-height:150px;display:block;object-fit:cover;object-position:left center;border-right:1px solid var(--hair)}
+.feat-txt{padding:14px 18px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.feat-txt .cq{font-size:.68rem;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.feat-txt h3{font-family:var(--serif);font-weight:600;font-size:1.1rem;letter-spacing:-.2px;margin-top:5px;line-height:1.2}
+.feat-txt p{font-size:.86rem;color:#3c3a34;margin-top:6px;line-height:1.5}
+.feat-txt .cmeta{font-size:.74rem;color:var(--muted);margin-top:10px;padding-top:8px;border-top:1px solid var(--hair)}
 .feat-txt .cmeta b{color:var(--accent);font-weight:600}
 /* case-study cards */
 .case{display:grid;grid-template-columns:300px 1fr;margin-top:20px;border:1px solid var(--hair);border-radius:14px;overflow:hidden;background:var(--card);transition:box-shadow .2s,border-color .2s,transform .2s;color:inherit}
@@ -260,6 +260,8 @@ a{color:inherit;text-decoration:none}
   .foot{margin-top:34px}
   .case{grid-template-columns:1fr}
   .lead-row{grid-template-columns:1fr;gap:16px}
+  .feat{grid-template-columns:1fr}
+  .feat img{height:150px;min-height:0;border-right:0;border-bottom:1px solid var(--hair)}
   .case-vis{border-right:0;border-bottom:1px solid var(--hair)}
   .about-grid{grid-template-columns:1fr;gap:26px}
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--hair);padding:8px 0}
@@ -315,12 +317,12 @@ a{color:inherit;text-decoration:none}
     <div class="lead-row">
     <p class="sec-note">Four case studies from the last year: the data layer, the deepest analysis that ran on it, the delivery layer that carries answers into the weekly cadence, and the brand-search analysis that stopped a budget increase that could not have worked. Chart shapes are real; scales are disguised. And one model you can drive yourself, on synthetic data.</p>
       <a class="feat" href="planning-scenarios.html">
-        <img src="planning-preview.png" alt="Planning scenarios tool: KPI tiles, sales by fiscal period against the finance forecast, and a per-channel response curve" loading="lazy">
+        <img src="planning-preview.png" alt="Planning scenarios tool: sales by fiscal period, scenario against last year and the finance forecast" loading="lazy">
         <div class="feat-txt">
-          <div class="cq">Interactive &middot; synthetic data &middot; methods explained</div>
-          <h3>Planning scenarios: what next year's paid-search plan buys</h3>
-          <p>Set spend by channel and the assumptions around it. Sessions, conversion, AOV, and sales by period, with each channel on its own response curve, a hard ceiling on brand search, and halo and cannibalization switched on or off.</p>
-          <div class="cmeta"><b>Open the model &rarr;</b> &middot; per-channel elasticities &middot; impression-share ceiling &middot; marginal return by channel</div>
+          <div class="cq">Interactive &middot; synthetic data</div>
+          <h3>Planning scenarios: what next year's plan buys</h3>
+          <p>Spend by channel in; sessions, conversion, AOV, and sales by period out. Per-channel response curves, a brand ceiling, halo and cannibalization on or off.</p>
+          <div class="cmeta"><b>Open the model &rarr;</b> &middot; methods explained</div>
         </div>
       </a>
     </div>
