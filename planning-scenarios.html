@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planning Scenarios · Bret Lawson</title>
+<meta name="description" content="Interactive planning model on synthetic data: set next year's paid-search spend by channel and see sessions, conversion, AOV, and sales by period, with per-channel elasticities, a brand impression-share ceiling, and halo and cannibalization effects. The methods behind each elasticity are explained.">
+<meta name="author" content="Bret Lawson">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.bretlawson.com/planning-scenarios.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.bretlawson.com/planning-scenarios.html">
+<meta property="og:title" content="Planning Scenarios · Bret Lawson">
+<meta property="og:description" content="Interactive planning model on synthetic data: paid-search spend by channel to sessions, conversion, AOV, and sales by period, with per-channel elasticities and halo and cannibalization effects, and the methods behind them.">
+<meta property="og:image" content="https://www.bretlawson.com/bret_lawson-960.jpg">
+<meta property="og:site_name" content="Bret Lawson">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DN2PPZNDRJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DN2PPZNDRJ',{'send_page_view':true,'anonymize_ip':true});</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vdqbyh8fhw");</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#FAFAF7; --card:#fff; --ink:#1A1A1A; --muted:#5B5B57; --faint:#8a877d; --hair:#E5E2D9;
+  --accent:#1F3A5F; --accent2:#2C5688; --ox:#7a1e2b; --good:#1f7a45; --bad:#b3341f; --amber:#B26B00;
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',-apple-system,'Segoe UI',sans-serif;
+}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.bar{border-bottom:1px solid var(--hair);background:rgba(250,250,247,.9)}
+.bar-in{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;font-size:.9rem}
+.bar-in .name{font-family:var(--serif);font-weight:600;color:var(--ink)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.head{padding:46px 28px 10px;max-width:1180px;margin:0 auto}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,4.2vw,2.6rem);letter-spacing:-.6px;line-height:1.1;margin-top:12px;max-width:24ch}
+.stand{font-family:var(--serif);font-style:italic;font-size:1.12rem;color:var(--accent);margin-top:14px;line-height:1.45;max-width:64ch}
+.syn{display:inline-flex;align-items:center;gap:7px;margin-top:14px;font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#7a5d00;background:#fdf6e9;border:1px solid #ecd9b0;border-radius:12px;padding:4px 11px}
+.syn::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--amber)}
+
+.tool{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px;margin-top:22px;align-items:start}
+.tool>section,.tool>aside,.grid2>.card,.kpi{min-width:0}
+.card{background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:18px 20px}
+.card h2{font-family:var(--serif);font-weight:600;font-size:1.05rem;letter-spacing:-.2px}
+.card .sub{font-size:.78rem;color:var(--muted);margin:2px 0 12px}
+.grp{font-size:.66rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin:14px 0 6px}
+.lever{display:grid;grid-template-columns:1fr 78px;gap:8px 10px;align-items:center;margin-bottom:8px}
+.lever label{font-size:.84rem;color:var(--ink);display:flex;justify-content:space-between;gap:8px}
+.lever label small{color:var(--faint);font-size:.72rem;white-space:nowrap}
+.lever input[type=range]{grid-column:1;width:100%;accent-color:var(--accent);height:22px}
+.lever input[type=number]{grid-column:2;grid-row:1/3;font-family:var(--sans);font-size:.86rem;font-weight:600;padding:5px 7px;border:1px solid var(--hair);border-radius:7px;width:78px;text-align:right;background:#fff;color:var(--ink)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 2px}
+.chip{font-family:var(--sans);font-size:.74rem;font-weight:600;border:1px solid var(--hair);background:#fff;color:var(--ink);border-radius:14px;padding:4px 10px;cursor:pointer}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.toggle{display:flex;align-items:center;gap:8px;font-size:.84rem;margin-top:8px;cursor:pointer}
+.toggle input{accent-color:var(--accent);width:16px;height:16px}
+.note{font-size:.76rem;color:var(--muted);margin-top:10px;line-height:1.5}
+
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--hair);border-radius:10px;padding:11px 13px}
+.kpi .l{font-size:.64rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
+.kpi .v{font-family:var(--serif);font-size:1.25rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600;margin-top:2px;letter-spacing:-.3px;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:.74rem;font-weight:600;margin-top:1px;font-variant-numeric:tabular-nums}
+.up{color:var(--good)}.down{color:var(--bad)}.flat{color:var(--muted)}
+.grid2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px;margin-top:14px}
+.chartbox{position:relative;height:260px}
+.callout{margin-top:10px;font-size:.8rem;line-height:1.55;color:#3a382f;border-left:3px solid var(--ox);padding:4px 0 4px 12px}
+.callout b{color:var(--ink)}
+.sel{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+
+.tscroll{overflow-x:auto;margin-top:6px}
+table.t{border-collapse:collapse;font-size:.78rem;width:100%;min-width:760px}
+table.t th{font-size:.62rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--hair);text-align:right;white-space:nowrap}
+table.t th.l,table.t td.l{text-align:left}
+table.t td{padding:5px 8px;border-bottom:1px solid #f0eee7;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.t td.dc{font-size:.72rem;font-weight:600;background:#fbfaf6}
+table.t tr.tot td{font-weight:700;border-top:2px solid var(--accent);background:#f7f6f1}
+table.t td.tag,table.t .tag{font-size:.66rem;color:var(--faint);font-weight:500}
+.texp{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.csv{font-family:var(--sans);font-size:.74rem;font-weight:600;color:var(--accent);background:#fff;border:1px solid var(--hair);border-radius:7px;padding:4px 10px;cursor:pointer}
+.csv:hover{border-color:var(--accent)}
+.warn{display:none;font-size:.76rem;color:#7a5d00;background:#fdf6e9;border:1px solid #ecd9b0;border-radius:8px;padding:6px 10px;margin-top:8px}
+
+/* explanation */
+.explain{max-width:760px;margin:56px auto 0}
+.explain h2{font-family:var(--serif);font-weight:600;font-size:1.5rem;letter-spacing:-.3px;margin:40px 0 12px}
+.explain h3{font-family:var(--serif);font-weight:600;font-size:1.12rem;margin:26px 0 8px}
+.explain p{margin-bottom:13px;color:#2e2c27;font-size:16px;line-height:1.66}
+.explain p b{color:var(--ink)}
+.explain ul{list-style:none;margin:0 0 13px}
+.explain li{position:relative;padding-left:18px;margin-bottom:8px;color:#2e2c27;font-size:16px;line-height:1.6}
+.explain li::before{content:'';position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.55}
+.explain li b{color:var(--ink)}
+.eq{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.86rem;background:#fff;border:1px solid var(--hair);border-radius:8px;padding:10px 14px;margin:8px 0 14px;color:#2e2c27;overflow-x:auto}
+table.m{border-collapse:collapse;font-size:.82rem;width:100%;min-width:520px;margin:6px 0 16px}
+table.m th{font-size:.64rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--hair);text-align:left}
+table.m td{padding:6px 8px;border-bottom:1px solid #f0eee7;vertical-align:top;color:#2e2c27}
+table.m td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.datanote{margin:44px auto 70px;font-size:.83rem;color:var(--muted);border-top:1px solid var(--hair);padding-top:18px;max-width:760px}
+@media(max-width:980px){.tool{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(3,1fr)}.grid2{grid-template-columns:1fr}}
+@media(max-width:640px){.head{padding:34px 22px 6px}.wrap{padding:0 22px}.bar-in{padding:12px 22px}.kpis{grid-template-columns:repeat(2,1fr)}.chartbox{height:230px}}
+</style>
+</head>
+<body>
+
+<nav class="bar"><div class="bar-in">
+  <a href="index.html" class="name" style="color:var(--ink)">&larr; Bret Lawson</a>
+  <span><a href="index.html#work">All work</a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;<a href="mailto:bretalawson@gmail.com">Email</a></span>
+</div></nav>
+
+<header class="head">
+  <div class="eyebrow">Interactive &middot; Planning model</div>
+  <h1>Planning scenarios: what next year's paid-search plan buys</h1>
+  <p class="stand">Set spend by channel and the assumptions around it. The model returns sessions, conversion, AOV, and sales by fiscal period, with each channel on its own response curve, a hard ceiling on brand search, and the spillovers between channels switched on or off. <a href="#how">How the model works</a> is below the tool.</p>
+  <span class="syn">Synthetic data &middot; real model structure</span>
+</header>
+
+<main class="wrap">
+<div class="tool">
+  <aside class="card" id="levers">
+    <h2>Levers</h2>
+    <div class="sub">Full-year values. Last year in gray. Everything recomputes as you move them.</div>
+    <div class="chips" id="presets">
+      <button class="chip on" data-p="base">Base plan</button>
+      <button class="chip" data-p="up">+10% paid</button>
+      <button class="chip" data-p="low">Low</button>
+      <button class="chip" data-p="high">High</button>
+    </div>
+    <div class="grp">Paid search spend, $M</div>
+    <div id="chLevers"></div>
+    <div class="grp">Upper funnel, $M</div>
+    <div class="lever"><label>Display &amp; video <small>LY $25.0M</small></label><input type="range" id="r_uf" min="0" max="50" step="0.5" value="25"><input type="number" id="n_uf" step="0.5" value="25"></div>
+    <div class="grp">Baselines, % vs last year</div>
+    <div class="lever"><label>Organic sessions <small>assumed</small></label><input type="range" id="r_org" min="-50" max="20" step="1" value="-10"><input type="number" id="n_org" step="1" value="-10"></div>
+    <div class="lever"><label>Earned &amp; direct sessions <small>assumed</small></label><input type="range" id="r_earn" min="-40" max="20" step="1" value="-5"><input type="number" id="n_earn" step="1" value="-5"></div>
+    <div class="grp">Market &amp; funnel</div>
+    <div class="lever"><label>CPC drift, all channels <small>%</small></label><input type="range" id="r_cpc" min="-20" max="30" step="1" value="0"><input type="number" id="n_cpc" step="1" value="0"></div>
+    <div class="lever"><label>Conversion adjust <small>% on top of model</small></label><input type="range" id="r_cvr" min="-15" max="15" step="1" value="0"><input type="number" id="n_cvr" step="1" value="0"></div>
+    <div class="lever"><label>AOV vs last year <small>%</small></label><input type="range" id="r_aov" min="-10" max="20" step="1" value="2"><input type="number" id="n_aov" step="1" value="2"></div>
+    <label class="toggle"><input type="checkbox" id="spill" checked> Apply halo &amp; cannibalization</label>
+    <label class="toggle"><input type="checkbox" id="ceil" checked> Enforce brand impression-share ceiling</label>
+    <div class="note">Conversion responds to spend (elasticity &minus;0.17) and to AOV (&minus;0.48) on its own; the adjust lever sits on top.</div>
+  </aside>
+
+  <section>
+    <div class="kpis" id="kpis"></div>
+    <div class="warn" id="warn"></div>
+
+    <div class="grid2">
+      <div class="card">
+        <h2>Sales by fiscal period</h2>
+        <div class="sub">Scenario vs. last year, with the finance forecast as a reference line</div>
+        <div class="chartbox"><canvas id="cPeriod"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Response curve</h2>
+        <div class="sub">Sessions vs. spend for one channel; the dot is where the scenario sits</div>
+        <div class="sel" id="chSel"></div>
+        <div class="chartbox" style="height:216px"><canvas id="cCurve"></canvas></div>
+        <div class="callout" id="curveNote"></div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h2>Why sales moved</h2>
+        <div class="sub">Last year to scenario, one step at a time. The steps add up to the total change.</div>
+        <div class="chartbox"><canvas id="cBridge"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Marginal return by channel</h2>
+        <div class="sub">What the next dollar buys at the scenario's operating point</div>
+        <div class="tscroll" style="margin-top:2px"><table class="t" id="tMarg" style="min-width:0;width:100%"></table></div>
+        <div class="callout" id="margNote"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <div class="texp"><div><h2 style="display:inline">By period</h2> <span class="sub" style="display:inline;margin-left:8px">scenario, with change vs. last year and the gap to the finance forecast</span></div><button class="csv" id="csv">Download CSV</button></div>
+      <div class="tscroll"><table class="t" id="tPer"></table></div>
+    </div>
+  </section>
+</div>
+
+<section class="explain" id="how">
+  <h2>How the model works</h2>
+  <p>The production version of this tool is a scenario model for the annual planning cycle: one full-year paid-search spend number, a handful of assumptions, and the sessions, conversion, AOV, and sales that land by fiscal period, next to the finance forecast so the gap can be socialized early. It is deliberately simple where the data cannot support more. This replica keeps that structure and plugs in two pieces that exist as research but are not in the production tool: per-channel response curves and cross-channel spillovers. Each section says which is which.</p>
+
+  <h3>1. Structure</h3>
+  <p>Sessions are built bottom-up from three buckets and rolled to twelve fiscal periods on a 4-4-5 calendar. Paid search is modeled from spend. Organic and the earned bucket (direct, email, affiliates, referral, organic social) are last year's sessions times an assumed change; the tool calls that an assumed contribution, and it is shown as a lever rather than hidden. Sales are sessions times conversion times AOV. Every ratio on the page is recomputed from summed totals, never averaged.</p>
+  <div class="eq">sessions = paid(spend) + organic&times;(1+g<sub>org</sub>) + earned&times;(1+g<sub>earn</sub>) + spillovers<br>sales = sessions &times; conversion &times; AOV</div>
+
+  <h3>2. Spend to sessions, by channel</h3>
+  <p><b>In production:</b> one aggregate spend number with unit pass-through, so 10% more spend buys 10% more paid sessions at last year's cost per session. That was a choice, not an oversight. A Hill curve was fitted (sessions = &alpha;&middot;spend<sup>&beta;</sup>/(K<sup>&beta;</sup>+spend<sup>&beta;</sup>), R&sup2; 0.74 on base weeks, local elasticity near 0.5) and rejected because it failed the second-half sanity check against the year's actuals, where spend fell 19.6% and paid sessions fell 18.9%, cost per session flat. The simple version matched reality; the sophisticated one did not.</p>
+  <p><b>In this replica:</b> each channel gets its own curve from the sibling traffic engine, which models cost per click instead of sessions directly:</p>
+  <div class="eq">CPC<sub>c</sub> = CPC<sub>LY,c</sub> &times; (1 + drift) &times; (spend<sub>c</sub> / spend<sub>LY,c</sub>)<sup>&epsilon;<sub>c</sub></sup><br>clicks<sub>c</sub> = spend<sub>c</sub> / CPC<sub>c</sub> &nbsp;&nbsp;&nbsp;&nbsp; sessions<sub>c</sub> = clicks<sub>c</sub> &times; click-to-session<sub>c</sub></div>
+  <p>The elasticity &epsilon;<sub>c</sub> is how fast the auction price rises as you push more money in. It is estimated per channel by regressing log CPC change on log spend change over weekly year-over-year pairs, and kept only where the fit is convincing (R&sup2; at or above 0.7, which holds for brand and non-brand search at about 0.9). Shopping and local inventory do not clear that bar; they fall back to a fixed CPC ratio. Holiday weeks carry their own CPC premiums (brand about 1.27x). Backtest: 8.0% mean absolute error on quarterly traffic, against 10.5% for the Hill curve.</p>
+  <div class="tscroll"><table class="m">
+    <thead><tr><th>Channel</th><th>CPC elasticity to spend</th><th>Sessions per extra dollar</th><th>Basis</th></tr></thead>
+    <tbody>
+      <tr><td>Brand search</td><td class="n">0.85</td><td class="n">near zero past the ceiling</td><td>Fitted; plus the impression-share ceiling below</td></tr>
+      <tr><td>Non-brand search</td><td class="n">0.35</td><td class="n">falls as spend rises</td><td>Fitted, R&sup2; about 0.9</td></tr>
+      <tr><td>Shopping</td><td class="n">0.25</td><td class="n">falls slowly</td><td>Fit too weak; fixed CPC ratio in production</td></tr>
+      <tr><td>Local inventory</td><td class="n">0.30</td><td class="n">falls slowly</td><td>Fit too weak; fixed CPC ratio in production</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The brand ceiling.</b> Brand search cannot be bought past the searches that exist. Budget-lost impression share sat between 0.0% and 0.4% for twelve straight months; the core campaign already held 96% of its available impressions. A 6,000 campaign-day panel with campaign fixed effects and a demand control put the elasticity of clicks to CPC at +0.08 with a standard error of 0.11, which is zero. The naive regression on the same data reads +0.79, which is the number that makes "fund it back up" feel right. In the replica, brand sessions cap at last year's level plus the remaining impression share, and spend past that point buys a higher CPC and nothing else. The tool flags it.</p>
+
+  <h3>3. Conversion and AOV</h3>
+  <p>Conversion is not a constant. It falls when paid spend rises, because incremental paid traffic is lower intent than the base, and it falls when AOV rises, because pricier baskets convert less often. Both are fitted on weekly data:</p>
+  <div class="eq">log(conversion) = a + &epsilon;<sub>spend</sub>&middot;log(spend) + &epsilon;<sub>AOV</sub>&middot;log(AOV) &nbsp;&nbsp; &rarr; &nbsp;&nbsp; &epsilon;<sub>spend</sub> = &minus;0.17, &nbsp;&epsilon;<sub>AOV</sub> = &minus;0.48</div>
+  <p>Split by week type, the holiday coefficients differ (&minus;0.66 and &minus;1.01 pre-holiday), but the planning tool uses the base values everywhere, calibrated with a single constant from the median of actual over predicted. Backtest forecasting the year from the prior year: 5.4% mean absolute error, bias about zero. AOV is a lever here; in the production tool the second planning year uses a plateau model, a target AOV times a growth rate times last year's per-period seasonal index. A target row in production back-solves any lever from a typed full-year total; conversion solves in closed form, AOV by bisection because it feeds back into conversion.</p>
+
+  <h3>4. Halo and cannibalization</h3>
+  <p><b>Not in production.</b> The production tool assumes spillover away and says so. The evidence exists, though, and this replica applies it as a matrix: a change in one channel's paid sessions moves other buckets by a fixed share. Where a value comes from a holdout it is solid; where it comes from a correlation model it is a placeholder with the right sign.</p>
+  <div class="tscroll"><table class="m">
+    <thead><tr><th>Effect</th><th>Share applied</th><th>Evidence</th></tr></thead>
+    <tbody>
+      <tr><td>Brand search &rarr; organic brand</td><td class="n">&minus;0.35</td><td>Geo holdout: brand paid cut 61% in test markets, organic brand rose 9%. About 35% of brand paid clicks substitute for organic; 65% are incremental.</td></tr>
+      <tr><td>Brand search &rarr; direct</td><td class="n">+0.25</td><td>Same holdout: direct fell 25 points where brand paid was cut. Complementary, the opposite of the cannibalization story.</td></tr>
+      <tr><td>Non-brand search &rarr; organic and direct</td><td class="n">+0.06 / +0.04</td><td>Later brand demand created by non-brand exposure. Correlation and Granger evidence only; small and treated as such.</td></tr>
+      <tr><td>Shopping &rarr; organic</td><td class="n">&minus;0.06</td><td>Product ads displace organic product results on the same page. Directional.</td></tr>
+      <tr><td>Brand search &rarr; other paid channels</td><td class="n">0</td><td>Holdout difference-in-differences on shopping, local, and non-brand: no movement (p 0.63 to 0.86).</td></tr>
+      <tr><td>Display &amp; video &rarr; organic and direct</td><td class="n">sessions per $1M</td><td>Impression-based coefficients from the mix model. Flagged for possible reverse causality (retargeting follows visits). Lowest confidence on the page.</td></tr>
+    </tbody>
+  </table></div>
+  <p>The method stack behind those values: a full channel correlation matrix on daily sessions, first-difference and partial correlations to strip shared seasonality, Granger tests as a gate before any relationship is used, a mix model with autoregressive errors and a reduced set of controls, and holdouts overriding everything else when they exist. The toggle above lets you see how much the spillover layer changes the answer. For a typical scenario it is a few percent of sales, concentrated in brand search, which is exactly where the planning debates happen.</p>
+
+  <h3>5. Calibration and what the model does not claim</h3>
+  <ul>
+    <li>Last-year anchors come from the governed daily mart; channel shares come from the attribution pipeline. Rendered totals are checked against the Python model before anything ships.</li>
+    <li>The finance forecast is a reference line, not a target. In the production year it missed two periods by 11% and 18%, which is why the tool exists.</li>
+    <li>Blended efficiency (sales per paid dollar) rises mechanically when paid share falls. Read the marginal table, not the blended number, when deciding where the next dollar goes.</li>
+    <li>Store sales are out of scope. This is ecommerce only. The store side lives in the attribution work.</li>
+    <li>Elasticities are this year's. They get re-fitted every planning cycle, and the naive-versus-controlled trap in the brand panel is the reason the fitting is not left to a spreadsheet.</li>
+  </ul>
+</section>
+
+<div class="datanote">All figures on this page are synthetic: last-year anchors, seasonality, elasticities, and spillover shares are perturbed from the real work or set to illustrative values in the ranges the research supports. The model structure, the estimation methods, the rejected alternatives, and the ceiling logic are real.</div>
+</main>
+
+<script>
+"use strict";
+// ---------------- synthetic anchors ----------------
+const PER=['P1','P2','P3','P4','P5','P6','P7','P8','P9','P10','P11','P12'];
+const W=[.072,.070,.088,.075,.080,.100,.078,.078,.096,.080,.080,.103];          // period share of volume (4-4-5, holiday-heavy P6/P9/P12)
+const AOVIDX=[.97,.96,1.00,.98,.99,1.04,.97,.98,1.03,1.00,1.01,1.07];              // LY per-period AOV seasonal index
+const CONVLY=[1.78,1.74,1.86,1.80,1.83,2.02,1.79,1.80,1.98,1.82,1.84,2.10];        // LY conversion % by period
+const AOVLY=809;
+const CH=[
+ {k:'brand',n:'Brand search',   spendLY:12.0, cpcLY:1.90, eps:0.85, c2s:0.300, cap:1.05, col:'#1F3A5F'},
+ {k:'nb',   n:'Non-brand search',spendLY:30.0, cpcLY:4.10, eps:0.35, c2s:0.270, col:'#2C5688'},
+ {k:'shop', n:'Shopping',        spendLY:38.0, cpcLY:2.60, eps:0.25, c2s:0.180, col:'#5f7fa3'},
+ {k:'local',n:'Local inventory', spendLY:20.0, cpcLY:1.60, eps:0.30, c2s:0.130, col:'#8ea3bf'},
+];
+const UF_LY=25.0;                       // upper-funnel spend $M
+const UF_HALO={org:2800,earn:2200};      // sessions per $1M change in upper-funnel spend (low confidence)
+const ORG_LY=4.6e6, EARN_LY=4.3e6;       // LY sessions
+const E_SPEND=-0.17, E_AOV=-0.48;
+const SPILL={ brand:{org:-0.35,earn:+0.25}, nb:{org:+0.06,earn:+0.04}, shop:{org:-0.06,earn:0}, local:{org:0,earn:+0.05} };
+const FC=[0.90,0.89,0.88,0.90,0.88,0.86,0.89,0.88,0.87,0.90,0.89,0.86];            // finance forecast as a ratio of LY sales by period (reference)
+
+const money=v=>{const s=v<0?'−':'';v=Math.abs(v);return s+(v>=1e6?'$'+(v/1e6).toFixed(1)+'M':v>=1e3?'$'+Math.round(v/1e3)+'K':'$'+Math.round(v));};
+const mM=v=>'$'+v.toFixed(1)+'M';
+const kf=v=>v>=1e6?(v/1e6).toFixed(2)+'M':Math.round(v/1e3)+'K';
+const pct=v=>(v>=0?'+':'−')+Math.abs(v*100).toFixed(1)+'%';
+const bps=v=>(v>=0?'+':'−')+Math.abs(Math.round(v*10000))+' bps';
+const cls=v=>Math.abs(v)<1e-6?'flat':(v>0?'up':'down');
+const sp=(v,f)=>'<span class="'+cls(v)+'">'+f(v)+'</span>';
+
+// ---------------- state ----------------
+const S={spend:{},uf:UF_LY,org:-10,earn:-5,cpc:0,cvr:0,aov:2,spill:true,ceil:true,curve:'brand'};
+CH.forEach(c=>S.spend[c.k]=c.spendLY);
+const PRESETS={
+  base:{mult:1.00,uf:25,org:-10,earn:-5,cpc:0,cvr:0,aov:2},
+  up:  {mult:1.10,uf:25,org:-10,earn:-5,cpc:0,cvr:0,aov:2},
+  low: {mult:1.00,uf:20,org:-20,earn:-10,cpc:6,cvr:-4,aov:0},
+  high:{mult:1.05,uf:30,org:0,earn:0,cpc:0,cvr:-1,aov:4},
+};
+
+// ---------------- model ----------------
+function channelSessions(c,spendM,cpcDrift,enforceCap){
+  const ratio=spendM/c.spendLY;
+  const cpc=c.cpcLY*(1+cpcDrift/100)*Math.pow(Math.max(ratio,1e-6),c.eps);
+  let clicks=spendM*1e6/cpc;
+  const clicksLY=c.spendLY*1e6/c.cpcLY;
+  let capped=false;
+  if(enforceCap&&c.cap&&clicks>clicksLY*c.cap){clicks=clicksLY*c.cap;capped=true;}
+  return {sessions:clicks*c.c2s,cpc,capped,sessionsLY:clicksLY*c.c2s};
+}
+function run(st){
+  // annual paid sessions per channel
+  const paid={},paidLY={};let flags=[];
+  CH.forEach(c=>{const r=channelSessions(c,st.spend[c.k],st.cpc,st.ceil);paid[c.k]=r.sessions;paidLY[c.k]=r.sessionsLY;if(r.capped)flags.push(c.n);});
+  const psSpend=CH.reduce((a,c)=>a+st.spend[c.k],0), psSpendLY=CH.reduce((a,c)=>a+c.spendLY,0);
+  // spillovers on annual deltas
+  let dOrg=0,dEarn=0;
+  if(st.spill){
+    CH.forEach(c=>{const d=paid[c.k]-paidLY[c.k];dOrg+=SPILL[c.k].org*d;dEarn+=SPILL[c.k].earn*d;});
+    dOrg+=UF_HALO.org*(st.uf-UF_LY); dEarn+=UF_HALO.earn*(st.uf-UF_LY);
+  }
+  const orgA=ORG_LY*(1+st.org/100)+dOrg, earnA=EARN_LY*(1+st.earn/100)+dEarn;
+  const paidA=Object.values(paid).reduce((a,b)=>a+b,0), paidLYA=Object.values(paidLY).reduce((a,b)=>a+b,0);
+  // by period
+  const rows=[];let T={spend:0,sess:0,txn:0,sales:0,fc:0,sessLY:0,txnLY:0,salesLY:0,spendLY:0};
+  for(let p=0;p<12;p++){
+    const w=W[p];
+    const sess=(paidA+orgA+earnA)*w, sessLY=(paidLYA+ORG_LY+EARN_LY)*w;
+    const aovLY=AOVLY*AOVIDX[p], aov=aovLY*(1+st.aov/100);
+    const convLY=CONVLY[p]/100;
+    const conv=convLY*Math.pow(aov/aovLY,E_AOV)*Math.pow(psSpend/psSpendLY,E_SPEND)*(1+st.cvr/100);
+    const txn=sess*conv, txnLY=sessLY*convLY, sales=txn*aov, salesLY=txnLY*aovLY;
+    const fc=salesLY*FC[p];
+    rows.push({p:PER[p],spend:psSpend*w,spendLY:psSpendLY*w,sess,sessLY,conv,convLY,aov,aovLY,txn,txnLY,sales,salesLY,fc});
+    T.spend+=psSpend*w;T.spendLY+=psSpendLY*w;T.sess+=sess;T.sessLY+=sessLY;T.txn+=txn;T.txnLY+=txnLY;T.sales+=sales;T.salesLY+=salesLY;T.fc+=fc;
+  }
+  return {rows,T,paid,paidLY,orgA,earnA,dOrg,dEarn,psSpend,psSpendLY,flags};
+}
+// bridge: sequential steps from LY to scenario
+function bridge(st){
+  const base={spend:{},uf:UF_LY,org:0,earn:0,cpc:0,cvr:0,aov:0,spill:false,ceil:st.ceil,curve:st.curve};
+  CH.forEach(c=>base.spend[c.k]=c.spendLY);
+  const steps=[];let prev=run(base).T.sales;
+  const add=(name,next)=>{const s=run(next).T.sales;steps.push({name,d:s-prev});prev=s;return next;};
+  let cur=Object.assign({},base,{spend:Object.assign({},st.spend),cpc:st.cpc});          cur=add('Paid volume & CPC',cur);
+  cur=Object.assign({},cur,{spill:st.spill,uf:st.uf});                                 cur=add('Halo & cannibalization',cur);
+  cur=Object.assign({},cur,{org:st.org});                                              cur=add('Organic baseline',cur);
+  cur=Object.assign({},cur,{earn:st.earn});                                             cur=add('Earned & direct baseline',cur);
+  cur=Object.assign({},cur,{cvr:st.cvr});                                               cur=add('Conversion adjust',cur);
+  cur=Object.assign({},cur,{aov:st.aov});                                               cur=add('AOV (incl. conversion response)',cur);
+  return {start:run(base).T.sales,steps,end:prev};
+}
+function marginal(st){
+  // finite-difference marginal sales per extra $1 in each channel, holding everything else at the scenario
+  const R0=run(st);const out=[];
+  CH.forEach(c=>{const st2=Object.assign({},st,{spend:Object.assign({},st.spend)});st2.spend[c.k]+=0.5;const R1=run(st2);
+    const dSales=(R1.T.sales-R0.T.sales)/0.5e6, dSess=(R1.T.sess-R0.T.sess)/0.5e6;
+    out.push({c,spend:st.spend[c.k],sess:R0.paid[c.k],sessLY:R0.paidLY[c.k],mSess:dSess,mSales:dSales,capped:R0.flags.includes(c.n)});});
+  return out;
+}
+
+// ---------------- UI ----------------
+const $=id=>document.getElementById(id);
+function buildLevers(){
+  $('chLevers').innerHTML=CH.map(c=>`<div class="lever"><label>${c.n} <small>LY ${mM(c.spendLY)}</small></label><input type="range" id="r_${c.k}" min="${(c.spendLY*0.4).toFixed(1)}" max="${(c.spendLY*1.8).toFixed(1)}" step="0.5" value="${c.spendLY}"><input type="number" id="n_${c.k}" step="0.5" value="${c.spendLY}"></div>`).join('');
+  const bind=(id,key,isCh)=>{const r=$('r_'+id),n=$('n_'+id);const set=v=>{v=parseFloat(v);if(isNaN(v))return;r.value=v;n.value=v;if(isCh)S.spend[key]=v;else S[key]=v;clearPreset();render();};r.oninput=e=>set(e.target.value);n.onchange=e=>set(e.target.value);};
+  CH.forEach(c=>bind(c.k,c.k,true));
+  [['uf','uf'],['org','org'],['earn','earn'],['cpc','cpc'],['cvr','cvr'],['aov','aov']].forEach(([id,k])=>bind(id,k,false));
+  $('spill').onchange=e=>{S.spill=e.target.checked;render();};
+  $('ceil').onchange=e=>{S.ceil=e.target.checked;render();};
+  $('chSel').innerHTML=CH.map(c=>`<button class="chip ${c.k===S.curve?'on':''}" data-c="${c.k}">${c.n}</button>`).join('');
+  $('chSel').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{S.curve=b.dataset.c;$('chSel').querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===b));render();});
+  $('presets').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{const p=PRESETS[b.dataset.p];CH.forEach(c=>{S.spend[c.k]=+(c.spendLY*p.mult).toFixed(1);$('r_'+c.k).value=S.spend[c.k];$('n_'+c.k).value=S.spend[c.k];});
+    ['uf','org','earn','cpc','cvr','aov'].forEach(k=>{S[k]=p[k];$('r_'+k).value=p[k];$('n_'+k).value=p[k];});
+    $('presets').querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===b));render();});
+}
+function clearPreset(){$('presets').querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));}
+
+let cPeriod,cCurve,cBridge;
+function initCharts(){
+  cPeriod=new Chart($('cPeriod'),{type:'bar',data:{labels:PER,datasets:[
+    {label:'Last year',data:[],backgroundColor:'#d9d5c9',borderRadius:2,order:2},
+    {label:'Scenario',data:[],backgroundColor:'#1F3A5F',borderRadius:2,order:2},
+    {label:'Finance forecast',data:[],type:'line',borderColor:'#b3341f',borderDash:[5,4],borderWidth:1.6,pointRadius:0,order:1}]},
+    options:{responsive:true,maintainAspectRatio:false,animation:{duration:250},plugins:{legend:{position:'bottom',labels:{boxWidth:11,font:{size:10.5}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+money(c.parsed.y)}}},
+      scales:{y:{ticks:{callback:v=>'$'+(v/1e6).toFixed(0)+'M',font:{size:10}},grid:{color:'#efede6'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+  cCurve=new Chart($('cCurve'),{type:'line',data:{datasets:[
+    {label:'Sessions',data:[],borderColor:'#1F3A5F',borderWidth:2,pointRadius:0,tension:.3,parsing:false},
+    {label:'Scenario',data:[],type:'scatter',backgroundColor:'#7a1e2b',pointRadius:6,parsing:false},
+    {label:'Last year',data:[],type:'scatter',backgroundColor:'#bdb9ad',pointRadius:5,parsing:false}]},
+    options:{responsive:true,maintainAspectRatio:false,animation:{duration:250},plugins:{legend:{position:'bottom',labels:{boxWidth:11,font:{size:10.5}}},tooltip:{callbacks:{label:c=>mM(c.parsed.x)+' spend, '+kf(c.parsed.y)+' sessions'}}},
+      scales:{x:{type:'linear',ticks:{callback:v=>'$'+v+'M',font:{size:10}},grid:{color:'#efede6'},title:{display:true,text:'Full-year spend',font:{size:10}}},y:{ticks:{callback:v=>kf(v),font:{size:10}},grid:{color:'#efede6'}}}}});
+  cBridge=new Chart($('cBridge'),{type:'bar',data:{labels:[],datasets:[{data:[],backgroundColor:[],borderRadius:2}]},
+    options:{responsive:true,maintainAspectRatio:false,animation:{duration:250},layout:{padding:{top:16}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const s=cBridge.$steps[c.dataIndex];return s.total!=null?money(s.total):(s.d>=0?'+':'−')+money(Math.abs(s.d));}}}},
+      scales:{y:{ticks:{callback:v=>'$'+(v/1e6).toFixed(0)+'M',font:{size:10}},grid:{color:'#efede6'}},x:{grid:{display:false},ticks:{font:{size:9},autoSkip:false,maxRotation:0}}}},
+    plugins:[{id:'bl',afterDatasetsDraw(ch){const {ctx}=ch,m=ch.getDatasetMeta(0);ctx.save();ctx.textAlign='center';ctx.font='600 10px Inter,sans-serif';m.data.forEach((bar,i)=>{const s=ch.$steps[i],top=Math.min(bar.y,bar.base);if(s.total==null&&Math.abs(s.d)<1e4)return;ctx.fillStyle=s.total!=null?'#1A1A1A':(s.d>=0?'#1f7a45':'#b3341f');ctx.fillText(s.total!=null?money(s.total):(s.d>=0?'+':'−')+money(Math.abs(s.d)),bar.x,top-5);});ctx.restore();}}]});
+}
+
+function render(){
+  const R=run(S),T=R.T;
+  // KPIs
+  const conv=T.txn/T.sess, convLY=T.txnLY/T.sessLY, aov=T.sales/T.txn, aovLY=T.salesLY/T.txnLY;
+  const eff=T.sales/(T.spend*1e6), effLY=T.salesLY/(T.spendLY*1e6);
+  $('kpis').innerHTML=[
+    ['Paid search spend',mM(T.spend),sp((T.spend-T.spendLY)/T.spendLY,pct).replace(/class="(up|down)"/,'class="flat"')],
+    ['Shop sessions',kf(T.sess),sp((T.sess-T.sessLY)/T.sessLY,pct)],
+    ['Conversion',(conv*100).toFixed(2)+'%',sp(conv-convLY,bps)],
+    ['AOV','$'+Math.round(aov),sp((aov-aovLY)/aovLY,pct)],
+    ['Sales',money(T.sales),sp((T.sales-T.salesLY)/T.salesLY,pct)],
+    ['Sales per paid $','$'+eff.toFixed(2),sp((eff-effLY)/effLY,pct)],
+  ].map(k=>`<div class="kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="d">${k[2]} vs LY</div></div>`).join('');
+  const w=$('warn');if(R.flags.length){w.style.display='block';w.textContent=R.flags.join(', ')+' is at its impression-share ceiling. Spend past this point raises CPC and buys no additional sessions.';}else w.style.display='none';
+  // period chart + table
+  cPeriod.data.datasets[0].data=R.rows.map(r=>r.salesLY);cPeriod.data.datasets[1].data=R.rows.map(r=>r.sales);cPeriod.data.datasets[2].data=R.rows.map(r=>r.fc);cPeriod.update();
+  let h='<thead><tr><th class="l">Period</th><th>PS spend</th><th>Sessions</th><th>&Delta; LY</th><th>Conv</th><th>&Delta; LY</th><th>AOV</th><th>&Delta; LY</th><th>Sales</th><th>&Delta; LY</th><th>Fin FC</th><th>&Delta; vs FC</th></tr></thead><tbody>';
+  const row=(r,tot)=>`<tr${tot?' class="tot"':''}><td class="l">${r.p}</td><td>${mM(r.spend)}</td><td>${kf(r.sess)}</td><td class="dc">${sp((r.sess-r.sessLY)/r.sessLY,pct)}</td><td>${(r.conv*100).toFixed(2)}%</td><td class="dc">${sp(r.conv-r.convLY,bps)}</td><td>$${Math.round(r.aov)}</td><td class="dc">${sp((r.aov-r.aovLY)/r.aovLY,pct)}</td><td>${money(r.sales)}</td><td class="dc">${sp((r.sales-r.salesLY)/r.salesLY,pct)}</td><td>${money(r.fc)}</td><td class="dc">${sp(r.sales-r.fc,v=>(v>=0?'+':'−')+money(Math.abs(v)))}</td></tr>`;
+  R.rows.forEach(r=>h+=row(r,false));
+  h+=row({p:'Total FY',spend:T.spend,sess:T.sess,sessLY:T.sessLY,conv:conv,convLY:convLY,aov:aov,aovLY:aovLY,sales:T.sales,salesLY:T.salesLY,fc:T.fc},true)+'</tbody>';
+  $('tPer').innerHTML=h;
+  // response curve
+  const c=CH.find(x=>x.k===S.curve);const pts=[];
+  for(let i=0;i<=40;i++){const s=c.spendLY*(0.4+i*(1.4/40));pts.push({x:+s.toFixed(2),y:channelSessions(c,s,S.cpc,S.ceil).sessions});}
+  const cur=channelSessions(c,S.spend[c.k],S.cpc,S.ceil);
+  cCurve.data.datasets[0].data=pts;cCurve.data.datasets[1].data=[{x:S.spend[c.k],y:cur.sessions}];cCurve.data.datasets[2].data=[{x:c.spendLY,y:cur.sessionsLY}];cCurve.update();
+  const M=marginal(S),mc=M.find(m=>m.c.k===c.k);
+  $('curveNote').innerHTML=`<b>${c.n}:</b> ${mM(S.spend[c.k])} buys ${kf(cur.sessions)} sessions at $${cur.cpc.toFixed(2)} CPC. Next $1M: ${mc.capped?'<b>no additional sessions</b>, the channel is at its impression-share ceiling':'about '+kf(Math.max(mc.mSess,0)*1e6)+' sessions, '+money(Math.max(mc.mSales,0)*1e6)+' in sales'}. Curve shape: CPC elasticity ${c.eps}.`;
+  // marginal table
+  let mh='<thead><tr><th class="l">Channel</th><th>Sessions</th><th>Next $1M: sessions</th><th>Next $1M: sales</th></tr></thead><tbody>';
+  M.forEach(m=>mh+=`<tr><td class="l">${m.c.n}${m.capped?' <span class="tag">at ceiling</span>':''}</td><td>${kf(m.sess)}</td><td>${m.capped?'0':kf(m.mSess*1e6)}</td><td class="dc">${m.capped?'$0':money(m.mSales*1e6)}</td></tr>`);
+  $('tMarg').innerHTML=mh+'</tbody>';
+  const best=M.filter(m=>!m.capped).sort((a,b)=>b.mSales-a.mSales)[0];
+  $('margNote').innerHTML=best?`<b>Best next dollar: ${best.c.n}</b> at ${money(best.mSales*1e6)} of sales per $1M, including the conversion response and any spillover. Blended sales per paid dollar is ${'$'+eff.toFixed(2)}; the marginal numbers are what should move budget.`:'';
+  // bridge
+  const B=bridge(S);const steps=[{label:'Last year',v:[0,B.start],total:B.start,c:'#bdb9ad'}];let run_=B.start;
+  B.steps.forEach(s=>{const a=run_,b=run_+s.d;steps.push({label:s.name,v:[Math.min(a,b),Math.max(a,b)],d:s.d,c:s.d>=0?'#1f7a45':'#b3341f'});run_=b;});
+  steps.push({label:'Scenario',v:[0,B.end],total:B.end,c:'#1F3A5F'});
+  const SHORT={'Last year':['Last','year'],'Paid volume & CPC':['Paid','volume'],'Halo & cannibalization':['Halo /','cannib.'],'Organic baseline':['Organic','baseline'],'Earned & direct baseline':['Earned','baseline'],'Conversion adjust':['Conv.','adjust'],'AOV (incl. conversion response)':['AOV'],'Scenario':['Scenario']};cBridge.$steps=steps;cBridge.data.labels=steps.map(s=>SHORT[s.label]||[s.label]);cBridge.data.datasets[0].data=steps.map(s=>s.v);cBridge.data.datasets[0].backgroundColor=steps.map(s=>s.c);
+  const lo=Math.min(...steps.map(s=>s.total!=null?s.total:s.v[0]));cBridge.options.scales.y.min=Math.floor(lo*0.9/1e7)*1e7;cBridge.update();
+}
+$('csv').onclick=()=>{const rows=[...$('tPer').querySelectorAll('tr')].map(tr=>[...tr.children].map(td=>'"'+td.textContent.replace(/"/g,'""').replace(/−/g,'-')+'"').join(','));
+  const blob=new Blob(['﻿'+rows.join('\r\n')],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='planning_scenario.csv';a.click();};
+buildLevers();initCharts();render();
+</script>
+</body>
+</html>
