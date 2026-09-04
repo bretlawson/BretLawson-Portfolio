@@ -85,6 +85,9 @@ table.t td{padding:5px 8px;border-bottom:1px solid #f0eee7;text-align:right;font
 table.t td.dc{font-size:.72rem;font-weight:600;background:#fbfaf6}
 table.t tr.tot td{font-weight:700;border-top:2px solid var(--accent);background:#f7f6f1}
 table.t td.tag,table.t .tag{font-size:.66rem;color:var(--faint);font-weight:500}
+#tMarg th{white-space:normal;line-height:1.25;vertical-align:bottom}
+#tMarg td{white-space:normal}
+#tMarg td.l{max-width:130px}
 .texp{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .csv{font-family:var(--sans);font-size:.74rem;font-weight:600;color:var(--accent);background:#fff;border:1px solid var(--hair);border-radius:7px;padding:4px 10px;cursor:pointer}
 .csv:hover{border-color:var(--accent)}
@@ -414,7 +417,7 @@ function render(){
   const M=marginal(S),mc=M.find(m=>m.c.k===c.k);
   $('curveNote').innerHTML=`<b>${c.n}:</b> ${mM(S.spend[c.k])} buys ${kf(cur.sessions)} sessions at $${cur.cpc.toFixed(2)} CPC. Next $1M: ${mc.capped?'<b>no additional sessions</b>, the channel is at its impression-share ceiling':'about '+kf(Math.max(mc.mSess,0)*1e6)+' sessions, '+money(Math.max(mc.mSales,0)*1e6)+' in sales'}. Curve shape: CPC elasticity ${c.eps}.`;
   // marginal table
-  let mh='<thead><tr><th class="l">Channel</th><th>Sessions</th><th>Next $1M: sessions</th><th>Next $1M: sales</th></tr></thead><tbody>';
+  let mh='<thead><tr><th class="l">Channel</th><th>Sessions</th><th>Next $1M<br>sessions</th><th>Next $1M<br>sales</th></tr></thead><tbody>';
   M.forEach(m=>mh+=`<tr><td class="l">${m.c.n}${m.capped?' <span class="tag">at ceiling</span>':''}</td><td>${kf(m.sess)}</td><td>${m.capped?'0':kf(m.mSess*1e6)}</td><td class="dc">${m.capped?'$0':money(m.mSales*1e6)}</td></tr>`);
   $('tMarg').innerHTML=mh+'</tbody>';
   const best=M.filter(m=>!m.capped).sort((a,b)=>b.mSales-a.mSales)[0];
