@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paid marketing looked unprofitable until we counted store sales · Bret Lawson</title>
-<meta name="description" content="Case study: online-to-offline attribution for a 2,300-store retailer. Web analytics graded paid marketing below break-even; stitched store sales and channel-level holdout tests showed roughly 4x incremental return.">
+<meta name="description" content="Case study: online-to-offline attribution with channel holdouts. Web-only analytics said 0.9 ROAS. Store stitching said 4.0. Incrementality testing said 2.4. Budgets run on the last number.">
 <meta name="author" content="Bret Lawson">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.bretlawson.com/o2o-attribution.html">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.bretlawson.com/o2o-attribution.html">
 <meta property="og:title" content="Paid marketing looked unprofitable until we counted store sales · Bret Lawson">
-<meta property="og:description" content="Case study: online-to-offline attribution for a 2,300-store retailer. Web analytics graded paid marketing below break-even; stitched store sales and channel-level holdout tests showed roughly 4x incremental return.">
+<meta property="og:description" content="Online-to-offline attribution with channel holdouts. Web-only said 0.9 ROAS. Store stitching said 4.0. Incrementality said 2.4. Budgets run on the last number.">
 <meta property="og:image" content="https://www.bretlawson.com/bret_lawson.jpg">
 <meta property="og:site_name" content="Bret Lawson">
 <meta name="twitter:card" content="summary">
@@ -48,6 +48,10 @@ h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5vw,3rem);lette
 h2{font-family:var(--serif);font-weight:600;font-size:1.45rem;letter-spacing:-.3px;margin:46px 0 14px}
 p{margin-bottom:15px;color:#2e2c27}
 p b{color:var(--ink)}
+.prose ul{list-style:none;margin:0 0 15px}
+.prose li{position:relative;padding-left:18px;margin-bottom:9px;color:#2e2c27}
+.prose li::before{content:'';position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.55}
+.prose li b{color:var(--ink)}
 .fig{margin:34px 0;background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:22px 24px 16px}
 .fig .ft{font-size:.85rem;font-weight:600}
 .fig .fs{font-size:.76rem;color:var(--muted);margin:2px 0 12px}
@@ -72,9 +76,9 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 </div></nav>
 
 <header class="head wrap">
-  <div class="eyebrow">Case study &middot; Attribution &amp; measurement</div>
+  <div class="eyebrow">Case study &middot; Attribution &amp; incrementality</div>
   <h1>Paid marketing looked unprofitable until we counted store sales.</h1>
-  <p class="stand">Web analytics graded the paid portfolio below break-even because it could not see the stores. Identity-stitched store transactions and channel-level holdout tests put the true incremental return near 4x, and budget allocation now runs on it.</p>
+  <p class="stand">Web analytics said 0.9 ROAS. Store stitching said 4.0. Channel holdouts said 2.4. The last number is the one budgets run on.</p>
   <div class="meta">
     <div><b>When</b>2025&ndash;2026 &middot; in production</div>
     <div><b>Role</b>Led a 3-person build &middot; architecture &amp; pipelines mine</div>
@@ -85,45 +89,66 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 
 <main class="wrap">
 <div class="prose">
-  <h2>The situation</h2>
-  <p>At a roughly 2,300-store retailer, most transactions happen in stores while most journeys start online. Channel credit came from single-session, web-only last-click, which fails twice. It misassigns even online sales: a customer who arrived through brand search four times and returned via a bookmark scores as Direct. And it cannot see store sales at all, so marketing was graded on the minority of revenue its channels touched. The ad platforms were no help; their store metrics optimize toward modeled store visits, not sales.</p>
-  <p>Leadership needed channel returns they could allocate budget against: <b>which marketing dollars actually produce store sales, and how much of that would have happened anyway?</b></p>
+  <h2>The problem</h2>
+  <p>2,300 stores. Most journeys start online; most sales close in a store. Our channel reporting was web-only last-click, so it graded marketing on the fifth of revenue it could see and filed the rest under Direct. By that math the whole paid portfolio lost money. Nobody believed it. Nobody could prove it wrong, either.</p>
 
-  <h2>What I did</h2>
-  <p>I led a three-person build, directing a tagging expert on event capture, partnering with a developer on integration, and building the data model, pipelines, and stitching logic myself. Identity first: visitor identifiers are extracted from the behavioral stream, linked across devices and sessions, and joined to orders assembled from <b>three overlapping sources</b> so a single broken tag cannot silently drop sales. Journey second: each converter gets a traced path over a 30-day lookback, and credit is assigned by <b>tiered last-touch across 16 channels</b> (paid touches outrank earned, earned outrank fallback, and the last touch in the highest tier present wins), so a final direct visit cannot steal credit from the search ad that started the journey.</p>
-  <p>Then the discipline that made it trustworthy: stitched channel proportions are <b>calibrated to ERP totals</b>, so credited dollars foot to finance, and the stitch rates themselves are published on the dashboard rather than buried. High-80s percent of ecommerce orders carry a full journey; store orders stitch in the high teens; and nearly half of store orders carry no digital identity at all, so they are credited to no one. The last layer turns attribution into incrementality: rotating matched-market holdout tests, run channel by channel, measure how much of the attributed revenue would have happened anyway, and those factors calibrate the reported returns. Brand search took the biggest haircut, because raw last-touch credit flatters the channel people search for on purpose. Click-based credit still makes awareness channels a lower bound, and the dashboard says so.</p>
+  <h2>The build</h2>
+  <p>Three of us: a tagging expert, a developer, and me on architecture and pipelines.</p>
+  <ul>
+    <li><b>Stitch identity</b> across devices and sessions. Assemble orders from three overlapping sources so one broken tag cannot silently drop sales.</li>
+    <li><b>Trace the journey.</b> 30-day lookback per buyer, credit by tiered last-touch across 16 channels. Paid beats earned beats fallback, so a bookmark visit cannot steal the sale from the ad that started it.</li>
+    <li><b>Calibrate to the ERP</b> so every credited dollar foots to finance. Publish the stitch rates on the dashboard: high 80s for ecommerce, high teens for stores, and 45% of store orders carry no digital identity at all. Those get credited to nobody.</li>
+    <li><b>Run holdouts, channel by channel.</b> Matched markets go dark on one channel for a few weeks; the sales gap says how much of the attributed revenue the ads actually caused.</li>
+  </ul>
 
-  <h2>The turn</h2>
-  <p>The first omni report landed like a verdict. On web-only numbers, blended paid ROAS read about 0.9: the entire portfolio, apparently underwater. With store sales attached and the holdout calibration applied, it read about 4. The channels moved unevenly, and that unevenness is what changed decisions.</p>
+  <h2>What it showed</h2>
+  <p>Three verdicts on the same week of spend:</p>
 </div>
 
 <figure class="fig">
-  <div class="ft">The same week, graded two ways</div>
-  <div class="fs">ROAS by channel &middot; web analytics only vs. incremental with store sales, holdout-calibrated &middot; one representative week, figures perturbed</div>
-  <svg viewBox="0 0 900 372" role="img" aria-label="Grouped bars: ROAS per channel on web-only attribution versus with store sales attached; every paid channel crosses break-even once stores attach" font-family="Inter,-apple-system,sans-serif">
+  <div class="ft">One week of paid spend, graded three ways</div>
+  <div class="fs">ROAS by channel &middot; web-only last-click vs. store sales stitched on vs. holdout-calibrated incremental &middot; figures perturbed</div>
+  <svg viewBox="0 0 900 372" role="img" aria-label="Grouped bars per channel: web-only ROAS, attributed ROAS with store sales, and holdout-calibrated incremental ROAS against a break-even line" font-family="Inter,-apple-system,sans-serif">
     <line x1="30" y1="293" x2="885" y2="293" stroke="#b3341f" stroke-width="1.3" stroke-dasharray="5 4"/>
-    <text x="33" y="286" text-anchor="start" font-size="10.5" fill="#b3341f" font-style="italic">break-even (1.0)</text>
+    <text x="149" y="305" text-anchor="middle" font-size="10" fill="#b3341f" font-style="italic">break-even</text>
     <line x1="30" y1="320" x2="885" y2="320" stroke="#E5E2D9"/>
-    <!-- pairs: web-only (gray) vs omni (blue); y = 320 - roas*27 -->
     <g>
-      <rect x="35"  y="295.7" width="38" height="24.3"  fill="#bdb9ad"/><rect x="77"  y="212"   width="38" height="108"   fill="#1F3A5F"/>
-      <text x="54"  y="290" text-anchor="middle" font-size="11" font-weight="700" fill="#8a877d">0.9</text>
-      <text x="96"  y="206" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1F3A5F">4.0</text>
-      <rect x="185" y="247.1" width="38" height="72.9"  fill="#bdb9ad"/><rect x="227" y="36.5"  width="38" height="283.5" fill="#1F3A5F"/>
-      <text x="204" y="241" text-anchor="middle" font-size="11" font-weight="600" fill="#8a877d">2.7</text>
-      <text x="246" y="30"  text-anchor="middle" font-size="11" font-weight="600" fill="#1F3A5F">10.5</text>
-      <rect x="335" y="309.2" width="38" height="10.8"  fill="#bdb9ad"/><rect x="377" y="247.1" width="38" height="72.9"  fill="#1F3A5F"/>
-      <text x="354" y="303" text-anchor="middle" font-size="11" font-weight="600" fill="#8a877d">0.4</text>
-      <text x="396" y="241" text-anchor="middle" font-size="11" font-weight="600" fill="#1F3A5F">2.7</text>
-      <rect x="485" y="307.8" width="38" height="12.2"  fill="#bdb9ad"/><rect x="527" y="260.6" width="38" height="59.4"  fill="#1F3A5F"/>
-      <text x="504" y="301" text-anchor="middle" font-size="11" font-weight="600" fill="#8a877d">0.5</text>
-      <text x="546" y="254" text-anchor="middle" font-size="11" font-weight="600" fill="#1F3A5F">2.2</text>
-      <rect x="635" y="295.7" width="38" height="24.3"  fill="#bdb9ad"/><rect x="677" y="263.3" width="38" height="56.7"  fill="#1F3A5F"/>
-      <text x="654" y="290" text-anchor="middle" font-size="11" font-weight="600" fill="#8a877d">0.9</text>
-      <text x="696" y="257" text-anchor="middle" font-size="11" font-weight="600" fill="#1F3A5F">2.1</text>
-      <rect x="785" y="239"   width="38" height="81"    fill="#bdb9ad"/><rect x="827" y="201.2" width="38" height="118.8" fill="#1F3A5F"/>
-      <text x="804" y="233" text-anchor="middle" font-size="11" font-weight="600" fill="#8a877d">3.0</text>
-      <text x="846" y="195" text-anchor="middle" font-size="11" font-weight="600" fill="#1F3A5F">4.4</text>
+      <rect x="32"  y="295.7" width="26" height="24.3"  fill="#bdb9ad"/>
+      <rect x="61"  y="212"   width="26" height="108"   fill="#1F3A5F" opacity=".38"/>
+      <rect x="90"  y="255.2" width="26" height="64.8"  fill="#1F3A5F"/>
+      <text x="45"  y="290" text-anchor="middle" font-size="10" font-weight="600" fill="#8a877d">0.9</text>
+      <text x="74"  y="206" text-anchor="middle" font-size="10" fill="#7d90ab">4.0</text>
+      <text x="103" y="249" text-anchor="middle" font-size="11" font-weight="700" fill="#1F3A5F">2.4</text>
+      <rect x="182" y="247.1" width="26" height="72.9"  fill="#bdb9ad"/>
+      <rect x="211" y="36.5"  width="26" height="283.5" fill="#1F3A5F" opacity=".38"/>
+      <rect x="240" y="212"   width="26" height="108"   fill="#1F3A5F"/>
+      <text x="195" y="241" text-anchor="middle" font-size="10" font-weight="600" fill="#8a877d">2.7</text>
+      <text x="224" y="30"  text-anchor="middle" font-size="10" fill="#7d90ab">10.5</text>
+      <text x="253" y="206" text-anchor="middle" font-size="11" font-weight="700" fill="#1F3A5F">4.0</text>
+      <rect x="332" y="309.2" width="26" height="10.8"  fill="#bdb9ad"/>
+      <rect x="361" y="247.1" width="26" height="72.9"  fill="#1F3A5F" opacity=".38"/>
+      <rect x="390" y="268.7" width="26" height="51.3"  fill="#1F3A5F"/>
+      <text x="345" y="303" text-anchor="middle" font-size="10" font-weight="600" fill="#8a877d">0.4</text>
+      <text x="374" y="241" text-anchor="middle" font-size="10" fill="#7d90ab">2.7</text>
+      <text x="403" y="262" text-anchor="middle" font-size="11" font-weight="700" fill="#1F3A5F">1.9</text>
+      <rect x="482" y="307.8" width="26" height="12.2"  fill="#bdb9ad"/>
+      <rect x="511" y="260.6" width="26" height="59.4"  fill="#1F3A5F" opacity=".38"/>
+      <rect x="540" y="274.1" width="26" height="45.9"  fill="#1F3A5F"/>
+      <text x="495" y="301" text-anchor="middle" font-size="10" font-weight="600" fill="#8a877d">0.5</text>
+      <text x="524" y="254" text-anchor="middle" font-size="10" fill="#7d90ab">2.2</text>
+      <text x="553" y="268" text-anchor="middle" font-size="11" font-weight="700" fill="#1F3A5F">1.7</text>
+      <rect x="632" y="295.7" width="26" height="24.3"  fill="#bdb9ad"/>
+      <rect x="661" y="263.3" width="26" height="56.7"  fill="#1F3A5F" opacity=".38"/>
+      <rect x="690" y="282.2" width="26" height="37.8"  fill="#1F3A5F"/>
+      <text x="645" y="290" text-anchor="middle" font-size="10" font-weight="600" fill="#8a877d">0.9</text>
+      <text x="674" y="257" text-anchor="middle" font-size="10" fill="#7d90ab">2.1</text>
+      <text x="703" y="276" text-anchor="middle" font-size="11" font-weight="700" fill="#1F3A5F">1.4</text>
+      <rect x="782" y="239"   width="26" height="81"    fill="#bdb9ad"/>
+      <rect x="811" y="201.2" width="26" height="118.8" fill="#1F3A5F" opacity=".38"/>
+      <rect x="840" y="279.5" width="26" height="40.5"  fill="#1F3A5F"/>
+      <text x="795" y="233" text-anchor="middle" font-size="10" font-weight="600" fill="#8a877d">3.0</text>
+      <text x="824" y="195" text-anchor="middle" font-size="10" fill="#7d90ab">4.4</text>
+      <text x="853" y="273" text-anchor="middle" font-size="11" font-weight="700" fill="#1F3A5F">1.5</text>
     </g>
     <g font-size="11" fill="#5B5B57" text-anchor="middle">
       <text x="75"  y="338" font-weight="600" fill="#1A1A1A">Blended paid</text>
@@ -134,34 +159,35 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
       <text x="825" y="338">Affiliates</text>
     </g>
     <g font-size="10.5" fill="#5B5B57">
-      <rect x="35" y="356" width="16" height="10" fill="#bdb9ad"/><text x="57" y="365">web analytics only</text>
-      <rect x="190" y="356" width="16" height="10" fill="#1F3A5F"/><text x="212" y="365">incremental, with store sales</text>
+      <rect x="32" y="356" width="16" height="10" fill="#bdb9ad"/><text x="54" y="365">web-only</text>
+      <rect x="140" y="356" width="16" height="10" fill="#1F3A5F" opacity=".38"/><text x="162" y="365">+ store sales, attributed</text>
+      <rect x="330" y="356" width="16" height="10" fill="#1F3A5F"/><text x="352" y="365">incremental (holdout-calibrated)</text>
     </g>
   </svg>
-  <figcaption class="cap"><b>Every paid channel crossed break-even once store sales were counted.</b> Local inventory ads moved most: roughly 85% of their credited revenue lands in stores, on a format whose own bidder ignores store sales. Affiliates is the counter-example: mostly ecommerce, so the old view had flattered it relative to everything else.</figcaption>
+  <figcaption class="cap"><b>The haircuts are the story.</b> Brand search kept under half its attributed credit; people who search your name were mostly coming anyway. Affiliates kept a third; coupon sites were taking credit for orders already in motion. Local inventory ads went from the worst line on the web report to solidly profitable, because most of what they drive is a store sale the old report never saw.</figcaption>
 </figure>
 
 <div class="prose">
-  <div class="pull">On the old report, the ads looked like they were losing money. Most of them were funding the stores.</div>
-  <p>Two smaller corrections mattered almost as much. A model in the stack that claimed to be Shapley turned out not to be: its coalition math made every marginal contribution negative, so thousands of multi-channel journeys silently fell through to an equal split. I rebuilt it, then rejected the rebuilds on principle and relabeled the method honestly. And a converter definition that required a payment page was quietly dropping orders paid through wallet redirects; fixing it lifted ecommerce order capture from roughly 70% to 95%.</p>
+  <div class="pull">The channel that looked worst was underpriced. The channel that looked best was overpaid. The report was the problem.</div>
 
-  <h2>What happened after</h2>
-  <p>The stitched pipeline became the house source of truth for channel revenue and ROAS, with a standing rule that other dashboards' money rows <b>must foot to it to the dollar</b>, because stakeholders add numbers up across reports and a bridge that reads lower is dead on arrival. It refreshes incrementally every day; ecommerce reads next-morning while store credit waits out the match window rather than reporting prematurely. Channel budget allocation now runs on the holdout-calibrated incremental returns, with media mix modeling kept alongside as the long-horizon check on upper-funnel effects. Where a holdout and the attribution disagree about a channel, the disagreement is documented and the holdout wins.</p>
+  <h2>What changed</h2>
+  <p>Budgets reallocate on the incremental numbers now. Every other dashboard's money rows must foot to this pipeline to the dollar, because executives add reports together and a mismatch kills trust in both. Ecommerce credit reads next morning; store credit waits out the match window instead of reporting early and wrong.</p>
+  <p>Two bugs worth mentioning. A model in the stack labeled "Shapley" was not Shapley; its coalition math was broken, so I rebuilt it, then relabeled it honestly instead of shipping the name. And a converter rule requiring a payment pageview was dropping every order paid through a wallet redirect. Fixing it lifted order capture from about 70% to 95%.</p>
 </div>
 
 <details class="tech prose">
   <summary>Technical notes, for the people who will ask</summary>
   <div class="tin">
-    <p><b>Identity.</b> Visitor identifiers extracted from the behavioral stream and joined across linked devices; a later layer adds hashed-email and analytics-ID edges built by co-occurrence, with guards (identities shared across several distinct emails are dropped; bot networks filtered). Orders come from three overlapping sources unioned, because each source covers the others' failure modes.</p>
-    <p><b>Credit rules.</b> 30-day lookback on sessions at or before the order timestamp; tiered last-touch (paid, then earned, then fallback tiers) across 16 channels; converters with no attributable touch are redistributed proportionally rather than dumped into Direct. Direct itself is documented as inflated by browser privacy features, with the evidence attached.</p>
-    <p><b>Calibration.</b> Stitched proportions scale to ERP totals by order channel, and a year-over-year stitch-improvement correction prevents better stitching from masquerading as revenue growth. Data-completeness flags mark provisional days instead of letting them look final.</p>
-    <p><b>Incrementality.</b> Rotating matched-market holdouts by channel: comparable markets go dark on one channel for several weeks while their matches keep spending, and the sales gap yields the per-channel incrementality factor that calibrates attributed returns. Cross-checks agree: an alternative attribution model matches tiered last-touch on awareness share to within tenths of a point, and a third-party affiliate network agrees on about 70% of contested converters, with the disagreement set characterized rather than hidden.</p>
+    <p><b>Identity.</b> Visitor IDs extracted from the behavioral stream, linked across devices, with hashed-email and analytics-ID edges added by co-occurrence. Guards: identities shared across several distinct emails are dropped; bot networks filtered. Orders come from three sources unioned, because each covers the others' failure modes.</p>
+    <p><b>Credit rules.</b> 30-day lookback at or before the order timestamp. Tiered last-touch: paid, then earned, then fallback; last touch in the highest tier wins. Converters with no attributable touch redistribute proportionally instead of inflating Direct, which browser privacy already inflates.</p>
+    <p><b>Calibration.</b> Stitched proportions scale to ERP totals per order channel. A year-over-year stitch-improvement correction keeps better stitching from masquerading as growth. Provisional days are flagged, not passed off as final.</p>
+    <p><b>Incrementality.</b> Rotating matched-market holdouts, one channel at a time: comparable markets go dark for several weeks, matches keep spending, and the sales gap yields the per-channel factor applied to attributed returns. Sanity checks: a second attribution model agrees on awareness share to within tenths of a point, and a third-party affiliate network agrees on about 70% of contested converters.</p>
   </div>
 </details>
 
 <p class="next prose">The other case studies: <a href="organic-decline.html">the organic decline</a>, <a href="ecomm-mart.html">the mart</a>, and <a href="dashboard-suite.html">the dashboard suite</a>. Or back to <a href="index.html#work">all work</a>.</p>
 
-<div class="datanote">ROAS figures, stitch rates, and counts are perturbed; channel names are generalized where needed and vendor names removed. The architecture, the corrections, and the decisions are real.</div>
+<div class="datanote">ROAS figures, stitch rates, and counts are perturbed; incrementality factors reflect industry-typical ranges by channel; channel names are generalized and vendor names removed. The architecture, the corrections, and the decisions are real.</div>
 </main>
 </body>
 </html>

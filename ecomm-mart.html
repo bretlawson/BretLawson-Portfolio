@@ -47,6 +47,10 @@ h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5vw,3rem);lette
 h2{font-family:var(--serif);font-weight:600;font-size:1.45rem;letter-spacing:-.3px;margin:46px 0 14px}
 p{margin-bottom:15px;color:#2e2c27}
 p b{color:var(--ink)}
+.prose ul{list-style:none;margin:0 0 15px}
+.prose li{position:relative;padding-left:18px;margin-bottom:9px;color:#2e2c27}
+.prose li::before{content:'';position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.55}
+.prose li b{color:var(--ink)}
 .fig{margin:34px 0;background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:22px 24px 16px}
 .fig .ft{font-size:.85rem;font-weight:600}
 .fig .fs{font-size:.76rem;color:var(--muted);margin:2px 0 12px}
@@ -73,7 +77,7 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 <header class="head wrap">
   <div class="eyebrow">Case study · Data engineering &amp; semantic layer</div>
   <h1>The source of truth was a 40-tab spreadsheet.</h1>
-  <p class="stand">I replaced it with a governed daily mart (eight sources, one row per day, ~130 documented metrics) that reconciles to finance within dollars and now catches broken data feeds before anyone presents a wrong number.</p>
+  <p class="stand">Eight sources, 200 lines of copy-pasted SQL per report, and a hand-updated 40-tab workbook as referee. I replaced it with one governed daily table that foots to finance within dollars and catches broken feeds before they reach a deck.</p>
   <div class="meta">
     <div><b>When</b>2026 · ~5 months, alongside delivery work</div>
     <div><b>Role</b>Sole designer &amp; builder</div>
@@ -84,9 +88,16 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 
 <main class="wrap">
 <div class="prose">
-  <h2>The situation</h2>
-  <p>Answering anything about the ecommerce business meant joining <b>eight-plus source tables across different warehouse projects</b>: ERP sales, two web-analytics feeds, behavioral sessions, media spend, search-ads data, the contact center, store foot traffic. Every new dashboard started with the same 200-plus lines of SQL, subtly re-derived each time. The same metric carried different definitions in different reports, and the de-facto arbiter was a <b>hand-updated, 40-tab workbook</b> that one person maintained daily.</p>
-  <p>The predictable result: meetings that opened with a debate about whose number was right, before anyone could get to what the number meant.</p>
+  <h2>The problem</h2>
+  <p>Every ecommerce question started with the same eight-table join across warehouse projects, about 200 lines of SQL, re-derived slightly differently each time. The same metric had three definitions in three dashboards. The tiebreaker was a 40-tab spreadsheet one person updated by hand. Meetings opened with an argument about whose number was right and rarely got past it.</p>
+
+  <h2>The build</h2>
+  <ul>
+    <li><b>One staging model per source</b>, typed and tested, joined to the fiscal calendar so a missing day shows up as a gap instead of a silent zero.</li>
+    <li><b>One mart.</b> One row per day, about 130 metrics, definitions documented in the warehouse where the table lives.</li>
+    <li><b>Scheduled every morning.</b> Rewrites a trailing 7-day window on every run, so late-arriving data corrects itself without anyone noticing there was a problem.</li>
+    <li><b>The definition fights, settled by reconciliation.</b> What counts as an ecommerce sale, which of a thousand legacy store codes belong to the channel, how vendor income behaves on a return. The channel definition alone moved a quarterly figure by millions. Reconciling it to finance closed a seven-figure gap to double-digit dollars on an eight-figure quarter.</li>
+  </ul>
 </div>
 
 <figure class="fig">
@@ -196,18 +207,22 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 </figure>
 
 <div class="prose">
-  <h2>What I did</h2>
-  <p>The engineering is boring on purpose: one staging model per source, typed and tested; everything joined to the fiscal calendar so a missing day is visible instead of silent; a single mart table with one row per day and ~130 metrics whose definitions live in the warehouse UI, not in tribal memory. Production runs on scheduled queries each morning and <b>rewrites a trailing seven-day window on every run</b>, so late-arriving source data corrects itself without anyone noticing there was a problem.</p>
-  <p>The hard part wasn't the SQL. It was <b>making the definitions match finance</b>. What counts as an ecommerce sale, which of a thousand legacy store codes belong to the channel, how vendor income behaves on a return: each of those was an argument until it was a reconciliation. The channel-definition fight alone moved a quarterly figure by millions; settling it against the finance system brought the gap from seven figures down to <b>double-digit dollars on an eight-figure quarter</b>. After that, the debates stopped, not because anyone won but because there was nothing left to debate.</p>
+  <h2>What it showed</h2>
+  <p>The payoff was not consistency. It was detection. With every source side by side in one table, a broken feed cannot hide. Three catches in one summer:</p>
+  <ul>
+    <li>A media-spend feed zeroed its newest day. A week that was really down 15% would have read down 26%. The cross-source spend columns flagged it before the readout.</li>
+    <li>A web-analytics feed started half-loading. Sessions "fell" 90% while the parallel behavioral source showed the normal seasonal dip of about 18%. Feed failure, not traffic collapse. A staleness alert shipped that week.</li>
+    <li>Units per transaction was inflated about 70% by free promotional items nobody had filtered out.</li>
+  </ul>
+  <div class="pull">A semantic layer isn't where the numbers agree. It's where the broken feeds get caught before they reach a deck.</div>
 
-  <h2>The turn</h2>
-  <p>The surprise came after launch: the mart turned out to be less valuable as plumbing than as an <b>alarm system</b>. When one table carries every source side by side, a broken feed can't hide.</p>
-  <p>Three catches in one summer: a media-spend feed silently zeroed its newest day, which would have turned a soft week into a fake disaster. The mart's cross-source spend columns flagged the gap before the weekly readout. A web-analytics feed began partially loading and sessions "fell" 90%, while the parallel behavioral source showed a normal seasonal dip, proving a feed failure rather than a traffic collapse, and a staleness alert shipped that week. And a units-per-transaction metric turned out to be inflated roughly 70% by free promotional items nobody had filtered.</p>
-  <div class="pull">A semantic layer isn't just where the numbers agree. It's where the broken feeds get caught before they reach a deck.</div>
-
-  <h2>What happened after</h2>
-  <p>More than <b>25 downstream projects</b> now read the mart: the weekly executive deck, the dashboard suite, all three forecast engines, and most new analysis. The deck's canonical forecast switched from a stale planning file, which had drifted roughly ten points from reality, to the mart's daily forecast columns. Hard-coded stopgap numbers in the deck were deleted once the mart reproduced them to within basis points. And the 40-tab workbook was retired from its role as referee.</p>
-  <p>The quieter payoff: analyses like the <a href="organic-decline.html">organic-decline decomposition</a> could treat sessions as ground truth precisely because the ground truth had already been built.</p>
+  <h2>What changed</h2>
+  <ul>
+    <li>25-plus downstream projects read the mart: the weekly executive deck, the dashboard suite, all three forecast engines, most new analysis.</li>
+    <li>The deck's forecast switched from a planning file that had drifted about ten points off reality to the mart's daily columns.</li>
+    <li>Hard-coded stopgaps in the deck deleted once the mart reproduced them within basis points.</li>
+    <li>The 40-tab workbook retired as referee. New dashboards start with <i>select from the mart</i>, not 200 lines of SQL.</li>
+  </ul>
 </div>
 
 <details class="tech prose">

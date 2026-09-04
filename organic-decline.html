@@ -48,6 +48,10 @@ h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5vw,3rem);lette
 h2{font-family:var(--serif);font-weight:600;font-size:1.45rem;letter-spacing:-.3px;margin:46px 0 14px}
 p{margin-bottom:15px;color:#2e2c27}
 p b{color:var(--ink)}
+.prose ul{list-style:none;margin:0 0 15px}
+.prose li{position:relative;padding-left:18px;margin-bottom:9px;color:#2e2c27}
+.prose li::before{content:'';position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.55}
+.prose li b{color:var(--ink)}
 .fig{margin:34px 0;background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:22px 24px 16px}
 .fig .ft{font-size:.85rem;font-weight:600}
 .fig .fs{font-size:.76rem;color:var(--muted);margin:2px 0 12px}
@@ -76,7 +80,7 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 <header class="head wrap">
   <div class="eyebrow">Case study · Search &amp; demand decomposition</div>
   <h1>Everyone blamed rankings. Rankings were one percent of it.</h1>
-  <p class="stand">Organic traffic fell by nearly a quarter in a year. I decomposed the loss into seven measured causes that sum exactly to the observed decline. The cause everyone was organized around turned out to be the smallest one.</p>
+  <p class="stand">Organic traffic fell about a quarter in a year. Seven causes, measured, summing exactly to the loss. Rank, the thing the whole org was organized around, was under 1% of it.</p>
   <div class="meta">
     <div><b>When</b>2026 · ~10 weeks</div>
     <div><b>Role</b>Sole analyst, method &amp; delivery</div>
@@ -87,9 +91,18 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 
 <main class="wrap">
 <div class="prose">
-  <h2>The situation</h2>
-  <p>At a national omnichannel retailer, organic search clicks on the brand's own name had fallen by nearly half year-over-year, while reported average position <i>improved</i>. Organic search was roughly a third of site traffic but roughly two-thirds of attributed ecommerce revenue, so this was not an SEO-team problem; it was a revenue problem with an eight-figure annual exposure.</p>
-  <p>Two narratives were already circulating: <b>“SEO is failing”</b> and <b>“AI is eating search.”</b> Each implied a different, and expensive, response. My brief, in effect: stop the storytelling and size the causes.</p>
+  <h2>The problem</h2>
+  <p>Brand-term organic clicks down nearly half year over year while reported average position went up. Two stories were already running: SEO is failing, and AI is eating search. Each came with an expensive fix. Organic search was a third of traffic and two-thirds of attributed ecommerce revenue, an eight-figure exposure, so guessing was not an option.</p>
+
+  <h2>The method</h2>
+  <ul>
+    <li><b>Sessions are ground truth.</b> Search console, the 5,000-keyword rank panel, and ads auction data are evidence weighed against them, not the other way around.</li>
+    <li><b>Brand and non-brand decomposed separately</b> on disjoint query sets, then forced to sum back to the total. No unexplained remainder allowed.</li>
+    <li><b>Index decomposition, not regression.</b> A regression's intercept eats anything that hits every keyword at once, which is exactly what a layout change does. On the same variable the index recovered the full effect; the regression saw 10 to 40% of it.</li>
+    <li><b>Try to kill the answer.</b> A named algorithm update refuted on timing (our break came four weeks earlier). A difference-in-differences result computed, found confounded, withdrawn. The residual allocation tested against an independent zero-click series instead of picked by preference.</li>
+  </ul>
+
+  <h2>What it showed</h2>
 </div>
 
 <figure class="fig">
@@ -100,13 +113,13 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 </figure>
 
 <div class="prose">
-  <h2>What I did</h2>
-  <p>I treated <b>sessions as ground truth</b> and every third-party source (search console, the rank panel, ads auction data) as directional evidence against it. The decline was split into brand and non-brand on disjoint query populations, decomposed separately, and forced to reconcile: the two halves had to sum back to the total, with <b>no unexplained remainder</b>. Anything that couldn’t be measured got labeled as such rather than absorbed into a convenient bucket.</p>
-  <p>The causal factors (rank movement, paid crowding, SERP modules, demand, AI Overviews) entered as <b>index decompositions rather than regressions</b>, for a specific reason: a regression’s intercept silently absorbs anything that hits every keyword at once, which is exactly what a SERP-layout change does. Same data, same variable, the regression saw a fraction of what the index accounted for.</p>
-  <p>Then I tried to kill my own answer. A named algorithm update was refuted on timing (our break predates it by four weeks). A difference-in-differences result was computed, found confounded, and <b>withdrawn</b>. The residual-allocation choice was settled by testing against an independent third-party zero-click series rather than by preference.</p>
-
-  <h2>The turn</h2>
-  <p>The brand’s head term held the <b>#1 blue-link position for over a year of consecutive periods while its clicks fell by nearly half</b>. On desktop, a clean control with no map pack and where AI Overviews never rendered, clicks still fell ~60% across two years at uninterrupted rank #1. Position wasn’t lost; the click was intercepted before it reached the blue links.</p>
+  <ul>
+    <li><b>Local and store surfaces</b> took about 31% of the loss: searches that now end on the map pack instead of the site.</li>
+    <li><b>Category demand</b> about 24%. People searched for the category less.</li>
+    <li><b>AI Overview exposure</b> about 19%. Other zero-click behavior another 14%.</li>
+    <li><b>Blue-link rank</b> under 1%. The thing the whole org was organized around.</li>
+  </ul>
+  <p>The head term held #1 for over a year of consecutive periods while its clicks fell by half. On desktop, with no map pack and no AI Overviews ever rendering, rank stayed #1 for 25 months and clicks still fell about 60%. Position was never lost. The click was intercepted upstream.</p>
 </div>
 
 <figure class="fig">
@@ -117,12 +130,17 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 </figure>
 
 <div class="prose">
-  <p>The AI narrative fared no better: AI Overviews never rendered on the head brand term in either year, AI-assistant referrals were a rounding error of brand organic, and industry panel data showed click-through falling almost as hard on queries with <i>no</i> AI Overview at all. And paid search wasn’t cannibalizing organic: ad depth above the organic results was flat, and when paid spend was actually cut, the two organic series didn’t flinch.</p>
-  <div class="pull">The question changed from “how do we fix our rankings?” to “which surfaces still return a click, and are we the best result on those?”</div>
+  <p>The AI story failed the same test. AI Overviews never rendered on the head brand term in either year. AI-assistant referrals were 0.02% of brand organic. Industry panels showed click-through falling almost as hard on queries with no AI Overview at all. Paid cannibalization failed too: ad depth above organic was flat, and when spend was cut, organic did not move.</p>
+  <div class="pull">The question changed from "how do we fix our rankings?" to "which surfaces still return a click, and are we the best result on those?"</div>
 
-  <h2>What happened after</h2>
-  <p>Two earlier dashboards built on the wrong cut of the data were <b>retired</b> and replaced with a by-surface view that leadership still uses. The exec Q&amp;A shipped with every claim labeled <b>measured / inferred / not established</b>. That labeling, more than any single number, is what let the answer survive the room.</p>
-  <p>Three decisions moved: rank tracking was demoted from the headline KPI (it no longer predicts traffic; click-through is tracked in its own right), recovery investment was pointed at local and store surfaces, the shopping feed, and owned demand rather than at chasing AI-search optimization, and the revenue exposure was booked as gross, not incremental, which kept an inflated recovery case out of the plan.</p>
+  <h2>What changed</h2>
+  <ul>
+    <li>Rank demoted from the headline KPI. Click-through tracked on its own.</li>
+    <li>Recovery money pointed at local and store surfaces, the shopping feed, and owned demand, not at chasing AI-search optimization.</li>
+    <li>Two dashboards built on the wrong cut of the data retired. One by-surface view replaced them.</li>
+    <li>The exec Q&amp;A shipped with every claim tagged measured, inferred, or not established. That tagging, more than any number, is why the answer survived the room.</li>
+    <li>Revenue exposure booked gross, not incremental, so nobody planned against an inflated recovery.</li>
+  </ul>
 </div>
 
 <details class="tech prose">
