@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The leaderboard was ranking adoption, not skill · Bret Lawson</title>
+<meta name="description" content="Case study: salesperson behavior on the sales floor, stitched to transactions. Three honest close-rate rankings disagreed, and the disagreement redirected the coaching plan.">
+<meta name="author" content="Bret Lawson">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.bretlawson.com/clienteling.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.bretlawson.com/clienteling.html">
+<meta property="og:title" content="The leaderboard was ranking adoption, not skill · Bret Lawson">
+<meta property="og:description" content="Case study: salesperson behavior on the sales floor, stitched to transactions. Three honest close-rate rankings disagreed, and the disagreement redirected the coaching plan.">
+<meta property="og:image" content="https://www.bretlawson.com/bret_lawson.jpg">
+<meta property="og:site_name" content="Bret Lawson">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DN2PPZNDRJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DN2PPZNDRJ',{'send_page_view':true,'anonymize_ip':true});</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vdqbyh8fhw");</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#FAFAF7; --card:#fff; --ink:#1A1A1A; --muted:#5B5B57; --hair:#E5E2D9;
+  --accent:#1F3A5F; --ox:#7a1e2b; --green:#1f7a45;
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',-apple-system,'Segoe UI',sans-serif;
+}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.68;font-size:16.5px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.bar{border-bottom:1px solid var(--hair);background:rgba(250,250,247,.9)}
+.bar-in{max-width:1000px;margin:0 auto;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;font-size:.9rem}
+.bar-in .name{font-family:var(--serif);font-weight:600;color:var(--ink)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+.prose{max-width:700px}
+.head{padding:58px 0 8px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.8px;line-height:1.08;margin-top:14px;max-width:19ch}
+.stand{font-family:var(--serif);font-style:italic;font-size:1.22rem;color:var(--accent);margin-top:20px;line-height:1.45;max-width:52ch}
+.meta{display:flex;gap:26px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-top:26px;padding:14px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.meta b{display:block;font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;margin-bottom:2px;color:#8a877d}
+h2{font-family:var(--serif);font-weight:600;font-size:1.45rem;letter-spacing:-.3px;margin:46px 0 14px}
+p{margin-bottom:15px;color:#2e2c27}
+p b{color:var(--ink)}
+.fig{margin:34px 0;background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:22px 24px 16px}
+.fig .ft{font-size:.85rem;font-weight:600}
+.fig .fs{font-size:.76rem;color:var(--muted);margin:2px 0 12px}
+.fig svg{width:100%;height:auto;display:block}
+.fig .cap{font-size:.82rem;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px solid var(--hair);line-height:1.55}
+.pull{font-family:var(--serif);font-size:1.3rem;line-height:1.45;color:var(--ink);border-left:3px solid var(--ox);padding:6px 0 6px 22px;margin:30px 0}
+details.tech{margin:44px 0 0;border:1px solid var(--hair);border-radius:12px;background:var(--card)}
+details.tech summary{cursor:pointer;padding:16px 22px;font-weight:600;font-size:.95rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.tech summary::after{content:'+';font-family:var(--serif);font-size:1.3rem;color:var(--muted)}
+details.tech[open] summary::after{content:'\2212'}
+details.tech .tin{padding:4px 22px 20px;font-size:.92rem;color:#3a382f}
+details.tech .tin p{font-size:.92rem;margin-bottom:12px}
+.datanote{margin:40px 0 70px;font-size:.83rem;color:var(--muted);border-top:1px solid var(--hair);padding-top:18px;max-width:700px}
+.next{margin-top:34px;font-size:.92rem}
+</style>
+</head>
+<body>
+
+<nav class="bar"><div class="bar-in">
+  <a href="index.html" class="name" style="color:var(--ink)">&larr; Bret Lawson</a>
+  <span><a href="index.html#work">All work</a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;<a href="mailto:bretalawson@gmail.com">Email</a></span>
+</div></nav>
+
+<header class="head wrap">
+  <div class="eyebrow">Case study &middot; In-store behavior analytics</div>
+  <h1>The leaderboard was ranking adoption, not closing skill.</h1>
+  <p class="stand">A retail leader asked whether salespeople were using our follow-up tools on customers buying under $1,500. Answering honestly took a metric rebuilt three ways, and the three rankings disagreed. The disagreement turned out to be the most useful number on the page.</p>
+  <div class="meta">
+    <div><b>When</b>2026 &middot; ~7 weeks</div>
+    <div><b>Role</b>Sole analyst &amp; builder</div>
+    <div><b>Data</b>Selling-tool events &middot; CRM &middot; ERP orders, stitched per salesperson</div>
+    <div><b>Methods</b>Metric design &middot; z-tested rankings &middot; selection-bias controls &middot; RCT design</div>
+  </div>
+</header>
+
+<main class="wrap">
+<div class="prose">
+  <h2>The situation</h2>
+  <p>On a mattress sales floor the selling is personal. A sleep expert runs a tablet-based recommendation quiz with the customer, carts the suggestions, and, when the customer walks out to think it over, uses a follow-up workflow to bring them back. Every step leaves a trail: quiz sessions, carted recommendations, CRM opportunities, and eventually orders in the ERP. Almost nobody was reading that trail.</p>
+  <p>Then a retail leader asked a pointed question: <b>are sleep experts using the follow-up workflow to close customers buying under $1,500, or only on premium tickets?</b> Behind it sat real decisions: where to coach, whom to coach on what, and whether to push the tools harder on low-ticket shoppers. Complicating things, a vendor report claimed a follow-up close rate near 50% while the warehouse said roughly half that. Before anyone could decide anything, the number had to be made trustworthy.</p>
+
+  <h2>What I did</h2>
+  <p>First the plumbing. The official tracking spreadsheet turned out to hold about a third of the real lead volume, so I rebuilt the dataset from the warehouse, stitching quiz sessions to CRM opportunities to ERP orders for each salesperson, with every join rate measured and published rather than assumed. Then the definition: a close became a follow-up order written 1 to 30 days after the lead, with <b>same-day sales stripped from both sides of the ratio</b>. That one rule also settled the vendor dispute: nine-tenths of the vendor's numerator was same-day sales that never needed a follow-up.</p>
+  <p>On that foundation went a leaderboard that drills from division to region to store to the individual sleep expert, with the under and over $1,500 split as first-class columns and a fresh build every morning. The leader's question got its own permanently maintained tab.</p>
+
+  <h2>The turn</h2>
+  <p>The trap was the denominator. There are three defensible ways to compute a close rate, and they rank regions differently. The headline rate (closes over all eligible leads) correlates strongly with how often a region's salespeople engage the tools at all (r &asymp; 0.7), so it punishes under-tooled regions. The engaged-only rate rewards them, because a region that tools up only its hottest prospects looks elite. Tool engagement ranged from under 30% of leads in some regions to nearly 50% in others. That is enough to scramble any single ranking.</p>
+</div>
+
+<figure class="fig">
+  <div class="ft">Same regions, two honest rankings</div>
+  <div class="fs">Rank by headline close rate (left) vs. rank by close rate on engaged leads only (right) &middot; line color = tool engagement</div>
+  <svg viewBox="0 0 900 408" role="img" aria-label="Slopegraph: regions re-ranked when the close rate is computed on engaged leads only; a low-engagement region jumps from seventh to second" font-family="Inter,-apple-system,sans-serif">
+    <text x="250" y="20" text-anchor="end" font-size="11" font-weight="600" fill="#8a877d">RANKED BY HEADLINE RATE</text>
+    <text x="650" y="20" text-anchor="start" font-size="11" font-weight="600" fill="#8a877d">RANKED ON ENGAGED LEADS ONLY</text>
+    <line x1="258" y1="32" x2="258" y2="372" stroke="#E5E2D9"/>
+    <line x1="642" y1="32" x2="642" y2="372" stroke="#E5E2D9"/>
+    <!-- lines: left rank -> right rank; y = 45 + (rank-1)*44 -->
+    <g fill="none" stroke-width="2">
+      <path d="M258 45 L642 177" stroke="#1F3A5F" opacity=".45"/>   <!-- A 1->4 high engagement -->
+      <path d="M258 89 L642 45" stroke="#1F3A5F"/>                   <!-- D 2->1 benchmark -->
+      <path d="M258 133 L642 133" stroke="#bdb9ad"/>                 <!-- B 3->3 -->
+      <path d="M258 177 L642 309" stroke="#1F3A5F" opacity=".45"/>   <!-- C 4->7 rider -->
+      <path d="M258 221 L642 265" stroke="#bdb9ad"/>                 <!-- F 5->6 -->
+      <path d="M258 265 L642 353" stroke="#bdb9ad"/>                 <!-- E 6->8 -->
+      <path d="M258 309 L642 89" stroke="#7a1e2b" stroke-width="3.2"/><!-- G 7->2 the misread -->
+      <path d="M258 353 L642 221" stroke="#7a1e2b" opacity=".55"/>   <!-- H 8->5 -->
+    </g>
+    <!-- left labels -->
+    <g font-size="12" fill="#1A1A1A" text-anchor="end">
+      <text x="248" y="49">Region A &nbsp;#1</text>
+      <text x="248" y="93">Region D &nbsp;#2</text>
+      <text x="248" y="137">Region B &nbsp;#3</text>
+      <text x="248" y="181">Region C &nbsp;#4</text>
+      <text x="248" y="225">Region F &nbsp;#5</text>
+      <text x="248" y="269">Region E &nbsp;#6</text>
+      <text x="248" y="313" font-weight="600" fill="#7a1e2b">Region G &nbsp;#7</text>
+      <text x="248" y="357">Region H &nbsp;#8</text>
+    </g>
+    <!-- right labels -->
+    <g font-size="12" fill="#1A1A1A" text-anchor="start">
+      <text x="652" y="49">#1 &nbsp;Region D</text>
+      <text x="652" y="93" font-weight="600" fill="#7a1e2b">#2 &nbsp;Region G</text>
+      <text x="652" y="137">#3 &nbsp;Region B</text>
+      <text x="652" y="181">#4 &nbsp;Region A</text>
+      <text x="652" y="225">#5 &nbsp;Region H</text>
+      <text x="652" y="269">#6 &nbsp;Region F</text>
+      <text x="652" y="313">#7 &nbsp;Region C</text>
+      <text x="652" y="357">#8 &nbsp;Region E</text>
+    </g>
+    <!-- annotations -->
+    <text x="450" y="150" text-anchor="middle" font-size="11.5" font-style="italic" fill="#7a1e2b">thin tool use, elite closing</text>
+    <text x="450" y="278" text-anchor="middle" font-size="11.5" font-style="italic" fill="#1F3A5F">broad tool use, average closing</text>
+    <!-- legend -->
+    <g font-size="10.5" fill="#5B5B57">
+      <rect x="258" y="390" width="18" height="4" fill="#1F3A5F"/><text x="282" y="395">high engagement</text>
+      <rect x="392" y="390" width="18" height="4" fill="#7a1e2b"/><text x="416" y="395">low engagement</text>
+      <rect x="520" y="390" width="18" height="4" fill="#bdb9ad"/><text x="544" y="395">mid</text>
+    </g>
+  </svg>
+  <figcaption class="cap"><b>Where the two rankings agree, believe them. Where they disagree by several places, it is an adoption story.</b> Region G sat mid-pack on the headline rate and second-best at actually closing; its salespeople simply engaged the tools least. Region C rode broad engagement to a top-four headline rank while closing at an average rate. Different problems, different coaching.</figcaption>
+</figure>
+
+<div class="prose">
+  <p>So the dashboard shipped with a reading rule instead of a single ranking, and every callout behind it was z-tested with a raised bar so that only gaps robust to dozens of simultaneous comparisons drove a coaching conversation.</p>
+  <p>And the original question got its answer: salespeople were <b>about half as likely to use the follow-up workflow on a sub-$1,500 mattress</b>. But conditioned on engagement, close rates on the two sides of the price line matched to within a rounding error, while leads with no tool engagement closed at roughly a third of the rate. The skill was fine. The habit was the gap.</p>
+  <div class="pull">Nobody needed to learn how to close a cheap mattress. Some regions needed to learn to open the tablet.</div>
+
+  <h2>What happened after</h2>
+  <p>Coaching changed shape. Regions with strong closing but thin engagement got process-adoption coaching, a region with the opposite pattern got closing coaching, and the region strong under every method became the benchmark. The dashboard runs on the internal hub with a daily morning refresh, drills to the individual salesperson, and kept growing on stakeholder asks: district-level cuts, price-line columns on the leaderboard, exports for the field.</p>
+  <p>The honest limit is stated on the page itself: salespeople choose whether to use the tools, so observational lift cannot be read as causal. The next step was designed accordingly: a randomized store-level assignment, roughly 1,800 stores stratified into matched halves, sits ready for the causal read on the new recommendation experience before a full rollout.</p>
+</div>
+
+<details class="tech prose">
+  <summary>Technical notes, for the people who will ask</summary>
+  <div class="tin">
+    <p><b>Identity stitching.</b> Recommendation-quiz sessions join to CRM opportunities and ERP orders on shared keys, with a 99%+ match on the primary join and per-hop rates published in the dashboard tooltips. One tablet session can serve several customers, so the usage grain is the tool session, not the web-analytics session.</p>
+    <p><b>Metric hygiene.</b> Same-day writers are removed from numerator and denominator; the lead universe is selectable (all, workable, contactable) with the default documented; cohorts too young for the 30-day window are flagged rather than silently included.</p>
+    <p><b>Robustness.</b> Regional callouts use z-tests with a raised significance bar to survive dozens of simultaneous comparisons. A hybrid engagement definition was evaluated and rejected because it manufactured a price-line split that the clean definitions did not show. A probe of unknown-cart leads recovered almost nothing, confirming the engagement gap was behavioral rather than instrumentation.</p>
+    <p><b>Causality.</b> Tool users self-select, which confounds any observational comparison of users and non-users. The write-up says so plainly, and a stratified store-level randomized design was prepared for the question that deserves a causal answer.</p>
+  </div>
+</details>
+
+<p class="next prose">The other case studies: <a href="organic-decline.html">the organic decline</a>, <a href="ecomm-mart.html">the mart</a>, and <a href="dashboard-suite.html">the dashboard suite</a>. Or back to <a href="index.html#work">all work</a>.</p>
+
+<div class="datanote">Region names are replaced with letters; rates, counts, and correlations are perturbed; vendor and tool names are generalized. The methods, the disagreements between them, and the coaching decisions are real.</div>
+</main>
+</body>
+</html>
