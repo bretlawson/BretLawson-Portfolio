@@ -1,2 +1,5 @@
 # Local Claude Code tooling state (permission grants reference private repo paths)
 .claude/
+
+# Draft/archive material stays local only (old résumés, planning notes, unpublished analyses)
+archive/
