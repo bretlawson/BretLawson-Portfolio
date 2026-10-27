@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI assistants send 0.3% of our sessions. AI Overviews take away 1% · Bret Lawson</title>
-<meta name="description" content="Case study: counting the traffic and sales that arrive from ChatGPT, Perplexity, Copilot, Gemini and Claude, measuring AI Overview citation share, and sizing what AI Overviews removed. The two numbers nobody had, side by side.">
+<title>AI assistants send back 3% of our organic traffic. AI Overviews remove 15% · Bret Lawson</title>
+<meta name="description" content="Case study: AI Overviews now remove about 15% of organic search sessions a period. AI assistants send back about 3%. Counting both on the same base, in dollars, every morning, with a 2027 scenario.">
 <meta name="author" content="Bret Lawson">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.bretlawson.com/ai-search.html">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.bretlawson.com/ai-search.html">
-<meta property="og:title" content="AI assistants send 0.3% of our sessions. AI Overviews take away 1% · Bret Lawson">
-<meta property="og:description" content="Counting the traffic and sales that arrive from AI assistants, measuring AI Overview citation share, and sizing what AI Overviews removed. The two numbers nobody had, side by side.">
+<meta property="og:title" content="AI assistants send back 3% of our organic traffic. AI Overviews remove 15% · Bret Lawson">
+<meta property="og:description" content="AI Overviews now remove about 15% of organic search sessions a period. AI assistants send back about 3%. Both counted on the same base, in dollars, every morning.">
 <meta property="og:image" content="https://www.bretlawson.com/bret_lawson-960.jpg">
 <meta property="og:site_name" content="Bret Lawson">
 <meta name="twitter:card" content="summary">
@@ -83,8 +83,8 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 
 <header class="head wrap">
   <div class="eyebrow">Case study &middot; AI search measurement</div>
-  <h1>AI assistants send 0.3% of our sessions. AI Overviews take away 1%.</h1>
-  <p class="stand">Nobody could say what ChatGPT sent us or what Google's AI Overviews cost us. Now both numbers refresh every morning, on the same page, in dollars. The second is three times the first and growing faster.</p>
+  <h1>AI assistants send back 3% of our organic traffic. AI Overviews remove 15%.</h1>
+  <p class="stand">Nobody could say what ChatGPT sent us or what Google's AI Overviews cost us. Now both numbers refresh every morning, on the same page, on the same base, in dollars. The second is five times the first and still climbing.</p>
   <div class="meta">
     <div><b>When</b>2026 &middot; built in a week, refined over a quarter</div>
     <div><b>Role</b>Sole builder</div>
@@ -104,7 +104,7 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
     <li><b>Stitch orders, any channel, 30 days.</b> An order counts if the visitor's last AI session was within 30 days, cart, phone, chat or store. The store leg sees about a fifth of web-first store orders, so store is reported as a floor and labeled as one.</li>
     <li><b>Report share of sales in basis points.</b> Each source's stitched sales over all company sales in the same window, same purchase channel. Basis points, because the honest number is small and I wanted it readable rather than rounded to zero.</li>
     <li><b>Pull AI Overview visibility through a connector.</b> Citation rank and share on 3,100 tracked prompts, the four-week trend of our citations, and the prompts that cite us, pulled from Conductor by MCP into the same page, with a SimilarWeb exposure comparison beside it.</li>
-    <li><b>Size what AI Overviews removed.</b> The organic decomposition already carried an AI Overview exposure band. Each lost session is priced at organic non-brand's own funnel rates, scaled to ERP by measured capture. Same page, same window, same dollars.</li>
+    <li><b>Size what AI Overviews removed, on the organic base.</b> The organic decomposition already carried an AI Overview exposure band: sessions removed per period, from the share of tracked searches showing an Overview and the measured click penalty. Each lost session is priced at organic non-brand's own funnel rates, scaled to ERP by measured capture. Both AI numbers are reported as a share of organic search sessions, never of all site traffic, where either would round to nothing.</li>
     <li><b>Refresh it daily on the house standard.</b> Shared Primary and Comparison date controls, a readiness gate that builds nothing until yesterday is complete in CJA, auto-deploy to the hub.</li>
   </ul>
 
@@ -112,53 +112,42 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 </div>
 
 <figure class="fig">
-  <div class="ft">What AI sends in and what AI Overviews take out, by fiscal period</div>
-  <div class="fs">Sessions in thousands &middot; AI assistant referrals (landing sessions) vs. Google organic sessions removed by AI Overview exposure, measured against the pre-AI baseline &middot; figures perturbed</div>
-  <svg viewBox="0 0 900 330" role="img" aria-label="Grouped bars for eight fiscal periods. AI assistant sessions rise from 6 thousand to 15 thousand a period. Sessions removed by AI Overviews rise from 22 thousand to 48 thousand a period, three to four times larger every period." font-family="Inter,-apple-system,sans-serif">
+  <div class="ft">AI Overviews remove a growing share of organic search. AI assistants send back a small one.</div>
+  <div class="fs">Share of Google organic search sessions, by fiscal period, the last eight periods &middot; red = sessions removed by AI Overview exposure, as a share of the organic sessions that remained &middot; blue = sessions referred by AI assistants, as a share of organic &middot; figures perturbed</div>
+  <svg viewBox="0 0 900 330" role="img" aria-label="Two lines over eight fiscal periods on a zero to twenty percent axis. Sessions removed by AI Overviews rise from six percent of organic to sixteen percent. Sessions sent by AI assistants rise from one and a half percent of organic to about three percent." font-family="Inter,-apple-system,sans-serif">
     <g stroke="#efede6"><line x1="60" y1="60" x2="880" y2="60"/><line x1="60" y1="115" x2="880" y2="115"/><line x1="60" y1="170" x2="880" y2="170"/><line x1="60" y1="225" x2="880" y2="225"/></g>
     <line x1="60" y1="280" x2="880" y2="280" stroke="#E5E2D9"/>
-    <g font-size="10" fill="#8a877d" text-anchor="end"><text x="52" y="64">50K</text><text x="52" y="119">37.5K</text><text x="52" y="174">25K</text><text x="52" y="229">12.5K</text><text x="52" y="284">0</text></g>
-    <!-- P1 -->
-    <rect x="80" y="253.6" width="34" height="26.4" fill="#1F3A5F"/><rect x="120" y="183.2" width="34" height="96.8" fill="#b3341f" opacity=".85"/>
-    <!-- P2 -->
-    <rect x="180" y="249.2" width="34" height="30.8" fill="#1F3A5F"/><rect x="220" y="170" width="34" height="110" fill="#b3341f" opacity=".85"/>
-    <!-- P3 -->
-    <rect x="280" y="244.8" width="34" height="35.2" fill="#1F3A5F"/><rect x="320" y="156.8" width="34" height="123.2" fill="#b3341f" opacity=".85"/>
-    <!-- P4 -->
-    <rect x="380" y="240.4" width="34" height="39.6" fill="#1F3A5F"/><rect x="420" y="143.6" width="34" height="136.4" fill="#b3341f" opacity=".85"/>
-    <!-- P5 -->
-    <rect x="480" y="236" width="34" height="44" fill="#1F3A5F"/><rect x="520" y="121.6" width="34" height="158.4" fill="#b3341f" opacity=".85"/>
-    <!-- P6 -->
-    <rect x="580" y="231.6" width="34" height="48.4" fill="#1F3A5F"/><rect x="620" y="104" width="34" height="176" fill="#b3341f" opacity=".85"/>
-    <!-- P7 -->
-    <rect x="680" y="222.8" width="34" height="57.2" fill="#1F3A5F"/><rect x="720" y="86.4" width="34" height="193.6" fill="#b3341f" opacity=".85"/>
-    <!-- P8 -->
-    <rect x="780" y="214" width="34" height="66" fill="#1F3A5F"/><rect x="820" y="68.8" width="34" height="211.2" fill="#b3341f" opacity=".85"/>
-    <g font-size="11" font-weight="700" text-anchor="middle">
-      <text x="97" y="247" fill="#1F3A5F">6</text><text x="137" y="177" fill="#b3341f">22</text>
-      <text x="797" y="208" fill="#1F3A5F">15</text><text x="837" y="63" fill="#b3341f">48</text>
-    </g>
+    <g font-size="10" fill="#8a877d" text-anchor="end"><text x="52" y="64">20%</text><text x="52" y="119">15%</text><text x="52" y="174">10%</text><text x="52" y="229">5%</text><text x="52" y="284">0</text></g>
+    <polyline fill="none" stroke="#b3341f" stroke-width="2.6" points="100,214 210,181 320,148 430,159 540,170 650,159 760,137 870,104"/>
+    <circle cx="100" cy="214" r="3.5" fill="#b3341f"/><circle cx="210" cy="181" r="3.5" fill="#b3341f"/><circle cx="320" cy="148" r="3.5" fill="#b3341f"/><circle cx="430" cy="159" r="3.5" fill="#b3341f"/><circle cx="540" cy="170" r="3.5" fill="#b3341f"/><circle cx="650" cy="159" r="3.5" fill="#b3341f"/><circle cx="760" cy="137" r="3.5" fill="#b3341f"/><circle cx="870" cy="104" r="3.5" fill="#b3341f"/>
+    <polyline fill="none" stroke="#1F3A5F" stroke-width="2.6" points="100,263.5 210,258.0 320,249.2 430,245.9 540,251.4 650,253.6 760,250.3 870,248.1"/>
+    <circle cx="100" cy="263.5" r="3.5" fill="#1F3A5F"/><circle cx="210" cy="258.0" r="3.5" fill="#1F3A5F"/><circle cx="320" cy="249.2" r="3.5" fill="#1F3A5F"/><circle cx="430" cy="245.9" r="3.5" fill="#1F3A5F"/><circle cx="540" cy="251.4" r="3.5" fill="#1F3A5F"/><circle cx="650" cy="253.6" r="3.5" fill="#1F3A5F"/><circle cx="760" cy="250.3" r="3.5" fill="#1F3A5F"/><circle cx="870" cy="248.1" r="3.5" fill="#1F3A5F"/>
+    <text x="92" y="204" text-anchor="start" font-size="11" font-weight="700" fill="#b3341f">6%</text>
+    <text x="870" y="94" text-anchor="end" font-size="11" font-weight="700" fill="#b3341f">16%</text>
+    <text x="92" y="279.5" text-anchor="start" font-size="11" font-weight="700" fill="#1F3A5F">1.5%</text>
+    <text x="870" y="264.1" text-anchor="end" font-size="11" font-weight="700" fill="#1F3A5F">3%</text>
     <g font-size="11" fill="#5B5B57" text-anchor="middle">
-      <text x="117" y="300">P1</text><text x="217" y="300">P2</text><text x="317" y="300">P3</text><text x="417" y="300">P4</text><text x="517" y="300">P5</text><text x="617" y="300">P6</text><text x="717" y="300">P7</text><text x="817" y="300">P8</text>
+      <text x="100" y="300">P1</text><text x="210" y="300">P2</text><text x="320" y="300">P3</text><text x="430" y="300">P4</text><text x="540" y="300">P5</text><text x="650" y="300">P6</text><text x="760" y="300">P7</text><text x="870" y="300">P8</text>
     </g>
     <g font-size="11">
-      <rect x="60" y="316" width="12" height="12" fill="#1F3A5F"/><text x="78" y="326" fill="#1F3A5F" font-weight="600">AI assistants sent (sessions)</text>
-      <rect x="290" y="316" width="12" height="12" fill="#b3341f" opacity=".85"/><text x="308" y="326" fill="#b3341f" font-weight="600">AI Overviews removed (organic sessions vs. baseline)</text>
+      <rect x="60" y="316" width="12" height="12" fill="#b3341f"/><text x="78" y="326" fill="#b3341f" font-weight="600">Removed by AI Overviews, % of organic sessions</text>
+      <rect x="400" y="316" width="12" height="12" fill="#1F3A5F"/><text x="418" y="326" fill="#1F3A5F" font-weight="600">Sent by AI assistants, % of organic sessions</text>
     </g>
   </svg>
-  <figcaption class="cap"><b>Both lines grow. The red one grows faster.</b> AI assistants sent nearly four times last year's sessions, 79K against 21K. AI Overview exposure removed about 275K organic sessions against the pre-AI baseline in the same eight periods, three and a half times what the assistants sent.</figcaption>
+  <figcaption class="cap"><b>Same denominator, two very different lines.</b> A year earlier AI Overviews were removing about 4% of organic sessions a period. The latest period is 16%, and the trend has not bent. AI assistants climbed from under 1% of organic to about 3% and have been flat since spring.</figcaption>
 </figure>
 
 <div class="prose">
-  <p><b>The assistants are real and still small.</b> AI referral sessions went from 21K to 79K year over year while organic search fell a quarter. That moved AI from 0.5% of organic search sessions to 2.6%, and to 0.3% of all site sessions. Stitched sales went from $1.1M on 780 orders to $2.9M on 2,150 orders: 8 basis points of company sales, up from 3. On the cart channel alone, 60 basis points. ChatGPT is two-thirds of it.</p>
+  <p><b>The assistants are real and still small.</b> AI referral sessions went from 21K to 79K year over year while organic search fell a quarter. That moved AI from 0.5% of organic search sessions to about 3%, where it has sat since spring. Stitched sales went from $1.1M on 780 orders to $2.9M on 2,150 orders: 8 basis points of company sales, up from 3. On the cart channel alone, 60 basis points. ChatGPT is two-thirds of it.</p>
 
-  <p><b>AI Overviews cost three times what the assistants bring.</b> The exposure band removed about 1% of site sessions against the pre-AI baseline, a fifth of the organic decline, worth about $1.5M in ecommerce sales in eight periods. Conversion rose a basis point, because the traffic AI Overviews remove is organic non-brand, which converts at about 60% of the site rate. AI shows up as lost orders, not a worse rate.</p>
+  <p><b>AI Overviews remove five times what the assistants bring.</b> In the latest period the exposure band removed sessions equal to 16% of the organic sessions that remained, up from about 4% a year earlier, and the eight-period average is 11%. Against the pre-AI baseline that is about 275K sessions, a fifth of the whole organic decline, worth about $1.5M in ecommerce sales. Conversion rose a basis point, because the traffic AI Overviews remove is organic non-brand, which converts at about 60% of the site rate. AI shows up as lost orders, not a worse rate.</p>
 
   <table class="tbl" aria-label="Side by side: what AI assistants sent versus what AI Overviews removed, eight fiscal periods, figures perturbed">
     <thead><tr><th>Eight fiscal periods, year over year</th><th class="n">AI assistants sent</th><th class="n">AI Overviews removed</th></tr></thead>
     <tbody>
-      <tr><td>Sessions</td><td class="n">+58K</td><td class="n">&minus;140K</td></tr>
-      <tr><td>Share of all site sessions</td><td class="n">0.3%</td><td class="n">&minus;0.4% YoY, &minus;1% vs. baseline</td></tr>
+      <tr><td>Sessions</td><td class="n">+58K</td><td class="n">&minus;140K YoY, &minus;275K vs. baseline</td></tr>
+      <tr><td>Share of organic search sessions, latest period</td><td class="n">3%</td><td class="n">&minus;16%</td></tr>
+      <tr><td>Share of organic search sessions, eight-period average</td><td class="n">2.5%</td><td class="n">&minus;11%</td></tr>
       <tr><td>Ecommerce sales</td><td class="n">+$1.8M</td><td class="n">&minus;$0.7M YoY, &minus;$1.5M vs. baseline</td></tr>
       <tr><td>Conversion</td><td class="n">n/a</td><td class="n">+1 bp (removes below-average traffic)</td></tr>
     </tbody>
@@ -166,13 +155,13 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 
   <p><b>Where we stand in the Overviews themselves.</b> Cited on 1 in 7 of 3,100 tracked prompts: rank 5, a 2.1% citation share, behind YouTube, Google's own properties, a sleep-health nonprofit and Reddit. Our brand head term has no AI Overview at all. Its 40% click loss is zero-click interposition, the local pack and the knowledge panel answering before the link. Google's AI Mode multiplied impressions on our terms by four and left clicks flat.</p>
 
-  <div class="pull">The question was whether AI was taking our traffic. It is, and it is sending some back, and the two numbers are not close.</div>
+  <div class="pull">The question was whether AI was taking our organic traffic. It is, about one session in six now, and it is sending about one in thirty back.</div>
 
   <h2>What changed</h2>
   <ul>
     <li>AI is a channel on the hub and in the executive deck, with its own sales line, instead of a rounding error inside Organic.</li>
     <li>The off-site readout carried an AI Overviews impact for 2026 and a 2027 scenario: exposure on non-brand searches from about 40% to about 75% of impressions, roughly $4M of ecommerce sales at risk. Finance planned against it.</li>
-    <li>The "AI is killing organic" narrative was resized to a fifth of the decline. The other four-fifths got their own owners.</li>
+    <li>The "AI is killing organic" narrative got a measured size: a fifth of the decline so far, one session in six now, rising. The other four-fifths of the decline got their own owners.</li>
     <li>The UTM-first identification rule became the house definition. The site's channel classification is scheduled to adopt it.</li>
     <li>One known gap, written on the page: clicks from Google's AI Overviews and AI Mode arrive with a bare google.com referrer and still count as Organic. Conductor and SimilarWeb are the proxy until Google exposes them.</li>
     <li>Each doubling of assistant referrals is worth about $1.4M a year at current funnel rates. That is the number the content team now works against.</li>
@@ -192,7 +181,7 @@ details.tech .tin p{font-size:.92rem;margin-bottom:12px}
 
 <p class="next prose">The other case studies: <a href="organic-decline.html">the organic decline</a> this one builds on, <a href="brand-search.html">brand search</a>, <a href="ecomm-mart.html">the mart</a>, and <a href="dashboard-suite.html">the dashboard suite</a>. Or back to <a href="index.html#work">all work</a>.</p>
 
-<div class="datanote">Session counts, order counts, dollar figures, prompt counts and shares are perturbed and shifted; sources and engines are named as they are. The identification rule, the attribution window, the exposure model, and the decisions are real.</div>
+<div class="datanote">Session counts, order counts, dollar figures, prompt counts and shares are perturbed and shifted; the shape of the AI Overview trend and its ratio to assistant referrals are kept. Sources and engines are named as they are. The identification rule, the attribution window, the exposure model, and the decisions are real.</div>
 </main>
 </body>
 </html>
