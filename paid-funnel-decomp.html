@@ -86,12 +86,12 @@ tr.tot td{font-weight:800;border-top:2px solid var(--navy);background:#f3f4f2}
 </head>
 <body>
 <div class="wrap">
-  <div class="repl">Sanitized portfolio replica of a production dashboard — <b>synthetic data, real method</b>. The production version adds four more tabs, campaign-level tables, and click-lineage verification. Read <a href="dashboard-suite.html">the case study</a>.</div>
+  <div class="repl">Sanitized portfolio replica of a production dashboard. <b>synthetic data, real method</b>. The production version adds four more tabs, campaign-level tables, and click-lineage verification. Read <a href="dashboard-suite.html">the case study</a>.</div>
 
   <div class="top">
     <div>
       <h1>Paid-Search Funnel Decomposition</h1>
-      <div class="sub">Is paid-search conversion really falling — or is spend shifting into tactics that never converted well? An exact decomposition splits the revenue change into eight additive effects, so mix shift can't masquerade as funnel failure. Every number recomputes client-side for any pair of ranges.</div>
+      <div class="sub">Is paid-search conversion really falling, or is spend shifting into tactics that never converted well? An exact decomposition splits the revenue change into eight additive effects, so mix shift can't masquerade as funnel failure. Every number recomputes client-side for any pair of ranges.</div>
     </div>
   </div>
 
@@ -100,9 +100,9 @@ tr.tot td{font-weight:800;border-top:2px solid var(--navy);background:#f3f4f2}
     <div class="h2s">Data is weekly grain; selections aggregate exactly. Primary is the span you're explaining; Comparison is the base it's measured against.</div>
     <div class="panels">
       <div class="panel">
-        <div class="pl">Primary — Focus</div>
+        <div class="pl">Primary: focus</div>
         <div class="prow">
-          <select id="pFy"><option>FY26</option><option>FY25</option></select>
+          <select id="pFy"><option value="FY26">2026</option><option value="FY25">2025</option></select>
           <select id="pW1"></select><span style="font-size:11px;color:var(--muted)">to</span><select id="pW2"></select>
         </div>
         <div class="chips" id="pChips">
@@ -114,10 +114,10 @@ tr.tot td{font-weight:800;border-top:2px solid var(--navy);background:#f3f4f2}
         <div class="span" id="pSpan"></div>
       </div>
       <div class="panel comp">
-        <div class="pl">Comparison — Baseline</div>
+        <div class="pl">Comparison: baseline</div>
         <div class="prow">
-          <select id="cMode"><option value="match">Same weeks, prior FY (day-matched)</option><option value="custom">Custom span</option></select>
-          <span id="cCustom" hidden><select id="cFy"><option>FY25</option><option>FY26</option></select>
+          <select id="cMode"><option value="match">Same weeks, prior year (day-matched)</option><option value="custom">Custom span</option></select>
+          <span id="cCustom" hidden><select id="cFy"><option value="FY25">2025</option><option value="FY26">2026</option></select>
           <select id="cW1"></select><span style="font-size:11px;color:var(--muted)">to</span><select id="cW2"></select></span>
         </div>
         <div class="span" id="cSpan"></div>
@@ -129,8 +129,8 @@ tr.tot td{font-weight:800;border-top:2px solid var(--navy);background:#f3f4f2}
 
   <div class="grid2">
     <div class="card">
-      <h2>Why revenue moved — eight additive effects <span class="basis" id="wfBasis"></span></h2>
-      <div class="h2s">Log-mean (LMDI) decomposition of ΔRevenue. The eight bars sum to the total change to machine precision — no residual, no "other".</div>
+      <h2>Why revenue moved: eight additive effects <span class="basis" id="wfBasis"></span></h2>
+      <div class="h2s">Log-mean (LMDI) decomposition of ΔRevenue. The eight bars sum to the total change to machine precision: no residual, no "other".</div>
       <div class="chartbox"><canvas id="wf"></canvas></div>
       <div class="note" id="callout"></div>
     </div>
@@ -152,7 +152,7 @@ tr.tot td{font-weight:800;border-top:2px solid var(--navy);background:#f3f4f2}
     <div class="tscroll"><table id="tbl2"></table></div>
   </div>
 
-  <div class="foot">Synthetic weekly panel, deterministic generator — figures are illustrative; the decomposition identity, the controls pattern, and the table conventions mirror the production build. Identity: Revenue = Σ<sub>tactic</sub> Clicks<sub>total</sub> · share · (Sess/Click) · (Shop/Sess) · (Cart/Shop) · (CO/Cart) · (Orders/CO) · AOV.</div>
+  <div class="foot">Synthetic weekly panel, deterministic generator; figures are illustrative; the decomposition identity, the controls pattern, and the table conventions mirror the production build. Identity: Revenue = Σ<sub>tactic</sub> Clicks<sub>total</sub> · share · (Sess/Click) · (Shop/Sess) · (Cart/Shop) · (CO/Cart) · (Orders/CO) · AOV.</div>
 </div>
 
 <script>
@@ -165,6 +165,7 @@ const TACTS=[
  {i:3,key:'lia',name:'Local',       clicks0:64, cG:1.05, s2c:.90,s2cG:1.00, shop:.38,shopG:1.01, cart:.079,cartG:1.00, co:.60,coG:1.00, close:.74,closeG:1.00, aov:1240,aovG:1.05, cpc:.57, cpcG:1.03},
 ];
 const WKS=52, DATA={FY25:{},FY26:{}};
+const yl=f=>'20'+f.slice(2);
 for(const fy of ['FY25','FY26']){ const g = fy==='FY26';
   for(const t of TACTS){ const rows=[];
     for(let w=1;w<=WKS;w++){
@@ -261,10 +262,10 @@ function initCharts(){
 function render(){
   compSpan();
   const P=agg(S.pFy,S.pW1,S.pW2), C=agg(S.cFy,S.cW1,S.cW2);
-  $('pSpan').textContent='= '+S.pFy+' W'+S.pW1+'–W'+S.pW2+' · '+(S.pW2-S.pW1+1)+' weeks';
-  $('cSpan').textContent='= '+S.cFy+' W'+S.cW1+'–W'+S.cW2+' · '+(S.cW2-S.cW1+1)+' weeks';
-  $('wfBasis').textContent=S.pFy+' W'+S.pW1+'–'+S.pW2+' vs '+S.cFy+' W'+S.cW1+'–'+S.cW2;
-  $('tb1Basis').textContent='Primary '+S.pFy+' W'+S.pW1+'–'+S.pW2+' · Comparison '+S.cFy+' W'+S.cW1+'–'+S.cW2;
+  $('pSpan').textContent='= '+yl(S.pFy)+', weeks '+S.pW1+'–'+S.pW2+' · '+(S.pW2-S.pW1+1)+' weeks';
+  $('cSpan').textContent='= '+yl(S.cFy)+', weeks '+S.cW1+'–'+S.cW2+' · '+(S.cW2-S.cW1+1)+' weeks';
+  $('wfBasis').textContent=yl(S.pFy)+', weeks '+S.pW1+'–'+S.pW2+' vs '+yl(S.cFy)+', weeks '+S.cW1+'–'+S.cW2;
+  $('tb1Basis').textContent='Primary '+yl(S.pFy)+', weeks '+S.pW1+'–'+S.pW2+' · Comparison '+yl(S.cFy)+', weeks '+S.cW1+'–'+S.cW2;
   // KPIs
   const cvrP=P.T.orders/P.T.clicks, cvrC=C.T.orders/C.T.clicks;
   const K=[
@@ -293,7 +294,7 @@ function render(){
   const dRev=P.T.rev-C.T.rev, mixIdx=EFFECTS.indexOf('Mix');
   const rateSum=eff.reduce((s,d,k)=>k>=2&&k<=6?s+d:s,0);
   $('callout').innerHTML='<b>'+(dRev<0?'Revenue is down '+mK(Math.abs(dRev)):'Revenue is up '+mK(dRev))+'.</b> Largest drag: <b>'+EFFECTS[worst.k]+' ('+mK(worst.d)+')</b>; largest offset: <b>'+EFFECTS[best.k]+' (+'+mK(best.d).replace('−','')+')</b>. '
-    +(eff[mixIdx]<0&&Math.abs(eff[mixIdx])>Math.abs(rateSum)?'Mix — clicks shifting toward lower-converting tactics — explains more than all five funnel stages combined: the funnel is not the problem.':'Funnel-stage effects ('+mK(rateSum)+' combined) are the story in this span.');
+    +(eff[mixIdx]<0&&Math.abs(eff[mixIdx])>Math.abs(rateSum)?'Mix (clicks shifting toward lower-converting tactics) explains more than all five funnel stages combined: the funnel is not the problem.':'Funnel-stage effects ('+mK(rateSum)+' combined) are the story in this span.');
   // mix chart + note
   mixCh.data.datasets[0].data=TACTS.map(t=>P.per[t.key].clicks/P.T.clicks);
   mixCh.data.datasets[1].data=TACTS.map(t=>C.per[t.key].clicks/C.T.clicks);
@@ -301,7 +302,7 @@ function render(){
   const nb=TACTS[1];
   const shP=P.per.nonbr.clicks/P.T.clicks, shC=C.per.nonbr.clicks/C.T.clicks;
   const nbCvrP=P.per.nonbr.orders/P.per.nonbr.clicks, brCvrP=P.per.brand.orders/P.per.brand.clicks;
-  $('mixNote').innerHTML='Non-Brand is '+dSpan(shP-shC,bps).replace('class="down"','class="flat"').replace('class="up"','class="flat"')+' of clicks vs comparison, and converts at '+(nbCvrP*100).toFixed(2)+'% against Brand\'s '+(brCvrP*100).toFixed(2)+'% — blended CVR falls even if no tactic\'s funnel moves.';
+  $('mixNote').innerHTML='Non-Brand is '+dSpan(shP-shC,bps).replace('class="down"','class="flat"').replace('class="up"','class="flat"')+' of clicks vs comparison, and converts at '+(nbCvrP*100).toFixed(2)+'% against Brand\'s '+(brCvrP*100).toFixed(2)+'%, so blended CVR falls even if no tactic\'s funnel moves.';
   // table 1: funnel rates value|Δ pairs
   const r1=['Sess/Click','Shop/Sess','Cart/Shop','CO/Cart','Ord/CO'];
   let h='<thead><tr><th style="text-align:left">Tactic</th><th><span class="hlab">Clicks</span></th><th><span class="hlab">Δ</span></th>';

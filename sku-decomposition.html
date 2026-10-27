@@ -57,8 +57,8 @@
   <div class="top">
     <div>
       <div class="eyebrow">Econometric decomposition · Merchandising</div>
-      <h1>SKU Sales Decomposition — What's Really Moving the Number</h1>
-      <div class="q">When ecommerce mattress sales move period-over-period, how much is new launches vs discontinued SKUs vs genuine like-for-like change — and which SKUs are silently collapsing?</div>
+      <h1>SKU sales decomposition: new launches, discontinued SKUs, and like-for-like change</h1>
+      <div class="q">When ecommerce mattress sales move period-over-period, how much is new launches vs discontinued SKUs vs genuine like-for-like change, and which SKUs are silently collapsing?</div>
     </div>
     <span class="badge">Illustrative · synthetic data</span>
   </div>
@@ -68,13 +68,13 @@
     <div class="h2s">Melitz-Polanec splits the YoY change into entering / exiting / continuing SKUs; the continuing block is Shapley-split into traffic, conversion, and price.</div>
     <div class="chartbox"><canvas id="wf"></canvas></div>
     <div class="callout">
-      <b>The −3.8% headline hides a −$4.3M like-for-like decline.</b> Continuing SKUs lost <b>−$2.1M</b> traffic and <b>−$3.4M</b> conversion (only +$1.2M price offset) — a −$4.3M real drop <b>papered over by +$6.2M of new launches</b>. The silent killer is conversion, concentrated in four SKUs the CUSUM monitor flagged weeks before the trend showed up in the P&amp;L.
+      <b>The −3.8% headline hides a −$4.3M like-for-like decline.</b> Continuing SKUs lost <b>−$2.1M</b> traffic and <b>−$3.4M</b> conversion (only +$1.2M price offset): a −$4.3M real drop <b>papered over by +$6.2M of new launches</b>. The silent killer is conversion, concentrated in four SKUs the CUSUM monitor flagged weeks before the trend showed up in the P&amp;L.
     </div>
   </div>
 
   <div class="grid2">
     <div class="card">
-      <h2>CUSUM-flagged SKUs — conversion collapsing</h2>
+      <h2>CUSUM-flagged SKUs: conversion collapsing</h2>
       <div class="h2s">Per-SKU cumulative-sum change detection auto-flags a break in conversion before the noisy weekly number reveals it.</div>
       <table class="t">
         <thead><tr><th class="l">SKU</th><th class="l">Category</th><th>Conv Δ QoQ</th><th>Flagged</th></tr></thead>
@@ -95,7 +95,7 @@
 
   <div class="footgrid">
     <div class="card mbox"><div class="lbl">Method</div><p>Melitz-Polanec (NBER w18182) entry/exit decomposition + Shapley split (arXiv 2102.05799) of the continuing SKUs into traffic / conversion / price, with Page/Harrison-Davies CUSUM change-detection to auto-flag per-SKU conversion breaks. Python.</p></div>
-    <div class="card mbox"><div class="lbl">Recommendation</div><p>Put the CUSUM-flagged SKUs on a merchandising watchlist, and report like-for-like (continuing-SKU) movement as the real demand signal — instead of the headline number that new-launch volume is propping up.</p></div>
+    <div class="card mbox"><div class="lbl">Recommendation</div><p>Put the CUSUM-flagged SKUs on a merchandising watchlist, and report like-for-like (continuing-SKU) movement as the real demand signal, instead of the headline number that new-launch volume is propping up.</p></div>
   </div>
 
   <div class="foot">Synthetic figures for portfolio illustration. Decomposition ties LY → TY exactly (entering + exiting + continuing); the continuing block's traffic/conversion/price shares are Shapley-consistent.</div>

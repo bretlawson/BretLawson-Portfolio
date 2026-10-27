@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Planning Scenarios · Bret Lawson</title>
-<meta name="description" content="Interactive planning model on synthetic data: set next year's paid-search spend by channel and see sessions, conversion, AOV, and sales by period, with per-channel elasticities, a brand impression-share ceiling, and halo and cannibalization effects. The methods behind each elasticity are explained.">
+<meta name="description" content="Interactive planning model on synthetic data: set next year's paid-search spend by channel and see sessions, conversion, AOV, and sales by month, with per-channel elasticities, a brand impression-share ceiling, and halo and cannibalization effects. The methods behind each elasticity are explained.">
 <meta name="author" content="Bret Lawson">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.bretlawson.com/planning-scenarios.html">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.bretlawson.com/planning-scenarios.html">
 <meta property="og:title" content="Planning Scenarios · Bret Lawson">
-<meta property="og:description" content="Interactive planning model on synthetic data: paid-search spend by channel to sessions, conversion, AOV, and sales by period, with per-channel elasticities and halo and cannibalization effects, and the methods behind them.">
+<meta property="og:description" content="Interactive planning model on synthetic data: paid-search spend by channel to sessions, conversion, AOV, and sales by month, with per-channel elasticities and halo and cannibalization effects, and the methods behind them.">
 <meta property="og:image" content="https://www.bretlawson.com/bret_lawson-960.jpg">
 <meta property="og:site_name" content="Bret Lawson">
 <meta name="twitter:card" content="summary">
@@ -122,8 +122,8 @@ table.m td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowr
 
 <header class="head">
   <div class="eyebrow">Interactive &middot; Planning model</div>
-  <h1>Planning scenarios: what next year's paid-search plan buys</h1>
-  <p class="stand">Set spend by channel and the assumptions around it. The model returns sessions, conversion, AOV, and sales by fiscal period, with each channel on its own response curve, a hard ceiling on brand search, and the spillovers between channels switched on or off. <a href="#how">How the model works</a> is below the tool.</p>
+  <h1>Paid-search planning model: next year's spend by channel to sales by month</h1>
+  <p class="stand">Set spend by channel and the assumptions around it. The model returns sessions, conversion, AOV, and sales by month, with each channel on its own response curve, a hard ceiling on brand search, and the spillovers between channels switched on or off. <a href="#how">How the model works</a> is below the tool.</p>
   <span class="syn">Synthetic data &middot; real model structure</span>
 </header>
 
@@ -160,7 +160,7 @@ table.m td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowr
 
     <div class="grid2">
       <div class="card">
-        <h2>Sales by fiscal period</h2>
+        <h2>Sales by month</h2>
         <div class="sub">Scenario vs. last year, with the finance forecast as a reference line</div>
         <div class="chartbox"><canvas id="cPeriod"></canvas></div>
       </div>
@@ -188,7 +188,7 @@ table.m td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowr
     </div>
 
     <div class="card" style="margin-top:14px">
-      <div class="texp"><div><h2 style="display:inline">By period</h2> <span class="sub" style="display:inline;margin-left:8px">scenario, with change vs. last year and the gap to the finance forecast</span></div><button class="csv" id="csv">Download CSV</button></div>
+      <div class="texp"><div><h2 style="display:inline">By month</h2> <span class="sub" style="display:inline;margin-left:8px">scenario, with change vs. last year and the gap to the finance forecast</span></div><button class="csv" id="csv">Download CSV</button></div>
       <div class="tscroll"><table class="t" id="tPer"></table></div>
     </div>
   </section>
@@ -196,10 +196,10 @@ table.m td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowr
 
 <section class="explain" id="how">
   <h2>How the model works</h2>
-  <p>The production version of this tool is a scenario model for the annual planning cycle: one full-year paid-search spend number, a handful of assumptions, and the sessions, conversion, AOV, and sales that land by fiscal period, next to the finance forecast so the gap can be socialized early. It is deliberately simple where the data cannot support more. This replica keeps that structure and plugs in two pieces that exist as research but are not in the production tool: per-channel response curves and cross-channel spillovers. Each section says which is which.</p>
+  <p>The production version of this tool is a scenario model for the annual planning cycle: one full-year paid-search spend number, a handful of assumptions, and the sessions, conversion, AOV, and sales that land by month, next to the finance forecast so the gap can be socialized early. It is deliberately simple where the data cannot support more. This replica keeps that structure and plugs in two pieces that exist as research but are not in the production tool: per-channel response curves and cross-channel spillovers. Each section says which is which.</p>
 
   <h3>1. Structure</h3>
-  <p>Sessions are built bottom-up from three buckets and rolled to twelve fiscal periods on a 4-4-5 calendar. Paid search is modeled from spend. Organic and the earned bucket (direct, email, affiliates, referral, organic social) are last year's sessions times an assumed change; the tool calls that an assumed contribution, and it is shown as a lever rather than hidden. Sales are sessions times conversion times AOV. Every ratio on the page is recomputed from summed totals, never averaged.</p>
+  <p>Sessions are built bottom-up from three buckets and rolled to twelve retail months on a 4-4-5 calendar. Paid search is modeled from spend. Organic and the earned bucket (direct, email, affiliates, referral, organic social) are last year's sessions times an assumed change; the tool calls that an assumed contribution, and it is shown as a lever rather than hidden. Sales are sessions times conversion times AOV. Every ratio on the page is recomputed from summed totals, never averaged.</p>
   <div class="eq">sessions = paid(spend) + organic&times;(1+g<sub>org</sub>) + earned&times;(1+g<sub>earn</sub>) + spillovers<br>sales = sessions &times; conversion &times; AOV</div>
 
   <h3>2. Spend to sessions, by channel</h3>
@@ -241,7 +241,7 @@ table.m td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowr
   <h3>5. Calibration and what the model does not claim</h3>
   <ul>
     <li>Last-year anchors come from the governed daily mart; channel shares come from the attribution pipeline. Rendered totals are checked against the Python model before anything ships.</li>
-    <li>The finance forecast is a reference line, not a target. In the production year it missed two periods by 11% and 18%, which is why the tool exists.</li>
+    <li>The finance forecast is a reference line, not a target. In the production year it missed two months by 11% and 18%, which is why the tool exists.</li>
     <li>Blended efficiency (sales per paid dollar) rises mechanically when paid share falls. Read the marginal table, not the blended number, when deciding where the next dollar goes.</li>
     <li>Store sales are out of scope. This is ecommerce only. The store side lives in the attribution work.</li>
     <li>Elasticities are this year's. They get re-fitted every planning cycle, and the naive-versus-controlled trap in the brand panel is the reason the fitting is not left to a spreadsheet.</li>
@@ -254,7 +254,7 @@ table.m td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowr
 <script>
 "use strict";
 // ---------------- synthetic anchors ----------------
-const PER=['P1','P2','P3','P4','P5','P6','P7','P8','P9','P10','P11','P12'];
+const PER=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const W=[.072,.070,.088,.075,.080,.100,.078,.078,.096,.080,.080,.103];          // period share of volume (4-4-5, holiday-heavy P6/P9/P12)
 const AOVIDX=[.97,.96,1.00,.98,.99,1.04,.97,.98,1.03,1.00,1.01,1.07];              // LY per-period AOV seasonal index
 const CONVLY=[2.50,2.44,2.61,2.52,2.56,2.83,2.51,2.52,2.77,2.55,2.58,2.94];        // LY conversion % by period
@@ -404,7 +404,7 @@ function render(){
   const w=$('warn');if(R.flags.length){w.style.display='block';w.textContent=R.flags.join(', ')+' is at its impression-share ceiling. Spend past this point raises CPC and buys no additional sessions.';}else w.style.display='none';
   // period chart + table
   cPeriod.data.datasets[0].data=R.rows.map(r=>r.salesLY);cPeriod.data.datasets[1].data=R.rows.map(r=>r.sales);cPeriod.data.datasets[2].data=R.rows.map(r=>r.fc);cPeriod.update();
-  let h='<thead><tr><th class="l">Period</th><th>PS spend</th><th>Sessions</th><th>&Delta; LY</th><th>Conv</th><th>&Delta; LY</th><th>AOV</th><th>&Delta; LY</th><th>Sales</th><th>&Delta; LY</th><th>Fin FC</th><th>&Delta; vs FC</th></tr></thead><tbody>';
+  let h='<thead><tr><th class="l">Month</th><th>PS spend</th><th>Sessions</th><th>&Delta; LY</th><th>Conv</th><th>&Delta; LY</th><th>AOV</th><th>&Delta; LY</th><th>Sales</th><th>&Delta; LY</th><th>Fin FC</th><th>&Delta; vs FC</th></tr></thead><tbody>';
   const row=(r,tot)=>`<tr${tot?' class="tot"':''}><td class="l">${r.p}</td><td>${mM(r.spend)}</td><td>${kf(r.sess)}</td><td class="dc">${sp((r.sess-r.sessLY)/r.sessLY,pct)}</td><td>${(r.conv*100).toFixed(2)}%</td><td class="dc">${sp(r.conv-r.convLY,bps)}</td><td>$${Math.round(r.aov)}</td><td class="dc">${sp((r.aov-r.aovLY)/r.aovLY,pct)}</td><td>${money(r.sales)}</td><td class="dc">${sp((r.sales-r.salesLY)/r.salesLY,pct)}</td><td>${money(r.fc)}</td><td class="dc">${sp(r.sales-r.fc,v=>(v>=0?'+':'−')+money(Math.abs(v)))}</td></tr>`;
   R.rows.forEach(r=>h+=row(r,false));
   h+=row({p:'Total FY',spend:T.spend,sess:T.sess,sessLY:T.sessLY,conv:conv,convLY:convLY,aov:aov,aovLY:aovLY,sales:T.sales,salesLY:T.salesLY,fc:T.fc},true)+'</tbody>';
