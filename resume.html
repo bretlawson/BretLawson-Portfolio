@@ -135,18 +135,22 @@ li::before{content:"";position:absolute;left:1px;top:.6em;width:4px;height:4px;b
 .grp{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:8px 0 3px}
 @media(max-width:640px){.page{padding:26px 20px;border-radius:0;margin:0}.kv{grid-template-columns:1fr;gap:2px}.kv .v{margin-bottom:6px}}
 @media print{
-  @page{size:Letter;margin:.45in .55in}
-  body{background:#fff;font-size:9.4pt;line-height:1.3}
+  @page{size:Letter;margin:.4in .5in}
+  body{background:#fff;font-size:9pt;line-height:1.23}
   .bar,.actions{display:none}
   .page{max-width:none;margin:0;padding:0;border:0;border-radius:0}
   header{padding-bottom:8px}
   header h1{font-size:20pt}
-  h2{margin:8pt 0 3pt;font-size:10.5pt;break-after:avoid;page-break-after:avoid}
+  header .roles{font-size:8.2pt}
+  .job-s{break-inside:avoid}
+  h2{margin:5pt 0 2pt;font-size:10pt;break-after:avoid;page-break-after:avoid}
   .grp{break-after:avoid;page-break-after:avoid}
-  p,li{margin-bottom:2.5pt}
+  p,li{margin-bottom:2pt}
   .kv{gap:2pt 10pt;grid-template-columns:150px 1fr}
-  .job{margin-top:7pt;break-inside:avoid}
-  .grp{margin:5pt 0 2pt}
+  .job{margin-top:5pt}
+  .job-h,.job-o,.job-s{break-after:avoid;page-break-after:avoid}
+  li{break-inside:avoid}
+  .grp{margin:4pt 0 1.5pt}
   a{color:inherit}
 }
 </style>
@@ -161,44 +165,45 @@ li::before{content:"";position:absolute;left:1px;top:.6em;width:4px;height:4px;b
 <div class="actions">
   <a class="btn primary" href="BretLawson_Resume.pdf">Download PDF</a>
   <button class="btn" onclick="window.print()">Print</button>
-  <span class="upd">Updated September 2026</span>
+  <span class="upd">Updated October 2026</span>
 </div>
 
 <main class="page">
   <header>
     <h1>Bret Lawson</h1>
     <div class="headline">Analytics &amp; Measurement Leader&nbsp;&nbsp;|&nbsp;&nbsp;Ecommerce &amp; Omnichannel Retail</div>
-    <div class="roles">Causal measurement · Online-to-offline attribution · Forecasting · Analytics engineering · AI-native workflow</div>
+    <div class="roles">Measurement &amp; incrementality · Online-to-offline attribution · Forecasting · Analytics engineering · AI-native workflow</div>
     <div class="contact">832.403.7762 &nbsp;|&nbsp; <a href="mailto:bretalawson@gmail.com">bretalawson@gmail.com</a> &nbsp;|&nbsp; <a href="https://linkedin.com/in/bretlawson">linkedin.com/in/bretlawson</a> &nbsp;|&nbsp; <a href="https://www.bretlawson.com/">bretlawson.com</a></div>
   </header>
 
   <h2>Summary</h2>
-  <p>Analytics and measurement leader with 20+ years in ecommerce and omnichannel retail who finds out why the number moved, and proves it. Measurement that holds up under challenge: attribution that reaches store transactions, decompositions that sum exactly to the observed change, forecasts that finance plans against. Builds the platform underneath it (dbt mart, pipelines, 38 production dashboards) with an AI-native workflow that lets one senior person deliver what usually takes a team. Founder before enterprise leader.</p>
+  <p>Analytics and measurement leader with 20+ years in ecommerce and omnichannel retail who finds out why the number moved, and proves it. Measurement that holds up under challenge: attribution that reaches store transactions, holdouts and tests that settle budget arguments, decompositions that sum exactly to the observed change, forecasts that finance plans against. Builds the platform underneath it (dbt mart, pipelines, 75+ dashboards, daily anomaly monitoring) with an AI-native workflow that lets one senior person deliver what usually takes a team. Founder before enterprise leader.</p>
 
   <h2>Selected Results</h2>
   <ul>
     <li>Decomposed a ~25% YoY organic-traffic decline into seven measured causes that sum exactly to the observed loss. Rank, the assumed culprit, explained under 1%, reframing an eight-figure revenue exposure</li>
     <li>Architected online-to-offline attribution for a ~2,300-store retailer: identity-stitched digital journeys to ERP transactions, ERP-calibrated, with measured stitch rates. Now the basis for channel budget allocation</li>
     <li>Built the finance forecast: gradient-boosted daily conversion and AOV models, holiday-tiered and walk-forward backtested; monthly, quarterly, and annual revenue forecasts within &plusmn;5%</li>
-    <li>Traced a brand paid-search position loss to internal bid changes rather than competitor pressure using auction-insights and impression-share data, correcting the initial competitor-pressure read</li>
-    <li>Built the ecommerce master mart (dbt on BigQuery): one governed daily table unifying ERP sales, web analytics, Google Ads, media, calls, and chat; the single source of truth for the executive deck, forecast, and 38 dashboards</li>
-    <li>Delivered the platform around it solo: API ingestion pipelines, 20+ scheduled jobs, 38 dashboards, and an automated weekly executive deck; ~850 commits in nine months on an AI-native workflow</li>
+    <li>Stopped a brand-search budget increase that could not have worked: impression share already 96%, click elasticity to bid statistically zero, a geo holdout putting the channel near two-thirds incremental; the money went to channels with headroom</li>
+    <li>Built AI-search measurement: sessions and stitched omnichannel sales from ChatGPT, Perplexity, Copilot, Gemini, and Claude, AI Overview citation share by connector, and a 2027 AI Overviews impact scenario finance plans against</li>
+    <li>Built the ecommerce master mart (dbt on BigQuery): one governed daily table unifying ERP sales, web analytics, Google Ads, media, calls, and chat; the single source of truth for the executive deck, forecast, and every dashboard</li>
+    <li>Delivered the platform around it solo: API ingestion pipelines, 76 scheduled jobs, 75+ dashboards and readouts, daily anomaly and site-health monitoring, and an automated weekly executive deck; 1,350 commits in eleven months on an AI-native workflow</li>
   </ul>
 
   <h2>Core Strengths</h2>
   <div class="kv">
-    <div class="k">Measurement science</div><div class="v">attribution (multi-touch, tiered last-touch, online-to-offline), incrementality (difference-in-differences, event studies, Granger causality), LMDI decomposition, media mix modeling</div>
+    <div class="k">Measurement science</div><div class="v">attribution (multi-touch, tiered last-touch, online-to-offline), incrementality and experiment design (geo holdouts, campaign tests, difference-in-differences, event studies, Granger causality), LMDI decomposition, media mix modeling, AI-search and AI Overview measurement</div>
     <div class="k">Forecasting &amp; planning</div><div class="v">revenue and KPI forecasting, gradient-boosted models, fiscal-calendar holiday alignment, spend-scenario and sensitivity analysis, walk-forward backtesting</div>
-    <div class="k">Analytics engineering &amp; delivery</div><div class="v">dbt semantic layer, BigQuery/GCP, API ingestion, scheduled pipelines, data-quality gates, metric definitions; executive decks and dashboards where every number is verifiable</div>
-    <div class="k">AI-native workflow</div><div class="v">Claude Code as the daily analytical workflow in the IDE, MCP data connectors (Conductor, SimilarWeb, Contentsquare); AI-assisted modeling, SQL, and documentation under human review (68% faster in a 12-query study)</div>
+    <div class="k">Analytics engineering &amp; delivery</div><div class="v">dbt semantic layer, BigQuery/GCP, API ingestion, scheduled pipelines, readiness and data-quality gates, anomaly detection, metric definitions; executive decks and dashboards where every number is verifiable</div>
+    <div class="k">AI-native workflow</div><div class="v">Claude Code as the daily analytical workflow in the IDE, MCP data connectors (Conductor, SimilarWeb, Contentsquare); AI-assisted modeling, SQL, and documentation under human review. Rule for AI in reporting: Python computes every number, the model only narrates</div>
   </div>
 
   <h2>Technologies</h2>
   <div class="kv">
     <div class="k">Data</div><div class="v">BigQuery, GCP, dbt, SQL, Python (pandas, scikit-learn, XGBoost), R, HTML/CSS/JS, PowerShell, Git</div>
-    <div class="k">Analytics</div><div class="v">Adobe CJA, Contentsquare, Google Analytics, Tealium, Search Console, Conductor, SimilarWeb</div>
+    <div class="k">Analytics</div><div class="v">Adobe CJA, Contentsquare, Google Analytics, Tealium, Search Console, Conductor, SimilarWeb, Datadog RUM</div>
     <div class="k">Marketing</div><div class="v">Google Ads (API), Adobe Advertising, Campaign Manager, Datorama, Optimizely, Adobe Target</div>
-    <div class="k">BI &amp; AI</div><div class="v">Looker Studio, Tableau, Streamlit, R Shiny, Netlify &middot; Claude Code, MCP connectors, VS Code</div>
+    <div class="k">BI &amp; AI</div><div class="v">Power BI, Looker Studio, Tableau, Streamlit, R Shiny, Netlify &middot; Claude Code, MCP connectors, VS Code</div>
   </div>
 
   <h2>Professional Experience</h2>
@@ -206,11 +211,13 @@ li::before{content:"";position:absolute;left:1px;top:.6em;width:4px;height:4px;b
   <div class="job" style="margin-top:4px">
     <div class="job-h"><div class="job-t">Senior Manager, Digital Analytics</div><div class="job-d">May 2020 &ndash; Present</div></div>
     <div class="job-o">Mattress Firm&nbsp;&nbsp;|&nbsp;&nbsp;Houston, TX</div>
-    <p class="job-s">Ecommerce analytics owner for a ~2,300-store omnichannel retailer. Led a team of 7 analysts and developers.</p>
+    <p class="job-s">Ecommerce analytics owner for a ~2,300-store omnichannel retailer. Led a team of 7 analysts and developers; now sole owner of the full platform on an AI-native workflow, serving finance, marketing, merchandising, operations, and retail leadership.</p>
     <div class="grp">Measurement &amp; causal analysis</div>
     <ul>
       <li>Decomposed a ~25% organic-traffic decline into named causes with LMDI decomposition, sessions as ground truth and third-party data directional; refuted the rank narrative and withdrew a confounded DiD</li>
-      <li>Tested paid-to-organic spillover across 16 channels with first-difference and partial correlation, bootstrap intervals, and Granger causality to separate incremental from cannibalized organic traffic</li>
+      <li>Tested paid-to-organic spillover across 16 channels with first differences, partial correlation, bootstrap intervals, and Granger causality to separate incremental from cannibalized traffic</li>
+      <li>Designed and read paid-search experiments: a geo holdout that put brand search near two-thirds incremental, a PLA test campaign against the prior year's best, and a Q4 incremental-spend tracker with per-campaign-type elasticities behind the holiday plan</li>
+      <li>Measured out-of-stock cost at product and size on user journeys, price-band contribution (traffic, conversion, price) with a Shapley split on contribution dollars, and cross-sell module economics for merchandising</li>
       <li>Sized an $18.2M page-speed revenue opportunity and $2.1M conversion-friction loss to set tech priorities</li>
     </ul>
     <div class="grp">Attribution &amp; metric governance</div>
@@ -221,12 +228,14 @@ li::before{content:"";position:absolute;left:1px;top:.6em;width:4px;height:4px;b
     <div class="grp">Forecasting &amp; planning</div>
     <ul>
       <li>Built the finance forecast orchestrator (gradient-boosted daily conversion and AOV models, holiday-tiered to the fiscal calendar, walk-forward backtested) that finance and the weekly executive deck run on</li>
-      <li>Built a CPC-based paid-search traffic engine and spend-scenario models for annual budget planning</li>
+      <li>Built a CPC-based paid-search traffic engine and spend-scenario models for annual budget planning, plus an hourly intraday forecast against ERP actuals for holiday weeks</li>
+      <li>Delivered the FY2026 off-site readout on what moved the business, each cause dated with separate 2026 and 2027 impact estimates</li>
     </ul>
     <div class="grp">Platform &amp; automation</div>
     <ul>
-      <li>Modeled the mart in dbt with field definitions, an ERD, tests, and quality monitoring; engineered API ingestion (Google Ads, Contentsquare, Conductor, SimilarWeb) and 20+ scheduled jobs for pulls, refreshes, and alerts</li>
-      <li>Wrote the dashboard house standard (metric definitions, data-integrity gates, formatting) and shipped 38 dashboards plus the automated weekly executive deck against it, so numbers agree across every surface</li>
+      <li>Modeled the mart in dbt with field definitions, a drift-checked ERD, a daily quality report, and readiness gates; engineered API ingestion (Google Ads, Contentsquare, Conductor, SimilarWeb, Datadog) and 76 scheduled jobs for pulls, refreshes, and alerts</li>
+      <li>Wrote the dashboard house standard (metric definitions, data-integrity gates, shared date controls, formatting) and shipped 75+ dashboards and readouts plus the automated weekly executive deck against it, so numbers agree across every surface</li>
+      <li>Built daily anomaly detection (robust z-scores against eight same-weekday baselines) across the funnel, paid search, and tag health, plus a site-health pipeline from Datadog RUM into BigQuery; turned a cart-to-checkout investigation into a reusable diagnostics playbook</li>
     </ul>
   </div>
 
@@ -236,7 +245,7 @@ li::before{content:"";position:absolute;left:1px;top:.6em;width:4px;height:4px;b
     <ul style="margin-top:6px">
       <li>Led omnichannel analytics for an 800+ store retailer; built cross-channel attribution integrating online and offline touchpoints to guide budget allocation and reduce customer acquisition cost</li>
       <li>Deployed Adobe Advertising DSP analytics with geospatial targeting, a 30%+ campaign-efficiency gain</li>
-      <li>Segmented ecommerce performance by distance-to-store bands and connected web analytics to store foot traffic for executive omnichannel KPIs; share-of-wallet modeling to tune regional spend</li>
+      <li>Segmented ecommerce performance by distance-to-store bands and connected web analytics to store foot traffic for executive omnichannel KPIs</li>
     </ul>
   </div>
 
@@ -244,8 +253,7 @@ li::before{content:"";position:absolute;left:1px;top:.6em;width:4px;height:4px;b
     <div class="job-h"><div class="job-t">Digital Project Lead</div><div class="job-d">Dec 2013 &ndash; Mar 2016</div></div>
     <div class="job-o">Hisco, Inc.&nbsp;&nbsp;|&nbsp;&nbsp;Houston, TX</div>
     <ul style="margin-top:6px">
-      <li>Led a 400,000+ SKU ecommerce platform launch in 14 months to top-of-industry conversion benchmarks</li>
-      <li>Managed a 20+ person cross-functional team; integrated catalog, inventory, and payment systems</li>
+      <li>Led a 400,000+ SKU ecommerce platform launch in 14 months to top-of-industry conversion benchmarks with a 20+ person cross-functional team; integrated catalog, inventory, and payment systems</li>
     </ul>
   </div>
 
