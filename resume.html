@@ -134,9 +134,10 @@ li::before{content:"";position:absolute;left:1px;top:.6em;width:4px;height:4px;b
 .job-s{margin-top:5px;color:#2e2c27}
 .grp{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:8px 0 3px}
 @media(max-width:640px){.page{padding:26px 20px;border-radius:0;margin:0}.kv{grid-template-columns:1fr;gap:2px}.kv .v{margin-bottom:6px}}
+li b{font-weight:600;color:var(--ink)}.exp{color:#2e2c27;line-height:1.5}
 @media print{
   @page{size:Letter;margin:.4in .5in}
-  body{background:#fff;font-size:9pt;line-height:1.23}
+  body{background:#fff;font-size:10pt;line-height:1.32}
   .bar,.actions{display:none}
   .page{max-width:none;margin:0;padding:0;border:0;border-radius:0}
   header{padding-bottom:8px}
@@ -152,6 +153,7 @@ li::before{content:"";position:absolute;left:1px;top:.6em;width:4px;height:4px;b
   li{break-inside:avoid}
   .grp{margin:4pt 0 1.5pt}
   a{color:inherit}
+  h2.pb{break-before:page;page-break-before:always}
 }
 </style>
 </head>
@@ -171,102 +173,89 @@ li::before{content:"";position:absolute;left:1px;top:.6em;width:4px;height:4px;b
 <main class="page">
   <header>
     <h1>Bret Lawson</h1>
-    <div class="headline">Analytics Leader&nbsp;&nbsp;|&nbsp;&nbsp;Ecommerce &amp; Omnichannel Retail</div>
-    <div class="roles">Data integration · Metric design · Dashboards &amp; executive reporting · Forecasting &amp; measurement · AI-native workflow</div>
+    <div class="headline">Director of Analytics&nbsp;&nbsp;|&nbsp;&nbsp;Digital Commerce &amp; Business Intelligence</div>
+    <div class="roles">Ecommerce &amp; omnichannel retail · Marketing measurement · Forecasting · KPI governance · Executive decision support</div>
     <div class="contact">832.403.7762 &nbsp;|&nbsp; <a href="mailto:bretalawson@gmail.com">bretalawson@gmail.com</a> &nbsp;|&nbsp; <a href="https://linkedin.com/in/bretlawson">linkedin.com/in/bretlawson</a> &nbsp;|&nbsp; <a href="https://www.bretlawson.com/">bretlawson.com</a></div>
   </header>
 
-  <h2>Summary</h2>
-  <p>Analytics leader with 20+ years in ecommerce and omnichannel retail. Connects data from across the business (ERP, web analytics, advertising platforms, customer service, third-party sources) into one governed model, defines the metrics on top of it, and delivers the answers as dashboards and readouts that non-technical leaders use to make decisions. Works in SQL, Python, and Claude Code, so the analysis is built to fit the question: any metric, any cut, any method the data supports. Founder before enterprise leader.</p>
+  <h2>Executive Profile</h2>
+  <p>Analytics leader with 20+ years in ecommerce and omnichannel retail, including a nine-figure online business and national chains with hundreds of locations. Builds analytics capabilities that explain not just what happened in a business, but why it happened, what it cost, and what leadership should do next. Results include an estimated $18.2M revenue opportunity identified in site performance, a revenue forecast finance plans against within ±5%, and a governed data platform adopted across finance, marketing, merchandising, and operations. Combines executive partnership and team leadership with hands-on depth in SQL, Python, forecasting, marketing measurement, and AI-enabled workflows.</p>
 
-  <h2>Selected Results</h2>
-  <ul>
-    <li>Built the ecommerce master mart (dbt on BigQuery): one governed daily table unifying ERP sales, web analytics, advertising, media, calls, and chat; the single source of truth for the executive deck, the forecast, and every dashboard</li>
-    <li>Built the reporting platform on top of it: 95+ dashboards and readouts published as interactive web pages, refreshed by 50 scheduled jobs across 15+ source systems and 200+ warehouse tables, plus an automated weekly executive deck</li>
-    <li>Made the data usable by non-analysts: every dashboard shares the same date controls, filters, exports, and plain-language notes, so finance, marketing, merchandising, and operations teams answer their own questions</li>
-    <li>Connected digital journeys to store, phone, and chat sales for a ~2,300-store retailer (online-to-offline attribution across 16 channels); the source of truth for channel ROAS and budget allocation alongside media mix modeling</li>
-    <li>Built the finance forecast that finance and the weekly executive deck run on: daily conversion and order-value models, backtested; monthly, quarterly, and annual revenue within ±5%</li>
-    <li>Answered the questions leadership was deciding on, each as a published readout: why organic traffic fell ~25% (seven measured causes; rankings explained under 1%), what bidding Google Shopping on store sales cost (5% of ecommerce orders), what AI search is doing to site traffic, and how to allocate holiday paid search budget</li>
-    <li>Runs the platform on an AI-native workflow (Claude Code with MCP data connectors): 1,500+ commits in its first year, with Python computing every number and the model only writing the narrative</li>
-  </ul>
-
-  <h2>Core Strengths</h2>
-  <div class="kv">
-    <div class="k">Data integration</div><div class="v">any source into one model: data lake and warehouse tables, vendor APIs, tag and event data, ad platforms, flat files; identity stitching across web, phone, chat, and store</div>
-    <div class="k">Metric design</div><div class="v">calculated metrics and governed definitions on a dbt semantic layer; any KPI by channel, product, price band, customer, or time period, reconciled to ERP sales</div>
-    <div class="k">Dashboards &amp; reporting</div><div class="v">interactive HTML dashboards and automated executive decks built for non-technical readers; layouts, drill-downs, and calculations are not limited by a BI tool</div>
-    <div class="k">Analysis &amp; modeling</div><div class="v">the method fits the question: forecasting, attribution, causal and incrementality analysis, decomposition, pricing and assortment, funnel and site performance, all in Python and SQL</div>
-    <div class="k">AI-native workflow</div><div class="v">Claude Code as the daily working environment with MCP data connectors; AI-assisted SQL, modeling, and documentation under human review; Python computes every number, the model only narrates</div>
-    <div class="k">Leadership</div><div class="v">sets analytics priorities with finance, marketing, merchandising, operations, and retail leadership; turns open business questions into scoped work; presents findings to executives</div>
-  </div>
-
-  <h2>Technologies</h2>
-  <div class="kv">
-    <div class="k">Data</div><div class="v">BigQuery, GCP, dbt, SQL, Python (pandas, scikit-learn, XGBoost), R, HTML/CSS/JS, PowerShell, Git/GitHub</div>
-    <div class="k">Analytics</div><div class="v">Adobe CJA, Contentsquare, Google Analytics, Tealium, Search Console, Conductor, SimilarWeb, Datadog RUM</div>
-    <div class="k">Marketing</div><div class="v">Google Ads (API), Adobe Advertising, Campaign Manager, Datorama, Optimizely, Adobe Target</div>
-    <div class="k">BI &amp; AI</div><div class="v">Power BI, Looker Studio, Tableau, Streamlit, R Shiny, Netlify &middot; Claude Code, MCP connectors, VS Code</div>
-  </div>
+  <h2>Core Expertise</h2>
+  <p class="exp">Analytics Strategy &amp; Leadership · Ecommerce &amp; Omnichannel Analytics · Marketing Incrementality &amp; Attribution · Financial Forecasting · KPI Governance · Executive Decision Support · Data Engineering &amp; Integration · Customer Journey Analytics · AI-Enabled Analytics · Cross-Functional Leadership</p>
 
   <h2>Professional Experience</h2>
 
   <div class="job" style="margin-top:4px">
     <div class="job-h"><div class="job-t">Senior Manager, Digital Analytics</div><div class="job-d">May 2020 &ndash; Present</div></div>
     <div class="job-o">Mattress Firm&nbsp;&nbsp;|&nbsp;&nbsp;Houston, TX</div>
-    <p class="job-s">Ecommerce analytics owner for a ~2,300-store omnichannel retailer. Led a team of 7 analysts and developers; now sole owner of the full platform on an AI-native workflow.</p>
-    <div class="grp">Data platform &amp; governance</div>
+    <p class="job-s">Lead analytics for the ecommerce business of a national omnichannel retailer and serve as the analytical hub for marketing, finance, merchandising, technology, and operations. Built the analytics function from the ground up and led a team of seven analysts and developers; own the ecommerce analytics roadmap, KPI definitions, and the reporting standard every dashboard is built to.</p>
     <ul>
-      <li>Documented and monitored the mart: field definitions, a drift-checked ERD, a daily quality report, and readiness gates that stop a refresh when source data has not landed</li>
-      <li>Built ingestion from advertising, web analytics, SEO, site-performance, and competitive-intelligence APIs with daily incremental refresh; all SQL, pipelines, dashboards, and documentation under version control in one Git repository</li>
-      <li>Defined the canonical KPI catalog (sales, shopping conversion, AOV, contribution dollars, stitch rate, attribution windows) so every dashboard, deck, and ad-hoc answer reconciles to the same definitions</li>
-      <li>Built anomaly detection for the funnel, paid search, and tag health, a daily site-health dashboard, and usage tracking that flags unused dashboards for retirement</li>
-    </ul>
-    <div class="grp">Dashboards &amp; executive reporting</div>
-    <ul>
-      <li>Wrote the dashboard house standard (metric definitions, data-integrity gates, shared date controls, formatting) and built every dashboard and the weekly deck against it, so numbers agree across every surface</li>
-      <li>Built working tools for marketing, merchandising, and site operations: channel-by-price-band attribution refreshed daily, a paid search budget planner with spend-response curves by tactic, product and assortment performance, and landing-page and site-search diagnostics</li>
-      <li>Explained weekly changes in sales and contribution per visit as exact waterfalls by channel, price band, conversion, and order value, with a plain-language reason on every bar</li>
-      <li>Delivered the 2026 off-site readout on what moved the business, each cause dated with separate 2026 and 2027 impact estimates</li>
-    </ul>
-    <div class="grp">Analysis &amp; planning</div>
-    <ul>
-      <li>Showed a planned brand search budget increase would buy no additional clicks, because the channel already held nearly all available impressions; the money went to channels with headroom</li>
-      <li>Read a new Shopping test campaign against the prior year's best and caught it bidding on the wrong goal within a week</li>
-      <li>Tested whether paid search lifts or cannibalizes organic and other traffic across 16 channels, separating incremental visits from substitution</li>
-      <li>Measured what out-of-stock products cost, how each price band contributes to sales, and what cross-sell modules earn, for merchandising</li>
-      <li>Sized an $18.2M page-speed revenue opportunity and $2.1M conversion-friction loss to set tech priorities</li>
-      <li>Built a paid search traffic engine and spend-scenario models for annual budget planning, plus an hourly intraday order forecast tracked against ERP actuals</li>
+      <li>Uncovered revenue problems that standard reporting missed through root-cause analysis of customer behavior, marketing investment, pricing, and product availability, including a Google Shopping bidding setting costing 5% of ecommerce orders and an eight-figure assortment-driven decline</li>
+      <li>Identified an estimated $18.2M revenue opportunity in page speed and $2.1M in conversion losses from customer journey friction, the quantified evidence used to prioritize technology investment</li>
+      <li>Measured what marketing spend really returns: read geographic holdouts and campaign pauses to separate incremental sales from platform-attributed credit across 16 channels, and redirected a planned brand search increase to channels with headroom</li>
+      <li>Developed the revenue forecast finance plans against, accurate within ±5% at monthly, quarterly, and annual horizons and adopted for budget allocation</li>
+      <li>Architected a governed ecommerce data mart (BigQuery, dbt) integrating 15+ source systems and connecting digital activity to store, phone, and chat transactions; the single source of truth for the executive deck, the forecast, and every dashboard</li>
+      <li>Lead weekly executive performance reporting, translating business trends into quantified drivers, risks, and opportunities; delivered the 2026 leadership off-site readout with each cause sized for 2026 and 2027</li>
+      <li>Drove self-service adoption with 95+ interactive dashboards that explain why a number moved, used by finance, marketing, merchandising, and operations without analyst support</li>
+      <li>Established governed AI-assisted workflows in which Python computes and validates every figure against source data while AI drafts interpretation; identified bot, ad fraud, and tracking anomalies before they reached leadership, including a crawler producing half of all checkout page views</li>
+      <li>Advised marketing leadership on paid search planning and bidding strategy, including a Google Ads briefing written for the CMO</li>
     </ul>
   </div>
 
-  <div class="job">
-    <div class="job-h"><div class="job-t">Director of Customer Engagement &amp; Digital Analytics</div><div class="job-d">May 2016 &ndash; April 2020</div></div>
-    <div class="job-o">Stage Stores&nbsp;&nbsp;|&nbsp;&nbsp;Houston, TX &nbsp;·&nbsp; Promoted April 2019 · Digital Analytics Manager 2016&ndash;2019 · <span class="award">Omni-Channel Associate of the Year 2018</span></div>
-    <ul style="margin-top:6px">
-      <li>Led omnichannel analytics for an 800+ store retailer; built cross-channel attribution integrating online and offline touchpoints to guide budget allocation and reduce customer acquisition cost</li>
-      <li>Deployed Adobe Advertising DSP analytics with geospatial targeting, a 30%+ campaign-efficiency gain</li>
-      <li>Segmented ecommerce performance by distance-to-store bands and connected web analytics to store foot traffic for executive omnichannel KPIs</li>
+  <div class="job pb">
+    <div class="job-h"><div class="job-t">Director of Customer Engagement &amp; Digital Analytics</div><div class="job-d">Apr 2019 &ndash; Apr 2020</div></div>
+    <div class="job-o">Stage Stores&nbsp;&nbsp;|&nbsp;&nbsp;Houston, TX</div>
+    <div class="job-o">Digital Analytics Manager&nbsp;&nbsp;·&nbsp;&nbsp;May 2016 &ndash; Apr 2019</div>
+    <p class="job-s">Led digital and omnichannel analytics, marketing measurement, and data-driven media optimization for a national retailer with 800+ stores. Promoted to Director in 2019.</p>
+    <ul>
+      <li>Developed cross-channel marketing attribution across television, display, and paid search, improving visibility into acquisition economics and guiding marketing investment</li>
+      <li>Implemented Adobe Advertising DSP analytics with audience and geographic targeting, improving campaign efficiency by more than 30%</li>
+      <li>Applied market-penetration and customer share-of-wallet modeling to identify high-value opportunities and optimize regional marketing investment</li>
+      <li>Established integrated KPIs connecting digital behavior with physical store traffic and omnichannel business performance</li>
     </ul>
+    <p class="job-s"><span class="award">Recognition: Omni-Channel Associate of the Year, 2018</span></p>
   </div>
 
   <div class="job">
     <div class="job-h"><div class="job-t">Digital Project Lead</div><div class="job-d">Dec 2013 &ndash; Mar 2016</div></div>
     <div class="job-o">Hisco, Inc.&nbsp;&nbsp;|&nbsp;&nbsp;Houston, TX</div>
-    <ul style="margin-top:6px">
-      <li>Led a 400,000+ SKU ecommerce platform launch in 14 months to top-of-industry conversion benchmarks with a 20+ person cross-functional team; integrated catalog, inventory, and payment systems</li>
+    <p class="job-s">Led development and implementation of a large-scale ecommerce platform for a national industrial supplier.</p>
+    <ul>
+      <li>Delivered a 400,000+ SKU ecommerce platform in 14 months, achieving top-of-industry conversion benchmarks</li>
+      <li>Directed cross-functional teams of 20+ across technology, merchandising, and operations</li>
+      <li>Integrated enterprise product, inventory, and payment systems to support digital commerce operations</li>
     </ul>
   </div>
 
   <div class="job">
     <div class="job-h"><div class="job-t">Founder &amp; Owner</div><div class="job-d">Jan 2003 &ndash; Sep 2013</div></div>
     <div class="job-o">VectorTec&nbsp;&nbsp;|&nbsp;&nbsp;Spring, TX</div>
-    <ul style="margin-top:6px">
-      <li>Grew a specialty ecommerce retailer to $2M+ revenue and #3 nationally in its sector</li>
-      <li>Built fully automated invoicing, fulfillment, and reporting; applied analytics to pricing and inventory</li>
+    <p class="job-s">Founded and scaled a specialty ecommerce business to the third-largest national competitor in its market segment.</p>
+    <ul>
+      <li>Grew annual online revenue to more than $2M through analytical marketing, pricing, and operational strategies</li>
+      <li>Independently developed automated invoicing, fulfillment, and reporting systems, with no outside developers</li>
+      <li>Managed the full business: customer acquisition, financial performance, inventory, and technology</li>
     </ul>
   </div>
 
-  <h2>Education &amp; Certifications</h2>
+  <h2>Selected Analytics Case Studies</h2>
+  <ul>
+    <li><b>Marketing incrementality:</b> what optimizing Google Shopping toward store sales cost · <a href="store-bid-goal.html">bretlawson.com/store-bid-goal</a></li>
+    <li><b>Organic search performance:</b> the causes of a 25% decline in organic traffic · <a href="organic-decline.html">bretlawson.com/organic-decline</a></li>
+    <li><b>Enterprise data architecture:</b> a governed ecommerce data mart across 15+ systems · <a href="ecomm-mart.html">bretlawson.com/ecomm-mart</a></li>
+    <li>Additional research and case studies: <a href="index.html#work">bretlawson.com</a></li>
+  </ul>
+
+  <h2>Technology &amp; Analytical Capabilities</h2>
+  <div class="kv">
+    <div class="k">Data engineering &amp; analytics</div><div class="v">SQL, Python, R, BigQuery, Google Cloud Platform, dbt, Git/GitHub</div>
+    <div class="k">Digital &amp; marketing analytics</div><div class="v">Event-based web analytics (Adobe Customer Journey Analytics, Contentsquare, Tealium), Google Analytics, Google Ads, Search Console, Adobe Advertising, Campaign Manager, Datadog</div>
+    <div class="k">BI &amp; visualization</div><div class="v">Tableau, Power BI, Looker Studio, Python-generated interactive HTML reporting</div>
+    <div class="k">AI &amp; automation</div><div class="v">Claude Code, Model Context Protocol (MCP) data connectors, governed AI-assisted analytical workflows</div>
+  </div>
+
+  <h2>Education &amp; Professional Development</h2>
   <ul>
     <li><strong>B.S., Life Sciences,</strong> Texas A&amp;M University</li>
     <li><strong>Business Science University:</strong> Data Science for Business (101P), Python for Data Science Automation (101P-A)</li>
